@@ -34,6 +34,7 @@ devDependencies:
   eslint-config-prettier: 6.0.0_eslint@7.10.0
   jest: 26.2.2_ts-node@9.1.1
   jest-preset-angular: 8.3.1_f16aef87658c651a2a35864b456134b8
+  json: 10.0.0
   prettier: 2.2.1
   ts-jest: 26.4.0_jest@26.2.2+typescript@4.0.5
   ts-node: 9.1.1_typescript@4.0.5
@@ -6155,19 +6156,6 @@ packages:
         optional: true
     resolution:
       integrity: sha512-SSG5xmZh1mkPGyKzjZP8zLjltIfpW32Y5QpdNJyjcfGxK3qo3NDDkZOZSFiGn1A6SclQxY9GzEwAHQ3dmYRWpg==
-  /follow-redirects/1.13.1_debug@4.3.1:
-    dependencies:
-      debug: 4.3.1_supports-color@6.1.0
-    dev: true
-    engines:
-      node: '>=4.0'
-    peerDependencies:
-      debug: '*'
-    peerDependenciesMeta:
-      debug:
-        optional: true
-    resolution:
-      integrity: sha512-SSG5xmZh1mkPGyKzjZP8zLjltIfpW32Y5QpdNJyjcfGxK3qo3NDDkZOZSFiGn1A6SclQxY9GzEwAHQ3dmYRWpg==
   /for-in/1.0.2:
     engines:
       node: '>=0.10.0'
@@ -6706,7 +6694,7 @@ packages:
   /http-proxy/1.18.1_debug@4.3.1:
     dependencies:
       eventemitter3: 4.0.7
-      follow-redirects: 1.13.1_debug@4.3.1
+      follow-redirects: 1.13.1
       requires-port: 1.0.0
     dev: true
     engines:
@@ -7951,6 +7939,13 @@ packages:
     dev: true
     resolution:
       integrity: sha1-Epai1Y/UXxmg9s4B1lcB4sc1tus=
+  /json/10.0.0:
+    dev: true
+    engines:
+      node: '>=0.10.0'
+    hasBin: true
+    resolution:
+      integrity: sha512-iK7tAZtpoghibjdB1ncCWykeBMmke3JThUe+rnkD4qkZaglOIQ70Pw7r5UJ4lyUT+7gnw7ehmmLUHDuhqzQD+g==
   /json3/3.3.3:
     dev: true
     resolution:
@@ -12881,6 +12876,7 @@ specifiers:
   eslint-config-prettier: 6.0.0
   jest: 26.2.2
   jest-preset-angular: 8.3.1
+  json: ^10.0.0
   prettier: 2.2.1
   rxjs: ~6.5.5
   ts-jest: 26.4.0
