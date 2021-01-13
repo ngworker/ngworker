@@ -3,11 +3,25 @@ root = true
 
 [*]
 charset = utf-8
-indent_style = space
+end_of_line = lf
 indent_size = 2
+indent_style = space
 insert_final_newline = true
+max_line_length = 80
 trim_trailing_whitespace = true
 
-[*.md]
+[*.{css,scss}]
+quote_type = single
+
+[*.html]
+max_line_length = 120
+
+[*.{json,yaml,yml}]
 max_line_length = off
+
+[*.md]
+max_line_length = 120
 trim_trailing_whitespace = false
+
+[*.ts]
+quote_type = single
