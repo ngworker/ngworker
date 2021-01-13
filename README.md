@@ -1,90 +1,15 @@
-# Ngworker
+# @ngworker/\* monorepo
 
-This project was generated using [Nx](https://nx.dev).
+Monorepo for the `nxworker` NPM organization. Packages for Angular applications.
 
-<p align="center"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
+## Wallaby.js
 
-🔎 **Nx is a set of Extensible Dev Tools for Monorepos.**
+[![Wallaby.js](https://img.shields.io/badge/wallaby.js-powered-blue.svg?style=for-the-badge&logo=github)](https://wallabyjs.com/oss/)
 
-## Adding capabilities to your workspace
-
-Nx supports many plugins which add capabilities for developing different types
-of applications and different tools.
-
-These capabilities include generating applications, libraries, etc as well as
-the devtools to test, and build projects as well.
-
-Below are our core plugins:
-
-- [React](https://reactjs.org)
-  - `npm install --save-dev @nrwl/react`
-- Web (no framework frontends)
-  - `npm install --save-dev @nrwl/web`
-- [Angular](https://angular.io)
-  - `npm install --save-dev @nrwl/angular`
-- [Nest](https://nestjs.com)
-  - `npm install --save-dev @nrwl/nest`
-- [Express](https://expressjs.com)
-  - `npm install --save-dev @nrwl/express`
-- [Node](https://nodejs.org)
-  - `npm install --save-dev @nrwl/node`
-
-There are also many [community plugins](https://nx.dev/nx-community) you could
-add.
-
-## Generate an application
-
-Run `nx g @nrwl/react:app my-app` to generate an application.
-
-> You can use any of the plugins above to generate applications as well.
-
-When using Nx, you can create multiple applications and libraries in the same
-workspace.
-
-## Generate a library
-
-Run `nx g @nrwl/react:lib my-lib` to generate a library.
-
-> You can also use any of the plugins above to generate libraries as well.
-
-Libraries are sharable across libraries and applications. They can be imported
-from `@ngworker/mylib`.
-
-## Development server
-
-Run `nx serve my-app` for a dev server. Navigate to http://localhost:4200/. The
-app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `nx g @nrwl/react:component my-component --project=my-app` to generate a new
-component.
-
-## Build
-
-Run `nx build my-app` to build the project. The build artifacts will be stored
-in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `nx test my-app` to execute the unit tests via [Jest](https://jestjs.io).
-
-Run `nx affected:test` to execute the unit tests affected by a change.
-
-## Running end-to-end tests
-
-Run `ng e2e my-app` to execute the end-to-end tests via
-[Cypress](https://www.cypress.io).
-
-Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
-
-## Understand your workspace
-
-Run `nx dep-graph` to see a diagram of the dependencies of your projects.
-
-## Further help
-
-Visit the [Nx Documentation](https://nx.dev) to learn more.
+Contributors to this repository are welcome to use the
+[Wallaby.js OSS License](https://wallabyjs.com/oss/) to get test results
+immediately as you type, and see the results in your editor right next to your
+code.
 
 ## ☁ Nx Cloud
 
@@ -102,3 +27,27 @@ dependency graph, plus a unified experience for both frontend and backend
 developers.
 
 Visit [Nx Cloud](https://nx.app/) to learn more.
+
+## Contributors
+
+Thanks goes to these wonderful people
+([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://dev.to/layzee"><img src="https://avatars1.githubusercontent.com/u/6364586?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Lars Gyrup Brink Nielsen</b></sub></a><br /><a href="#question-LayZeeDK" title="Answering Questions">💬</a> <a href="#blog-LayZeeDK" title="Blogposts">📝</a> <a href="https://github.com/@nxworker/nxworker/issues?q=author%3ALayZeeDK" title="Bug reports">🐛</a> <a href="https://github.com/@nxworker/nxworker/commits?author=LayZeeDK" title="Code">💻</a> <a href="https://github.com/@nxworker/nxworker/commits?author=LayZeeDK" title="Documentation">📖</a> <a href="#example-LayZeeDK" title="Examples">💡</a> <a href="#ideas-LayZeeDK" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-LayZeeDK" title="Maintenance">🚧</a> <a href="#mentoring-LayZeeDK" title="Mentoring">🧑‍🏫</a> <a href="#platform-LayZeeDK" title="Packaging/porting to new platform">📦</a> <a href="#plugin-LayZeeDK" title="Plugin/utility libraries">🔌</a> <a href="#projectManagement-LayZeeDK" title="Project Management">📆</a> <a href="#research-LayZeeDK" title="Research">🔬</a> <a href="https://github.com/@nxworker/nxworker/pulls?q=is%3Apr+reviewed-by%3ALayZeeDK" title="Reviewed Pull Requests">👀</a> <a href="#security-LayZeeDK" title="Security">🛡️</a> <a href="https://github.com/@nxworker/nxworker/commits?author=LayZeeDK" title="Tests">⚠️</a> <a href="#tool-LayZeeDK" title="Tools">🔧</a> <a href="#tutorial-LayZeeDK" title="Tutorials">✅</a> <a href="#userTesting-LayZeeDK" title="User Testing">📓</a></td>
+    <td align="center"><a href="https://github.com/NachoVazquez"><img src="https://avatars3.githubusercontent.com/u/9338604?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Nacho Vazquez</b></sub></a><br /><a href="https://github.com/@nxworker/nxworker/issues?q=author%3ANachoVazquez" title="Bug reports">🐛</a> <a href="https://github.com/@nxworker/nxworker/commits?author=NachoVazquez" title="Code">💻</a> <a href="https://github.com/@nxworker/nxworker/commits?author=NachoVazquez" title="Documentation">📖</a> <a href="#example-NachoVazquez" title="Examples">💡</a> <a href="#ideas-NachoVazquez" title="Ideas, Planning, & Feedback">🤔</a> <a href="#infra-NachoVazquez" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#maintenance-NachoVazquez" title="Maintenance">🚧</a> <a href="#plugin-NachoVazquez" title="Plugin/utility libraries">🔌</a> <a href="https://github.com/@nxworker/nxworker/pulls?q=is%3Apr+reviewed-by%3ANachoVazquez" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/@nxworker/nxworker/commits?author=NachoVazquez" title="Tests">⚠️</a> <a href="#tool-NachoVazquez" title="Tools">🔧</a> <a href="#userTesting-NachoVazquez" title="User Testing">📓</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the
+[all-contributors](https://github.com/all-contributors/all-contributors)
+specification. Contributions of any kind welcome!
