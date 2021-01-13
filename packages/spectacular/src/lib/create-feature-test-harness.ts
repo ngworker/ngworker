@@ -1,6 +1,11 @@
 import { Location } from '@angular/common';
 import { Provider, Type } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NavigationExtras, Router, UrlTree } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';

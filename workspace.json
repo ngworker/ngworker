@@ -29,31 +29,6 @@
     }
   },
   "projects": {
-    "workspace-tools": {
-      "projectType": "tool",
-      "root": "tools",
-      "sourceRoot": "tools",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "tools/**/*.ts"
-            ]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/tools"
-          ],
-          "options": {
-            "jestConfig": "tools/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
     "spectacular": {
       "root": "packages/spectacular",
       "sourceRoot": "packages/spectacular/src",
@@ -62,16 +37,12 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "packages/spectacular/**/*.ts"
-            ]
+            "lintFilePatterns": ["packages/spectacular/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/packages/spectacular"
-          ],
+          "outputs": ["coverage/packages/spectacular"],
           "options": {
             "jestConfig": "packages/spectacular/jest.config.js",
             "passWithNoTests": true
@@ -79,17 +50,34 @@
         },
         "build": {
           "executor": "@nrwl/node:package",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/packages/spectacular",
             "tsConfig": "packages/spectacular/tsconfig.lib.json",
             "packageJson": "packages/spectacular/package.json",
             "main": "packages/spectacular/src/index.ts",
-            "assets": [
-              "packages/spectacular/*.md"
-            ]
+            "assets": ["packages/spectacular/*.md"]
+          }
+        }
+      }
+    },
+    "workspace-tools": {
+      "projectType": "tool",
+      "root": "tools",
+      "sourceRoot": "tools",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["tools/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/tools"],
+          "options": {
+            "jestConfig": "tools/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }
