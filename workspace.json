@@ -14,5 +14,27 @@
     },
     "@nrwl/angular:component": {}
   },
-  "projects": {}
+  "projects": {
+    "workspace-tools": {
+      "projectType": "tool",
+      "root": "tools",
+      "sourceRoot": "tools",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["tools/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/tools"],
+          "options": {
+            "jestConfig": "tools/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    }
+  }
 }

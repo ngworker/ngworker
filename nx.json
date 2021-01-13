@@ -24,9 +24,13 @@
       }
     }
   },
-  "projects": {},
   "workspaceLayout": {
     "appsDir": "e2e",
     "libsDir": "packages"
+  },
+  "projects": {
+    "workspace-tools": {
+      "tags": ["platform:node", "type:tool"]
+    }
   }
 }
