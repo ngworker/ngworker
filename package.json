@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "preinstall": "(pnpm remove codelyzer --silent || echo ✅ Codelyzer is already removed.) && (pnpm remove tslint --silent || echo ✅ TSLint is already removed.)",
     "nx": "nx",
     "start": "nx serve",
     "build": "nx build",
@@ -36,7 +37,6 @@
     "eslint": "7.10.0",
     "prettier": "2.2.1",
     "ts-node": "~9.1.1",
-    "tslint": "~6.1.3",
     "typescript": "~4.0.5"
   }
 }
