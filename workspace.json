@@ -6,13 +6,27 @@
   },
   "generators": {
     "@nrwl/angular:application": {
-      "unitTestRunner": "jest",
-      "e2eTestRunner": "cypress"
-    },
-    "@nrwl/angular:library": {
+      "e2eTestRunner": "cypress",
+      "linter": "eslint",
+      "routing": false,
+      "strict": true,
+      "style": "scss",
       "unitTestRunner": "jest"
     },
-    "@nrwl/angular:component": {}
+    "@nrwl/angular:component": {
+      "displayBlock": true,
+      "skipTests": true,
+      "style": "scss"
+    },
+    "@nrwl/angular:library": {
+      "linter": "eslint",
+      "strict": true,
+      "style": "scss",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:storybook-configuration": {
+      "linter": "eslint"
+    }
   },
   "projects": {
     "workspace-tools": {
