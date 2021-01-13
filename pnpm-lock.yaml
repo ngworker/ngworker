@@ -2037,7 +2037,7 @@ packages:
       integrity: sha512-Ux4ygGWsu2c7isFWe8Yu1YluJmqVhxqK2cLXNQA5AcC3QfbGNpM7fu0Y8b/z16pXLnFxZYvWhd3fhBY9DLmC6Q==
 specifiers:
   '@nrwl/cli': 11.1.5
-  '@nrwl/nx-cloud': latest
+  '@nrwl/nx-cloud': 11.0.1
   '@nrwl/tao': 11.1.5
   '@nrwl/workspace': 11.1.5
   '@types/node': 12.12.38
