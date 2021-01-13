@@ -1,7 +1,7 @@
 {
   "npmScope": "ngworker",
   "affected": {
-    "defaultBase": "master"
+    "defaultBase": "main"
   },
   "implicitDependencies": {
     "workspace.json": "*",
@@ -18,7 +18,7 @@
       "runner": "@nrwl/nx-cloud",
       "options": {
         "accessToken": "ZTViM2YyNGQtNjk2My00YmFjLWJlYmQtZjIwMzJhMmIxNGMwfHJlYWQtd3JpdGU=",
-        "cacheableOperations": ["build", "test", "lint", "e2e"],
+        "cacheableOperations": ["build", "e2e", "lint", "test"],
         "canTrackAnalytics": false,
         "showUsageWarnings": true
       }
@@ -26,7 +26,7 @@
   },
   "projects": {},
   "workspaceLayout": {
-    "appsDir": "packages",
+    "appsDir": "e2e",
     "libsDir": "packages"
   }
 }
