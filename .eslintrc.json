@@ -1,0 +1,60 @@
+{
+  "root": true,
+  "ignorePatterns": ["**/*"],
+  "plugins": ["@nrwl/nx"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "rules": {
+        "@nrwl/nx/enforce-module-boundaries": [
+          "error",
+          {
+            "enforceBuildableLibDependency": true,
+            "allow": [],
+            "depConstraints": [
+              {
+                "sourceTag": "platform:isomorphic",
+                "onlyDependOnLibsWithTags": ["platform:isomorphic"]
+              },
+              {
+                "sourceTag": "platform:node",
+                "onlyDependOnLibsWithTags": [
+                  "platform:isomorphic",
+                  "platform:node"
+                ]
+              },
+              {
+                "sourceTag": "scope:internal",
+                "onlyDependOnLibsWithTags": ["scope:internal"]
+              },
+              {
+                "sourceTag": "type:e2e",
+                "onlyDependOnLibsWithTags": ["type:package", "type:e2e-util"]
+              },
+              {
+                "sourceTag": "type:e2e-util",
+                "onlyDependOnLibsWithTags": ["type:e2e-util"]
+              },
+              {
+                "sourceTag": "type:tool",
+                "onlyDependOnLibsWithTags": ["type:tool"]
+              },
+              { "sourceTag": "*", "onlyDependOnLibsWithTags": ["*"] }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "extends": ["plugin:@nrwl/nx/typescript"],
+      "parserOptions": { "project": "./tsconfig.*?.json" },
+      "rules": {}
+    },
+    {
+      "files": ["*.js", "*.jsx"],
+      "extends": ["plugin:@nrwl/nx/javascript"],
+      "rules": {}
+    }
+  ]
+}

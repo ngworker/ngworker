@@ -37,15 +37,59 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["tools/**/*.ts"]
+            "lintFilePatterns": [
+              "tools/**/*.ts"
+            ]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/tools"],
+          "outputs": [
+            "coverage/tools"
+          ],
           "options": {
             "jestConfig": "tools/jest.config.js",
             "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "spectacular": {
+      "root": "packages/spectacular",
+      "sourceRoot": "packages/spectacular/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "packages/spectacular/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/packages/spectacular"
+          ],
+          "options": {
+            "jestConfig": "packages/spectacular/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": [
+            "{options.outputPath}"
+          ],
+          "options": {
+            "outputPath": "dist/packages/spectacular",
+            "tsConfig": "packages/spectacular/tsconfig.lib.json",
+            "packageJson": "packages/spectacular/package.json",
+            "main": "packages/spectacular/src/index.ts",
+            "assets": [
+              "packages/spectacular/*.md"
+            ]
           }
         }
       }

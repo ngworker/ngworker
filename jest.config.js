@@ -1,3 +1,3 @@
 module.exports = {
-  projects: ['<rootDir>/tools'],
+  projects: ['<rootDir>/packages/spectacular', '<rootDir>/tools'],
 };

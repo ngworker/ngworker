@@ -1,14 +1,9 @@
 {
   "npmScope": "ngworker",
-  "affected": {
-    "defaultBase": "main"
-  },
+  "affected": { "defaultBase": "main" },
   "implicitDependencies": {
     "workspace.json": "*",
-    "package.json": {
-      "dependencies": "*",
-      "devDependencies": "*"
-    },
+    "package.json": { "dependencies": "*", "devDependencies": "*" },
     "tsconfig.base.json": "*",
     ".eslintrc.json": "*",
     "nx.json": "*"
@@ -24,13 +19,9 @@
       }
     }
   },
-  "workspaceLayout": {
-    "appsDir": "e2e",
-    "libsDir": "packages"
-  },
+  "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" },
   "projects": {
-    "workspace-tools": {
-      "tags": ["platform:node", "type:tool"]
-    }
+    "workspace-tools": { "tags": ["platform:node", "type:tool"] },
+    "spectacular": { "tags": ["platform:node", "type:package"] }
   }
 }
