@@ -30,14 +30,30 @@
   },
   "projects": {
     "spectacular": {
+      "projectType": "library",
       "root": "packages/spectacular",
       "sourceRoot": "packages/spectacular/src",
-      "projectType": "library",
+      "prefix": "spectacular",
       "targets": {
+        "build": {
+          "executor": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "packages/spectacular/tsconfig.lib.json",
+            "project": "packages/spectacular/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "packages/spectacular/tsconfig.lib.prod.json"
+            }
+          }
+        },
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["packages/spectacular/**/*.ts"]
+            "lintFilePatterns": [
+              "packages/spectacular/src/**/*.ts",
+              "packages/spectacular/src/**/*.html"
+            ]
           }
         },
         "test": {
@@ -46,17 +62,6 @@
           "options": {
             "jestConfig": "packages/spectacular/jest.config.js",
             "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/packages/spectacular",
-            "tsConfig": "packages/spectacular/tsconfig.lib.json",
-            "packageJson": "packages/spectacular/package.json",
-            "main": "packages/spectacular/src/index.ts",
-            "assets": ["packages/spectacular/*.md"]
           }
         }
       }

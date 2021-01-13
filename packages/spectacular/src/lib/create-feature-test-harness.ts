@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Provider, Type } from '@angular/core';
+import { NgZone, Provider, Type } from '@angular/core';
 import {
   ComponentFixture,
   fakeAsync,
@@ -10,8 +10,12 @@ import { By } from '@angular/platform-browser';
 import { NavigationExtras, Router, UrlTree } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { TestRootComponent } from './test-root.component';
-import { ensureLeadingCharacter, stripLeadingCharacter } from './util';
+import { TestRootComponent, TestRootScam } from './test-root';
+import {
+  createLeftMouseClick,
+  ensureLeadingCharacter,
+  stripLeadingCharacter,
+} from './util';
 
 export interface CreateFeatureTestHarnessOptions {
   readonly featureModule: Type<unknown>;
@@ -32,12 +36,12 @@ export function createFeatureTestHarness({
   };
   const testCaseSetup: () => void = fakeAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [TestRootComponent],
       imports: [
         RouterTestingModule.withRoutes([
           { path: '', pathMatch: 'full', component: TestRootComponent },
           { path: featurePath, loadChildren: () => featureModule },
         ]),
+        TestRootScam,
       ],
       providers,
     });
@@ -48,12 +52,19 @@ export function createFeatureTestHarness({
     router = TestBed.inject(Router);
     location = TestBed.inject(Location);
 
-    rootFixture.ngZone.run(() => router.initialNavigation());
+    if (!rootFixture.ngZone) {
+      throw new Error('No NgZone registered.');
+    }
+
+    ngZone = rootFixture.ngZone;
+
+    ngZone.run(() => router.initialNavigation());
     tick();
     rootFixture.detectChanges();
   });
 
   let location: Location;
+  let ngZone: NgZone;
   let rootFixture: ComponentFixture<TestRootComponent>;
   let router: Router;
 
@@ -63,8 +74,12 @@ export function createFeatureTestHarness({
         .queryAll(By.css('button'))
         .find(b => b.nativeElement.textContent.trim() === label);
 
-      rootFixture.ngZone.run(() =>
-        button.triggerEventHandler('click', { button: 0 })
+      if (!button) {
+        throw new Error(`No button with label "${label}" found.`);
+      }
+
+      ngZone.run(() =>
+        button.triggerEventHandler('click', createLeftMouseClick())
       );
     },
     detectChanges(): void {
@@ -77,9 +92,7 @@ export function createFeatureTestHarness({
         | HTMLTextAreaElement;
       element.value = text;
 
-      rootFixture.ngZone.run(() =>
-        input.triggerEventHandler('input', { target: element })
-      );
+      ngZone.run(() => input.triggerEventHandler('input', { target: element }));
     },
     getPath(): string {
       const path = location.path();
@@ -92,14 +105,20 @@ export function createFeatureTestHarness({
           );
     },
     getText(query: string): string {
-      return (rootFixture.debugElement.query(By.css(query))
-        .nativeElement as Element).textContent.trim();
+      const debugElement = rootFixture.debugElement.query(By.css(query));
+      const element: Element = debugElement.nativeElement;
+
+      if (!element) {
+        throw new Error(`Could not find element using query "${query}"`);
+      }
+
+      return element.textContent?.trim() ?? '';
     },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     navigate(commands: any[], extras?: NavigationExtras): Promise<boolean> {
       commands = [featurePath, ...commands];
 
-      return rootFixture.ngZone.run(() => router.navigate(commands, extras));
+      return ngZone.run(() => router.navigate(commands, extras));
     },
     navigateByUrl(
       url: string | UrlTree,
@@ -111,7 +130,7 @@ export function createFeatureTestHarness({
 
       url = getTestUrl(url);
 
-      return rootFixture.ngZone.run(() => router.navigateByUrl(url, extras));
+      return ngZone.run(() => router.navigateByUrl(url, extras));
     },
     testCaseSetup(): void {
       testCaseSetup();

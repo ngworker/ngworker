@@ -1,4 +1,13 @@
 {
   "name": "@ngworker/spectacular",
-  "version": "0.0.1"
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^11.0.8",
+    "@angular/core": "^11.0.8",
+    "@angular/platform-browser": "^11.0.8",
+    "@angular/router": "^11.0.8"
+  },
+  "dependencies": {
+    "tslib": "^2.0.0"
+  }
 }
