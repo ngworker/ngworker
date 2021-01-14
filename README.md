@@ -1,8 +1,14 @@
 # @ngworker/\* monorepo
 
-Monorepo for the `nxworker` NPM organization. Packages for Angular applications.
+Monorepo for the `ngworker` NPM organization. Packages for Angular applications.
 
-## Wallaby.js
+## Sponsors
+
+### Wallaby 🦘
+
+The maintainers of ngworker use Wallaby.js for inline test feeedback sponsored
+by Wallaby.
+[Get your free OSS license at the Wallaby website](https://wallabyjs.com/oss/).
 
 [![Wallaby.js](https://img.shields.io/badge/wallaby.js-powered-blue.svg?style=for-the-badge&logo=github)](https://wallabyjs.com/oss/)
 
@@ -11,9 +17,13 @@ Contributors to this repository are welcome to use the
 immediately as you type, and see the results in your editor right next to your
 code.
 
-## ☁ Nx Cloud
+### Nrwl 🌊
 
-### Computation Memoization in the Cloud
+Nrwl sponsors computation hours saved for ngworker through Nx Cloud ☁. Apply for
+a free license for your OSS project at cloud-support@nrwl.io or
+[watch ngworker's Nx Cloud runs and cache stats on nx.app](https://nx.app/orgs/5e8d01f710d04300054a941c/workspaces/5ffee040c41e064440fa7253/report).
+
+#### Computation Memoization in the Cloud
 
 <p align="center"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-cloud-card.png"></p>
 
@@ -28,6 +38,16 @@ developers.
 
 Visit [Nx Cloud](https://nx.app/) to learn more.
 
+### Systemate 🇩🇰
+
+Ngworker is produced in collaboration with
+[Systemate A/S](https://www.systemate.dk/?utm_source=github.com/ngworker/nxgorker&utm_medium=link&utm_campaign=lars)
+in Denmark.
+
+> Better Software Faster®.
+>
+> –[Systemate](https://www.systemate.dk/?utm_source=github.com/ngworker/ngworker&utm_medium=link&utm_campaign=lars)
+
 ## Contributors
 
 Thanks goes to these wonderful people
@@ -38,8 +58,8 @@ Thanks goes to these wonderful people
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://dev.to/layzee"><img src="https://avatars1.githubusercontent.com/u/6364586?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Lars Gyrup Brink Nielsen</b></sub></a><br /><a href="#question-LayZeeDK" title="Answering Questions">💬</a> <a href="#blog-LayZeeDK" title="Blogposts">📝</a> <a href="https://github.com/@nxworker/nxworker/issues?q=author%3ALayZeeDK" title="Bug reports">🐛</a> <a href="https://github.com/@nxworker/nxworker/commits?author=LayZeeDK" title="Code">💻</a> <a href="https://github.com/@nxworker/nxworker/commits?author=LayZeeDK" title="Documentation">📖</a> <a href="#example-LayZeeDK" title="Examples">💡</a> <a href="#ideas-LayZeeDK" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-LayZeeDK" title="Maintenance">🚧</a> <a href="#mentoring-LayZeeDK" title="Mentoring">🧑‍🏫</a> <a href="#platform-LayZeeDK" title="Packaging/porting to new platform">📦</a> <a href="#plugin-LayZeeDK" title="Plugin/utility libraries">🔌</a> <a href="#projectManagement-LayZeeDK" title="Project Management">📆</a> <a href="#research-LayZeeDK" title="Research">🔬</a> <a href="https://github.com/@nxworker/nxworker/pulls?q=is%3Apr+reviewed-by%3ALayZeeDK" title="Reviewed Pull Requests">👀</a> <a href="#security-LayZeeDK" title="Security">🛡️</a> <a href="https://github.com/@nxworker/nxworker/commits?author=LayZeeDK" title="Tests">⚠️</a> <a href="#tool-LayZeeDK" title="Tools">🔧</a> <a href="#tutorial-LayZeeDK" title="Tutorials">✅</a> <a href="#userTesting-LayZeeDK" title="User Testing">📓</a></td>
-    <td align="center"><a href="https://github.com/NachoVazquez"><img src="https://avatars3.githubusercontent.com/u/9338604?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Nacho Vazquez</b></sub></a><br /><a href="https://github.com/@nxworker/nxworker/issues?q=author%3ANachoVazquez" title="Bug reports">🐛</a> <a href="https://github.com/@nxworker/nxworker/commits?author=NachoVazquez" title="Code">💻</a> <a href="https://github.com/@nxworker/nxworker/commits?author=NachoVazquez" title="Documentation">📖</a> <a href="#example-NachoVazquez" title="Examples">💡</a> <a href="#ideas-NachoVazquez" title="Ideas, Planning, & Feedback">🤔</a> <a href="#infra-NachoVazquez" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#maintenance-NachoVazquez" title="Maintenance">🚧</a> <a href="#plugin-NachoVazquez" title="Plugin/utility libraries">🔌</a> <a href="https://github.com/@nxworker/nxworker/pulls?q=is%3Apr+reviewed-by%3ANachoVazquez" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/@nxworker/nxworker/commits?author=NachoVazquez" title="Tests">⚠️</a> <a href="#tool-NachoVazquez" title="Tools">🔧</a> <a href="#userTesting-NachoVazquez" title="User Testing">📓</a></td>
+    <td align="center"><a href="https://dev.to/layzee"><img src="https://avatars1.githubusercontent.com/u/6364586?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Lars Gyrup Brink Nielsen</b></sub></a><br /><a href="#question-LayZeeDK" title="Answering Questions">💬</a> <a href="#blog-LayZeeDK" title="Blogposts">📝</a> <a href="https://github.com/@ngworker/ngworker/issues?q=author%3ALayZeeDK" title="Bug reports">🐛</a> <a href="https://github.com/@ngworker/ngworker/commits?author=LayZeeDK" title="Code">💻</a> <a href="https://github.com/@ngworker/nggworker/commits?author=LayZeeDK" title="Documentation">📖</a> <a href="#example-LayZeeDK" title="Examples">💡</a> <a href="#ideas-LayZeeDK" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-LayZeeDK" title="Maintenance">🚧</a> <a href="#mentoring-LayZeeDK" title="Mentoring">🧑‍🏫</a> <a href="#platform-LayZeeDK" title="Packaging/porting to new platform">📦</a> <a href="#plugin-LayZeeDK" title="Plugin/utility libraries">🔌</a> <a href="#projectManagement-LayZeeDK" title="Project Management">📆</a> <a href="#research-LayZeeDK" title="Research">🔬</a> <a href="https://github.com/@ngworker/ngworker/pulls?q=is%3Apr+reviewed-by%3ALayZeeDK" title="Reviewed Pull Requests">👀</a> <a href="#security-LayZeeDK" title="Security">🛡️</a> <a href="https://github.com/@ngworker/ngworker/commits?author=LayZeeDK" title="Tests">⚠️</a> <a href="#tool-LayZeeDK" title="Tools">🔧</a> <a href="#tutorial-LayZeeDK" title="Tutorials">✅</a> <a href="#userTesting-LayZeeDK" title="User Testing">📓</a></td>
+    <td align="center"><a href="https://github.com/NachoVazquez"><img src="https://avatars3.githubusercontent.com/u/9338604?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Nacho Vazquez</b></sub></a><br /><a href="https://github.com/@ngworker/ngworker/issues?q=author%3ANachoVazquez" title="Bug reports">🐛</a> <a href="https://github.com/@ngworker/ngworker/commits?author=NachoVazquez" title="Code">💻</a> <a href="https://github.com/@ngworker/ngworker/commits?author=NachoVazquez" title="Documentation">📖</a> <a href="#example-NachoVazquez" title="Examples">💡</a> <a href="#ideas-NachoVazquez" title="Ideas, Planning, & Feedback">🤔</a> <a href="#infra-NachoVazquez" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#maintenance-NachoVazquez" title="Maintenance">🚧</a> <a href="#plugin-NachoVazquez" title="Plugin/utility libraries">🔌</a> <a href="https://github.com/@ngworker/ngworker/pulls?q=is%3Apr+reviewed-by%3ANachoVazquez" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/@ngworker/ngworker/commits?author=NachoVazquez" title="Tests">⚠️</a> <a href="#tool-NachoVazquez" title="Tools">🔧</a> <a href="#userTesting-NachoVazquez" title="User Testing">📓</a></td>
   </tr>
 </table>
 
