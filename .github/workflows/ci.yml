@@ -120,8 +120,8 @@ jobs:
         run: yarn affected:build --base=origin/main
       - uses: actions/upload-artifact@v2
         with:
-          name: angular-package
-          path: dist/packages/angular
+          name: spectacular-package
+          path: dist/packages/spectacular
           if-no-files-found: warn
 
   e2e:
