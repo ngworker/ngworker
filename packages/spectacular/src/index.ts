@@ -1,3 +1,6 @@
+// Bootstrap test application
+export * from './lib/bootstrap-test-application';
+
 // Feature harness
 export * from './lib/create-feature-test-harness';
 
