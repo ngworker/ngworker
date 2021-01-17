@@ -1,4 +1,9 @@
-import { APP_BOOTSTRAP_LISTENER, APP_INITIALIZER, FactoryProvider, NgModule } from '@angular/core';
+import {
+  APP_BOOTSTRAP_LISTENER,
+  APP_INITIALIZER,
+  FactoryProvider,
+  NgModule,
+} from '@angular/core';
 
 import { bootstrapTestApplication } from './bootstrap-test-application';
 
