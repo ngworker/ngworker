@@ -1,7 +1,8 @@
 import { TestBed, TestModuleMetadata } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { TestRootComponent, TestRootScam } from './test-root';
+import { TestRootComponent, TestRootScam, testRootTagName } from '../test-root';
+import { bootstrapComponent } from './util-dom';
 
 /**
  * Bootstrap a test application with the specified metadata. Useful to test
@@ -21,8 +22,6 @@ export function bootstrapTestApplication(
       ...(testModuleMetadata.imports ?? []),
       TestRootScam,
     ],
-  }).compileComponents();
-
-  const rootFixture = TestBed.createComponent(TestRootComponent);
-  rootFixture.detectChanges();
+  });
+  bootstrapComponent(testRootTagName, TestRootComponent);
 }
