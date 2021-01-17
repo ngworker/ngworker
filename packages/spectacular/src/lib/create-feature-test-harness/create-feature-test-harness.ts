@@ -5,10 +5,10 @@ import { By } from '@angular/platform-browser';
 import { NavigationExtras, Router, UrlTree } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { TestRootComponent } from './test-root/test-root.component';
-import { TestRootScam } from './test-root/test-root.scam';
-import { createLeftMouseClick } from './util/create-left-mouse-click';
-import { ensureLeadingCharacter, stripLeadingCharacter } from './util/text-utilities';
+import { TestRootComponent } from '../test-root/test-root.component';
+import { TestRootScam } from '../test-root/test-root.scam';
+import { createLeftMouseClick } from './util-dom';
+import { ensureLeadingCharacter, stripLeadingCharacter } from './util-text';
 
 export interface CreateFeatureTestHarnessOptions {
   readonly featureModule: Type<unknown>;
