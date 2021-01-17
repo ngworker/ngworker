@@ -2,7 +2,7 @@
 export * from './lib/bootstrap-test-application';
 
 // Feature harness
-export * from './lib/create-feature-test-harness';
+export * from './lib/feature-test-harness';
 
 // Pipe test harness
 export * from './lib/pipe-test-harness/create-pipe-test-harness';
