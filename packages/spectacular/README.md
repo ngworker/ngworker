@@ -4,9 +4,17 @@
 
 > Spectacular Angular testing.
 
-## Feature test harness
+## Bootstrap test application
 
 ### Public API
+
+| Export name                | Kind        | Description                                                                                                                                                |
+| -------------------------- | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `bootstrapTestApplication` | Side effect | Bootstrap a test application with the specified metadata. Useful to test configuration Angular modules, bootstrap listeners, and application initializers. |
+
+### Feature test harness
+
+#### Public API
 
 | Export name                       | Kind                                    | Description                                                                                                                                                 |
 | --------------------------------- | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
