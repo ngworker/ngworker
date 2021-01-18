@@ -10,6 +10,15 @@ export interface PipeTestHarness<TValue> {
    */
   getText(): string;
   /**
+   * Replace the pipe test template.
+   *
+   * NOTE! The `value` property is in context of the specified template.
+   *
+   * @param template The template used to test the Angular pipe, for example
+   *   `'{{ value | camelize }}'`.
+   */
+  setTemplate(template: string): void;
+  /**
    * Update the value passed through the Angular pipe.
    *
    * @param value The new value.

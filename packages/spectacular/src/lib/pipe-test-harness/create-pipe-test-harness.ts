@@ -2,10 +2,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { CreatePipeTestHarnessOptions } from './create-pipe-test-harness-options';
+import { PipeTestHarness } from './pipe-test-harness';
 import { TestPipeComponent } from './test-pipe';
 
 import type { Observable } from 'rxjs';
-
 const textId = '__SPECTACULAR_PIPE_TEST_TEXT__';
 
 /**
@@ -20,8 +20,8 @@ export function createPipeTestHarness<TValue>({
   providers = [],
   template = `{{ value | ${pipeName} }}`,
   value,
-}: CreatePipeTestHarnessOptions<TValue>) {
-  const testCaseSetup: () => void = () => {
+}: CreatePipeTestHarnessOptions<TValue>): PipeTestHarness<TValue> {
+  function testCaseSetup(templateOverride?: string): void {
     TestBed.configureTestingModule({
       declarations: [pipeType, ...declarations, TestPipeComponent],
       imports,
@@ -29,7 +29,7 @@ export function createPipeTestHarness<TValue>({
     }).compileComponents();
     TestBed.overrideTemplate(
       TestPipeComponent,
-      `<span id="${textId}">${template}</span>`
+      `<span id="${textId}">${templateOverride ?? template}</span>`
     );
 
     pipeFixture = TestBed.createComponent(
@@ -38,7 +38,7 @@ export function createPipeTestHarness<TValue>({
     pipeComponent = pipeFixture.componentInstance;
     pipeComponent.value = value;
     pipeFixture.detectChanges();
-  };
+  }
 
   let pipeComponent: TestPipeComponent<TValue>;
   let pipeFixture: ComponentFixture<TestPipeComponent<TValue>>;
@@ -50,6 +50,10 @@ export function createPipeTestHarness<TValue>({
       ).nativeElement;
 
       return valueElement.textContent?.trim() ?? '';
+    },
+    setTemplate(template: string): void {
+      TestBed.resetTestingModule();
+      testCaseSetup(template);
     },
     setValue(value: TValue | Observable<TValue> | null): void {
       pipeComponent.value = value;

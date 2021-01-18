@@ -5,7 +5,12 @@ import { createCommonPipeTestHarness } from './test-util';
 
 describe(createPipeTestHarness.name, () => {
   describe(DecimalPipe.name, () => {
-    const { getText, setValue, testCaseSetup } = createCommonPipeTestHarness({
+    const {
+      getText,
+      setTemplate,
+      setValue,
+      testCaseSetup,
+    } = createCommonPipeTestHarness({
       template: `{{ value | number:'1.1' }}`,
       value: 123456789,
     });
@@ -23,10 +28,21 @@ describe(createPipeTestHarness.name, () => {
 
       expect(getText()).toBe('987,654,321.0');
     });
+
+    it('updates the template', () => {
+      setTemplate(`{{ value | number:'1.2' }}`);
+
+      expect(getText()).toBe('123,456,789.00');
+    });
   });
 
   describe(CurrencyPipe.name, () => {
-    const { getText, setValue, testCaseSetup } = createCommonPipeTestHarness({
+    const {
+      getText,
+      setTemplate,
+      setValue,
+      testCaseSetup,
+    } = createCommonPipeTestHarness({
       template: `{{ value | currency }}`,
       value: 1234.56,
     });
@@ -44,10 +60,21 @@ describe(createPipeTestHarness.name, () => {
 
       expect(getText()).toBe('$6,543.21');
     });
+
+    it('updates the template', () => {
+      setTemplate(`{{ value | currency:'EUR' }}`);
+
+      expect(getText()).toBe('€1,234.56');
+    });
   });
 
   describe(PercentPipe.name, () => {
-    const { getText, setValue, testCaseSetup } = createCommonPipeTestHarness({
+    const {
+      getText,
+      setTemplate,
+      setValue,
+      testCaseSetup,
+    } = createCommonPipeTestHarness({
       template: `{{ value | percent:'4.3-5' }}`,
       value: 1.3495,
     });
@@ -65,10 +92,21 @@ describe(createPipeTestHarness.name, () => {
 
       expect(getText()).toBe('0,594.310%');
     });
+
+    it('updates the template', () => {
+      setTemplate(`{{ value | percent:'1.1-3' }}`);
+
+      expect(getText()).toBe('134.95%');
+    });
   });
 
   describe(DatePipe.name, () => {
-    const { getText, setValue, testCaseSetup } = createCommonPipeTestHarness({
+    const {
+      getText,
+      setTemplate,
+      setValue,
+      testCaseSetup,
+    } = createCommonPipeTestHarness({
       template: `{{ value | date:'medium':'UTC' }}`,
       value: new Date('2021-07-07T17:00:00Z'),
     });
@@ -85,6 +123,12 @@ describe(createPipeTestHarness.name, () => {
       setValue(new Date('2021-12-12T11:00:00Z'));
 
       expect(getText()).toBe('Dec 12, 2021, 11:00:00 AM');
+    });
+
+    it('updates the template', () => {
+      setTemplate(`{{ value | date:'medium':'PST' }}`);
+
+      expect(getText()).toBe('Jul 7, 2021, 9:00:00 AM');
     });
   });
 });
