@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -16,7 +15,7 @@ const textId = '__SPECTACULAR_PIPE_TEST_TEXT__';
 export function createPipeTestHarness<TValue>({
   declarations = [],
   imports = [],
-  pipe,
+  pipeType,
   pipeName,
   providers = [],
   template = `{{ value | ${pipeName} }}`,
@@ -24,8 +23,8 @@ export function createPipeTestHarness<TValue>({
 }: CreatePipeTestHarnessOptions<TValue>) {
   const testCaseSetup: () => void = () => {
     TestBed.configureTestingModule({
-      declarations: [pipe, ...declarations, TestPipeComponent],
-      imports: [CommonModule, ...imports],
+      declarations: [pipeType, ...declarations, TestPipeComponent],
+      imports,
       providers,
     }).compileComponents();
     TestBed.overrideTemplate(
