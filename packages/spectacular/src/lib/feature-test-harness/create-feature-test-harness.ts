@@ -1,11 +1,6 @@
 import { Location } from '@angular/common';
 import { NgZone } from '@angular/core';
-import {
-  ComponentFixture,
-  fakeAsync,
-  TestBed,
-  tick,
-} from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NavigationExtras, Router, UrlTree } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -25,6 +20,7 @@ import { ensureLeadingCharacter, stripLeadingCharacter } from './util-text';
 export function createFeatureTestHarness({
   featureModule,
   featurePath,
+  imports = [],
   providers = [],
 }: CreateFeatureTestHarnessOptions): FeatureTestHarness {
   const getTestUrl = (url: string): string => {
@@ -36,6 +32,7 @@ export function createFeatureTestHarness({
   const testCaseSetup: () => void = fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [
+        ...imports,
         RouterTestingModule.withRoutes([
           { path: '', pathMatch: 'full', component: TestRootComponent },
           { path: featurePath, loadChildren: () => featureModule },

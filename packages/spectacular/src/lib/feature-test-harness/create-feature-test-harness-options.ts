@@ -1,9 +1,10 @@
-import { Provider, Type } from '@angular/core';
+import { NgModule, Type } from '@angular/core';
 
 /**
  * Feature test harness options.
  */
-export interface CreateFeatureTestHarnessOptions {
+export interface CreateFeatureTestHarnessOptions
+  extends Pick<NgModule, 'imports' | 'providers'> {
   /**
    * The Angular feature module under test, for example `HeroesModule`.
    */
@@ -13,9 +14,4 @@ export interface CreateFeatureTestHarnessOptions {
    * module, for example `'heroes'`.
    */
   readonly featurePath: string;
-  /**
-   * Fake, mock, and stub providers, for example providing `FakeAlert` and
-   * `HeroServiceStub`.
-   */
-  readonly providers?: Provider[] | Array<Provider | Provider[]>;
 }
