@@ -9,8 +9,9 @@ import { TestRootComponent } from '../test-root/test-root.component';
 import { TestRootScam } from '../test-root/test-root.scam';
 import { CreateFeatureTestHarnessOptions } from './create-feature-test-harness-options';
 import { FeatureTestHarness } from './feature-test-harness';
-import { createLeftMouseClick } from './util-dom';
-import { ensureLeadingCharacter, stripLeadingCharacter } from './util-text';
+import { createLeftMouseClick } from './util-dom/create-left-mouse-click';
+import { ensureLeadingCharacter } from './util-text/ensure-leading-character';
+import { stripLeadingCharacter } from './util-text/strip-leading-character';
 
 /**
  * Create a test harness for the specified Angular feature module. Test
