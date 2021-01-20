@@ -1,9 +1,4 @@
-import {
-  APP_BOOTSTRAP_LISTENER,
-  APP_INITIALIZER,
-  FactoryProvider,
-  NgModule,
-} from '@angular/core';
+import { APP_BOOTSTRAP_LISTENER, APP_INITIALIZER, FactoryProvider, NgModule } from '@angular/core';
 
 import { bootstrapTestApplication } from './bootstrap-test-application';
 
@@ -26,6 +21,11 @@ const bootstrapListener: FactoryProvider = {
 };
 
 @NgModule({
+  providers: [bootstrapListener],
+})
+class BootstrapListenerModule {}
+
+@NgModule({
   providers: [applicationInitializer],
 })
 class InitializerModule {}
@@ -35,27 +35,39 @@ describe(bootstrapTestApplication.name, () => {
     initialized = false;
   });
 
-  it('registers and runs the specified bootstrap listener', () => {
-    bootstrapTestApplication({
-      providers: [bootstrapListener],
+  describe('Initializers', () => {
+    it('registers and runs the specified initializer', () => {
+      bootstrapTestApplication({
+        providers: [applicationInitializer],
+      });
+
+      expect(initialized).toBe(true);
     });
 
-    expect(initialized).toBe(true);
+    it('registers the specified initializer Angular module', () => {
+      bootstrapTestApplication({
+        imports: [InitializerModule],
+      });
+
+      expect(initialized).toBe(true);
+    });
   });
 
-  it('registers and runs the specified initializer', () => {
-    bootstrapTestApplication({
-      providers: [applicationInitializer],
+  describe('Bootstrap listeners', () => {
+    it('registers and runs the specified bootstrap listener', () => {
+      bootstrapTestApplication({
+        providers: [bootstrapListener],
+      });
+
+      expect(initialized).toBe(true);
     });
 
-    expect(initialized).toBe(true);
-  });
+    it('registers the specified bootstrap listener Angular module', () => {
+      bootstrapTestApplication({
+        imports: [BootstrapListenerModule],
+      });
 
-  it('registers the specified configuration Angular module', () => {
-    bootstrapTestApplication({
-      imports: [InitializerModule],
+      expect(initialized).toBe(true);
     });
-
-    expect(initialized).toBe(true);
   });
 });
