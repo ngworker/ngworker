@@ -3,7 +3,7 @@ import { By } from '@angular/platform-browser';
 
 import { CreatePipeTestHarnessOptions } from './create-pipe-test-harness-options';
 import { PipeTestHarness } from './pipe-test-harness';
-import { TestPipeComponent } from './test-pipe';
+import { TestPipeComponent } from './test-pipe/test-pipe.component';
 
 import type { Observable } from 'rxjs';
 const textId = '__SPECTACULAR_PIPE_TEST_TEXT__';
