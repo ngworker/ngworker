@@ -49,7 +49,16 @@
       "files": ["*.ts", "*.tsx"],
       "extends": ["plugin:@nrwl/nx/typescript"],
       "parserOptions": { "project": "./tsconfig.*?.json" },
-      "rules": {}
+      "rules": {
+        "quotes": [
+          "warn",
+          "single",
+          {
+            "avoidEscape": true,
+            "allowTemplateLiterals": true
+          }
+        ]
+      }
     },
     {
       "files": ["*.js", "*.jsx"],
