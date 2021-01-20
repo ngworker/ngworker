@@ -1,7 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { TestRootComponent, TestRootScam, testRootTagName } from '../test-root';
+import { TestRootComponent, testRootTagName } from '../test-root/test-root.component';
+import { TestRootScam } from '../test-root/test-root.scam';
 import { BootstrapTestApplicationOptions } from './bootstrap-test-application-options';
 import { bootstrapComponent } from './util-dom';
 
