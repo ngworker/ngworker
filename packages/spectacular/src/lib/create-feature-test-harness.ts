@@ -1,21 +1,14 @@
 import { Location } from '@angular/common';
 import { NgZone, Provider, Type } from '@angular/core';
-import {
-  ComponentFixture,
-  fakeAsync,
-  TestBed,
-  tick,
-} from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NavigationExtras, Router, UrlTree } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { TestRootComponent, TestRootScam } from './test-root';
-import {
-  createLeftMouseClick,
-  ensureLeadingCharacter,
-  stripLeadingCharacter,
-} from './util';
+import { TestRootComponent } from './test-root/test-root.component';
+import { TestRootScam } from './test-root/test-root.scam';
+import { createLeftMouseClick } from './util/create-left-mouse-click';
+import { ensureLeadingCharacter, stripLeadingCharacter } from './util/text-utilities';
 
 export interface CreateFeatureTestHarnessOptions {
   readonly featureModule: Type<unknown>;

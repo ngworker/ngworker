@@ -1,7 +1,7 @@
 import { CurrencyPipe, DatePipe, DecimalPipe, PercentPipe } from '@angular/common';
 
 import { createPipeTestHarness } from './create-pipe-test-harness';
-import { createCommonPipeTestHarness } from './test-util';
+import { createCommonPipeTestHarness } from './test-util/create-common-pipe-test-harness';
 
 describe(createPipeTestHarness.name, () => {
   describe(DecimalPipe.name, () => {
