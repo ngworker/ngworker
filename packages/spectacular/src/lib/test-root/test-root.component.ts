@@ -1,8 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
+export const testRootTagName = 'spectacular-test-root';
+
 @Component({
-  selector: 'spectacular-test-root',
+  selector: testRootTagName,
   template: '<router-outlet></router-outlet>',
 })
 export class TestRootComponent {

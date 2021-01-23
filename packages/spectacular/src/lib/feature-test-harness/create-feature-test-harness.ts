@@ -1,26 +1,29 @@
 import { Location } from '@angular/common';
-import { NgZone, Provider, Type } from '@angular/core';
+import { NgZone } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NavigationExtras, Router, UrlTree } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { TestRootComponent } from './test-root/test-root.component';
-import { TestRootScam } from './test-root/test-root.scam';
-import { createLeftMouseClick } from './util/create-left-mouse-click';
-import { ensureLeadingCharacter, stripLeadingCharacter } from './util/text-utilities';
+import { TestRootComponent } from '../test-root/test-root.component';
+import { TestRootScam } from '../test-root/test-root.scam';
+import { CreateFeatureTestHarnessOptions } from './create-feature-test-harness-options';
+import { FeatureTestHarness } from './feature-test-harness';
+import { createLeftMouseClick } from './util-dom/create-left-mouse-click';
+import { ensureLeadingCharacter } from './util-text/ensure-leading-character';
+import { stripLeadingCharacter } from './util-text/strip-leading-character';
 
-export interface CreateFeatureTestHarnessOptions {
-  readonly featureModule: Type<unknown>;
-  readonly featurePath: string;
-  readonly providers?: Provider[] | Array<Provider | Provider[]>;
-}
-
+/**
+ * Create a test harness for the specified Angular feature module. Test
+ * as-a-user by navigating, clicking, entering text, querying text and
+ * asserting the URL.
+ */
 export function createFeatureTestHarness({
   featureModule,
   featurePath,
+  imports = [],
   providers = [],
-}: CreateFeatureTestHarnessOptions) {
+}: CreateFeatureTestHarnessOptions): FeatureTestHarness {
   const getTestUrl = (url: string): string => {
     return (
       router.serializeUrl(router.parseUrl(featurePath)) +
@@ -30,6 +33,7 @@ export function createFeatureTestHarness({
   const testCaseSetup: () => void = fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [
+        ...imports,
         RouterTestingModule.withRoutes([
           { path: '', pathMatch: 'full', component: TestRootComponent },
           { path: featurePath, loadChildren: () => featureModule },
@@ -78,7 +82,7 @@ export function createFeatureTestHarness({
     detectChanges(): void {
       rootFixture.detectChanges();
     },
-    enterTextInElement(query: string, text: string): void {
+    enterTextInElement(text: string, query: string): void {
       const input = rootFixture.debugElement.query(By.css(query));
       const element = input.nativeElement as
         | HTMLInputElement
