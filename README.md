@@ -1,4 +1,7 @@
 # @ngworker/\* monorepo
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Monorepo for the `ngworker` NPM organization. Packages for Angular applications.
 
@@ -51,6 +54,22 @@ in Denmark.
 ## Contributors
 
 Thanks goes to these wonderful people
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://dev.to/layzee"><img src="https://avatars.githubusercontent.com/u/6364586?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Lars Gyrup Brink Nielsen</b></sub></a><br /><a href="#question-LayZeeDK" title="Answering Questions">💬</a> <a href="https://github.com/ngworker/ngworker/issues?q=author%3ALayZeeDK" title="Bug reports">🐛</a> <a href="https://github.com/ngworker/ngworker/commits?author=LayZeeDK" title="Code">💻</a> <a href="https://github.com/ngworker/ngworker/commits?author=LayZeeDK" title="Documentation">📖</a> <a href="#example-LayZeeDK" title="Examples">💡</a> <a href="#ideas-LayZeeDK" title="Ideas, Planning, & Feedback">🤔</a> <a href="#infra-LayZeeDK" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#maintenance-LayZeeDK" title="Maintenance">🚧</a> <a href="#mentoring-LayZeeDK" title="Mentoring">🧑‍🏫</a> <a href="#platform-LayZeeDK" title="Packaging/porting to new platform">📦</a> <a href="#plugin-LayZeeDK" title="Plugin/utility libraries">🔌</a> <a href="#projectManagement-LayZeeDK" title="Project Management">📆</a> <a href="https://github.com/ngworker/ngworker/pulls?q=is%3Apr+reviewed-by%3ALayZeeDK" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/ngworker/ngworker/commits?author=LayZeeDK" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://www.santoshyadav.dev/"><img src="https://avatars.githubusercontent.com/u/11923975?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Santosh Yadav</b></sub></a><br /><a href="#question-santoshyadavdev" title="Answering Questions">💬</a> <a href="https://github.com/ngworker/ngworker/commits?author=santoshyadavdev" title="Code">💻</a> <a href="https://github.com/ngworker/ngworker/commits?author=santoshyadavdev" title="Documentation">📖</a> <a href="#ideas-santoshyadavdev" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/ngworker/ngworker/pulls?q=is%3Apr+reviewed-by%3Asantoshyadavdev" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/ngworker/ngworker/commits?author=santoshyadavdev" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://www.linkedin.com/in/serkan-sipahi-59b20081/"><img src="https://avatars.githubusercontent.com/u/1880749?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Bitcollage</b></sub></a><br /><a href="#question-SerkanSipahi" title="Answering Questions">💬</a> <a href="https://github.com/ngworker/ngworker/issues?q=author%3ASerkanSipahi" title="Bug reports">🐛</a> <a href="https://github.com/ngworker/ngworker/commits?author=SerkanSipahi" title="Code">💻</a> <a href="#example-SerkanSipahi" title="Examples">💡</a> <a href="#ideas-SerkanSipahi" title="Ideas, Planning, & Feedback">🤔</a> <a href="#infra-SerkanSipahi" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#maintenance-SerkanSipahi" title="Maintenance">🚧</a> <a href="#platform-SerkanSipahi" title="Packaging/porting to new platform">📦</a> <a href="https://github.com/ngworker/ngworker/pulls?q=is%3Apr+reviewed-by%3ASerkanSipahi" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/ngworker/ngworker/commits?author=SerkanSipahi" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://github.com/NachoVazquez"><img src="https://avatars.githubusercontent.com/u/9338604?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Nacho Vazquez</b></sub></a><br /><a href="#question-NachoVazquez" title="Answering Questions">💬</a> <a href="https://github.com/ngworker/ngworker/issues?q=author%3ANachoVazquez" title="Bug reports">🐛</a> <a href="https://github.com/ngworker/ngworker/commits?author=NachoVazquez" title="Code">💻</a> <a href="https://github.com/ngworker/ngworker/commits?author=NachoVazquez" title="Documentation">📖</a> <a href="#example-NachoVazquez" title="Examples">💡</a> <a href="#ideas-NachoVazquez" title="Ideas, Planning, & Feedback">🤔</a> <a href="#infra-NachoVazquez" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#platform-NachoVazquez" title="Packaging/porting to new platform">📦</a> <a href="https://github.com/ngworker/ngworker/pulls?q=is%3Apr+reviewed-by%3ANachoVazquez" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/ngworker/ngworker/commits?author=NachoVazquez" title="Tests">⚠️</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
