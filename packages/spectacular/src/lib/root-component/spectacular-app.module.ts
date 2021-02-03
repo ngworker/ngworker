@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
-import { SpectacularAppComponent } from './spectacular-root.component';
-import { SpectacularAppScam } from './spectacular-root.scam';
+import { SpectacularAppComponent } from './spectacular-app.component';
+import { SpectacularAppScam } from './spectacular-app.scam';
 
 @NgModule({
   bootstrap: [SpectacularAppComponent],

@@ -1,7 +1,7 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { SpectacularAppComponent } from '../../root-component/spectacular-root.component';
+import { SpectacularAppComponent } from '../../root-component/spectacular-app.component';
 import { featurePathToken } from '../configuration/feature-path.token';
 import { SpectacularFeatureTestingModuleOptions } from './spectacular-feature-testing-module-options';
 import { SpectacularFeatureTestingRootModule } from './spectacular-feature-testing-root.module';

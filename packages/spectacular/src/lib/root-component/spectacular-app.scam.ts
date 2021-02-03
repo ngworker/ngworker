@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { SpectacularAppComponent } from './spectacular-root.component';
+import { SpectacularAppComponent } from './spectacular-app.component';
 
 @NgModule({
   bootstrap: [SpectacularAppComponent],
