@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { SpectacularRootComponent, testRootTagName } from '../root-component/spectacular-root.component';
-import { SpectacularRootScam } from '../root-component/spectacular-root.scam';
+import { SpectacularAppComponent, spectacularAppTagName } from '../root-component/spectacular-root.component';
+import { SpectacularAppScam } from '../root-component/spectacular-root.scam';
 import { BootstrapTestApplicationOptions } from './bootstrap-test-application-options';
 import { bootstrapComponent } from './util-dom/bootstrap-component';
 
@@ -19,8 +19,8 @@ export function bootstrapTestApplication({
   providers = [],
 }: BootstrapTestApplicationOptions): void {
   TestBed.configureTestingModule({
-    imports: [RouterTestingModule, ...imports, SpectacularRootScam],
+    imports: [RouterTestingModule, ...imports, SpectacularAppScam],
     providers: [...providers],
   });
-  bootstrapComponent(testRootTagName, SpectacularRootComponent);
+  bootstrapComponent(spectacularAppTagName, SpectacularAppComponent);
 }

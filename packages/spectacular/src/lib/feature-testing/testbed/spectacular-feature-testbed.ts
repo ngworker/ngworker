@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 
-import { SpectacularRootComponent } from '../../root-component/spectacular-root.component';
+import { SpectacularAppComponent } from '../../root-component/spectacular-root.component';
 import { SpectacularFeatureTestingModule } from '../feature-testing-module/spectacular-feature-testing.module';
 import { CreateFeatureOptions } from './create-feature-options';
 
@@ -16,7 +16,7 @@ export class SpectacularFeatureTestbed {
     imports = [],
     providers = [],
     routerOptions = {},
-  }: CreateFeatureOptions<TFeatureModule>): ComponentFixture<SpectacularRootComponent> {
+  }: CreateFeatureOptions<TFeatureModule>): ComponentFixture<SpectacularAppComponent> {
     TestBed.configureTestingModule({
       imports: [
         ...imports,
@@ -34,7 +34,7 @@ export class SpectacularFeatureTestbed {
     //   handle running this statement synchronously.
     TestBed.compileComponents();
 
-    const rootFixture = TestBed.createComponent(SpectacularRootComponent);
+    const rootFixture = TestBed.createComponent(SpectacularAppComponent);
     const router = TestBed.inject(Router);
     const initialNavigation = () => router.initialNavigation();
 

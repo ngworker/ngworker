@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
 
 import { SpectacularAppComponent } from './spectacular-root.component';
+import { SpectacularAppScam } from './spectacular-root.scam';
 
 @NgModule({
   bootstrap: [SpectacularAppComponent],
-  declarations: [SpectacularAppComponent],
-  imports: [RouterModule],
+  imports: [SpectacularAppScam],
 })
-export class SpectacularAppScam {}
+export class SpectacularAppModule {}
