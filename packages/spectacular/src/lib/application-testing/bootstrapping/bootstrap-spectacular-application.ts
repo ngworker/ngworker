@@ -1,10 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { SpectacularAppComponent, spectacularAppTagName } from '../root-level/spectacular-app.component';
-import { SpectacularAppScam } from '../root-level/spectacular-app.scam';
+import { SpectacularAppComponent, spectacularAppTagName } from '../app-component/spectacular-app.component';
+import { SpectacularAppScam } from '../app-component/spectacular-app.scam';
+import { bootstrapComponent } from '../util-dom/bootstrap-component';
 import { BootstrapSpectacularApplicationOptions } from './bootstrap-spectacular-application-options';
-import { bootstrapComponent } from './util-dom/bootstrap-component';
 
 /**
  * Bootstrap a test application with the specified metadata. Useful to test
