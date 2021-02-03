@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { SpectacularAppComponent, spectacularAppTagName } from '../root-component/spectacular-app.component';
-import { SpectacularAppScam } from '../root-component/spectacular-app.scam';
+import { SpectacularAppComponent, spectacularAppTagName } from '../root-level/spectacular-app.component';
+import { SpectacularAppScam } from '../root-level/spectacular-app.scam';
 import { BootstrapTestApplicationOptions } from './bootstrap-test-application-options';
 import { bootstrapComponent } from './util-dom/bootstrap-component';
 

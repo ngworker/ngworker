@@ -19,5 +19,5 @@ export * from './lib/pipe-test-harness/create-pipe-test-harness';
 export * from './lib/pipe-test-harness/create-pipe-test-harness-options';
 export * from './lib/pipe-test-harness/pipe-test-harness';
 
-// Root component
-export * from './lib/root-component/spectacular-app.component';
+// Root level
+export * from './lib/root-level/spectacular-app.component';
