@@ -1,4 +1,3 @@
-import { Injectable } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 
@@ -6,11 +5,8 @@ import { SpectacularAppComponent } from '../../application-testing/app-component
 import { SpectacularFeatureTestingModule } from '../feature-testing-module/spectacular-feature-testing.module';
 import { CreateFeatureOptions } from './create-feature-options';
 
-@Injectable({
-  providedIn: 'root',
-})
 export class SpectacularFeatureTestbed {
-  createFeature<TFeatureModule>({
+  static createFeature<TFeatureModule>({
     featureModule,
     featurePath,
     imports = [],
