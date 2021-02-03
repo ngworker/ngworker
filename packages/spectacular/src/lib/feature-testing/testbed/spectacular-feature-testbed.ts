@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { SpectacularAppComponent } from '../../application-testing/app-component/spectacular-app.component';
 import { SpectacularFeatureTestingModule } from '../feature-testing-module/spectacular-feature-testing.module';
-import { CreateFeatureOptions } from './create-feature-options';
+import { SpectacularCreateFeatureOptions } from './spectacular-create-feature-options';
 
 export class SpectacularFeatureTestbed {
   static createFeature<TFeatureModule>({
@@ -12,7 +12,7 @@ export class SpectacularFeatureTestbed {
     imports = [],
     providers = [],
     routerOptions = {},
-  }: CreateFeatureOptions<TFeatureModule>): ComponentFixture<SpectacularAppComponent> {
+  }: SpectacularCreateFeatureOptions<TFeatureModule>): ComponentFixture<SpectacularAppComponent> {
     TestBed.configureTestingModule({
       imports: [
         ...imports,
