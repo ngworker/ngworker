@@ -12,6 +12,7 @@
 | ---------------------------------------- | ---------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `bootstrapSpectacularApplication`        | Side effect                                    | Bootstrap a test application with the specified metadata. Useful to test configuration Angular modules, bootstrap listeners, and application initializers. |
 | `BootstrapspectacularApplicationOptions` | Options for `bootstrapSpectacularApplication`. | Spectacular application options.                                                                                                                           |
+| `SpectacularAppComponent`                | Bootstrapped component.                        | A root component for testing.                                                                                                                              |
 
 ### Feature testing
 
@@ -35,11 +36,3 @@
 | `createPipeTestHarness`        | `PipeTestHarness` factory.           | Create a test harness for the specified Angular pipe. Test it by updating the value and reading the rendered test. |
 | `CreatePipeTestHarnessOptions` | Options for `createPipeTestHarness`. | Angular pipe test harness options.                                                                                 |
 | `PipeTestHarness`              | Interface                            | A test harness for an Angular pipe. Includes an API to write a value and read the rendered text.                   |
-
-## Root-level
-
-### Public API
-
-| Export name               | Kind              | Description                   |
-| ------------------------- | ----------------- | ----------------------------- |
-| `SpectacularAppComponent` | Routed component. | A root component for testing. |

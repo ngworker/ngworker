@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 
-import { SpectacularAppComponent } from '../../root-level/spectacular-app.component';
+import { SpectacularAppComponent } from '../../application-testing/app-component/spectacular-app.component';
 import { SpectacularFeatureTestingModule } from '../feature-testing-module/spectacular-feature-testing.module';
 import { CreateFeatureOptions } from './create-feature-options';
 
