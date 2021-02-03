@@ -1,6 +1,6 @@
 import { APP_BOOTSTRAP_LISTENER, APP_INITIALIZER, FactoryProvider, NgModule } from '@angular/core';
 
-import { bootstrapTestApplication } from './bootstrap-test-application';
+import { bootstrapSpectacularApplication } from './bootstrap-spectacular-application';
 
 let bootstrapped = false;
 let initialized = false;
@@ -31,7 +31,7 @@ class BootstrapListenerModule {}
 })
 class InitializerModule {}
 
-describe(bootstrapTestApplication.name, () => {
+describe(bootstrapSpectacularApplication.name, () => {
   beforeEach(() => {
     bootstrapped = false;
     initialized = false;
@@ -39,7 +39,7 @@ describe(bootstrapTestApplication.name, () => {
 
   describe('Bootstrap listeners', () => {
     it('registers and runs the specified bootstrap listener', () => {
-      bootstrapTestApplication({
+      bootstrapSpectacularApplication({
         providers: [bootstrapListener],
       });
 
@@ -47,7 +47,7 @@ describe(bootstrapTestApplication.name, () => {
     });
 
     it('registers the specified bootstrap listener Angular module', () => {
-      bootstrapTestApplication({
+      bootstrapSpectacularApplication({
         imports: [BootstrapListenerModule],
       });
 
@@ -57,7 +57,7 @@ describe(bootstrapTestApplication.name, () => {
 
   describe('Initializers', () => {
     it('registers and runs the specified initializer', () => {
-      bootstrapTestApplication({
+      bootstrapSpectacularApplication({
         providers: [applicationInitializer],
       });
 
@@ -65,7 +65,7 @@ describe(bootstrapTestApplication.name, () => {
     });
 
     it('registers the specified initializer Angular module', () => {
-      bootstrapTestApplication({
+      bootstrapSpectacularApplication({
         imports: [InitializerModule],
       });
 
