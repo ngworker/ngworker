@@ -4,13 +4,14 @@
 
 > Spectacular Angular testing.
 
-## Bootstrap test application
+## Application testing
 
 ### Public API
 
-| Export name                | Kind        | Description                                                                                                                                                |
-| -------------------------- | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `bootstrapTestApplication` | Side effect | Bootstrap a test application with the specified metadata. Useful to test configuration Angular modules, bootstrap listeners, and application initializers. |
+| Export name                       | Kind                                    | Description                                                                                                                                                |
+| --------------------------------- | --------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `bootstrapTestApplication`        | Side effect                             | Bootstrap a test application with the specified metadata. Useful to test configuration Angular modules, bootstrap listeners, and application initializers. |
+| `BootstrapTestApplicationOptions` | Options for `bootstrapTestApplication`. | Application testing options.                                                                                                                               |
 
 ### Feature testing
 

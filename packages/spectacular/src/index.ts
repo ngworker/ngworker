@@ -1,6 +1,6 @@
-// Bootstrap test application
-export * from './lib/bootstrap-test-application/bootstrap-test-application';
-export * from './lib/bootstrap-test-application/bootstrap-test-application-options';
+// Application testing
+export * from './lib/application-testing/bootstrap-test-application';
+export * from './lib/application-testing/bootstrap-test-application-options';
 
 // Feature testing
 //  Feature testing module
