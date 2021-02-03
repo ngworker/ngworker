@@ -7,17 +7,17 @@ export const testRootTagName = 'spectacular-test-root';
   selector: testRootTagName,
   template: '<router-outlet></router-outlet>',
 })
-export class TestRootComponent {
+export class SpectacularRootComponent {
   @ViewChild(RouterOutlet)
   routerOutlet?: RouterOutlet;
 
-  getActiveComponent<T>(): T {
+  getActiveComponent<TActiveComponent>(): TActiveComponent {
     if (!this.routerOutlet) {
       throw new Error(
-        'TestRootComponent#getActiveComponent called before its view child is available.'
+        'SpectacularRootComponent#getActiveComponent called before its view child is available.'
       );
     }
 
-    return this.routerOutlet.component as T;
+    return this.routerOutlet.component as TActiveComponent;
   }
 }

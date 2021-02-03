@@ -18,3 +18,7 @@ export * from './lib/feature-testing/testbed/spectacular-feature-testbed';
 export * from './lib/pipe-test-harness/create-pipe-test-harness';
 export * from './lib/pipe-test-harness/create-pipe-test-harness-options';
 export * from './lib/pipe-test-harness/pipe-test-harness';
+
+// Root component
+export * from './lib/root-component/spectacular-root.component';
+export * from './lib/root-component/spectacular-root.scam';
