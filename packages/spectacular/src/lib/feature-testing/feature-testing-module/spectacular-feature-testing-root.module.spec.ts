@@ -1,3 +1,5 @@
+import { Location } from '@angular/common';
+import { SpyLocation } from '@angular/common/testing';
 import { Component, NgModule, ViewChild } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
@@ -33,7 +35,7 @@ class TestRootModule {}
 const optionalAngularDependency = null;
 
 describe(SpectacularFeatureTestingRootModule.name, () => {
-  describe('Declarables', () => {
+  describe('Routing', () => {
     it(`makes ${SpectacularAppComponent.name} routable`, async () => {
       const path = 'spectacular';
       TestBed.configureTestingModule({
@@ -54,27 +56,37 @@ describe(SpectacularFeatureTestingRootModule.name, () => {
       const activeComponent = rootFixture.componentInstance.getActiveComponent();
       expect(activeComponent).toBeInstanceOf(SpectacularAppComponent);
     });
+
+    it(`imports the ${RouterTestingModule.name}`, () => {
+      TestBed.configureTestingModule({
+        imports: [SpectacularFeatureTestingRootModule],
+      });
+
+      const location = TestBed.inject(Location);
+      expect(location).toBeInstanceOf(SpyLocation);
+    });
   });
 
-  describe('Dependency injection', () => {});
-  it('guards against being registered in multiple injectors', () => {
-    const rootInjectorInstance = new SpectacularFeatureTestingRootModule(
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      optionalAngularDependency as any
-    );
+  describe('Dependency injection', () => {
+    it('guards against being registered in multiple injectors', () => {
+      const rootInjectorInstance = new SpectacularFeatureTestingRootModule(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        optionalAngularDependency as any
+      );
 
-    expect(
-      () => new SpectacularFeatureTestingRootModule(rootInjectorInstance)
-    ).toThrowError(/multiple injectors/);
-  });
+      expect(
+        () => new SpectacularFeatureTestingRootModule(rootInjectorInstance)
+      ).toThrowError(/multiple injectors/);
+    });
 
-  it('does not guard the first injector that registers it', () => {
-    expect(
-      () =>
-        new SpectacularFeatureTestingRootModule(
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          optionalAngularDependency as any
-        )
-    ).not.toThrow();
+    it('does not guard the first injector that registers it', () => {
+      expect(
+        () =>
+          new SpectacularFeatureTestingRootModule(
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            optionalAngularDependency as any
+          )
+      ).not.toThrow();
+    });
   });
 });

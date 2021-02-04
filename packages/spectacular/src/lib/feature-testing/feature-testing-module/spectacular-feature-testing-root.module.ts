@@ -1,9 +1,10 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { SpectacularAppScam } from '../../application-testing/app-component/spectacular-app.scam';
 
 @NgModule({
-  imports: [SpectacularAppScam],
+  imports: [RouterTestingModule, SpectacularAppScam],
 })
 export class SpectacularFeatureTestingRootModule {
   constructor(

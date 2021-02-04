@@ -1,7 +1,6 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { SpectacularAppComponent } from '../../application-testing/app-component/spectacular-app.component';
 import { featurePathToken } from '../configuration/feature-path.token';
 import { SpectacularFeatureTestingModuleOptions } from './spectacular-feature-testing-module-options';
 import { SpectacularFeatureTestingRootModule } from './spectacular-feature-testing-root.module';
@@ -16,10 +15,7 @@ export class SpectacularFeatureTestingModule {
     const {
       providers: routerTestingProviders = [],
     } = RouterTestingModule.withRoutes(
-      [
-        { path: '', pathMatch: 'full', component: SpectacularAppComponent },
-        { path: featurePath, loadChildren: () => featureModule },
-      ],
+      [{ path: featurePath, loadChildren: () => featureModule }],
       routerOptions
     );
 
