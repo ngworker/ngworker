@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { SpectacularAppComponent, spectacularAppTagName } from '../app-component/spectacular-app.component';
-import { SpectacularAppScam } from '../app-component/spectacular-app.scam';
+import { SpectacularAppModule } from '../app-component/spectacular-app.module';
 import { bootstrapComponent } from '../util-dom/bootstrap-component';
 import { BootstrapSpectacularApplicationOptions } from './bootstrap-spectacular-application-options';
 
@@ -19,7 +19,7 @@ export function bootstrapSpectacularApplication({
   providers = [],
 }: BootstrapSpectacularApplicationOptions): void {
   TestBed.configureTestingModule({
-    imports: [RouterTestingModule, ...imports, SpectacularAppScam],
+    imports: [RouterTestingModule, ...imports, SpectacularAppModule],
     providers: [...providers],
   });
   bootstrapComponent(spectacularAppTagName, SpectacularAppComponent);
