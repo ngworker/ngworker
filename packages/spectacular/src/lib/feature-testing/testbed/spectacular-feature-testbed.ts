@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { Router } from '@angular/router';
 
 import { SpectacularAppComponent } from '../../application-testing/app-component/spectacular-app.component';
@@ -32,7 +32,10 @@ export class SpectacularFeatureTestbed {
 
     const rootFixture = TestBed.createComponent(SpectacularAppComponent);
     const router = TestBed.inject(Router);
-    const initialNavigation = () => router.initialNavigation();
+    const initialNavigation = fakeAsync(() => {
+      router.navigate([featurePath]);
+      tick();
+    });
 
     if (rootFixture.ngZone !== null) {
       rootFixture.ngZone.run(initialNavigation);
