@@ -1,11 +1,11 @@
 export function ensureLeadingCharacter(
-  character: string,
+  leadingCharacter: string,
   text: string
 ): string {
   if (text === '') {
-    text = character;
-  } else if (text.substr(0, 1) !== character) {
-    text = character + text;
+    text = leadingCharacter;
+  } else if (text.substr(0, 1) !== leadingCharacter) {
+    text = leadingCharacter + text;
   }
 
   return text;
