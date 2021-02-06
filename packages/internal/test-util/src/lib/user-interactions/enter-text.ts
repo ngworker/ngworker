@@ -5,11 +5,12 @@ export const enterText = <TComponent>(
   fixture: ComponentFixture<TComponent>
 ) => (text: string, query: string): void => {
   const input = fixture.debugElement.query(By.css(query));
-  const element = input.nativeElement as HTMLInputElement | HTMLTextAreaElement;
 
-  if (!element) {
+  if (!input) {
     throw new Error(`No text box matching query "${query}" found.`);
   }
+
+  const element = input.nativeElement as HTMLInputElement | HTMLTextAreaElement;
 
   element.value = text;
   const enterTheText = () =>

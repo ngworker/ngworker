@@ -15,6 +15,10 @@ import { SpectacularFeatureRouter } from './navigation/spectacular-feature-route
 import { SpectacularFeatureTestbed } from './testbed/spectacular-feature-testbed';
 
 describe('Tour of Heroes: Crisis center integration tests', () => {
+  function expectCrisisToBeSelected(crisis: Crisis) {
+    expect(ui.getText('.selected')).toBe(`${crisis.id}${crisis.name}`);
+  }
+
   function expectToBeAtTheCrisisCenterHome() {
     expect(ui.getText('p')).toBe('Welcome to the Crisis Center');
   }
@@ -53,6 +57,7 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
   let fakeDialog: FakeDialogService;
   let featureLocation: SpectacularFeatureLocation;
   let featureRouter: SpectacularFeatureRouter;
+  const newCrisisName = 'Coral reefs are dying';
   let rootFixture: ComponentFixture<SpectacularAppComponent>;
   let ui: UserInteractions;
   let unknownCrisis: Crisis;
@@ -65,7 +70,7 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
 
   describe('Crisis detail', () => {
     it('shows crisis detail when a valid ID is in the URL', async () => {
-      featureRouter.navigateByUrl(aCrisis.id.toString());
+      await featureRouter.navigateByUrl(aCrisis.id.toString());
       await ui.advance();
 
       expectToBeEditing(aCrisis);
@@ -80,53 +85,55 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
       expectToBeAtTheCrisisCenterHome();
     });
 
-    // describe('Editing crisis name', () => {
-    //   beforeEach(fakeAsync(() => {
-    //     navigateByUrl(aCrisis.id.toString());
-    //     advance();
+    describe('Editing crisis name', () => {
+      beforeEach(async () => {
+        await featureRouter.navigateByUrl(aCrisis.id.toString());
+        await ui.advance();
 
-    //     enterTextInElement('input', newCrisisName);
-    //   }));
+        ui.enterText(newCrisisName, 'input');
+      });
 
-    //   describe('Canceling change', () => {
-    //     beforeEach(fakeAsync(() => {
-    //       clickButton('Cancel');
-    //       advance();
-    //     }));
+      describe('Canceling change', () => {
+        beforeEach(async () => {
+          ui.clickButton('Cancel');
+          await ui.advance();
+        });
 
-    //     describe('When discarding unsaved changes is confirmed', () => {
-    //       beforeEach(fakeAsync(() => {
-    //         fakeDialog.clickOk();
-    //         advance();
-    //       }));
+        describe('When discarding unsaved changes is confirmed', () => {
+          beforeEach(async () => {
+            fakeDialog.clickOk();
+            await ui.advance();
+          });
 
-    //       it('navigates to the crisis center home with the crisis selected ', () => {
-    //         expectToBeAtTheCrisisCenterHome();
-    //         expectCrisisToBeSelected(aCrisis);
-    //       });
+          it('navigates to the crisis center home with the crisis selected ', () => {
+            expectToBeAtTheCrisisCenterHome();
+            expectCrisisToBeSelected(aCrisis);
+          });
 
-    //       it('adds matrix parameters', () => {
-    //         expect(getPath()).toMatch(new RegExp(`;id=${aCrisis.id};foo=foo`));
-    //       });
-    //     });
+          it('adds matrix parameters', () => {
+            expect(featureLocation.path()).toMatch(
+              new RegExp(`;id=${aCrisis.id};foo=foo`)
+            );
+          });
+        });
 
-    //     it('keeps the change and stays on the crisis detail when discarding unsaved changes is canceled', fakeAsync(() => {
-    //       fakeDialog.clickCancel();
-    //       advance();
+        it('keeps the change and stays on the crisis detail when discarding unsaved changes is canceled', async () => {
+          fakeDialog.clickCancel();
+          await ui.advance();
 
-    //       expectToBeEditing({ id: aCrisis.id, name: newCrisisName });
-    //     }));
-    //   });
+          expectToBeEditing({ id: aCrisis.id, name: newCrisisName });
+        });
+      });
 
-    //   describe('Saving change', () => {
-    //     it('navigates to the crisis center home with the crisis selected', fakeAsync(() => {
-    //       clickButton('Save');
-    //       advance();
+      describe('Saving change', () => {
+        it('navigates to the crisis center home with the crisis selected', async () => {
+          ui.clickButton('Save');
+          await ui.advance();
 
-    //       expectToBeAtTheCrisisCenterHome();
-    //       expectCrisisToBeSelected({ id: aCrisis.id, name: newCrisisName });
-    //     }));
-    //   });
-    // });
+          expectToBeAtTheCrisisCenterHome();
+          expectCrisisToBeSelected({ id: aCrisis.id, name: newCrisisName });
+        });
+      });
+    });
   });
 });
