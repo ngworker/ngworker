@@ -1,4 +1,4 @@
-export function stripLeadingCharacter(
+export function stripLeadingCharacters(
   leadingCharacter: string,
   text: string
 ): string {
