@@ -39,7 +39,6 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
         { provide: DialogService, useClass: FakeDialogService },
       ],
     });
-    detectChanges = () => rootFixture.detectChanges();
     fakeDialog = TestBed.inject(DialogService) as FakeDialogService;
     featureLocation = TestBed.inject(SpectacularFeatureLocation);
     featureRouter = TestBed.inject(SpectacularFeatureRouter);
@@ -53,7 +52,6 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
   });
 
   let aCrisis: Crisis;
-  let detectChanges: () => void;
   let fakeDialog: FakeDialogService;
   let featureLocation: SpectacularFeatureLocation;
   let featureRouter: SpectacularFeatureRouter;
