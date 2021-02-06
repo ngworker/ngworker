@@ -1,1 +1,1 @@
-export * from './lib/internal-test-util.module';
+export * from './lib/user-interactions/create-user-interactions';
