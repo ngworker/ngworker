@@ -1,23 +1,21 @@
-import { ComponentFixture } from '@angular/core/testing';
-import {
-  CrisisCenterModule,
-  crisisCenterPath,
-} from '@tour-of-heroes/crisis-center';
+import { createUserInteractions, UserInteractions } from '@internal/test-util';
+import { CrisisCenterModule, crisisCenterPath } from '@tour-of-heroes/crisis-center';
 
-import { SpectacularAppComponent } from '../application-testing/app-component/spectacular-app.component';
 import { SpectacularFeatureTestbed } from './testbed/spectacular-feature-testbed';
 
 describe('Tour of Heroes: Crisis center integration tests', () => {
   beforeEach(() => {
-    rootFixture = SpectacularFeatureTestbed.createFeature({
+    const rootFixture = SpectacularFeatureTestbed.createFeature({
       featureModule: CrisisCenterModule,
       featurePath: crisisCenterPath,
     });
+    ui = createUserInteractions(rootFixture);
   });
 
-  let rootFixture: ComponentFixture<SpectacularAppComponent>;
+  // let rootFixture: ComponentFixture<SpectacularAppComponent>;
+  let ui: UserInteractions;
 
   it('works', () => {
-    expect(rootFixture).toBeDefined();
+    expect(ui).toBeDefined();
   });
 });
