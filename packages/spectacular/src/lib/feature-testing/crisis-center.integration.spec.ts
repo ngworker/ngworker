@@ -24,7 +24,7 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
 
   function expectToBeEditing(crisis: Crisis): void {
     expect(featureLocation.path()).toMatch(
-      new RegExp(`^${crisis.id}$|^${crisis.id}.+|/${crisis.id}$`)
+      new RegExp(`^${crisis.id}$|^${crisis.id}.+|^~/${crisis.id}$`)
     );
     expect(ui.getText('h3')).toContain(crisis.name);
   }
@@ -56,14 +56,14 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
   let unknownCrisis: Crisis;
 
   it('starts at the crisis center home', () => {
-    featureRouter.navigateByUrl('');
+    featureRouter.navigateByUrl('~/');
 
     expectToBeAtTheCrisisCenterHome();
   });
 
   describe('Crisis detail', () => {
     it('shows crisis detail when a valid ID is in the URL', async () => {
-      await featureRouter.navigateByUrl(aCrisis.id.toString());
+      await featureRouter.navigate(['~', aCrisis.id]);
       await ui.advance();
 
       expectToBeEditing(aCrisis);
@@ -71,7 +71,7 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
 
     it('navigates to the crisis center home when an invalid ID is in the URL', async () => {
       const didNavigationSucceed = await featureRouter.navigateByUrl(
-        unknownCrisis.id.toString()
+        `~/${unknownCrisis.id}`
       );
 
       expect(didNavigationSucceed).toBe(false);
@@ -80,7 +80,7 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
 
     describe('Editing crisis name', () => {
       beforeEach(async () => {
-        await featureRouter.navigateByUrl(aCrisis.id.toString());
+        await featureRouter.navigateByUrl(`~/${aCrisis.id}`);
         await ui.advance();
 
         ui.enterText(newCrisisName, 'input');

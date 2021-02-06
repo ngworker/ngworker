@@ -28,13 +28,31 @@ describe(SpectacularFeatureLocation.name, () => {
   let locationStub: SpyLocation;
   let service: SpectacularFeatureLocation;
 
-  it('strips the feature path prefix from the location when navigated to a secondary route', () => {
+  it('returns tildes slash (~/) when navigated to the feature route with an empty path', () => {
+    const homePath = '';
+    setInitialFeatureRoute(homePath);
+
+    const actualPath = service.path();
+
+    expect(actualPath).toBe(`~/`);
+  });
+
+  it('prepends the feature path with a tilde (~) when navigated to a 1-layer feature route', () => {
     const listingPath = 'listing';
     setInitialFeatureRoute(listingPath);
 
     const actualPath = service.path();
 
-    expect(actualPath).toBe(listingPath);
+    expect(actualPath).toBe(`~/${listingPath}`);
+  });
+
+  it('prepends the feature path with a tilde (~) when navigated to a 2-layer feature route', () => {
+    const contactPath = 'listing/contact';
+    setInitialFeatureRoute(contactPath);
+
+    const actualPath = service.path();
+
+    expect(actualPath).toBe(`~/${contactPath}`);
   });
 
   it(`doesn't touch the location path when navigated to the root route`, () => {
@@ -44,5 +62,14 @@ describe(SpectacularFeatureLocation.name, () => {
     const actualPath = service.path();
 
     expect(actualPath).toBe(rootPath);
+  });
+
+  it(`doesn't touch the location path when navigated to another feature`, () => {
+    const otherFeaturePath = '/heroes/1';
+    locationStub.setInitialPath(otherFeaturePath);
+
+    const actualPath = service.path();
+
+    expect(actualPath).toBe(otherFeaturePath);
   });
 });

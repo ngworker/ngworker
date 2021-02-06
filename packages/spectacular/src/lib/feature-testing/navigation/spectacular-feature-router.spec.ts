@@ -43,7 +43,7 @@ describe(SpectacularFeatureRouter.name, () => {
     const crisesPath = 'crises';
 
     it('prepends the feature path and navigates', async () => {
-      await service.navigate([crisesPath]);
+      await service.navigate(['~', crisesPath]);
 
       expect(navigateSpy).toHaveBeenCalledTimes(1);
       const noNavigationOptions = undefined;
@@ -58,7 +58,7 @@ describe(SpectacularFeatureRouter.name, () => {
         preserveFragment: true,
       };
 
-      await service.navigate([crisesPath], navigationOptions);
+      await service.navigate(['~', crisesPath], navigationOptions);
       expect(navigateSpy).toHaveBeenCalledTimes(1);
       expect(navigateSpy).toHaveBeenCalledWith(
         [featurePath, crisesPath],
@@ -71,7 +71,7 @@ describe(SpectacularFeatureRouter.name, () => {
       const ngZoneRunSpy = jest.spyOn(ngZone, 'run');
       expect(ngZoneRunSpy).not.toHaveBeenCalled();
 
-      await service.navigate([crisesPath]);
+      await service.navigate(['~', crisesPath]);
 
       expect(ngZoneRunSpy).toHaveBeenCalled();
     });
@@ -81,7 +81,7 @@ describe(SpectacularFeatureRouter.name, () => {
     const dashboardPath = 'dashboard';
 
     it('prepends the feature path to the URL and navigates', async () => {
-      await service.navigateByUrl(dashboardPath);
+      await service.navigateByUrl(`~/${dashboardPath}`);
 
       expect(navigateByUrlSpy).toHaveBeenCalledTimes(1);
       const noNavigationOptions = undefined;
@@ -96,7 +96,7 @@ describe(SpectacularFeatureRouter.name, () => {
         preserveFragment: true,
       };
 
-      await service.navigateByUrl(dashboardPath, navigationOptions);
+      await service.navigateByUrl(`~/${dashboardPath}`, navigationOptions);
       expect(navigateByUrlSpy).toHaveBeenCalledTimes(1);
       expect(navigateByUrlSpy).toHaveBeenCalledWith(
         `/${featurePath}/${dashboardPath}`,
@@ -116,7 +116,10 @@ describe(SpectacularFeatureRouter.name, () => {
 
     it(`supports ${UrlTree.name}`, async () => {
       const angularRouter = TestBed.inject(Router);
-      const dashboardUrlTree = angularRouter.createUrlTree([dashboardPath]);
+      const dashboardUrlTree = angularRouter.createUrlTree([
+        '~',
+        dashboardPath,
+      ]);
 
       await service.navigateByUrl(dashboardUrlTree);
 
