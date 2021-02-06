@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { createUserInteractions, UserInteractions } from '@internal/test-util';
 import {
   Crisis,
@@ -9,7 +9,6 @@ import {
   FakeDialogService,
 } from '@tour-of-heroes/crisis-center';
 
-import { SpectacularAppComponent } from '../application-testing/app-component/spectacular-app.component';
 import { SpectacularFeatureLocation } from './navigation/spectacular-feature-location';
 import { SpectacularFeatureRouter } from './navigation/spectacular-feature-router';
 import { SpectacularFeatureTestbed } from './testbed/spectacular-feature-testbed';
@@ -25,13 +24,13 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
 
   function expectToBeEditing(crisis: Crisis): void {
     expect(featureLocation.path()).toMatch(
-      new RegExp(`^${crisis.id}\$|^${crisis.id}.+|\/${crisis.id}\$`)
+      new RegExp(`^${crisis.id}$|^${crisis.id}.+|/${crisis.id}$`)
     );
     expect(ui.getText('h3')).toContain(crisis.name);
   }
 
   beforeEach(() => {
-    rootFixture = SpectacularFeatureTestbed.createFeature({
+    const rootFixture = SpectacularFeatureTestbed.createFeature({
       featureModule: CrisisCenterModule,
       featurePath: crisisCenterPath,
       providers: [
@@ -56,7 +55,6 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
   let featureLocation: SpectacularFeatureLocation;
   let featureRouter: SpectacularFeatureRouter;
   const newCrisisName = 'Coral reefs are dying';
-  let rootFixture: ComponentFixture<SpectacularAppComponent>;
   let ui: UserInteractions;
   let unknownCrisis: Crisis;
 
