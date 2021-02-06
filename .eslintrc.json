@@ -13,17 +13,6 @@
             "allow": [],
             "depConstraints": [
               {
-                "sourceTag": "platform:isomorphic",
-                "onlyDependOnLibsWithTags": ["platform:isomorphic"]
-              },
-              {
-                "sourceTag": "platform:node",
-                "onlyDependOnLibsWithTags": [
-                  "platform:isomorphic",
-                  "platform:node"
-                ]
-              },
-              {
                 "sourceTag": "scope:internal",
                 "onlyDependOnLibsWithTags": ["scope:internal"]
               },

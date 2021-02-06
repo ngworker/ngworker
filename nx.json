@@ -36,27 +36,23 @@
   "projects": {
     "examples-tour-of-heroes-crisis-center": {
       "tags": [
-        "platform:web",
         "scope:internal",
         "type:feature"
       ]
     },
     "internal-test-util": {
       "tags": [
-        "platform:node",
         "scope:internal",
         "type:test-util"
       ]
     },
     "spectacular": {
       "tags": [
-        "platform:node",
         "type:package"
       ]
     },
     "workspace-tools": {
       "tags": [
-        "platform:node",
         "type:tool"
       ]
     }
