@@ -41,6 +41,13 @@
         "type:feature"
       ]
     },
+    "internal-test-util": {
+      "tags": [
+        "platform:node",
+        "scope:internal",
+        "type:test-util"
+      ]
+    },
     "spectacular": {
       "tags": [
         "platform:node",
