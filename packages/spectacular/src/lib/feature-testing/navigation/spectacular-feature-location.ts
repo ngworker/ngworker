@@ -2,7 +2,7 @@ import { Location } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
 
 import { featurePathToken } from '../configuration/feature-path.token';
-import { stripLeadingCharacter } from '../util-text/strip-leading-character';
+import { stripLeadingCharacters } from '../util-text/strip-leading-characters';
 
 @Injectable({
   providedIn: 'root',
@@ -18,9 +18,9 @@ export class SpectacularFeatureLocation {
 
     return path === '/'
       ? path
-      : stripLeadingCharacter(
+      : stripLeadingCharacters(
           '/',
-          stripLeadingCharacter('/' + this.featurePath, path)
+          stripLeadingCharacters('/' + this.featurePath, path)
         );
   }
 }

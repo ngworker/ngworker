@@ -1,9 +1,11 @@
 export function stripLeadingCharacters(
-  leadingCharacter: string,
+  leadingCharacters: string,
   text: string
 ): string {
-  while (text.substr(0, 1) === leadingCharacter) {
-    text = text.substr(1);
+  const leadingCharacterCount = leadingCharacters.length;
+
+  while (text.substr(0, leadingCharacterCount) === leadingCharacters) {
+    text = text.substr(leadingCharacterCount);
   }
 
   return text;
