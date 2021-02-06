@@ -29,6 +29,45 @@
     }
   },
   "projects": {
+    "examples-tour-of-heroes-crisis-center": {
+      "projectType": "library",
+      "root": "packages/examples/tour-of-heroes/crisis-center",
+      "sourceRoot": "packages/examples/tour-of-heroes/crisis-center/src",
+      "prefix": "app-crisis",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/angular:ng-packagr-lite",
+          "options": {
+            "tsConfig": "packages/examples/tour-of-heroes/crisis-center/tsconfig.lib.json",
+            "project": "packages/examples/tour-of-heroes/crisis-center/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "packages/examples/tour-of-heroes/crisis-center/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "packages/examples/tour-of-heroes/crisis-center/src/**/*.ts",
+              "packages/examples/tour-of-heroes/crisis-center/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/packages/examples/tour-of-heroes/crisis-center"
+          ],
+          "options": {
+            "jestConfig": "packages/examples/tour-of-heroes/crisis-center/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "spectacular": {
       "projectType": "library",
       "root": "packages/spectacular",
@@ -58,7 +97,9 @@
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/spectacular"],
+          "outputs": [
+            "coverage/packages/spectacular"
+          ],
           "options": {
             "jestConfig": "packages/spectacular/jest.config.js",
             "passWithNoTests": true
@@ -74,12 +115,16 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["tools/**/*.ts"]
+            "lintFilePatterns": [
+              "tools/**/*.ts"
+            ]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/tools"],
+          "outputs": [
+            "coverage/tools"
+          ],
           "options": {
             "jestConfig": "tools/jest.config.js",
             "passWithNoTests": true

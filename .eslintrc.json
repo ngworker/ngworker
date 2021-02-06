@@ -36,6 +36,10 @@
                 "onlyDependOnLibsWithTags": ["type:e2e-util"]
               },
               {
+                "sourceTag": "type:package",
+                "onlyDependOnLibsWithTags": ["scope:internal"]
+              },
+              {
                 "sourceTag": "type:tool",
                 "onlyDependOnLibsWithTags": ["type:tool"]
               },
