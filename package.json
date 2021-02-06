@@ -20,7 +20,7 @@
     "affected:dep-graph": "nx affected:dep-graph",
     "affected": "nx affected",
     "contributors:add": "all-contributors add",
-    "format": "pnpm sort-projects && nx format:write && pnpx prettier --config .prettierrc --write \"**/*.*\" \"!dist/**\" \"!pnpm-lock.yaml\"",
+    "format": "pnpm sort-projects && nx format:write && pnpx prettier --config .prettierrc --write \"**/*.*\" \"!dist/**\" \"!pnpm-lock.yaml\" && pnpm sort-projects",
     "format:write": "nx format:write",
     "format:check": "nx format:check",
     "update": "nx migrate latest",

@@ -1,4 +1,9 @@
-import { CurrencyPipe, DatePipe, DecimalPipe, PercentPipe } from '@angular/common';
+import {
+  CurrencyPipe,
+  DatePipe,
+  DecimalPipe,
+  PercentPipe,
+} from '@angular/common';
 
 import { createPipeTestHarness } from './create-pipe-test-harness';
 import { createCommonPipeTestHarness } from './test-util/create-common-pipe-test-harness';

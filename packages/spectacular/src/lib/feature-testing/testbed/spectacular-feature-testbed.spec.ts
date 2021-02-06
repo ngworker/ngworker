@@ -2,7 +2,12 @@ import { Location } from '@angular/common';
 import { SpyLocation } from '@angular/common/testing';
 import { Component, Injectable, NgModule } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { ExtraOptions, Router, ROUTER_CONFIGURATION, RouterModule } from '@angular/router';
+import {
+  ExtraOptions,
+  Router,
+  ROUTER_CONFIGURATION,
+  RouterModule,
+} from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { SpectacularAppComponent } from '../../application-testing/app-component/spectacular-app.component';

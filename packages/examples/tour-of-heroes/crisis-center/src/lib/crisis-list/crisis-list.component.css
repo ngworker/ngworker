@@ -8,17 +8,17 @@
 .crises li {
   position: relative;
   cursor: pointer;
-  background-color: #EEE;
-  margin: .5em;
-  padding: .3em 0;
+  background-color: #eee;
+  margin: 0.5em;
+  padding: 0.3em 0;
   height: 1.6em;
   border-radius: 4px;
 }
 
 .crises li:hover {
-  color: #607D8B;
-  background-color: #DDD;
-  left: .1em;
+  color: #607d8b;
+  background-color: #ddd;
+  left: 0.1em;
 }
 
 .crises a {
@@ -28,7 +28,7 @@
 }
 
 .crises a:hover {
-  color:#607D8B;
+  color: #607d8b;
 }
 
 .crises .badge {
@@ -36,7 +36,7 @@
   font-size: small;
   color: white;
   padding: 0.8em 0.7em 0 0.7em;
-  background-color: #607D8B;
+  background-color: #607d8b;
   line-height: 1em;
   position: relative;
   left: -1px;
@@ -44,7 +44,7 @@
   height: 1.8em;
   min-width: 16px;
   text-align: right;
-  margin-right: .8em;
+  margin-right: 0.8em;
   border-radius: 4px 0 0 4px;
 }
 
@@ -70,9 +70,9 @@ button.delete {
 }
 
 .crises li.selected {
-  background-color: #CFD8DC;
+  background-color: #cfd8dc;
   color: white;
 }
 .crises li.selected:hover {
-  background-color: #BBD8DC;
+  background-color: #bbd8dc;
 }

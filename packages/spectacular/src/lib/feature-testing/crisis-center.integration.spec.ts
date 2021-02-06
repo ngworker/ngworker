@@ -1,5 +1,8 @@
 import { ComponentFixture } from '@angular/core/testing';
-import { CrisisCenterModule, crisisCenterPath } from '@tour-of-heroes/crisis-center';
+import {
+  CrisisCenterModule,
+  crisisCenterPath,
+} from '@tour-of-heroes/crisis-center';
 
 import { SpectacularAppComponent } from '../application-testing/app-component/spectacular-app.component';
 import { SpectacularFeatureTestbed } from './testbed/spectacular-feature-testbed';
