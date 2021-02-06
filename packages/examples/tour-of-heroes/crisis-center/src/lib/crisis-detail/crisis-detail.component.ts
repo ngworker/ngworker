@@ -11,8 +11,11 @@ import { DialogService } from '../dialog.service';
   styleUrls: ['./crisis-detail.component.css'],
 })
 export class CrisisDetailComponent implements OnInit {
-  crisis: Crisis;
-  editName: string;
+  crisis: Crisis = {
+    id: -1,
+    name: '',
+  };
+  editName = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -21,9 +24,10 @@ export class CrisisDetailComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.route.data.subscribe((data: { crisis: Crisis }) => {
-      this.editName = data.crisis.name;
-      this.crisis = data.crisis;
+    this.route.data.subscribe(data => {
+      const crisis: Crisis = data.crisis;
+      this.editName = crisis.name;
+      this.crisis = crisis;
     });
   }
 
