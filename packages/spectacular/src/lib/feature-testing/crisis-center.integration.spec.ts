@@ -33,10 +33,7 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
     const rootFixture = SpectacularFeatureTestbed.createFeature({
       featureModule: CrisisCenterModule,
       featurePath: crisisCenterPath,
-      providers: [
-        // { provide: CrisisService, useClass: FakeCrisisService },
-        { provide: DialogService, useClass: FakeDialogService },
-      ],
+      providers: [{ provide: DialogService, useClass: FakeDialogService }],
     });
     fakeDialog = TestBed.inject(DialogService) as FakeDialogService;
     featureLocation = TestBed.inject(SpectacularFeatureLocation);
