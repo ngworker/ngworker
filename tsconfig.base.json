@@ -15,7 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@ngworker/spectacular": ["packages/spectacular/src/index.ts"]
+      "@ngworker/spectacular": ["packages/spectacular/src/index.ts"],
+      "@ngworker/material": ["packages/material/src/index.ts"],
+      "@ngworker/cdk": ["packages/cdk/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

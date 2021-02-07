@@ -86,6 +86,80 @@
           }
         }
       }
+    },
+    "material": {
+      "projectType": "library",
+      "root": "packages/material",
+      "sourceRoot": "packages/material/src",
+      "prefix": "mat",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/angular:ng-packagr-lite",
+          "options": {
+            "tsConfig": "packages/material/tsconfig.lib.json",
+            "project": "packages/material/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "packages/material/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "packages/material/src/**/*.ts",
+              "packages/material/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "packages/material/src/test.ts",
+            "tsConfig": "packages/material/tsconfig.spec.json",
+            "karmaConfig": "packages/material/karma.conf.js"
+          }
+        }
+      }
+    },
+    "cdk": {
+      "projectType": "library",
+      "root": "packages/cdk",
+      "sourceRoot": "packages/cdk/src",
+      "prefix": "cdk",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/angular:ng-packagr-lite",
+          "options": {
+            "tsConfig": "packages/cdk/tsconfig.lib.json",
+            "project": "packages/cdk/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "packages/cdk/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "packages/cdk/src/**/*.ts",
+              "packages/cdk/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "packages/cdk/src/test.ts",
+            "tsConfig": "packages/cdk/tsconfig.spec.json",
+            "karmaConfig": "packages/cdk/karma.conf.js"
+          }
+        }
+      }
     }
   }
 }
