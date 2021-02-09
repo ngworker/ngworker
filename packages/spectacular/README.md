@@ -16,6 +16,11 @@
 
 ### Feature testing
 
+The feature testing API helps configure the Angular testing module to test an
+Angulare feature module. It contains a few companion services that wraps
+Angular's built-in navigation services, but adjust to the Angulare feature
+module under test.
+
 #### Public API
 
 | Export name                              | Kind                                                  | Description                                                                                                                    |
