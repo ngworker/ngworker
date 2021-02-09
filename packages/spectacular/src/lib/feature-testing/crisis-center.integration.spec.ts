@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
 import { createUserInteractions, UserInteractions } from '@internal/test-util';
 import {
   Crisis,
@@ -70,9 +71,10 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
     });
 
     it('navigates to the crisis center home when an invalid ID is in the URL', async () => {
-      const didNavigationSucceed = await featureRouter.navigateByUrl(
-        `~/${unknownCrisis.id}`
-      );
+      const angularRouter = TestBed.inject(Router);
+      const urlTree = angularRouter.createUrlTree(['~', unknownCrisis.id]);
+
+      const didNavigationSucceed = await featureRouter.navigateByUrl(urlTree);
 
       expect(didNavigationSucceed).toBe(false);
       expectToBeAtTheCrisisCenterHome();
