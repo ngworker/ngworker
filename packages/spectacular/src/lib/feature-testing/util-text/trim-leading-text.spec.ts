@@ -1,13 +1,13 @@
-import { stripLeadingCharacters } from './strip-leading-characters';
+import { trimLeadingText } from './trim-leading-text';
 
 const emptyString = '';
 
-describe(stripLeadingCharacters.name, () => {
+describe(trimLeadingText.name, () => {
   describe('Single leading character', () => {
     it(`doesn't touch the string when it's an empty string`, () => {
       const leadingCharacter = 'Z';
 
-      const actualText = stripLeadingCharacters(leadingCharacter, emptyString);
+      const actualText = trimLeadingText(leadingCharacter, emptyString);
 
       expect(actualText).toBe(emptyString);
     });
@@ -16,7 +16,7 @@ describe(stripLeadingCharacters.name, () => {
       const leadingCharacter = 'Y';
       const y = 'Y';
 
-      const actualText = stripLeadingCharacters(leadingCharacter, y);
+      const actualText = trimLeadingText(leadingCharacter, y);
 
       expect(actualText).toBe(emptyString);
     });
@@ -25,7 +25,7 @@ describe(stripLeadingCharacters.name, () => {
       const leadingCharacter = 'Z';
       const zzz = 'ZZZ';
 
-      const actualText = stripLeadingCharacters(leadingCharacter, zzz);
+      const actualText = trimLeadingText(leadingCharacter, zzz);
 
       expect(actualText).toBe(emptyString);
     });
@@ -34,7 +34,7 @@ describe(stripLeadingCharacters.name, () => {
       const leadingCharacter = 'Z';
       const zzTop = 'ZZTop';
 
-      const top = stripLeadingCharacters(leadingCharacter, zzTop);
+      const top = trimLeadingText(leadingCharacter, zzTop);
 
       expect(top).toBe('Top');
     });
@@ -43,7 +43,7 @@ describe(stripLeadingCharacters.name, () => {
       const leadingCharacter = '?';
       const regex = '^?abcdefg$';
 
-      const actualText = stripLeadingCharacters(leadingCharacter, regex);
+      const actualText = trimLeadingText(leadingCharacter, regex);
 
       expect(actualText).toBe(regex);
     });
@@ -53,7 +53,7 @@ describe(stripLeadingCharacters.name, () => {
     it(`doesn't touch the string when it's an empty string`, () => {
       const leadingSequence = 'XYZ';
 
-      const actualText = stripLeadingCharacters(leadingSequence, emptyString);
+      const actualText = trimLeadingText(leadingSequence, emptyString);
 
       expect(actualText).toBe(emptyString);
     });
@@ -62,7 +62,7 @@ describe(stripLeadingCharacters.name, () => {
       const leadingCharacters = 'ABC';
       const abc = 'ABC';
 
-      const actualText = stripLeadingCharacters(leadingCharacters, abc);
+      const actualText = trimLeadingText(leadingCharacters, abc);
 
       expect(actualText).toBe(emptyString);
     });
@@ -71,10 +71,7 @@ describe(stripLeadingCharacters.name, () => {
       const fiveFiveFive = '555';
       const phoneNumber = '5555551800000';
 
-      const actualPhoneNumber = stripLeadingCharacters(
-        fiveFiveFive,
-        phoneNumber
-      );
+      const actualPhoneNumber = trimLeadingText(fiveFiveFive, phoneNumber);
 
       expect(actualPhoneNumber).toBe('1800000');
     });
@@ -83,7 +80,7 @@ describe(stripLeadingCharacters.name, () => {
       const leadingCharacter = '?abc';
       const regex = '^?abcdefg$';
 
-      const actualText = stripLeadingCharacters(leadingCharacter, regex);
+      const actualText = trimLeadingText(leadingCharacter, regex);
 
       expect(actualText).toBe(regex);
     });
