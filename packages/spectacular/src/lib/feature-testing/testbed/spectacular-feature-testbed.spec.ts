@@ -2,12 +2,7 @@ import { Location } from '@angular/common';
 import { SpyLocation } from '@angular/common/testing';
 import { Component, Injectable, NgModule } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import {
-  ExtraOptions,
-  Router,
-  ROUTER_CONFIGURATION,
-  RouterModule,
-} from '@angular/router';
+import { ExtraOptions, Router, ROUTER_CONFIGURATION, RouterModule } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { SpectacularAppComponent } from '../../application-testing/app-component/spectacular-app.component';
@@ -79,6 +74,14 @@ describe(SpectacularFeatureTestbed.name, () => {
     });
   });
 
+  describe('Constructor', () => {
+    it('guards against direct usage', () => {
+      const act = () => new SpectacularFeatureTestbed();
+
+      expect(act).toThrowError();
+    });
+  });
+
   describe('Routing', () => {
     it(`imports the ${RouterTestingModule.name}`, () => {
       SpectacularFeatureTestbed.createFeature({
@@ -140,7 +143,7 @@ describe(SpectacularFeatureTestbed.name, () => {
       );
     });
 
-    it('registers secondary routes of the specified feature module', async () => {
+    it('registers deep routes of the specified feature module', async () => {
       const rootFixture = SpectacularFeatureTestbed.createFeature({
         featurePath,
         featureModule: HeroesJobBoardModule,

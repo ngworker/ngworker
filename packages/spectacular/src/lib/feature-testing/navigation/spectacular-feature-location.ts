@@ -6,6 +6,10 @@ import { ensureLeadingCharacter } from '../util-text/ensure-leading-character';
 import { trimLeadingText } from '../util-text/trim-leading-text';
 import { relativeFeatureUrlPrefix } from './relative-feature-url-prefix';
 
+/**
+ * A subset of Angular's `Location` API adjusted to the Angular feature module
+ * under test.
+ */
 @Injectable({
   providedIn: 'root',
 })
@@ -15,8 +19,17 @@ export class SpectacularFeatureLocation {
     private readonly location: Location
   ) {}
 
-  path(): string {
-    const path = this.location.path();
+  /**
+   * Normalizes the URL path for this location. URLs within the Angular feature
+   * module under test are prefixed with tilde (`~`).
+   *
+   * Wraps `Location#path`.
+   *
+   * @param includeHash True to include an anchor fragment in the path.
+   *   Optional. Default is `false`.
+   */
+  path(includeHash: boolean = false): string {
+    const path = this.location.path(includeHash);
     const strippedPath = trimLeadingText('/' + this.featurePath, path);
     const isOutsideFeature = strippedPath === path;
 

@@ -11,7 +11,7 @@ export interface SpectacularCreateFeatureOptions<TFeatureModule>
    */
   readonly featureModule: Type<TFeatureModule>;
   /**
-   * The path prefix used to load the routes of the specified Angular feature
+   * The route path used to load the routes of the specified Angular feature
    * module, for example `'heroes'`.
    */
   readonly featurePath: string;

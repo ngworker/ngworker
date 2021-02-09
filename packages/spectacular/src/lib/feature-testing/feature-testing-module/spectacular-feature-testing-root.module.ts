@@ -3,6 +3,13 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { SpectacularAppScam } from '../../application-testing/app-component/spectacular-app.scam';
 
+/**
+ * Static dependencies for feature testing.
+ *
+ * Guards against registration in multiple Angular modules.
+ *
+ * NOTE! Only to be imported by `SpectacularFeatureTestingModule`.
+ */
 @NgModule({
   imports: [RouterTestingModule, SpectacularAppScam],
 })

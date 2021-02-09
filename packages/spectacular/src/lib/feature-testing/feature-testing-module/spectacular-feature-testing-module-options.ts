@@ -1,6 +1,9 @@
 import { Type } from '@angular/core';
 import { ExtraOptions } from '@angular/router';
 
+/**
+ * Feature testing options for `SpectacularFeatureTestingModule.withFeature`.
+ */
 export interface SpectacularFeatureTestingModuleOptions<TFeatureModule> {
   /**
    * The Angular feature module under test, for example `HeroesModule`.

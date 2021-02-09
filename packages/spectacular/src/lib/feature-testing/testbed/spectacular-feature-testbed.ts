@@ -1,16 +1,19 @@
-import {
-  ComponentFixture,
-  fakeAsync,
-  TestBed,
-  tick,
-} from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { Router } from '@angular/router';
 
 import { SpectacularAppComponent } from '../../application-testing/app-component/spectacular-app.component';
 import { SpectacularFeatureTestingModule } from '../feature-testing-module/spectacular-feature-testing.module';
 import { SpectacularCreateFeatureOptions } from './spectacular-create-feature-options';
 
+/**
+ * Configures `SpectacularFeatureTestingModule`, bootstraps `SpectacularAppComponent` and navigates to the default
+ * feature route.
+ */
 export class SpectacularFeatureTestbed {
+  /**
+   * Configures `SpectacularFeatureTestingModule`, bootstraps `SpectacularAppComponent`
+   * and navigates to the default feature route.
+   */
   static createFeature<TFeatureModule>({
     featureModule,
     featurePath,
@@ -54,5 +57,11 @@ export class SpectacularFeatureTestbed {
     rootFixture.detectChanges();
 
     return rootFixture;
+  }
+
+  constructor() {
+    throw new Error(
+      'Do not use SpectacularFeatureTestbed directly. Use SpectacularFeatureTestbed.createFeature.'
+    );
   }
 }
