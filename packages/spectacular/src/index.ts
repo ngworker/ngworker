@@ -1,9 +1,9 @@
-// Application testing
+// Application testing API
 export * from './lib/application-testing/bootstrapping/bootstrap-spectacular-application';
 export * from './lib/application-testing/bootstrapping/bootstrap-spectacular-application-options';
 export * from './lib/application-testing/app-component/spectacular-app.component';
 
-// Feature testing
+// Feature testing API
 //  Feature testing module
 export * from './lib/feature-testing/feature-testing-module/spectacular-feature-testing-module-options';
 export * from './lib/feature-testing/feature-testing-module/spectacular-feature-testing.module';
