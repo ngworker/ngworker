@@ -14,8 +14,8 @@ export const clickButton = <TComponent>(
     throw new Error(`No button with label "${label}" found.`);
   }
 
-  const leftClick = () =>
-    button.triggerEventHandler('click', createLeftMouseClick());
+  const buttonElement: HTMLButtonElement = button.nativeElement;
+  const leftClick = () => buttonElement.dispatchEvent(createLeftMouseClick());
 
   if (fixture.ngZone) {
     fixture.ngZone.run(leftClick);

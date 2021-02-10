@@ -65,7 +65,6 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
   describe('Crisis detail', () => {
     it('shows crisis detail when a valid ID is in the URL', async () => {
       await featureRouter.navigate(['~', aCrisis.id]);
-      await ui.advance();
 
       expectToBeEditing(aCrisis);
     });
@@ -83,21 +82,18 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
     describe('Editing crisis name', () => {
       beforeEach(async () => {
         await featureRouter.navigateByUrl(`~/${aCrisis.id}`);
-        await ui.advance();
 
         ui.enterText(newCrisisName, 'input');
       });
 
       describe('Canceling change', () => {
-        beforeEach(async () => {
+        beforeEach(() => {
           ui.clickButton('Cancel');
-          await ui.advance();
         });
 
         describe('When discarding unsaved changes is confirmed', () => {
-          beforeEach(async () => {
+          beforeEach(() => {
             fakeDialog.clickOk();
-            await ui.advance();
           });
 
           it('navigates to the crisis center home with the crisis selected ', () => {
@@ -112,18 +108,16 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
           });
         });
 
-        it('keeps the change and stays on the crisis detail when discarding unsaved changes is canceled', async () => {
+        it('keeps the change and stays on the crisis detail when discarding unsaved changes is canceled', () => {
           fakeDialog.clickCancel();
-          await ui.advance();
 
           expectToBeEditing({ id: aCrisis.id, name: newCrisisName });
         });
       });
 
       describe('Saving change', () => {
-        it('navigates to the crisis center home with the crisis selected', async () => {
+        it('navigates to the crisis center home with the crisis selected', () => {
           ui.clickButton('Save');
-          await ui.advance();
 
           expectToBeAtTheCrisisCenterHome();
           expectCrisisToBeSelected({ id: aCrisis.id, name: newCrisisName });

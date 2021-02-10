@@ -40,21 +40,19 @@ export class SpectacularFeatureTestbed {
 
     const rootFixture = TestBed.createComponent(SpectacularAppComponent);
     const router = TestBed.inject(Router);
+    // Keeps this method synchronous
     const initialNavigation = fakeAsync(() => {
       router.navigate([featurePath]);
       tick();
     });
+
+    rootFixture.autoDetectChanges(true);
 
     if (rootFixture.ngZone !== null) {
       rootFixture.ngZone.run(initialNavigation);
     } else {
       initialNavigation();
     }
-
-    // NOTE(LayZeeDK): We might need to use something like the asynchronous
-    //   `rootFixture.whenStable` to wait for all side effects triggered by the
-    //   initial navigation.
-    rootFixture.detectChanges();
 
     return rootFixture;
   }
