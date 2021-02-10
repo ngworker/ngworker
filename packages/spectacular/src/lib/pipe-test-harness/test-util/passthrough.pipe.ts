@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-export const passthroughPipeName = 'test-passthrough';
+export const passthroughPipeName = 'spectacular-internal-passthrough';
 
 @Pipe({
   name: passthroughPipeName,

@@ -1,12 +1,7 @@
-import type { NgModule, Type } from '@angular/core';
+import { PipeTransform, Type } from '@angular/core';
+import { Observable } from 'rxjs';
 
-import type { Observable } from 'rxjs';
-
-/**
- * Angular pipe test harness options.
- */
-export interface CreatePipeTestHarnessOptions<TValue>
-  extends Pick<NgModule, 'declarations' | 'imports' | 'providers'> {
+export interface SpectacularCreatePipeOptions<TPipeValue> {
   /**
    * The name of the Angular pipe-under-test, for example `camelize`.
    */
@@ -14,7 +9,7 @@ export interface CreatePipeTestHarnessOptions<TValue>
   /**
    * The type of the Angular pipe-under-test, for example `CamelizePipe`.
    */
-  readonly pipeType: Type<unknown>;
+  readonly pipeType: Type<PipeTransform>;
   /**
    * The template used to test the Angular pipe, for example
    * `'{{ value | camelize }}'`.
@@ -25,5 +20,5 @@ export interface CreatePipeTestHarnessOptions<TValue>
   /**
    * The initial value passed through the Angular pipe.
    */
-  readonly value: Observable<TValue> | TValue | null;
+  readonly value: Observable<TPipeValue> | TPipeValue | null;
 }
