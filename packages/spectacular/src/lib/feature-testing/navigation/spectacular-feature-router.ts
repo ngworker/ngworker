@@ -6,7 +6,7 @@ import { ensureLeadingCharacter } from '../util-text/ensure-leading-character';
 import { relativeFeatureUrlPrefix } from './relative-feature-url-prefix';
 
 /**
- * A subset og Angular's `Router` API adjusted to the Angular feature module under test.
+ * A subset of Angular's `Router` API adjusted to the Angular feature module under test.
  */
 @Injectable({
   providedIn: 'root',
