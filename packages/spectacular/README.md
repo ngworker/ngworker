@@ -16,21 +16,22 @@
 
 ### Feature testing
 
-The feature testing API helps configure the Angular testing module to test an
-Angular feature module. It contains a few companion services that wraps
-Angular's built-in navigation services, but adjust to the Angular feature
-module under test.
+The feature testing API helps configure the Angular testing module and sets up a
+test harness for an Angular feature module. It contains a few companion services
+that wrap Angular's built-in navigation services, but adjust to the Angular
+feature module under test.
 
 #### Public API
 
-| Export name                              | Kind                                                  | Description                                                                                                                    |
-| ---------------------------------------- | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| `SpectacularFeatureTestingModuleOptions` | Options for `SpectacularFeatureTestingModule`         | Feature testing options for `SpectacularFeatureTestingModule.withFeature`.                                                     |
-| `SpectacularFeatureTestingModule`        | Angular testing configuration module                  | Configures the `RouterTestingModule` and provides Spectactular services for testing feature modules.                           |
-| `SpectacularFeatureLocation`             | Service                                               | A subset of Angular's `Location` API adjusted to the Angular feature module under test.                                        |
-| `SpectacularFeatureRouter`               | Service                                               | A subset og Angular's `Router` API adjusted to the Angular feature module under test.                                          |
-| `SpectacularFeatureTestbed`              | Platform-level singleton service                      | Configures `SpectacularFeatureTestingModule`, bootstraps `SpectacularAppComponent` and navigates to the default feature route. |
-| `SpectacularCreateFeatureOptions`        | Options for `SpectacularFeatureTestbed.createFeature` | Testbed feature testing options.                                                                                               |
+| Export name                              | Kind                                          | Description                                                                                                                    |
+| ---------------------------------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `createFeatureHarness`                   | Factory for `SpectacularFeatureHarness`       | Configures `SpectacularFeatureTestingModule`, bootstraps `SpectacularAppComponent` and navigates to the default feature route. |
+| `SpectacularCreateFeatureHarnessOptions` | Options for `createFeatureHarness`            | Feature harness options.                                                                                                       |
+| `SpectacularFeatureHarness`              | Interface                                     | Feature harness data structure.                                                                                                |
+| `SpectacularFeatureTestingModuleOptions` | Options for `SpectacularFeatureTestingModule` | Feature testing options for `SpectacularFeatureTestingModule.withFeature`.                                                     |
+| `SpectacularFeatureTestingModule`        | Angular testing configuration module          | Configures the `RouterTestingModule` and provides Spectactular services for testing feature modules.                           |
+| `SpectacularFeatureLocation`             | Service                                       | A subset of Angular's `Location` API adjusted to the Angular feature module under test.                                        |
+| `SpectacularFeatureRouter`               | Service                                       | A subset og Angular's `Router` API adjusted to the Angular feature module under test.                                          |
 
 ## Pipe test harness
 

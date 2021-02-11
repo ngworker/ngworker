@@ -1,4 +1,3 @@
-import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { createUserInteractions, UserInteractions } from '@internal/test-util';
 import {
@@ -10,9 +9,8 @@ import {
   FakeDialogService,
 } from '@tour-of-heroes/crisis-center';
 
-import { SpectacularFeatureLocation } from './navigation/spectacular-feature-location';
-import { SpectacularFeatureRouter } from './navigation/spectacular-feature-router';
-import { SpectacularFeatureTestbed } from './testbed/spectacular-feature-testbed';
+import { createFeatureHarness } from './feature-harness/create-feature-harness';
+import { SpectacularFeatureHarness } from './feature-harness/spectacular-feature-harness';
 
 describe('Tour of Heroes: Crisis center integration tests', () => {
   function expectCrisisToBeSelected(crisis: Crisis) {
@@ -24,54 +22,51 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
   }
 
   function expectToBeEditing(crisis: Crisis): void {
-    expect(featureLocation.path()).toBe(`~/${crisis.id}`);
+    expect(harness.location.path()).toBe(`~/${crisis.id}`);
     expect(ui.getText('h3')).toContain(crisis.name);
   }
 
   beforeEach(() => {
-    const rootFixture = SpectacularFeatureTestbed.createFeature({
+    harness = createFeatureHarness({
       featureModule: CrisisCenterModule,
       featurePath: crisisCenterPath,
       providers: [{ provide: DialogService, useClass: FakeDialogService }],
     });
-    fakeDialog = TestBed.inject(DialogService) as FakeDialogService;
-    featureLocation = TestBed.inject(SpectacularFeatureLocation);
-    featureRouter = TestBed.inject(SpectacularFeatureRouter);
-    ui = createUserInteractions(rootFixture);
+    fakeDialog = harness.inject(DialogService) as FakeDialogService;
+    ui = createUserInteractions(harness.rootFixture);
     unknownCrisis = {
       id: Number.MAX_SAFE_INTEGER,
       name: 'Unknown crisis',
     };
-    const crisisService = TestBed.inject(CrisisService);
+    const crisisService = harness.inject(CrisisService);
     [aCrisis] = crisisService.getCrises().value;
   });
 
   let aCrisis: Crisis;
   let fakeDialog: FakeDialogService;
-  let featureLocation: SpectacularFeatureLocation;
-  let featureRouter: SpectacularFeatureRouter;
+  let harness: SpectacularFeatureHarness;
   const newCrisisName = 'Coral reefs are dying';
   let ui: UserInteractions;
   let unknownCrisis: Crisis;
 
   it('starts at the crisis center home', () => {
-    featureRouter.navigateByUrl('~/');
+    harness.router.navigateByUrl('~/');
 
     expectToBeAtTheCrisisCenterHome();
   });
 
   describe('Crisis detail', () => {
     it('shows crisis detail when a valid ID is in the URL', async () => {
-      await featureRouter.navigate(['~', aCrisis.id]);
+      await harness.router.navigate(['~', aCrisis.id]);
 
       expectToBeEditing(aCrisis);
     });
 
     it('navigates to the crisis center home when an invalid ID is in the URL', async () => {
-      const angularRouter = TestBed.inject(Router);
+      const angularRouter = harness.inject(Router);
       const urlTree = angularRouter.createUrlTree(['~', unknownCrisis.id]);
 
-      const didNavigationSucceed = await featureRouter.navigateByUrl(urlTree);
+      const didNavigationSucceed = await harness.router.navigateByUrl(urlTree);
 
       expect(didNavigationSucceed).toBe(false);
       expectToBeAtTheCrisisCenterHome();
@@ -79,7 +74,7 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
 
     describe('Editing crisis name', () => {
       beforeEach(async () => {
-        await featureRouter.navigateByUrl(`~/${aCrisis.id}`);
+        await harness.router.navigateByUrl(`~/${aCrisis.id}`);
 
         ui.enterText(newCrisisName, 'input');
       });
@@ -100,9 +95,7 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
           });
 
           it('adds matrix parameters', () => {
-            expect(featureLocation.path()).toMatch(
-              new RegExp(`;id=${aCrisis.id};foo=foo`)
-            );
+            expect(harness.location.path()).toBe(`~;id=${aCrisis.id};foo=foo`);
           });
         });
 

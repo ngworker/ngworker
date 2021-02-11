@@ -1,13 +1,12 @@
 import { Location } from '@angular/common';
 import { SpyLocation } from '@angular/common/testing';
 import { Component, Injectable, NgModule } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
-import { ExtraOptions, Router, ROUTER_CONFIGURATION, RouterModule } from '@angular/router';
+import { ExtraOptions, ROUTER_CONFIGURATION, RouterModule } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { SpectacularAppComponent } from '../../application-testing/app-component/spectacular-app.component';
 import { featurePathToken } from '../configuration/feature-path.token';
-import { SpectacularFeatureTestbed } from './spectacular-feature-testbed';
+import { createFeatureHarness } from './create-feature-harness';
 
 @Component({
   template: '',
@@ -41,7 +40,7 @@ class HeroesJobBoardModule {}
 
 const featurePath = 'heroes-job-board';
 
-describe(SpectacularFeatureTestbed.name, () => {
+describe(createFeatureHarness.name, () => {
   describe('Configuration', () => {
     @Injectable()
     class JobService {}
@@ -52,111 +51,91 @@ describe(SpectacularFeatureTestbed.name, () => {
     class JobServiceModule {}
 
     it('adds the specified imports', () => {
-      SpectacularFeatureTestbed.createFeature({
+      const harness = createFeatureHarness({
         featurePath,
         featureModule: HeroesJobBoardModule,
         imports: [JobServiceModule],
       });
 
-      const jobService = TestBed.inject(JobService);
+      const jobService = harness.inject(JobService);
       expect(jobService).toBeInstanceOf(JobService);
     });
 
     it('adds the specified providers', () => {
-      SpectacularFeatureTestbed.createFeature({
+      const harness = createFeatureHarness({
         featurePath,
         featureModule: HeroesJobBoardModule,
         providers: [JobService],
       });
 
-      const jobService = TestBed.inject(JobService);
+      const jobService = harness.inject(JobService);
       expect(jobService).toBeInstanceOf(JobService);
-    });
-  });
-
-  describe('Constructor', () => {
-    it('guards against direct usage', () => {
-      const act = () => new SpectacularFeatureTestbed();
-
-      expect(act).toThrowError();
     });
   });
 
   describe('Routing', () => {
     it(`imports the ${RouterTestingModule.name}`, () => {
-      SpectacularFeatureTestbed.createFeature({
+      const harness = createFeatureHarness({
         featurePath,
         featureModule: HeroesJobBoardModule,
       });
 
-      const location = TestBed.inject(Location);
+      const location = harness.inject(Location);
       expect(location).toBeInstanceOf(SpyLocation);
     });
 
     it('provides the specified feature path', () => {
-      SpectacularFeatureTestbed.createFeature({
+      const harness = createFeatureHarness({
         featurePath,
         featureModule: HeroesJobBoardModule,
       });
 
-      const actualFeaturePath = TestBed.inject(featurePathToken);
+      const actualFeaturePath = harness.inject(featurePathToken);
       expect(actualFeaturePath).toBe(featurePath);
     });
 
     it(`bootstraps ${SpectacularAppComponent.name}`, () => {
-      const {
-        componentInstance: rootComponent,
-      } = SpectacularFeatureTestbed.createFeature({
+      const harness = createFeatureHarness({
         featurePath,
         featureModule: HeroesJobBoardModule,
       });
 
-      expect(rootComponent).toBeInstanceOf(SpectacularAppComponent);
+      expect(harness.rootComponent).toBeInstanceOf(SpectacularAppComponent);
     });
 
     it('navigates to the default feature route', async () => {
-      const rootFixture = SpectacularFeatureTestbed.createFeature({
+      const harness = createFeatureHarness({
         featurePath,
         featureModule: HeroesJobBoardModule,
       });
-      const rootComponent = rootFixture.componentInstance;
-      rootFixture.detectChanges();
 
-      expect(rootComponent.getActiveComponent()).toBeInstanceOf(
+      expect(harness.rootComponent.getActiveComponent()).toBeInstanceOf(
         HeroesJobBoardComponent
       );
     });
 
     it('registers the default route of the specified feature module', async () => {
-      const rootFixture = SpectacularFeatureTestbed.createFeature({
+      const harness = createFeatureHarness({
         featurePath,
         featureModule: HeroesJobBoardModule,
       });
-      const rootComponent = rootFixture.componentInstance;
-      const router = TestBed.inject(Router);
 
-      await rootFixture.ngZone?.run(() => router.navigate([featurePath]));
-      rootFixture.detectChanges();
+      await harness.router.navigate([featurePath]);
 
-      expect(rootComponent.getActiveComponent()).toBeInstanceOf(
+      expect(harness.rootComponent.getActiveComponent()).toBeInstanceOf(
         HeroesJobBoardComponent
       );
     });
 
     it('registers deep routes of the specified feature module', async () => {
-      const rootFixture = SpectacularFeatureTestbed.createFeature({
+      const harness = createFeatureHarness({
         featurePath,
         featureModule: HeroesJobBoardModule,
       });
-      const rootComponent = rootFixture.componentInstance;
-      const router = TestBed.inject(Router);
 
-      await rootFixture.ngZone?.run(() =>
-        router.navigate([featurePath, jobListingPath])
-      );
-      rootFixture.detectChanges();
+      await harness.router.navigate([featurePath, jobListingPath]);
 
-      expect(rootComponent.getActiveComponent()).toBeInstanceOf(
+      expect(harness.rootComponent.getActiveComponent()).toBeInstanceOf(
         HeroesJobListingComponent
       );
     });
@@ -165,13 +144,13 @@ describe(SpectacularFeatureTestbed.name, () => {
       const expectedRouterOptions: ExtraOptions = {
         useHash: true,
       };
-      SpectacularFeatureTestbed.createFeature({
+      const harness = createFeatureHarness({
         featurePath,
         featureModule: HeroesJobBoardModule,
         routerOptions: expectedRouterOptions,
       });
 
-      const actualRouterOptions = TestBed.inject(ROUTER_CONFIGURATION);
+      const actualRouterOptions = harness.inject(ROUTER_CONFIGURATION);
 
       expect(actualRouterOptions).toEqual(expectedRouterOptions);
     });
