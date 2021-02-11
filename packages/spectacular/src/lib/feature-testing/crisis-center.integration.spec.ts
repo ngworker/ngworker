@@ -24,9 +24,7 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
   }
 
   function expectToBeEditing(crisis: Crisis): void {
-    expect(featureLocation.path()).toMatch(
-      new RegExp(`^${crisis.id}$|^${crisis.id}.+|^~/${crisis.id}$`)
-    );
+    expect(featureLocation.path()).toBe(`~/${crisis.id}`);
     expect(ui.getText('h3')).toContain(crisis.name);
   }
 
