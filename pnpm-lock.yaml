@@ -1,9 +1,11 @@
 dependencies:
   '@angular/animations': 11.0.9_@angular+core@11.0.9
+  '@angular/cdk': 11.0.4_9a61b9f4e226c31c8094ab60b93cac3f
   '@angular/common': 11.0.9_@angular+core@11.0.9+rxjs@6.5.5
   '@angular/compiler': 11.0.9
   '@angular/core': 11.0.9_rxjs@6.5.5+zone.js@0.10.3
   '@angular/forms': 11.0.9_5ca4793bdf8f3b6352f42f806d14580c
+  '@angular/material': 11.0.4_7549005cf7d7324f3aa62ca89591d558
   '@angular/platform-browser': 11.0.9_0d11ba2a2337edbaa2684af2277e7862
   '@angular/platform-browser-dynamic': 11.0.9_8383343813cdfa803f2f916e7857b4c5
   '@angular/router': 11.0.9_5ca4793bdf8f3b6352f42f806d14580c
@@ -296,6 +298,19 @@ packages:
       '@angular/core': 11.0.9
     resolution:
       integrity: sha512-/KsMBUbRTqp29CNLbRIe4/8IxWxhnbUUZWqULaySnRDDW/p2m4miPcFVSp4zjrDZPqdXSibDiCyTiWmQ5PTuKA==
+  /@angular/cdk/11.0.4_9a61b9f4e226c31c8094ab60b93cac3f:
+    dependencies:
+      '@angular/common': 11.0.9_@angular+core@11.0.9+rxjs@6.5.5
+      '@angular/core': 11.0.9_rxjs@6.5.5+zone.js@0.10.3
+      tslib: 2.1.0
+    dev: false
+    optionalDependencies:
+      parse5: 5.1.1
+    peerDependencies:
+      '@angular/common': ^11.0.0 || ^12.0.0-0
+      '@angular/core': ^11.0.0 || ^12.0.0-0
+    resolution:
+      integrity: sha512-suhAhsZEv+lLwm8dc524cMvO7gHPi+z2+4tueNS+zDiIObdZc4fs+KoOlnRMdYwba++X/V8mHXuDEQetl3GFcw==
   /@angular/cli/11.0.7:
     dependencies:
       '@angular-devkit/architect': 0.1100.7
@@ -402,6 +417,23 @@ packages:
     dev: true
     resolution:
       integrity: sha512-wmt/siAwHUMNIXeu4OCW3z6JtP/VoJLkiQXDfSnetuCfHwy401b72L4h+TWiX3x2ZLzeYwmi0sbqMb5UCctrIw==
+  /@angular/material/11.0.4_7549005cf7d7324f3aa62ca89591d558:
+    dependencies:
+      '@angular/animations': 11.0.9_@angular+core@11.0.9
+      '@angular/cdk': 11.0.4_9a61b9f4e226c31c8094ab60b93cac3f
+      '@angular/common': 11.0.9_@angular+core@11.0.9+rxjs@6.5.5
+      '@angular/core': 11.0.9_rxjs@6.5.5+zone.js@0.10.3
+      '@angular/forms': 11.0.9_5ca4793bdf8f3b6352f42f806d14580c
+      tslib: 2.1.0
+    dev: false
+    peerDependencies:
+      '@angular/animations': ^11.0.0 || ^12.0.0-0
+      '@angular/cdk': 11.0.4
+      '@angular/common': ^11.0.0 || ^12.0.0-0
+      '@angular/core': ^11.0.0 || ^12.0.0-0
+      '@angular/forms': ^11.0.0 || ^12.0.0-0
+    resolution:
+      integrity: sha512-yjJEl3UbJxyKZFAbhvyZGphDfhtR1vo0AnDEE3KBxAOp9oD4r7paL6ER9rSXFoNRjST56tIDbNtG/wZNtH0XDQ==
   /@angular/platform-browser-dynamic/11.0.9_8383343813cdfa803f2f916e7857b4c5:
     dependencies:
       '@angular/common': 11.0.9_@angular+core@11.0.9+rxjs@6.5.5
@@ -6618,19 +6650,6 @@ packages:
         optional: true
     resolution:
       integrity: sha512-6mPTgLxYm3r6Bkkg0vNM0HTjfGrOEtsfbhagQvbxDEsEkpNhw582upBaoRZylzen6krEmxXJgt9Ju6HiI4O7BA==
-  /follow-redirects/1.13.2_debug@4.3.1:
-    dependencies:
-      debug: 4.3.1_supports-color@6.1.0
-    dev: true
-    engines:
-      node: '>=4.0'
-    peerDependencies:
-      debug: '*'
-    peerDependenciesMeta:
-      debug:
-        optional: true
-    resolution:
-      integrity: sha512-6mPTgLxYm3r6Bkkg0vNM0HTjfGrOEtsfbhagQvbxDEsEkpNhw582upBaoRZylzen6krEmxXJgt9Ju6HiI4O7BA==
   /for-in/1.0.2:
     engines:
       node: '>=0.10.0'
@@ -7199,7 +7218,7 @@ packages:
   /http-proxy/1.18.1_debug@4.3.1:
     dependencies:
       eventemitter3: 4.0.7
-      follow-redirects: 1.13.2_debug@4.3.1
+      follow-redirects: 1.13.2
       requires-port: 1.0.0
     dev: true
     engines:
@@ -10169,7 +10188,6 @@ packages:
     resolution:
       integrity: sha512-kXX+5S81lgESA0LsDuGjAlBybImAChYRMT+/uKCEXFBFOeEhS52qUCydGhU3qLRD8D9DVjaUo821WK7DM4iCeg==
   /parse5/5.1.1:
-    dev: true
     resolution:
       integrity: sha512-ugq4DFI0Ptb+WWjAdOK16+u/nHfiIrcE+sh8kZMaM0WllQKLI9rOUq6c2b7cwPkXdzfQESqvoqK6ug7U/Yyzug==
   /parse5/6.0.1:
@@ -13927,6 +13945,7 @@ specifiers:
   '@angular-eslint/eslint-plugin-template': 1.0.0
   '@angular-eslint/template-parser': 1.0.0
   '@angular/animations': ~11.0.9
+  '@angular/cdk': 11.0.4
   '@angular/cli': ~11.0.7
   '@angular/common': ~11.0.9
   '@angular/compiler': ~11.0.9
@@ -13934,6 +13953,7 @@ specifiers:
   '@angular/core': ~11.0.9
   '@angular/forms': ~11.0.9
   '@angular/language-service': ~11.0.9
+  '@angular/material': 11.0.4
   '@angular/platform-browser': ~11.0.9
   '@angular/platform-browser-dynamic': ~11.0.9
   '@angular/router': ~11.0.9
