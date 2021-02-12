@@ -1,7 +1,8 @@
-# examples-tour-of-heroes-crisis-center
+# Tour of Heroes example
 
-This library was generated with [Nx](https://nx.dev).
+Excerpts from the Tour of Heroes tutorial on Angular.io.
 
-## Running unit tests
+Originally licensed under
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 
-Run `nx test examples-tour-of-heroes-crisis-center` to execute the unit tests.
+Modified to comply with stricter compilation settings.
