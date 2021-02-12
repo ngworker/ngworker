@@ -58,7 +58,9 @@
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/spectacular"],
+          "outputs": [
+            "coverage/packages/spectacular"
+          ],
           "options": {
             "jestConfig": "packages/spectacular/jest.config.js",
             "passWithNoTests": true
@@ -74,12 +76,16 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["tools/**/*.ts"]
+            "lintFilePatterns": [
+              "tools/**/*.ts"
+            ]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/tools"],
+          "outputs": [
+            "coverage/tools"
+          ],
           "options": {
             "jestConfig": "tools/jest.config.js",
             "passWithNoTests": true
@@ -157,6 +163,126 @@
             "main": "packages/cdk/src/test.ts",
             "tsConfig": "packages/cdk/tsconfig.spec.json",
             "karmaConfig": "packages/cdk/karma.conf.js"
+          }
+        }
+      }
+    },
+    "mat-table-spreadsheet": {
+      "projectType": "application",
+      "root": "e2e/mat-table-spreadsheet",
+      "sourceRoot": "e2e/mat-table-spreadsheet/src",
+      "prefix": "ngworker",
+      "targets": {
+        "build": {
+          "executor": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/e2e/mat-table-spreadsheet",
+            "index": "e2e/mat-table-spreadsheet/src/index.html",
+            "main": "e2e/mat-table-spreadsheet/src/main.ts",
+            "polyfills": "e2e/mat-table-spreadsheet/src/polyfills.ts",
+            "tsConfig": "e2e/mat-table-spreadsheet/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "e2e/mat-table-spreadsheet/src/favicon.ico",
+              "e2e/mat-table-spreadsheet/src/assets"
+            ],
+            "styles": [
+              "e2e/mat-table-spreadsheet/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "e2e/mat-table-spreadsheet/src/environments/environment.ts",
+                  "with": "e2e/mat-table-spreadsheet/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "mat-table-spreadsheet:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "mat-table-spreadsheet:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "executor": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "mat-table-spreadsheet:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "e2e/mat-table-spreadsheet/src/**/*.ts",
+              "e2e/mat-table-spreadsheet/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/e2e/mat-table-spreadsheet"
+          ],
+          "options": {
+            "jestConfig": "e2e/mat-table-spreadsheet/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "mat-table-spreadsheet-e2e": {
+      "root": "e2e/mat-table-spreadsheet-e2e",
+      "sourceRoot": "e2e/mat-table-spreadsheet-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "e2e/mat-table-spreadsheet-e2e/cypress.json",
+            "tsConfig": "e2e/mat-table-spreadsheet-e2e/tsconfig.e2e.json",
+            "devServerTarget": "mat-table-spreadsheet:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "mat-table-spreadsheet:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "e2e/mat-table-spreadsheet-e2e/**/*.{js,ts}"
+            ]
           }
         }
       }

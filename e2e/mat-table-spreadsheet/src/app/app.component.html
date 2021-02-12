@@ -1,0 +1,141 @@
+<mat-sidenav-container>
+  <mat-sidenav #sidenav></mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar class="mat-elevation-z5" color="primary">
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>My App</span>
+      <span class="spacer"></span>
+      <button mat-icon-button>
+        <mat-icon>favorite</mat-icon>
+      </button>
+      <button mat-icon-button>
+        <mat-icon>share</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <mat-table cdkSpreadsheet mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="position">
+        <mat-header-cell cdkColumnDrag *matHeaderCellDef>
+          <div class="mat-header-inner">
+            <div style="user-select: none">Number</div>
+            <mat-icon cdkDragHandle>drag_handle</mat-icon>
+          </div>
+          <div
+            style="background-color: gray; width: 149px; height: 56px"
+            *cdkDragPlaceholder
+          ></div>
+        </mat-header-cell>
+        <mat-cell
+          (matCellChanged)="matCellChanged($event)"
+          [matCellEdit]="element"
+          *matCellDef="let element"
+        >
+          {{ element.position }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <mat-header-cell cdkColumnDrag *matHeaderCellDef>
+          <div class="mat-header-inner">
+            <div style="user-select: none">Name</div>
+            <mat-icon cdkDragHandle>drag_handle</mat-icon>
+          </div>
+          <div
+            style="background-color: gray; width: 149px; height: 56px"
+            *cdkDragPlaceholder
+          ></div>
+        </mat-header-cell>
+        <mat-cell
+          (matCellClick)="matCellClicked($event)"
+          (matCellChanged)="matCellChanged($event)"
+          [matCellEdit]="element"
+          *matCellDef="let element"
+        >
+          {{ element.name }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="check">
+        <mat-header-cell cdkColumnDrag *matHeaderCellDef>
+          <div class="mat-header-inner">
+            <div style="user-select: none">Check</div>
+            <mat-icon cdkDragHandle>drag_handle</mat-icon>
+          </div>
+          <div
+            style="background-color: gray; width: 149px; height: 56px"
+            *cdkDragPlaceholder
+          ></div>
+        </mat-header-cell>
+        <mat-cell
+          (matCellChanged)="matCellChanged($event)"
+          [matCellEdit]="element"
+          *matCellDef="let element"
+        >
+          {{ element.check }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="check1">
+        <mat-header-cell cdkColumnDrag *matHeaderCellDef>
+          <div class="mat-header-inner">
+            <div style="user-select: none">Check1</div>
+            <mat-icon cdkDragHandle>drag_handle</mat-icon>
+          </div>
+          <div
+            style="background-color: gray; width: 149px; height: 56px"
+            *cdkDragPlaceholder
+          ></div>
+        </mat-header-cell>
+        <mat-cell
+          (matCellChanged)="matCellChanged($event)"
+          [matCellEdit]="element"
+          *matCellDef="let element"
+        >
+          1
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="check2">
+        <mat-header-cell cdkColumnDrag *matHeaderCellDef>
+          <div class="mat-header-inner">
+            <div style="user-select: none">Check2</div>
+            <mat-icon cdkDragHandle>drag_handle</mat-icon>
+          </div>
+          <div
+            style="background-color: gray; width: 149px; height: 56px"
+            *cdkDragPlaceholder
+          ></div>
+        </mat-header-cell>
+        <mat-cell
+          (matCellChanged)="matCellChanged($event)"
+          [matCellEdit]="element"
+          *matCellDef="let element"
+        >
+          2
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="check3">
+        <mat-header-cell cdkColumnDrag *matHeaderCellDef>
+          <div class="mat-header-inner">
+            <div style="user-select: none">Check3</div>
+            <mat-icon cdkDragHandle>drag_handle</mat-icon>
+          </div>
+          <div
+            style="background-color: gray; width: 149px; height: 56px"
+            *cdkDragPlaceholder
+          ></div>
+        </mat-header-cell>
+        <mat-cell
+          (matCellChanged)="matCellChanged($event)"
+          [matCellEdit]="element"
+          *matCellDef="let element"
+        >
+          3
+        </mat-cell>
+      </ng-container>
+      <mat-header-row
+        mat-header-row
+        *matHeaderRowDef="columns"
+      ></mat-header-row>
+      <mat-row *matRowDef="let row; columns: columns"></mat-row>
+    </mat-table>
+  </mat-sidenav-content>
+</mat-sidenav-container>

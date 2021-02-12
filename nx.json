@@ -1,14 +1,9 @@
 {
   "npmScope": "ngworker",
-  "affected": {
-    "defaultBase": "main"
-  },
+  "affected": { "defaultBase": "main" },
   "implicitDependencies": {
     "workspace.json": "*",
-    "package.json": {
-      "dependencies": "*",
-      "devDependencies": "*"
-    },
+    "package.json": { "dependencies": "*", "devDependencies": "*" },
     "tsconfig.base.json": "*",
     ".eslintrc.json": "*",
     "nx.json": "*"
@@ -24,22 +19,16 @@
       }
     }
   },
-  "workspaceLayout": {
-    "appsDir": "e2e",
-    "libsDir": "packages"
-  },
+  "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" },
   "projects": {
-    "spectacular": {
-      "tags": ["platform:node", "type:package"]
-    },
-    "workspace-tools": {
-      "tags": ["platform:node", "type:tool"]
-    },
-    "material": {
-      "tags": []
-    },
-    "cdk": {
-      "tags": []
+    "spectacular": { "tags": ["platform:node", "type:package"] },
+    "workspace-tools": { "tags": ["platform:node", "type:tool"] },
+    "material": { "tags": [] },
+    "cdk": { "tags": [] },
+    "mat-table-spreadsheet": { "tags": [] },
+    "mat-table-spreadsheet-e2e": {
+      "tags": [],
+      "implicitDependencies": ["mat-table-spreadsheet"]
     }
   }
 }

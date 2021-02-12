@@ -1,1 +1,1 @@
-export * from './lib/material.module';
+export * from './lib/mat-table.plugin.module';
