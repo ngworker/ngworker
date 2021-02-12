@@ -7,8 +7,8 @@ import { trimLeadingText } from '../util-text/trim-leading-text';
 import { relativeFeatureUrlPrefix } from './relative-feature-url-prefix';
 
 /**
- * A subset of Angular's `Location` API adjusted to the Angular feature module
- * under test.
+ * A subset of Angular's `Location` service adjusted to the Angular feature
+ * module under test.
  */
 @Injectable({
   providedIn: 'root',
