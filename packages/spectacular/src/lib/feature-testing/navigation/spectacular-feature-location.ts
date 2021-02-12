@@ -37,6 +37,9 @@ export class SpectacularFeatureLocation {
       return path;
     }
 
-    return ensureLeadingCharacter(relativeFeatureUrlPrefix, strippedPath);
+    return ensureLeadingCharacter(
+      relativeFeatureUrlPrefix,
+      ensureLeadingCharacter('/', strippedPath)
+    );
   }
 }

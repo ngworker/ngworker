@@ -95,7 +95,7 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
           });
 
           it('adds matrix parameters', () => {
-            expect(harness.location.path()).toBe(`~;id=${aCrisis.id};foo=foo`);
+            expect(harness.location.path()).toBe(`~/;id=${aCrisis.id};foo=foo`);
           });
         });
 

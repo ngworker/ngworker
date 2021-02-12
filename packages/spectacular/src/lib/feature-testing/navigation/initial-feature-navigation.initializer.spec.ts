@@ -33,7 +33,7 @@ describe('initialFeatureNavigationInitializer', () => {
 
     const location = TestBed.inject(SpectacularFeatureLocation);
 
-    expect(location.path()).toBe('~');
+    expect(location.path()).toBe('~/');
   });
 
   it('fails when the specified feature route has not been registered', () => {
