@@ -1,7 +1,8 @@
-import { fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
 import { SpectacularAppComponent } from '../../application-testing/app-component/spectacular-app.component';
 import { SpectacularFeatureTestingModule } from '../feature-testing-module/spectacular-feature-testing.module';
+import { initialFeatureNavigationInitializer } from '../navigation/initial-feature-navigation.initializer';
 import { SpectacularFeatureLocation } from '../navigation/spectacular-feature-location';
 import { SpectacularFeatureRouter } from '../navigation/spectacular-feature-router';
 import { SpectacularCreateFeatureHarnessOptions } from './spectacular-create-feature-harness-options';
@@ -23,7 +24,7 @@ export function createFeatureHarness<TFeatureModule>({
         routerOptions,
       }),
     ],
-    providers,
+    providers: [...providers, initialFeatureNavigationInitializer],
   });
   // NOTE(LayZeeDK): We might want to convert this to an asynchronous function
   //   to support non-Angular CLI setups. Some of them might not be able to
@@ -33,14 +34,8 @@ export function createFeatureHarness<TFeatureModule>({
   const rootFixture = TestBed.createComponent(SpectacularAppComponent);
   const location = TestBed.inject(SpectacularFeatureLocation);
   const router = TestBed.inject(SpectacularFeatureRouter);
-  // fakeAsync is used to keep this function synchronous
-  const initialNavigation = fakeAsync(() => {
-    router.navigate([featurePath]);
-    tick();
-  });
 
   rootFixture.autoDetectChanges(true);
-  initialNavigation();
 
   return {
     inject: TestBed.inject.bind(TestBed),
