@@ -16,7 +16,7 @@ import { SpectacularApplicationHarness } from './spectacular-application-harness
 export function createApplicationHarness({
   imports = [],
   providers = [],
-}: CreateApplicationHarnessOptions): SpectacularApplicationHarness {
+}: CreateApplicationHarnessOptions = {}): SpectacularApplicationHarness {
   TestBed.configureTestingModule({
     imports: [RouterTestingModule, ...imports, SpectacularAppModule],
     providers: [...providers],

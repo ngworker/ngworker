@@ -1,5 +1,6 @@
-import { APP_BOOTSTRAP_LISTENER, APP_INITIALIZER, FactoryProvider, NgModule } from '@angular/core';
+import { APP_BOOTSTRAP_LISTENER, APP_INITIALIZER, FactoryProvider, Injectable, NgModule } from '@angular/core';
 
+import { SpectacularAppComponent } from '../app-component/spectacular-app.component';
 import { createApplicationHarness } from './create-application-harness';
 
 let bootstrapped = false;
@@ -84,6 +85,42 @@ describe(createApplicationHarness.name, () => {
       });
 
       expect(initialized).toBe(true);
+    });
+  });
+
+  describe('Configuration', () => {
+    @Injectable()
+    class AdminService {}
+
+    @NgModule({
+      providers: [AdminService],
+    })
+    class AdminServiceModule {}
+
+    it('adds the specified imports', () => {
+      const harness = createApplicationHarness({
+        imports: [AdminServiceModule],
+      });
+
+      const jobService = harness.inject(AdminService);
+      expect(jobService).toBeInstanceOf(AdminService);
+    });
+
+    it('adds the specified providers', () => {
+      const harness = createApplicationHarness({
+        providers: [AdminService],
+      });
+
+      const jobService = harness.inject(AdminService);
+      expect(jobService).toBeInstanceOf(AdminService);
+    });
+  });
+
+  describe('Bootstrapping', () => {
+    it(`bootstraps ${SpectacularAppComponent.name}`, () => {
+      const harness = createApplicationHarness();
+
+      expect(harness.rootComponent).toBeInstanceOf(SpectacularAppComponent);
     });
   });
 });
