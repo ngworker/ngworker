@@ -5,7 +5,7 @@ import { SpectacularFeatureTestingModule } from '../feature-testing-module/spect
 import { initialFeatureNavigationInitializer } from '../navigation/initial-feature-navigation.initializer';
 import { SpectacularFeatureLocation } from '../navigation/spectacular-feature-location';
 import { SpectacularFeatureRouter } from '../navigation/spectacular-feature-router';
-import { SpectacularCreateFeatureHarnessOptions } from './spectacular-create-feature-harness-options';
+import { SpectacularCreateFeatureHarnessOptions } from './create-feature-harness-options';
 import { SpectacularFeatureHarness } from './spectacular-feature-harness';
 
 export function createFeatureHarness<TFeatureModule>({

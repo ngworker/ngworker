@@ -7,7 +7,7 @@ export * from './lib/application-testing/app-component/spectacular-app.component
 // Feature testing API
 //   Feature harness
 export * from './lib/feature-testing/feature-harness/create-feature-harness';
-export * from './lib/feature-testing/feature-harness/spectacular-create-feature-harness-options';
+export * from './lib/feature-testing/feature-harness/create-feature-harness-options';
 export * from './lib/feature-testing/feature-harness/spectacular-feature-harness';
 //   Feature testing module
 export * from './lib/feature-testing/feature-testing-module/spectacular-feature-testing-module-options';
