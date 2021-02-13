@@ -13,7 +13,7 @@
 | `bootstrapSpectacularApplication`        | Side effect                                   | Bootstrap a test application with the specified metadata. Useful to test configuration Angular modules, bootstrap listeners, and application initializers. |
 | `BootstrapspectacularApplicationOptions` | Options for `bootstrapSpectacularApplication` | Spectacular application options.                                                                                                                           |
 | `SpectacularAppComponent`                | Bootstrapped component                        | A root component for testing.                                                                                                                              |
-| `spectacularAppTagName`                  | String                                        | The tag name for `SpectacularAppComponent`s DOM element.                                                                                                   |
+| `spectacularAppTag`                      | String                                        | The tag name for `SpectacularAppComponent`s DOM element.                                                                                                   |
 
 ### Feature testing
 

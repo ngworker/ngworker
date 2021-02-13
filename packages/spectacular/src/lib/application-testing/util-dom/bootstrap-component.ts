@@ -7,15 +7,15 @@ import { ensureFreshRootElement } from './ensure-fresh-root-element';
  * Create and attach a root element with the specified tag name to the DOM, then
  * bootstrap a component of the specified type.
  *
- * @param rootElementTagName The tag name of the root element.
- * @param rootComponentType The root component type.
+ * @param rootTag The tag name of the root element.
+ * @param rootComponent The root component type.
  */
 export function bootstrapComponent(
-  rootElementTagName: string,
-  rootComponentType: Type<unknown>
+  rootTag: string,
+  rootComponent: Type<unknown>
 ): void {
   const application = TestBed.inject(ApplicationRef);
 
-  ensureFreshRootElement(rootElementTagName);
-  application.bootstrap(rootComponentType);
+  ensureFreshRootElement(rootTag);
+  application.bootstrap(rootComponent);
 }

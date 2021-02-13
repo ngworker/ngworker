@@ -1,10 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import {
-  SpectacularAppComponent,
-  spectacularAppTagName,
-} from '../app-component/spectacular-app.component';
+import { SpectacularAppComponent, spectacularAppTag } from '../app-component/spectacular-app.component';
 import { SpectacularAppModule } from '../app-component/spectacular-app.module';
 import { bootstrapComponent } from '../util-dom/bootstrap-component';
 import { BootstrapSpectacularApplicationOptions } from './bootstrap-spectacular-application-options';
@@ -25,5 +22,7 @@ export function bootstrapSpectacularApplication({
     imports: [RouterTestingModule, ...imports, SpectacularAppModule],
     providers: [...providers],
   });
-  bootstrapComponent(spectacularAppTagName, SpectacularAppComponent);
+
+  TestBed.compileComponents();
+  bootstrapComponent(spectacularAppTag, SpectacularAppComponent);
 }
