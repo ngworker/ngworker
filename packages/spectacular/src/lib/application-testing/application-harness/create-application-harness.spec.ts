@@ -1,6 +1,6 @@
 import { APP_BOOTSTRAP_LISTENER, APP_INITIALIZER, FactoryProvider, NgModule } from '@angular/core';
 
-import { bootstrapSpectacularApplication } from './create-application-harness';
+import { createApplicationHarness } from './create-application-harness';
 
 let bootstrapped = false;
 let initialized = false;
@@ -31,7 +31,7 @@ class BootstrapListenerModule {}
 })
 class InitializerModule {}
 
-describe(bootstrapSpectacularApplication.name, () => {
+describe(createApplicationHarness.name, () => {
   beforeEach(() => {
     bootstrapped = false;
     initialized = false;
@@ -53,7 +53,7 @@ describe(bootstrapSpectacularApplication.name, () => {
 
   describe('Bootstrap listeners', () => {
     it('registers and runs the specified bootstrap listener', () => {
-      bootstrapSpectacularApplication({
+      createApplicationHarness({
         providers: [bootstrapListener],
       });
 
@@ -61,7 +61,7 @@ describe(bootstrapSpectacularApplication.name, () => {
     });
 
     it('registers the specified bootstrap listener Angular module', () => {
-      bootstrapSpectacularApplication({
+      createApplicationHarness({
         imports: [BootstrapListenerModule],
       });
 
@@ -71,7 +71,7 @@ describe(bootstrapSpectacularApplication.name, () => {
 
   describe('Initializers', () => {
     it('registers and runs the specified initializer', () => {
-      bootstrapSpectacularApplication({
+      createApplicationHarness({
         providers: [applicationInitializer],
       });
 
@@ -79,7 +79,7 @@ describe(bootstrapSpectacularApplication.name, () => {
     });
 
     it('registers the specified initializer Angular module', () => {
-      bootstrapSpectacularApplication({
+      createApplicationHarness({
         imports: [InitializerModule],
       });
 

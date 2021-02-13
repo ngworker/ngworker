@@ -16,7 +16,7 @@ import { SpectacularApplicationHarness } from './spectacular-application-harness
  * @param testModuleMetadata Metadata registered with the Angular testing
  *   module.
  */
-export function bootstrapSpectacularApplication({
+export function createApplicationHarness({
   imports = [],
   providers = [],
 }: BootstrapSpectacularApplicationOptions): SpectacularApplicationHarness {
