@@ -1,7 +1,7 @@
 import { ApplicationRef, Type } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 
-import { ensureRootElement } from './ensure-root-element';
+import { ensureFreshRootElement } from './ensure-fresh-root-element';
 
 /**
  * Create and attach a root element with the specified tag name to the DOM, then
@@ -15,6 +15,7 @@ export function bootstrapComponent(
   rootComponentType: Type<unknown>
 ): void {
   const application = TestBed.inject(ApplicationRef);
-  ensureRootElement(rootElementTagName);
+
+  ensureFreshRootElement(rootElementTagName);
   application.bootstrap(rootComponentType);
 }
