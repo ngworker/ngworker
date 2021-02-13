@@ -1,7 +1,7 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { SpectacularAppScam } from '../../application-testing/app-component/spectacular-app.scam';
+import { SpectacularAppScam } from '../../shared/app-component/spectacular-app.scam';
 
 /**
  * Static dependencies for feature testing.

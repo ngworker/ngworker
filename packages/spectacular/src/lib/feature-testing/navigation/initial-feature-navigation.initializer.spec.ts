@@ -3,9 +3,9 @@ import { TestBed } from '@angular/core/testing';
 import { Resolve } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { SpectacularAppComponent } from '../../application-testing/app-component/spectacular-app.component';
-import { SpectacularAppScam } from '../../application-testing/app-component/spectacular-app.scam';
 import { createApplicationHarness } from '../../application-testing/application-harness/create-application-harness';
+import { SpectacularAppComponent } from '../../shared/app-component/spectacular-app.component';
+import { SpectacularAppScam } from '../../shared/app-component/spectacular-app.scam';
 import { featurePathToken } from '../configuration/feature-path.token';
 import { initialFeatureNavigationInitializer } from './initial-feature-navigation.initializer';
 import { SpectacularFeatureLocation } from './spectacular-feature-location';

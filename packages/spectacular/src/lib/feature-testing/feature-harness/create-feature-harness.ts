@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SpectacularAppComponent } from '../../application-testing/app-component/spectacular-app.component';
+import { SpectacularAppComponent } from '../../shared/app-component/spectacular-app.component';
 import { SpectacularFeatureTestingModule } from '../feature-testing-module/spectacular-feature-testing.module';
 import { initialFeatureNavigationInitializer } from '../navigation/initial-feature-navigation.initializer';
 import { SpectacularFeatureLocation } from '../navigation/spectacular-feature-location';

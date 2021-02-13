@@ -1,7 +1,7 @@
 import { AbstractType, InjectFlags, InjectionToken, Type } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
 
-import { SpectacularAppComponent } from '../../application-testing/app-component/spectacular-app.component';
+import { SpectacularAppComponent } from '../../shared/app-component/spectacular-app.component';
 
 /**
  * A harness for testing application-level software artifacts.
