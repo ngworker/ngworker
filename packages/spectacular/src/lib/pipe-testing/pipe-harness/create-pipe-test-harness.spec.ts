@@ -1,6 +1,6 @@
 import { CurrencyPipe, DatePipe, DecimalPipe, PercentPipe } from '@angular/common';
 
-import { createCommonPipeTestHarness } from '../test-util/create-common-pipe-test-harness';
+import { createCommonPipeHarness } from '../test-util/create-common-pipe-test-harness';
 import { createPipeTestHarness } from './create-pipe-test-harness';
 
 describe(createPipeTestHarness.name, () => {
@@ -10,7 +10,7 @@ describe(createPipeTestHarness.name, () => {
       setTemplate,
       setValue,
       testCaseSetup,
-    } = createCommonPipeTestHarness({
+    } = createCommonPipeHarness({
       template: `{{ value | number:'1.1' }}`,
       value: 123456789,
     });
@@ -42,7 +42,7 @@ describe(createPipeTestHarness.name, () => {
       setTemplate,
       setValue,
       testCaseSetup,
-    } = createCommonPipeTestHarness({
+    } = createCommonPipeHarness({
       template: `{{ value | currency }}`,
       value: 1234.56,
     });
@@ -74,7 +74,7 @@ describe(createPipeTestHarness.name, () => {
       setTemplate,
       setValue,
       testCaseSetup,
-    } = createCommonPipeTestHarness({
+    } = createCommonPipeHarness({
       template: `{{ value | percent:'4.3-5' }}`,
       value: 1.3495,
     });
@@ -106,7 +106,7 @@ describe(createPipeTestHarness.name, () => {
       setTemplate,
       setValue,
       testCaseSetup,
-    } = createCommonPipeTestHarness({
+    } = createCommonPipeHarness({
       template: `{{ value | date:'medium':'UTC' }}`,
       value: new Date('2021-07-07T17:00:00Z'),
     });

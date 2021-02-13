@@ -7,7 +7,7 @@ import { PassthroughPipe, passthroughPipeName } from './passthrough.pipe';
  * Wraps `createPipeTestHarness` and allows the consumer to test the built-in
  * Angular pipes exported by `CommonModule`.
  */
-export function createCommonPipeTestHarness<TValue>({
+export function createCommonPipeHarness<TValue>({
   template,
   value,
 }: CreateCommonPipeHarnessOptions<TValue>): SpectacularPipeHarness<TValue> {
