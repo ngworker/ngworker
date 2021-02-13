@@ -4,7 +4,7 @@ import { ExtraOptions } from '@angular/router';
 /**
  * Feature test harness options.
  */
-export interface SpectacularCreateFeatureHarnessOptions<TFeatureModule>
+export interface CreateFeatureHarnessOptions<TFeatureModule>
   extends Pick<NgModule, 'imports' | 'providers'> {
   /**
    * The Angular feature module under test, for example `HeroesModule`.
