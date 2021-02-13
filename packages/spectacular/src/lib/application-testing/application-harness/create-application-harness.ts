@@ -5,7 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { SpectacularAppComponent, spectacularAppTag } from '../app-component/spectacular-app.component';
 import { SpectacularAppModule } from '../app-component/spectacular-app.module';
 import { bootstrapComponent } from '../util-bootstrapping/bootstrap-component';
-import { BootstrapSpectacularApplicationOptions } from './create-application-harness-options';
+import { CreateApplicationHarnessOptions } from './create-application-harness-options';
 import { SpectacularApplicationHarness } from './spectacular-application-harness';
 
 /**
@@ -16,7 +16,7 @@ import { SpectacularApplicationHarness } from './spectacular-application-harness
 export function createApplicationHarness({
   imports = [],
   providers = [],
-}: BootstrapSpectacularApplicationOptions): SpectacularApplicationHarness {
+}: CreateApplicationHarnessOptions): SpectacularApplicationHarness {
   TestBed.configureTestingModule({
     imports: [RouterTestingModule, ...imports, SpectacularAppModule],
     providers: [...providers],

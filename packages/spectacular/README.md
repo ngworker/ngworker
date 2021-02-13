@@ -8,12 +8,13 @@
 
 ### Public API
 
-| Export name                              | Kind                                          | Description                                                                                                                                                |
-| ---------------------------------------- | --------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `bootstrapSpectacularApplication`        | Side effect                                   | Bootstrap a test application with the specified metadata. Useful to test configuration Angular modules, bootstrap listeners, and application initializers. |
-| `BootstrapspectacularApplicationOptions` | Options for `bootstrapSpectacularApplication` | Spectacular application options.                                                                                                                           |
-| `SpectacularAppComponent`                | Bootstrapped component                        | A root component for testing.                                                                                                                              |
-| `spectacularAppTag`                      | String                                        | The tag name for `SpectacularAppComponent`s DOM element.                                                                                                   |
+| Export name                       | Kind                                        | Description                                                                                                                                                       |
+| --------------------------------- | ------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `createApplicationHarness`        | Factory for `SpectacularApplicationHarness` | Bootstrap a Spectacular application with the specified metadata. Useful to test configuration Angular modules, bootstrap listeners, and application initializers. |
+| `CreateApplicationHarnessOptions` | Options for `createApplicationHarness`      | Application harness options.                                                                                                                                      |
+| `SpectacularAppComponent`         | Bootstrapped component                      | A root component for testing.                                                                                                                                     |
+| `SpectacularApplicationHarness`   | Interface                                   | Application harness data structure.                                                                                                                               |
+| `spectacularAppTag`               | String                                      | The tag name for `SpectacularAppComponent`s DOM element.                                                                                                          |
 
 ### Feature testing
 
