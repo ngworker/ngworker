@@ -15,10 +15,10 @@ export * from './lib/feature-testing/feature-testing-module/spectacular-feature-
 export * from './lib/feature-testing/navigation/spectacular-feature-location';
 export * from './lib/feature-testing/navigation/spectacular-feature-router';
 
-// Pipe test harness
-export * from './lib/pipe-test-harness/create-pipe-test-harness';
-export * from './lib/pipe-test-harness/create-pipe-test-harness-options';
-export * from './lib/pipe-test-harness/pipe-test-harness';
+// Pipe testing API
+export * from './lib/pipe-testing/create-pipe-test-harness';
+export * from './lib/pipe-testing/create-pipe-test-harness-options';
+export * from './lib/pipe-testing/pipe-test-harness';
 
 // Shared testing API
 export * from './lib/shared/app-component/spectacular-app.component';
