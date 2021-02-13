@@ -12,7 +12,7 @@ const textId = '__SPECTACULAR_PIPE_TEST_TEXT__';
  * Create a test harness for the specified Angular pipe. Test it by updating the
  * value and reading the rendered test.
  */
-export function createPipeTestHarness<TValue>({
+export function createPipeHarness<TValue>({
   declarations = [],
   imports = [],
   pipeType,
