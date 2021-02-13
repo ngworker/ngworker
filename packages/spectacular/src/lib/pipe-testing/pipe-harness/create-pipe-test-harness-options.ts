@@ -5,7 +5,7 @@ import type { Observable } from 'rxjs';
 /**
  * Angular pipe test harness options.
  */
-export interface CreatePipeTestHarnessOptions<TValue>
+export interface CreatePipeHarnessOptions<TValue>
   extends Pick<NgModule, 'declarations' | 'imports' | 'providers'> {
   /**
    * The name of the Angular pipe-under-test, for example `camelize`.
