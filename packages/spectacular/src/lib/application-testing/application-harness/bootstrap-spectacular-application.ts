@@ -4,7 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { SpectacularAppComponent, spectacularAppTag } from '../app-component/spectacular-app.component';
 import { SpectacularAppModule } from '../app-component/spectacular-app.module';
-import { bootstrapComponent } from '../util-dom/bootstrap-component';
+import { bootstrapComponent } from '../util-bootstrapping/bootstrap-component';
 import { BootstrapSpectacularApplicationOptions } from './bootstrap-spectacular-application-options';
 
 /**

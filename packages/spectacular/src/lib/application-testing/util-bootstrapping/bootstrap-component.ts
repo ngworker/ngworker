@@ -1,8 +1,8 @@
 import { ApplicationRef } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { ensureFreshRootElement } from '../util-dom/ensure-fresh-root-element';
 import { BootstrapComponentOptions } from './bootstrap-component-options';
-import { ensureFreshRootElement } from './ensure-fresh-root-element';
 
 /**
  * Create and attach a root element with the specified tag name to the DOM, then
