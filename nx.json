@@ -18,7 +18,12 @@
       "runner": "@nrwl/nx-cloud",
       "options": {
         "accessToken": "ZTViM2YyNGQtNjk2My00YmFjLWJlYmQtZjIwMzJhMmIxNGMwfHJlYWQtd3JpdGU=",
-        "cacheableOperations": ["build", "e2e", "lint", "test"],
+        "cacheableOperations": [
+          "build",
+          "e2e",
+          "lint",
+          "test"
+        ],
         "canTrackAnalytics": false,
         "showUsageWarnings": true
       }
@@ -29,11 +34,27 @@
     "libsDir": "packages"
   },
   "projects": {
+    "examples-tour-of-heroes-crisis-center": {
+      "tags": [
+        "scope:internal",
+        "type:feature"
+      ]
+    },
+    "internal-test-util": {
+      "tags": [
+        "scope:internal",
+        "type:test-util"
+      ]
+    },
     "spectacular": {
-      "tags": ["platform:node", "type:package"]
+      "tags": [
+        "type:package"
+      ]
     },
     "workspace-tools": {
-      "tags": ["platform:node", "type:tool"]
+      "tags": [
+        "type:tool"
+      ]
     }
   }
 }

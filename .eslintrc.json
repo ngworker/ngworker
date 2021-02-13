@@ -13,17 +13,6 @@
             "allow": [],
             "depConstraints": [
               {
-                "sourceTag": "platform:isomorphic",
-                "onlyDependOnLibsWithTags": ["platform:isomorphic"]
-              },
-              {
-                "sourceTag": "platform:node",
-                "onlyDependOnLibsWithTags": [
-                  "platform:isomorphic",
-                  "platform:node"
-                ]
-              },
-              {
                 "sourceTag": "scope:internal",
                 "onlyDependOnLibsWithTags": ["scope:internal"]
               },
@@ -34,6 +23,10 @@
               {
                 "sourceTag": "type:e2e-util",
                 "onlyDependOnLibsWithTags": ["type:e2e-util"]
+              },
+              {
+                "sourceTag": "type:package",
+                "onlyDependOnLibsWithTags": ["scope:internal"]
               },
               {
                 "sourceTag": "type:tool",
