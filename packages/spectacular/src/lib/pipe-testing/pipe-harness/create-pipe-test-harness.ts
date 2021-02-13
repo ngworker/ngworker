@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { TestPipeComponent } from '../test-pipe/spectacular-pipe.component';
+import { SpectacularPipeComponent } from '../test-pipe/spectacular-pipe.component';
 import { CreatePipeTestHarnessOptions } from './create-pipe-test-harness-options';
 import { SpectacularPipeHarness } from './spectacular-pipe-harness';
 
@@ -23,25 +23,25 @@ export function createPipeTestHarness<TValue>({
 }: CreatePipeTestHarnessOptions<TValue>): SpectacularPipeHarness<TValue> {
   function testCaseSetup(templateOverride?: string): void {
     TestBed.configureTestingModule({
-      declarations: [pipeType, ...declarations, TestPipeComponent],
+      declarations: [pipeType, ...declarations, SpectacularPipeComponent],
       imports,
       providers,
     }).compileComponents();
     TestBed.overrideTemplate(
-      TestPipeComponent,
+      SpectacularPipeComponent,
       `<span id="${textId}">${templateOverride ?? template}</span>`
     );
 
     pipeFixture = TestBed.createComponent(
-      TestPipeComponent
-    ) as ComponentFixture<TestPipeComponent<TValue>>;
+      SpectacularPipeComponent
+    ) as ComponentFixture<SpectacularPipeComponent<TValue>>;
     pipeComponent = pipeFixture.componentInstance;
     pipeComponent.value = value;
     pipeFixture.detectChanges();
   }
 
-  let pipeComponent: TestPipeComponent<TValue>;
-  let pipeFixture: ComponentFixture<TestPipeComponent<TValue>>;
+  let pipeComponent: SpectacularPipeComponent<TValue>;
+  let pipeFixture: ComponentFixture<SpectacularPipeComponent<TValue>>;
 
   return {
     getText(): string {
