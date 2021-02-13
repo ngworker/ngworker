@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { SpectacularPipeComponent } from '../test-pipe/spectacular-pipe.component';
+import { SpectacularPipeComponent } from '../pipe-component/spectacular-pipe.component';
 import { CreatePipeTestHarnessOptions } from './create-pipe-test-harness-options';
 import { SpectacularPipeHarness } from './spectacular-pipe-harness';
 
