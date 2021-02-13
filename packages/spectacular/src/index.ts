@@ -18,7 +18,7 @@ export * from './lib/feature-testing/navigation/spectacular-feature-router';
 // Pipe testing API
 export * from './lib/pipe-testing/pipe-harness/create-pipe-test-harness';
 export * from './lib/pipe-testing/pipe-harness/create-pipe-test-harness-options';
-export * from './lib/pipe-testing/pipe-harness/pipe-test-harness';
+export * from './lib/pipe-testing/pipe-harness/spectacular-pipe-harness';
 
 // Shared testing API
 export * from './lib/shared/app-component/spectacular-app.component';
