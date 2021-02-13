@@ -4,7 +4,7 @@ import type { Observable } from 'rxjs';
  * A test harness for an Angular pipe. Includes an API to write a value and read
  * the rendered text.
  */
-export interface PipeTestHarness<TValue> {
+export interface SpectacularPipeHarness<TValue> {
   /**
    * Read the text rendered in the Angular pipe test template.
    */

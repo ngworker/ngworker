@@ -1,5 +1,5 @@
-import { createPipeTestHarness } from '../create-pipe-test-harness';
-import { PipeTestHarness } from '../pipe-test-harness';
+import { createPipeTestHarness } from '../pipe-harness/create-pipe-test-harness';
+import { SpectacularPipeHarness } from '../pipe-harness/spectacular-pipe-harness';
 import { CreateCommonPipeTestHarnessOptions } from './create-common-pipe-test-harness-options';
 import { PassthroughPipe, passthroughPipeName } from './passthrough.pipe';
 
@@ -10,7 +10,7 @@ import { PassthroughPipe, passthroughPipeName } from './passthrough.pipe';
 export function createCommonPipeTestHarness<TValue>({
   template,
   value,
-}: CreateCommonPipeTestHarnessOptions<TValue>): PipeTestHarness<TValue> {
+}: CreateCommonPipeTestHarnessOptions<TValue>): SpectacularPipeHarness<TValue> {
   return createPipeTestHarness({
     pipeName: passthroughPipeName,
     pipeType: PassthroughPipe,

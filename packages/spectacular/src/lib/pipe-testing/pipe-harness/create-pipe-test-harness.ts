@@ -1,9 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
+import { TestPipeComponent } from '../test-pipe/test-pipe.component';
 import { CreatePipeTestHarnessOptions } from './create-pipe-test-harness-options';
-import { PipeTestHarness } from './pipe-test-harness';
-import { TestPipeComponent } from './test-pipe/test-pipe.component';
+import { SpectacularPipeHarness } from './spectacular-pipe-harness';
 
 import type { Observable } from 'rxjs';
 const textId = '__SPECTACULAR_PIPE_TEST_TEXT__';
@@ -20,7 +20,7 @@ export function createPipeTestHarness<TValue>({
   providers = [],
   template = `{{ value | ${pipeName} }}`,
   value,
-}: CreatePipeTestHarnessOptions<TValue>): PipeTestHarness<TValue> {
+}: CreatePipeTestHarnessOptions<TValue>): SpectacularPipeHarness<TValue> {
   function testCaseSetup(templateOverride?: string): void {
     TestBed.configureTestingModule({
       declarations: [pipeType, ...declarations, TestPipeComponent],
