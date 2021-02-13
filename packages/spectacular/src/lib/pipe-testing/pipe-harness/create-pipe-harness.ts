@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { SpectacularPipeComponent } from '../pipe-component/spectacular-pipe.component';
-import { CreatePipeHarnessOptions } from './create-pipe-test-harness-options';
+import { CreatePipeHarnessOptions } from './create-pipe-harness-options';
 import { SpectacularPipeHarness } from './spectacular-pipe-harness';
 
 import type { Observable } from 'rxjs';

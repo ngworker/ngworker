@@ -1,4 +1,4 @@
-import { createPipeHarness } from '../pipe-harness/create-pipe-test-harness';
+import { createPipeHarness } from '../pipe-harness/create-pipe-harness';
 import { SpectacularPipeHarness } from '../pipe-harness/spectacular-pipe-harness';
 import { CreateCommonPipeHarnessOptions } from './create-common-pipe-harness-options';
 import { PassthroughPipe, passthroughPipeName } from './passthrough.pipe';
