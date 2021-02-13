@@ -1,11 +1,6 @@
-import {
-  APP_BOOTSTRAP_LISTENER,
-  APP_INITIALIZER,
-  FactoryProvider,
-  NgModule,
-} from '@angular/core';
+import { APP_BOOTSTRAP_LISTENER, APP_INITIALIZER, FactoryProvider, NgModule } from '@angular/core';
 
-import { bootstrapSpectacularApplication } from './bootstrap-spectacular-application';
+import { bootstrapSpectacularApplication } from './create-application-harness';
 
 let bootstrapped = false;
 let initialized = false;

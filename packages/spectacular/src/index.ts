@@ -1,6 +1,6 @@
 // Application testing API
-export * from './lib/application-testing/application-harness/bootstrap-spectacular-application';
 export * from './lib/application-testing/application-harness/bootstrap-spectacular-application-options';
+export * from './lib/application-testing/application-harness/create-application-harness';
 export * from './lib/application-testing/application-harness/spectacular-application-harness';
 export * from './lib/application-testing/app-component/spectacular-app.component';
 
