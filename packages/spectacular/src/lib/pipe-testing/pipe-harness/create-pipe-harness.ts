@@ -31,7 +31,7 @@ function createPipeFixture<TValue>(
 export function createPipeHarness<TValue>({
   declarations = [],
   imports = [],
-  pipeType,
+  pipe,
   pipeName,
   providers = [],
   template = `{{ value | ${pipeName} }}`,
@@ -39,7 +39,7 @@ export function createPipeHarness<TValue>({
 }: CreatePipeHarnessOptions<TValue>): SpectacularPipeHarness<TValue> {
   function configureTestbed(template: string): void | never {
     TestBed.configureTestingModule({
-      declarations: [pipeType, ...declarations, SpectacularPipeComponent],
+      declarations: [pipe, ...declarations, SpectacularPipeComponent],
       imports: [...imports],
       providers: [...providers],
     });

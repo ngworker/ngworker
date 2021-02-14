@@ -13,7 +13,7 @@ export function createCommonPipeHarness<TValue>({
 }: CreateCommonPipeHarnessOptions<TValue>): SpectacularPipeHarness<TValue> {
   return createPipeHarness({
     pipeName: passthroughPipeName,
-    pipeType: PassthroughPipe,
+    pipe: PassthroughPipe,
     value,
     template,
   });

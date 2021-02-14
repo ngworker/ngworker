@@ -1,4 +1,4 @@
-import type { NgModule, Type } from '@angular/core';
+import type { NgModule, PipeTransform, Type } from '@angular/core';
 
 import type { Observable } from 'rxjs';
 
@@ -14,7 +14,7 @@ export interface CreatePipeHarnessOptions<TValue>
   /**
    * The type of the Angular pipe-under-test, for example `CamelizePipe`.
    */
-  readonly pipeType: Type<unknown>;
+  readonly pipe: Type<PipeTransform>;
   /**
    * The template used to test the Angular pipe, for example
    * `'{{ value | camelize }}'`.

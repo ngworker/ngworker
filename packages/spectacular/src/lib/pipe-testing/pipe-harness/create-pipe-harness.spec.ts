@@ -16,7 +16,7 @@ describe(createPipeHarness.name, () => {
     it('adds the specified imports', () => {
       const harness = createPipeHarness({
         imports: [PipeServiceModule],
-        pipeType: PassthroughPipe,
+        pipe: PassthroughPipe,
         pipeName: passthroughPipeName,
         value: null,
       });
@@ -28,7 +28,7 @@ describe(createPipeHarness.name, () => {
     it('adds the specified providers', () => {
       const harness = createPipeHarness({
         providers: [PipeService],
-        pipeType: PassthroughPipe,
+        pipe: PassthroughPipe,
         pipeName: passthroughPipeName,
         value: null,
       });
@@ -49,7 +49,7 @@ describe(createPipeHarness.name, () => {
 
       const harness = createPipeHarness({
         declarations: [RepeatPipe],
-        pipeType: PassthroughPipe,
+        pipe: PassthroughPipe,
         pipeName: passthroughPipeName,
         template: `{{ value | ${passthroughPipeName} | testRepeat:4 }}`,
         value: 'Boom',
