@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import type { Observable } from 'rxjs';
 
@@ -7,5 +7,6 @@ import type { Observable } from 'rxjs';
   template: '{{ value }}',
 })
 export class SpectacularPipeComponent<TValue> {
+  @Input()
   value: TValue | Observable<TValue> | null = null;
 }
