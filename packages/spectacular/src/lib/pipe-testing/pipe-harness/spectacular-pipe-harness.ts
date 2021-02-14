@@ -1,3 +1,5 @@
+import { AbstractType, InjectFlags, InjectionToken, Type } from '@angular/core';
+
 import type { Observable } from 'rxjs';
 
 /**
@@ -24,4 +26,26 @@ export abstract class SpectacularPipeHarness<TValue> {
    * @param value The new value.
    */
   abstract set value(value: TValue | Observable<TValue> | null);
+
+  /**
+   * Resolve a dependency based on the specified dependency injection token.
+   *
+   * @param token The token representing the dependency, that is a class or an
+   *   `InjectionToken`.
+   * @param notFoundValue The default value in case the specified dependency
+   *   has not been provided. Optional. Default is `null`.
+   * @param flags Dependency injection options, for example
+   *   `InjectFlags.Optional | InjectFlags.SkipSelf`. Optional. Default is
+   *   `InjectFlags.Default`.
+   */
+  abstract inject<T>(
+    token: Type<T> | InjectionToken<T> | AbstractType<T>,
+    notFoundValue?: T,
+    flags?: InjectFlags
+  ): T;
+  abstract inject<T>(
+    token: Type<T> | InjectionToken<T> | AbstractType<T>,
+    notFoundValue: null,
+    flags?: InjectFlags
+  ): T | null;
 }

@@ -40,8 +40,8 @@ export function createPipeHarness<TValue>({
   function configureTestbed(template: string): void | never {
     TestBed.configureTestingModule({
       declarations: [pipeType, ...declarations, SpectacularPipeComponent],
-      imports,
-      providers,
+      imports: [...imports],
+      providers: [...providers],
     });
     TestBed.overrideTemplate(
       SpectacularPipeComponent,
@@ -56,6 +56,7 @@ export function createPipeHarness<TValue>({
   let pipeComponent = pipeFixture.componentInstance;
 
   return {
+    inject: TestBed.inject.bind(TestBed),
     get text(): string {
       const valueElement: HTMLElement = pipeFixture.debugElement.query(
         By.css(`#${textId}`)
