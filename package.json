@@ -13,7 +13,7 @@
     "e2e": "nx run-many --target=e2e --all --parallel",
     "affected:apps": "nx affected:apps",
     "affected:libs": "nx affected:libs",
-    "affected:build": "nx affected --target=build --configuration=production --with-deps",
+    "affected:build": "nx affected:build --configuration=production --with-deps",
     "affected:e2e": "nx affected:e2e",
     "affected:test": "nx affected:test --parallel",
     "affected:lint": "nx affected:lint --parallel",
