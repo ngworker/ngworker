@@ -12,6 +12,18 @@ function createPipeComponentTemplate(innerTemplate: string): string {
   return `<span id="${textId}">${innerTemplate}</span>`;
 }
 
+function createPipeFixture<TValue>(
+  value: Observable<TValue> | TValue | null
+): ComponentFixture<SpectacularPipeComponent<TValue>> {
+  const pipeFixture = TestBed.createComponent(
+    SpectacularPipeComponent
+  ) as ComponentFixture<SpectacularPipeComponent<TValue>>;
+  pipeFixture.componentInstance.value = value;
+  pipeFixture.detectChanges();
+
+  return pipeFixture;
+}
+
 /**
  * Create a test harness for the specified Angular pipe. Test it by updating the
  * value and reading the rendered test.
@@ -35,18 +47,6 @@ export function createPipeHarness<TValue>({
       SpectacularPipeComponent,
       createPipeComponentTemplate(template)
     );
-  }
-
-  function createPipeFixture(
-    value: Observable<TValue> | TValue | null
-  ): ComponentFixture<SpectacularPipeComponent<TValue>> {
-    const pipeFixture = TestBed.createComponent(
-      SpectacularPipeComponent
-    ) as ComponentFixture<SpectacularPipeComponent<TValue>>;
-    pipeFixture.componentInstance.value = value;
-    pipeFixture.detectChanges();
-
-    return pipeFixture;
   }
 
   configureTestbed(template);
