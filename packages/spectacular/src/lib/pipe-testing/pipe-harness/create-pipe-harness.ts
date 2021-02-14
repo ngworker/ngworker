@@ -8,6 +8,10 @@ import { SpectacularPipeHarness } from './spectacular-pipe-harness';
 import type { Observable } from 'rxjs';
 const textId = '__SPECTACULAR_PIPE_COMPONENT_TEXT__';
 
+function createPipeComponentTemplate(innerTemplate: string): string {
+  return `<span id="${textId}">${innerTemplate}</span>`;
+}
+
 /**
  * Create a test harness for the specified Angular pipe. Test it by updating the
  * value and reading the rendered test.
@@ -21,23 +25,35 @@ export function createPipeHarness<TValue>({
   template = `{{ value | ${pipeName} }}`,
   value,
 }: CreatePipeHarnessOptions<TValue>): SpectacularPipeHarness<TValue> {
-  TestBed.configureTestingModule({
-    declarations: [pipeType, ...declarations, SpectacularPipeComponent],
-    imports,
-    providers,
-  });
-  TestBed.overrideTemplate(
-    SpectacularPipeComponent,
-    `<span id="${textId}">${template}</span>`
-  );
+  function configureTestbed(template: string): void {
+    TestBed.configureTestingModule({
+      declarations: [pipeType, ...declarations, SpectacularPipeComponent],
+      imports,
+      providers,
+    });
+    TestBed.overrideTemplate(
+      SpectacularPipeComponent,
+      createPipeComponentTemplate(template)
+    );
+  }
 
+  function createPipeFixture(
+    value: Observable<TValue> | TValue | null
+  ): ComponentFixture<SpectacularPipeComponent<TValue>> {
+    const pipeFixture = TestBed.createComponent(
+      SpectacularPipeComponent
+    ) as ComponentFixture<SpectacularPipeComponent<TValue>>;
+    pipeFixture.componentInstance.value = value;
+    pipeFixture.detectChanges();
+
+    return pipeFixture;
+  }
+
+  configureTestbed(template);
   TestBed.compileComponents();
-  let pipeFixture = TestBed.createComponent(
-    SpectacularPipeComponent
-  ) as ComponentFixture<SpectacularPipeComponent<TValue>>;
+
+  let pipeFixture = createPipeFixture(value);
   let pipeComponent = pipeFixture.componentInstance;
-  pipeComponent.value = value;
-  pipeFixture.detectChanges();
 
   return {
     getText(): string {
@@ -51,23 +67,10 @@ export function createPipeHarness<TValue>({
       const value = pipeComponent.value;
 
       TestBed.resetTestingModule();
-      TestBed.configureTestingModule({
-        declarations: [pipeType, ...declarations, SpectacularPipeComponent],
-        imports,
-        providers,
-      });
-      TestBed.overrideTemplate(
-        SpectacularPipeComponent,
-        `<span id="${textId}">${template}</span>`
-      );
-      pipeFixture = TestBed.createComponent(
-        SpectacularPipeComponent
-      ) as ComponentFixture<SpectacularPipeComponent<TValue>>;
+      configureTestbed(template);
 
+      pipeFixture = createPipeFixture(value);
       pipeComponent = pipeFixture.componentInstance;
-
-      pipeComponent.value = value;
-      pipeFixture.detectChanges();
     },
     setValue(value: TValue | Observable<TValue> | null): void {
       pipeComponent.value = value;
