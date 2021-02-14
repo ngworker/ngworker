@@ -42,7 +42,7 @@ describe(createPipeHarness.name, () => {
         name: 'testRepeat',
       })
       class RepeatPipe implements PipeTransform {
-        transform(value: string, times: number) {
+        transform(value: string, times: number): string {
           return value.repeat(times);
         }
       }
