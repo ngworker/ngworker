@@ -6,7 +6,7 @@ import { CreatePipeHarnessOptions } from './create-pipe-harness-options';
 import { SpectacularPipeHarness } from './spectacular-pipe-harness';
 
 import type { Observable } from 'rxjs';
-const textId = '__SPECTACULAR_PIPE_TEST_TEXT__';
+const textId = '__SPECTACULAR_PIPE_COMPONENT_TEXT__';
 
 /**
  * Create a test harness for the specified Angular pipe. Test it by updating the
@@ -21,27 +21,23 @@ export function createPipeHarness<TValue>({
   template = `{{ value | ${pipeName} }}`,
   value,
 }: CreatePipeHarnessOptions<TValue>): SpectacularPipeHarness<TValue> {
-  function testCaseSetup(templateOverride?: string): void {
-    TestBed.configureTestingModule({
-      declarations: [pipeType, ...declarations, SpectacularPipeComponent],
-      imports,
-      providers,
-    }).compileComponents();
-    TestBed.overrideTemplate(
-      SpectacularPipeComponent,
-      `<span id="${textId}">${templateOverride ?? template}</span>`
-    );
+  TestBed.configureTestingModule({
+    declarations: [pipeType, ...declarations, SpectacularPipeComponent],
+    imports,
+    providers,
+  });
+  TestBed.overrideTemplate(
+    SpectacularPipeComponent,
+    `<span id="${textId}">${template}</span>`
+  );
 
-    pipeFixture = TestBed.createComponent(
-      SpectacularPipeComponent
-    ) as ComponentFixture<SpectacularPipeComponent<TValue>>;
-    pipeComponent = pipeFixture.componentInstance;
-    pipeComponent.value = value;
-    pipeFixture.detectChanges();
-  }
-
-  let pipeComponent: SpectacularPipeComponent<TValue>;
-  let pipeFixture: ComponentFixture<SpectacularPipeComponent<TValue>>;
+  TestBed.compileComponents();
+  let pipeFixture = TestBed.createComponent(
+    SpectacularPipeComponent
+  ) as ComponentFixture<SpectacularPipeComponent<TValue>>;
+  let pipeComponent = pipeFixture.componentInstance;
+  pipeComponent.value = value;
+  pipeFixture.detectChanges();
 
   return {
     getText(): string {
@@ -52,15 +48,30 @@ export function createPipeHarness<TValue>({
       return valueElement.textContent?.trim() ?? '';
     },
     setTemplate(template: string): void {
+      const value = pipeComponent.value;
+
       TestBed.resetTestingModule();
-      testCaseSetup(template);
+      TestBed.configureTestingModule({
+        declarations: [pipeType, ...declarations, SpectacularPipeComponent],
+        imports,
+        providers,
+      });
+      TestBed.overrideTemplate(
+        SpectacularPipeComponent,
+        `<span id="${textId}">${template}</span>`
+      );
+      pipeFixture = TestBed.createComponent(
+        SpectacularPipeComponent
+      ) as ComponentFixture<SpectacularPipeComponent<TValue>>;
+
+      pipeComponent = pipeFixture.componentInstance;
+
+      pipeComponent.value = value;
+      pipeFixture.detectChanges();
     },
     setValue(value: TValue | Observable<TValue> | null): void {
       pipeComponent.value = value;
       pipeFixture.detectChanges();
-    },
-    testCaseSetup(): void {
-      testCaseSetup();
     },
   };
 }

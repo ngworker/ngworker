@@ -24,11 +24,4 @@ export interface SpectacularPipeHarness<TValue> {
    * @param value The new value.
    */
   setValue(value: TValue | Observable<TValue> | null): void;
-  /**
-   * The Angular pipe test harness setup which configures the Angular testing
-   * module.
-   *
-   * Call this as part of a `beforeEach` hook.
-   */
-  testCaseSetup(): void;
 }

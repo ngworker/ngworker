@@ -4,7 +4,7 @@ import { CreateCommonPipeHarnessOptions } from './create-common-pipe-harness-opt
 import { PassthroughPipe, passthroughPipeName } from './passthrough.pipe';
 
 /**
- * Wraps `createPipeTestHarness` and allows the consumer to test the built-in
+ * Wraps `createPipeHarness` and allows the consumer to test the built-in
  * Angular pipes exported by `CommonModule`.
  */
 export function createCommonPipeHarness<TValue>({
