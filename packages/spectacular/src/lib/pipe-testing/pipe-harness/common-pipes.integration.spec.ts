@@ -1,10 +1,9 @@
 import { CurrencyPipe, DatePipe, DecimalPipe, PercentPipe } from '@angular/common';
 
 import { createCommonPipeHarness } from '../test-util/create-common-pipe-harness';
-import { createPipeHarness } from './create-pipe-harness';
 import { SpectacularPipeHarness } from './spectacular-pipe-harness';
 
-describe(createPipeHarness.name, () => {
+describe('Common pipes', () => {
   describe(DecimalPipe.name, () => {
     beforeEach(() => {
       harness = createCommonPipeHarness({
