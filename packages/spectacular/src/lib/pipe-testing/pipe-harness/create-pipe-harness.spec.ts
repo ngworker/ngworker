@@ -16,19 +16,19 @@ describe(createPipeHarness.name, () => {
     let harness: SpectacularPipeHarness<number>;
 
     it('reads the rendered text', () => {
-      expect(harness.getText()).toBe('123,456,789.0');
+      expect(harness.text).toBe('123,456,789.0');
     });
 
     it('updates the value', () => {
-      harness.setValue(987654321);
+      harness.value = 987654321;
 
-      expect(harness.getText()).toBe('987,654,321.0');
+      expect(harness.text).toBe('987,654,321.0');
     });
 
     it('updates the template', () => {
-      harness.setTemplate(`{{ value | number:'1.2' }}`);
+      harness.template = `{{ value | number:'1.2' }}`;
 
-      expect(harness.getText()).toBe('123,456,789.00');
+      expect(harness.text).toBe('123,456,789.00');
     });
   });
 
@@ -43,19 +43,19 @@ describe(createPipeHarness.name, () => {
     let harness: SpectacularPipeHarness<number>;
 
     it('reads the rendered text', () => {
-      expect(harness.getText()).toBe('$1,234.56');
+      expect(harness.text).toBe('$1,234.56');
     });
 
     it('updates the value', () => {
-      harness.setValue(6543.21);
+      harness.value = 6543.21;
 
-      expect(harness.getText()).toBe('$6,543.21');
+      expect(harness.text).toBe('$6,543.21');
     });
 
     it('updates the template', () => {
-      harness.setTemplate(`{{ value | currency:'EUR' }}`);
+      harness.template = `{{ value | currency:'EUR' }}`;
 
-      expect(harness.getText()).toBe('€1,234.56');
+      expect(harness.text).toBe('€1,234.56');
     });
   });
 
@@ -70,19 +70,19 @@ describe(createPipeHarness.name, () => {
     let harness: SpectacularPipeHarness<number>;
 
     it('reads the rendered text', () => {
-      expect(harness.getText()).toBe('0,134.950%');
+      expect(harness.text).toBe('0,134.950%');
     });
 
     it('updates the value', () => {
-      harness.setValue(5.9431);
+      harness.value = 5.9431;
 
-      expect(harness.getText()).toBe('0,594.310%');
+      expect(harness.text).toBe('0,594.310%');
     });
 
     it('updates the template', () => {
-      harness.setTemplate(`{{ value | percent:'1.1-3' }}`);
+      harness.template = `{{ value | percent:'1.1-3' }}`;
 
-      expect(harness.getText()).toBe('134.95%');
+      expect(harness.text).toBe('134.95%');
     });
   });
 
@@ -97,19 +97,19 @@ describe(createPipeHarness.name, () => {
     let harness: SpectacularPipeHarness<Date>;
 
     it('reads the rendered text', () => {
-      expect(harness.getText()).toBe('Jul 7, 2021, 5:00:00 PM');
+      expect(harness.text).toBe('Jul 7, 2021, 5:00:00 PM');
     });
 
     it('updates the value', () => {
-      harness.setValue(new Date('2021-12-12T11:00:00Z'));
+      harness.value = new Date('2021-12-12T11:00:00Z');
 
-      expect(harness.getText()).toBe('Dec 12, 2021, 11:00:00 AM');
+      expect(harness.text).toBe('Dec 12, 2021, 11:00:00 AM');
     });
 
     it('updates the template', () => {
-      harness.setTemplate(`{{ value | date:'medium':'PST' }}`);
+      harness.template = `{{ value | date:'medium':'PST' }}`;
 
-      expect(harness.getText()).toBe('Jul 7, 2021, 9:00:00 AM');
+      expect(harness.text).toBe('Jul 7, 2021, 9:00:00 AM');
     });
   });
 });

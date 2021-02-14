@@ -37,7 +37,7 @@ export function createPipeHarness<TValue>({
   template = `{{ value | ${pipeName} }}`,
   value,
 }: CreatePipeHarnessOptions<TValue>): SpectacularPipeHarness<TValue> {
-  function configureTestbed(template: string): void {
+  function configureTestbed(template: string): void | never {
     TestBed.configureTestingModule({
       declarations: [pipeType, ...declarations, SpectacularPipeComponent],
       imports,
@@ -56,14 +56,14 @@ export function createPipeHarness<TValue>({
   let pipeComponent = pipeFixture.componentInstance;
 
   return {
-    getText(): string {
+    get text(): string {
       const valueElement: HTMLElement = pipeFixture.debugElement.query(
         By.css(`#${textId}`)
       ).nativeElement;
 
       return valueElement.textContent?.trim() ?? '';
     },
-    setTemplate(template: string): void {
+    set template(template: string) {
       const value = pipeComponent.value;
 
       TestBed.resetTestingModule();
@@ -72,7 +72,7 @@ export function createPipeHarness<TValue>({
       pipeFixture = createPipeFixture(value);
       pipeComponent = pipeFixture.componentInstance;
     },
-    setValue(value: TValue | Observable<TValue> | null): void {
+    set value(value: TValue | Observable<TValue> | null) {
       pipeComponent.value = value;
       pipeFixture.detectChanges();
     },
