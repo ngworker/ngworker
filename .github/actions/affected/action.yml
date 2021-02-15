@@ -1,0 +1,18 @@
+name: 'Affected'
+description: 'Check whether an Nx workspace project is affected by changes.'
+inputs:
+  project:
+    description: 'The name of the project to check.'
+    required: true
+outputs:
+  is-affected:
+    description: 'Whether or not the project is affected by changes.'
+    value: ${{ steps.affected.outputs.is-affected }}
+
+runs:
+  using: 'composite'
+  steps:
+    - id: affected
+      run:
+        echo "::set-output name=is-affected::$( node
+        ${{github.action_path}}/affected.mjs ${{ inputs.project }} )"
