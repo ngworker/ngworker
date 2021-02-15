@@ -57,3 +57,14 @@ a host component for the Angular pipe under test.
 | `createPipeHarness`        | `SpectacularPipeHarness` factory | Create a test harness for the specified Angular pipe. Test it by updating the value and reading the rendered test. |
 | `CreatePipeHarnessOptions` | Options for `createPipeHarness`  | Angular pipe test harness options.                                                                                 |
 | `SpectacularPipeHarness`   | Interface                        | A test harness for an Angular pipe. Includes an API to write a value and read the rendered text.                   |
+
+## Shared
+
+Test utilities used by Spectacular's other APIs.
+
+### Public API
+
+| Export name               | Kind                   | Description                                              |
+| ------------------------- | ---------------------- | -------------------------------------------------------- |
+| `SpectacularAppComponent` | Bootstrapped component | A root component for testing.                            |
+| `spectacularAppTag`       | String                 | The tag name for `SpectacularAppComponent`s DOM element. |
