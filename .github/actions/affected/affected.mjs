@@ -4,19 +4,25 @@ import * as path from 'path';
 import { fileURLToPath } from 'url';
 
 function readAffectedApps(head) {
-  const affected = execSync(`pnpx nx affected:apps --plain --head=${head}`, {
-    encoding: 'utf-8',
-    stdio: 'pipe',
-  });
+  const affected = execSync(
+    'pnpx nx affected:apps --plain --base=origin/main',
+    {
+      encoding: 'utf-8',
+      stdio: 'pipe',
+    }
+  );
 
   return sanitizeAffectedOutput(affected);
 }
 
 function readAffectedLibs(head) {
-  const affected = execSync(`pnpx nx affected:libs --plain --head=${head}`, {
-    encoding: 'utf-8',
-    stdio: 'pipe',
-  });
+  const affected = execSync(
+    'pnpx nx affected:libs --plain --base=origin/main',
+    {
+      encoding: 'utf-8',
+      stdio: 'pipe',
+    }
+  );
 
   return sanitizeAffectedOutput(affected);
 }
@@ -33,14 +39,6 @@ function sanitizeAffectedOutput(affectedOutput) {
     .trim()
     .split(' ')
     .filter(project => project !== '');
-}
-
-function validateHeadParameter(headName) {
-  if (!headName) {
-    console.error('No head argument passed.');
-
-    process.exit(1);
-  }
 }
 
 function validateProjectParameter(projectName) {
@@ -65,10 +63,9 @@ function validateProjectParameter(projectName) {
 
 // Not available in an ES Module as of Node.js 12.x
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const [, , project, head] = process.argv;
+const project = process.argv[2];
 
 validateProjectParameter(project);
-validateHeadParameter(head);
 
 const affectedProjects = readAffectedProjects();
 const isAffected = affectedProjects.includes(project);

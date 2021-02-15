@@ -51,7 +51,6 @@ jobs:
       - id: affected
         uses: ./.github/actions/affected
         with:
-          head: ${{ github.event.pull_request.head.ref }}
           project: 'spectacular'
 
       - if:
