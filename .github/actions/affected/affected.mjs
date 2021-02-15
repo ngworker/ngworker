@@ -3,8 +3,8 @@ import { readFileSync } from 'fs';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
 
-function readAffectedApps() {
-  const affected = execSync(`pnpx nx affected:apps --plain`, {
+function readAffectedApps(head) {
+  const affected = execSync(`pnpx nx affected:apps --plain --head=${head}`, {
     encoding: 'utf-8',
     stdio: 'pipe',
   });
@@ -12,8 +12,8 @@ function readAffectedApps() {
   return sanitizeAffectedOutput(affected);
 }
 
-function readAffectedLibs() {
-  const affected = execSync(`pnpx nx affected:libs --plain`, {
+function readAffectedLibs(head) {
+  const affected = execSync(`pnpx nx affected:libs --plain --head=${head}`, {
     encoding: 'utf-8',
     stdio: 'pipe',
   });
@@ -21,9 +21,9 @@ function readAffectedLibs() {
   return sanitizeAffectedOutput(affected);
 }
 
-function readAffectedProjects() {
-  const affectedApps = readAffectedApps();
-  const affectedLibs = readAffectedLibs();
+function readAffectedProjects(head) {
+  const affectedApps = readAffectedApps(head);
+  const affectedLibs = readAffectedLibs(head);
 
   return affectedApps.concat(affectedLibs);
 }
@@ -35,7 +35,15 @@ function sanitizeAffectedOutput(affectedOutput) {
     .filter(project => project !== '');
 }
 
-function validateProjectName(projectName) {
+function validateHeadParameter(headName) {
+  if (!headName) {
+    console.error('No head argument passed.');
+
+    process.exit(1);
+  }
+}
+
+function validateProjectParameter(projectName) {
   if (!projectName) {
     console.error('No project argument passed.');
 
@@ -57,9 +65,10 @@ function validateProjectName(projectName) {
 
 // Not available in an ES Module as of Node.js 12.x
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const project = process.argv[2];
+const [, , project, head] = process.argv;
 
-validateProjectName(project);
+validateProjectParameter(project);
+validateHeadParameter(head);
 
 const affectedProjects = readAffectedProjects();
 const isAffected = affectedProjects.includes(project);

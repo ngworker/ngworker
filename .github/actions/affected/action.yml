@@ -15,5 +15,6 @@ runs:
     - id: affected
       run:
         echo "::set-output name=is-affected::$( node
-        ${{github.action_path}}/affected.mjs ${{ inputs.project }} )"
+        ${{github.action_path}}/affected.mjs ${{inputs.project}}
+        ${{inputs.head}} )"
       shell: bash
