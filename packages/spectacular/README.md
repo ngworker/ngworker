@@ -4,7 +4,15 @@
 
 > Spectacular Angular testing.
 
+Spectacular offers test harnesses for Angular applications and libraries.
+
 ## Application testing
+
+Spectacular's application testing API configures the Angular testing module and
+bootstraps a component while ensuring that all application-level hooks are run.
+
+The application test harness is used to test configuration Angular modules,
+bootstrap listeners, and application initializers.
 
 ### Public API
 
@@ -18,10 +26,12 @@
 
 ### Feature testing
 
-The feature testing API helps configure the Angular testing module and sets up a
-test harness for an Angular feature module. It contains a few companion services
-that wrap Angular's built-in navigation services, but adjust to the Angular
-feature module under test.
+Spectacular's feature testing API configures the Angular testing module and sets
+up a test harness for an Angular feature module. It contains a few companion
+services that wrap Angular's built-in navigation services, but adjusted to the
+Angular feature module under test.
+
+The feature test harness is used to test feature modules and shell modules.
 
 #### Public API
 
@@ -36,6 +46,9 @@ feature module under test.
 | `SpectacularFeatureRouter`               | Service                                       | A subset og Angular's `Router` API adjusted to the Angular feature module under test.                                          |
 
 ## Pipe testing
+
+Spectacular's pipe testing API configures the Angular testing module and sets up
+a host component for the Angular pipe under test.
 
 ### Public API
 
