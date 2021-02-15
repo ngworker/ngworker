@@ -4,7 +4,7 @@ import * as path from 'path';
 import { fileURLToPath } from 'url';
 
 function readAffectedApps() {
-  const affected = execSync(`pnpx nx -- affected:apps --plain`, {
+  const affected = execSync(`pnpx nx affected:apps --plain`, {
     encoding: 'utf-8',
     stdio: 'pipe',
   });
@@ -13,7 +13,7 @@ function readAffectedApps() {
 }
 
 function readAffectedLibs() {
-  const affected = execSync(`pnpx nx -- affected:libs --plain`, {
+  const affected = execSync(`pnpx nx affected:libs --plain`, {
     encoding: 'utf-8',
     stdio: 'pipe',
   });
