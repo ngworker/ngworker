@@ -11,7 +11,7 @@ import { SpectacularFeatureTestingRootModule } from './spectacular-feature-testi
  *
  * NOTE! Do not import directly. Use `SpectacularFeatureTestingModule.withFeature`.
  *
- * NOTE! Prefer to use `SpectacularFeatureTestbed`. This Angular module is a low
+ * NOTE! Prefer to use `createFeatureHarness`. This Angular module is a low
  * level building block in case you need more control over your test setup.
  */
 @NgModule()
