@@ -35,12 +35,12 @@ feature module under test.
 | `SpectacularFeatureLocation`             | Service                                       | A subset of Angular's `Location` API adjusted to the Angular feature module under test.                                        |
 | `SpectacularFeatureRouter`               | Service                                       | A subset og Angular's `Router` API adjusted to the Angular feature module under test.                                          |
 
-## Pipe test harness
+## Pipe testing
 
 ### Public API
 
-| Export name                    | Kind                                | Description                                                                                                        |
-| ------------------------------ | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
-| `createPipeTestHarness`        | `PipeTestHarness` factory           | Create a test harness for the specified Angular pipe. Test it by updating the value and reading the rendered test. |
-| `CreatePipeTestHarnessOptions` | Options for `createPipeTestHarness` | Angular pipe test harness options.                                                                                 |
-| `PipeTestHarness`              | Interface                           | A test harness for an Angular pipe. Includes an API to write a value and read the rendered text.                   |
+| Export name                | Kind                             | Description                                                                                                        |
+| -------------------------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| `createPipeHarness`        | `SpectacularPipeHarness` factory | Create a test harness for the specified Angular pipe. Test it by updating the value and reading the rendered test. |
+| `CreatePipeHarnessOptions` | Options for `createPipeHarness`  | Angular pipe test harness options.                                                                                 |
+| `SpectacularPipeHarness`   | Interface                        | A test harness for an Angular pipe. Includes an API to write a value and read the rendered text.                   |
