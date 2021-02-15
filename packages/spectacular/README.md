@@ -20,9 +20,7 @@ bootstrap listeners, and application initializers.
 | --------------------------------- | ------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `createApplicationHarness`        | Factory for `SpectacularApplicationHarness` | Bootstrap a Spectacular application with the specified metadata. Useful to test configuration Angular modules, bootstrap listeners, and application initializers. |
 | `CreateApplicationHarnessOptions` | Options for `createApplicationHarness`      | Application harness options.                                                                                                                                      |
-| `SpectacularAppComponent`         | Bootstrapped component                      | A root component for testing.                                                                                                                                     |
 | `SpectacularApplicationHarness`   | Interface                                   | Application harness data structure.                                                                                                                               |
-| `spectacularAppTag`               | String                                      | The tag name for `SpectacularAppComponent`s DOM element.                                                                                                          |
 
 ### Feature testing
 
