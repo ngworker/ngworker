@@ -1,4 +1,4 @@
-name: '@ngworker CI pipeline'
+name: '@ngworker CI'
 
 env:
   BASE_BRANCH: ${{ github.event.pull_request.base.ref }}
