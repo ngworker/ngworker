@@ -8,6 +8,14 @@
 
 Monorepo for the `ngworker` NPM organization. Packages for Angular applications.
 
+## Packages
+
+Packages in this monorepo.
+
+| Package                                                     | Description                                                                            |
+| ----------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| [Spectacular (@ngworker/spectacular)](packages/spectacular) | Spectacular Angular testing. Testing harnesses for Angular applications and libraries. |
+
 ## Sponsors
 
 ### Wallaby 🦘
