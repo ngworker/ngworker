@@ -5,7 +5,7 @@ import { TestBed } from '@angular/core/testing';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { SpectacularAppComponent } from '../../application-testing/app-component/spectacular-app.component';
+import { SpectacularAppComponent } from '../../shared/app-component/spectacular-app.component';
 import { SpectacularFeatureTestingRootModule } from './spectacular-feature-testing-root.module';
 
 @Component({

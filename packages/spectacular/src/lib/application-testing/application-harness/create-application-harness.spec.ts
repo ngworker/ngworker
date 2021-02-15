@@ -1,11 +1,7 @@
-import {
-  APP_BOOTSTRAP_LISTENER,
-  APP_INITIALIZER,
-  FactoryProvider,
-  NgModule,
-} from '@angular/core';
+import { APP_BOOTSTRAP_LISTENER, APP_INITIALIZER, FactoryProvider, Injectable, NgModule } from '@angular/core';
 
-import { bootstrapSpectacularApplication } from './bootstrap-spectacular-application';
+import { SpectacularAppComponent } from '../../shared/app-component/spectacular-app.component';
+import { createApplicationHarness } from './create-application-harness';
 
 let bootstrapped = false;
 let initialized = false;
@@ -36,7 +32,7 @@ class BootstrapListenerModule {}
 })
 class InitializerModule {}
 
-describe(bootstrapSpectacularApplication.name, () => {
+describe(createApplicationHarness.name, () => {
   beforeEach(() => {
     bootstrapped = false;
     initialized = false;
@@ -58,7 +54,7 @@ describe(bootstrapSpectacularApplication.name, () => {
 
   describe('Bootstrap listeners', () => {
     it('registers and runs the specified bootstrap listener', () => {
-      bootstrapSpectacularApplication({
+      createApplicationHarness({
         providers: [bootstrapListener],
       });
 
@@ -66,7 +62,7 @@ describe(bootstrapSpectacularApplication.name, () => {
     });
 
     it('registers the specified bootstrap listener Angular module', () => {
-      bootstrapSpectacularApplication({
+      createApplicationHarness({
         imports: [BootstrapListenerModule],
       });
 
@@ -76,7 +72,7 @@ describe(bootstrapSpectacularApplication.name, () => {
 
   describe('Initializers', () => {
     it('registers and runs the specified initializer', () => {
-      bootstrapSpectacularApplication({
+      createApplicationHarness({
         providers: [applicationInitializer],
       });
 
@@ -84,11 +80,47 @@ describe(bootstrapSpectacularApplication.name, () => {
     });
 
     it('registers the specified initializer Angular module', () => {
-      bootstrapSpectacularApplication({
+      createApplicationHarness({
         imports: [InitializerModule],
       });
 
       expect(initialized).toBe(true);
+    });
+  });
+
+  describe('Configuration', () => {
+    @Injectable()
+    class AdminService {}
+
+    @NgModule({
+      providers: [AdminService],
+    })
+    class AdminServiceModule {}
+
+    it('adds the specified imports', () => {
+      const harness = createApplicationHarness({
+        imports: [AdminServiceModule],
+      });
+
+      const jobService = harness.inject(AdminService);
+      expect(jobService).toBeInstanceOf(AdminService);
+    });
+
+    it('adds the specified providers', () => {
+      const harness = createApplicationHarness({
+        providers: [AdminService],
+      });
+
+      const jobService = harness.inject(AdminService);
+      expect(jobService).toBeInstanceOf(AdminService);
+    });
+  });
+
+  describe('Bootstrapping', () => {
+    it(`bootstraps ${SpectacularAppComponent.name}`, () => {
+      const harness = createApplicationHarness();
+
+      expect(harness.rootComponent).toBeInstanceOf(SpectacularAppComponent);
     });
   });
 });

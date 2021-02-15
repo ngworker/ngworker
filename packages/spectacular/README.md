@@ -8,11 +8,13 @@
 
 ### Public API
 
-| Export name                              | Kind                                          | Description                                                                                                                                                |
-| ---------------------------------------- | --------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `bootstrapSpectacularApplication`        | Side effect                                   | Bootstrap a test application with the specified metadata. Useful to test configuration Angular modules, bootstrap listeners, and application initializers. |
-| `BootstrapspectacularApplicationOptions` | Options for `bootstrapSpectacularApplication` | Spectacular application options.                                                                                                                           |
-| `SpectacularAppComponent`                | Bootstrapped component                        | A root component for testing.                                                                                                                              |
+| Export name                       | Kind                                        | Description                                                                                                                                                       |
+| --------------------------------- | ------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `createApplicationHarness`        | Factory for `SpectacularApplicationHarness` | Bootstrap a Spectacular application with the specified metadata. Useful to test configuration Angular modules, bootstrap listeners, and application initializers. |
+| `CreateApplicationHarnessOptions` | Options for `createApplicationHarness`      | Application harness options.                                                                                                                                      |
+| `SpectacularAppComponent`         | Bootstrapped component                      | A root component for testing.                                                                                                                                     |
+| `SpectacularApplicationHarness`   | Interface                                   | Application harness data structure.                                                                                                                               |
+| `spectacularAppTag`               | String                                      | The tag name for `SpectacularAppComponent`s DOM element.                                                                                                          |
 
 ### Feature testing
 
@@ -26,7 +28,7 @@ feature module under test.
 | Export name                              | Kind                                          | Description                                                                                                                    |
 | ---------------------------------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
 | `createFeatureHarness`                   | Factory for `SpectacularFeatureHarness`       | Configures `SpectacularFeatureTestingModule`, bootstraps `SpectacularAppComponent` and navigates to the default feature route. |
-| `SpectacularCreateFeatureHarnessOptions` | Options for `createFeatureHarness`            | Feature harness options.                                                                                                       |
+| `CreateFeatureHarnessOptions`            | Options for `createFeatureHarness`            | Feature harness options.                                                                                                       |
 | `SpectacularFeatureHarness`              | Interface                                     | Feature harness data structure.                                                                                                |
 | `SpectacularFeatureTestingModuleOptions` | Options for `SpectacularFeatureTestingModule` | Feature testing options for `SpectacularFeatureTestingModule.withFeature`.                                                     |
 | `SpectacularFeatureTestingModule`        | Angular testing configuration module          | Configures the `RouterTestingModule` and provides Spectactular services for testing feature modules.                           |

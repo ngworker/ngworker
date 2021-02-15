@@ -2,13 +2,11 @@ import { AbstractType, InjectFlags, InjectionToken, Type } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
 
 import { SpectacularAppComponent } from '../../shared/app-component/spectacular-app.component';
-import { SpectacularFeatureLocation } from '../navigation/spectacular-feature-location';
-import { SpectacularFeatureRouter } from '../navigation/spectacular-feature-router';
 
 /**
- * A harness for testing an Angular feature module.
+ * A harness for testing application-level software artifacts.
  */
-export interface SpectacularFeatureHarness {
+export interface SpectacularApplicationHarness {
   /**
    * Resolve a dependency based on the specified dependency injection token.
    *
@@ -31,11 +29,6 @@ export interface SpectacularFeatureHarness {
     flags?: InjectFlags
   ): T | null;
   /**
-   * A subset of Angular's `Location` service adjusted to the Angular feature
-   * module under test.
-   */
-  readonly location: SpectacularFeatureLocation;
-  /**
    * The bootstrapped component.
    */
   readonly rootComponent: SpectacularAppComponent;
@@ -43,9 +36,4 @@ export interface SpectacularFeatureHarness {
    * The component fixture for the bootstrapped component.
    */
   readonly rootFixture: ComponentFixture<SpectacularAppComponent>;
-  /**
-   * A subset of Angular's `Router` API adjusted to the Angular feature module
-   * under test.
-   */
-  readonly router: SpectacularFeatureRouter;
 }
