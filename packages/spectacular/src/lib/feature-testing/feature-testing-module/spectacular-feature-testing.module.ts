@@ -6,8 +6,8 @@ import { SpectacularFeatureTestingModuleOptions } from './spectacular-feature-te
 import { SpectacularFeatureTestingRootModule } from './spectacular-feature-testing-root.module';
 
 /**
- * Configures the `RouterTestingModule` and provides Spectactular
- * services for testing feature modules
+ * Configure the `RouterTestingModule` and provide Spectactular services for
+ * testing feature modules.
  *
  * NOTE! Do not import directly. Use `SpectacularFeatureTestingModule.withFeature`.
  *
