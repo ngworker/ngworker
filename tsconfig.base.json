@@ -17,7 +17,11 @@
     "paths": {
       "@ngworker/spectacular": ["packages/spectacular/src/index.ts"],
       "@ngworker/material": ["packages/material/src/index.ts"],
-      "@ngworker/cdk": ["packages/cdk/src/index.ts"]
+      "@ngworker/cdk": ["packages/cdk/src/index.ts"],
+      "@tour-of-heroes/crisis-center": [
+        "packages/examples/tour-of-heroes/crisis-center/src/index.ts"
+      ],
+      "@internal/test-util": ["packages/internal/test-util/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
