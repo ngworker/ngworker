@@ -15,12 +15,14 @@ import { FocusTrapManager } from '@angular/cdk/a11y/focus-trap/focus-trap-manage
 
 @Component({
   selector: 'mat-cell-edit',
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: { class: 'mat-cell-edit' },
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   template: `
-    <div [class.mat-cell-raw-show]="showCellRaw">{{value}}</div>
-    <input #matCellInputRef
+    <div [class.mat-cell-raw-show]="showCellRaw">{{ value }}</div>
+    <input
+      #matCellInputRef
       (keyup.enter)="matCellInputRef.blur()"
       [class.mat-cell-edit-show]="showCellEdit"
       [value]="value"
@@ -30,12 +32,13 @@ import { FocusTrapManager } from '@angular/cdk/a11y/focus-trap/focus-trap-manage
 })
 export class MatCellEditPluginComponent implements OnInit {
   constructor(
-    private readonly _cdr: ChangeDetectorRef,
-    // private readonly _focusManager: FocusKeyManager<any>,
-  ) {}
+    private readonly _cdr: ChangeDetectorRef
+  ) // private readonly _focusManager: FocusKeyManager<any>,
+  {}
 
   @Input() value = '';
-  @ViewChild('matCellInputRef', { static: true }) matCellInputRef!: ElementRef<HTMLInputElement>;
+  @ViewChild('matCellInputRef', { static: true })
+  matCellInputRef!: ElementRef<HTMLInputElement>;
 
   matCellInputElement!: HTMLInputElement;
   showCellRaw = false;
@@ -51,7 +54,6 @@ export class MatCellEditPluginComponent implements OnInit {
     } else {
       this.matCellInputElement.dispatchEvent(new Event('blur'));
     }
-
   }
 
   ngOnInit() {

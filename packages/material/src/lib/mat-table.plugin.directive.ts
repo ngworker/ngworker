@@ -47,7 +47,7 @@ export class MatTablePluginDirective
   ngAfterContentInit() {
     this.registerSpreadsheet(
       this.cdkHeaderRowDef.columns,
-      this.matCellEditQueryList,
+      this.matCellEditQueryList
     );
   }
 }
