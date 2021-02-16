@@ -1,5 +1,9 @@
 name: 'Affected'
 description: 'Check whether an Nx workspace project is affected by changes.'
+
+env:
+  ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+
 inputs:
   project:
     description: 'The name of the project to check.'
@@ -17,5 +21,5 @@ runs:
         echo "::set-env name=IS_AFFECTED::$IS_AFFECTED"
       shell: bash
     - id: affected
-      run: echo "::set-output name=is-affected::$( echo $IS_AFFECTED )"
+      run: echo "::set-output name=is-affected::$IS_AFFECTED"
       shell: bash
