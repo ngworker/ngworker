@@ -125,6 +125,7 @@ export class MatCellEditPluginDirective
     }
 
     // @todo: when no "matCellEditKey" then show that is readonly
+    // @solution: add mat-cell-edit--readonly
     if (this.matCellEditKey && this.matCellMutate) {
       this.matCellEdit[this.matCellEditKey] = value;
     }
