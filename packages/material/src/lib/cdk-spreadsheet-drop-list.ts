@@ -1,25 +1,24 @@
 import { ScrollDispatcher } from '@angular/cdk/overlay';
 import { Directionality } from '@angular/cdk/bidi';
-import { ChangeDetectorRef, Directive, ElementRef, Inject, OnDestroy, Optional, QueryList, SkipSelf } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Directive,
+  ElementRef,
+  OnDestroy,
+  Optional,
+  QueryList,
+} from '@angular/core';
 
 import {
-  CDK_DRAG_CONFIG,
-  CDK_DROP_LIST,
-  CDK_DROP_LIST_GROUP,
-  CdkDropList,
-  CdkDropListGroup,
-  DragDrop,
-  DragDropConfig,
-} from '@angular/cdk/drag-drop';
-import { TableDragDropManager } from './table-drag-drop-manager';
-import { FocusHighlightable, TableSpreadsheetKeyManager } from './table-spreadsheet-key-manager';
+  FocusHighlightable,
+  TableSpreadsheetKeyManager,
+} from './table-spreadsheet-key-manager';
 
-/**
- * patched from: cdk/drag-drop/directives/drop-list.ts
- */
+import { CDK_DROP_LIST, CdkDropList, DragDrop } from '@angular/cdk/drag-drop';
+import { TableDragDropManager } from './table-drag-drop-manager';
+
 export const CDK_SPREADSHEET_DROP_LIST_PROVIDERS = [
-  {provide: CDK_DROP_LIST_GROUP, useValue: undefined},
-  {provide: CDK_DROP_LIST, useExisting: CdkDropList},
+  { provide: CDK_DROP_LIST, useExisting: CdkDropList },
 ];
 
 @Directive({
@@ -27,37 +26,30 @@ export const CDK_SPREADSHEET_DROP_LIST_PROVIDERS = [
   providers: CDK_SPREADSHEET_DROP_LIST_PROVIDERS,
 })
 export class CdkSpreadsheetDropListDirective<
-  T extends FocusHighlightable = FocusHighlightable> extends CdkDropList implements OnDestroy {
-
+    T extends FocusHighlightable = FocusHighlightable
+  >
+  extends CdkDropList
+  implements OnDestroy {
   public keyManager!: TableSpreadsheetKeyManager<T>;
   public tableManager!: TableDragDropManager;
 
   constructor(
-    public readonly cdkDropList: CdkDropList,
-    // @note: everything down were patched from: cdk/drag-drop/directives/drop-list.ts
-    // @todo: CDK_SPREADSHEET_TOKEN => get everything over factory
-    public elementRef: ElementRef<HTMLElement>,
-    public dragDrop: DragDrop,
-    public changeDetectorRef: ChangeDetectorRef,
-    public scrollDispatcher: ScrollDispatcher,
-    @Optional() public dir?: Directionality,
-    @Optional() @Inject(CDK_DROP_LIST_GROUP) @SkipSelf()
-    public group?: CdkDropListGroup<CdkDropList>,
-    @Optional() @Inject(CDK_DRAG_CONFIG) protected config?: DragDropConfig
+    private readonly cdkDropList: CdkDropList,
+    private readonly elementRef: ElementRef<HTMLElement>,
+    private readonly dragDrop: DragDrop,
+    private readonly changeDetectorRef: ChangeDetectorRef,
+    private readonly scrollDispatcher: ScrollDispatcher,
+    @Optional() private readonly dir?: Directionality
   ) {
-    super(elementRef, dragDrop, changeDetectorRef, scrollDispatcher, dir, group, config);
+    super(elementRef, dragDrop, changeDetectorRef, scrollDispatcher, dir);
   }
 
   registerSpreadsheet(columns: string[], cellEditQueryList: QueryList<T>) {
-    this.tableManager = new TableDragDropManager(
-      this.cdkDropList,
-      columns,
-    );
-
+    this.tableManager = new TableDragDropManager(this.cdkDropList, columns);
     this.keyManager = new TableSpreadsheetKeyManager(
       cellEditQueryList,
       this.elementRef.nativeElement,
-      this.tableManager.columnsUpdated,
+      this.tableManager.columnsUpdated
     ).withWrap();
   }
 
