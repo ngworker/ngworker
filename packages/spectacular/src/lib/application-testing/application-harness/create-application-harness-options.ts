@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-export type BootstrapSpectacularApplicationOptions = Pick<
+export type CreateApplicationHarnessOptions = Pick<
   NgModule,
   'imports' | 'providers'
 >;

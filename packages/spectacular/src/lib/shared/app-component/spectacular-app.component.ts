@@ -2,15 +2,15 @@ import { Component, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 /**
- * The tag name of `SpectacularAppComponent`.
+ * The tag name of `SpectacularAppComponent`'s DOM element.
  */
-export const spectacularAppTagName = 'spectacular-app';
+export const spectacularAppTag = 'spectacular-app';
 
 /**
  * The root component which is bootstrapped for a Spectacular test.
  */
 @Component({
-  selector: spectacularAppTagName,
+  selector: spectacularAppTag,
   template: '<router-outlet></router-outlet>',
 })
 export class SpectacularAppComponent {

@@ -3,9 +3,9 @@ import { TestBed } from '@angular/core/testing';
 import { Resolve } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { SpectacularAppComponent } from '../../application-testing/app-component/spectacular-app.component';
-import { SpectacularAppScam } from '../../application-testing/app-component/spectacular-app.scam';
-import { bootstrapSpectacularApplication } from '../../application-testing/bootstrapping/bootstrap-spectacular-application';
+import { createApplicationHarness } from '../../application-testing/application-harness/create-application-harness';
+import { SpectacularAppComponent } from '../../shared/app-component/spectacular-app.component';
+import { SpectacularAppScam } from '../../shared/app-component/spectacular-app.scam';
 import { featurePathToken } from '../configuration/feature-path.token';
 import { initialFeatureNavigationInitializer } from './initial-feature-navigation.initializer';
 import { SpectacularFeatureLocation } from './spectacular-feature-location';
@@ -18,7 +18,7 @@ describe('initialFeatureNavigationInitializer', () => {
   };
 
   it('navigates to the default feature route when the specified feature route is registered', () => {
-    bootstrapSpectacularApplication({
+    createApplicationHarness({
       imports: [
         RouterTestingModule.withRoutes([
           {
@@ -38,7 +38,7 @@ describe('initialFeatureNavigationInitializer', () => {
 
   it('fails when the specified feature route has not been registered', () => {
     const act = () =>
-      bootstrapSpectacularApplication({
+      createApplicationHarness({
         imports: [
           RouterTestingModule.withRoutes([
             {
@@ -64,7 +64,7 @@ describe('initialFeatureNavigationInitializer', () => {
     }
 
     const act = () =>
-      bootstrapSpectacularApplication({
+      createApplicationHarness({
         imports: [
           RouterTestingModule.withRoutes([
             {

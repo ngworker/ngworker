@@ -1,6 +1,6 @@
 import type { Observable } from 'rxjs';
 
-export interface CreateCommonPipeTestHarnessOptions<TValue> {
+export interface CreateCommonPipeHarnessOptions<TValue> {
   readonly template: string;
   readonly value: Observable<TValue> | TValue | null;
 }

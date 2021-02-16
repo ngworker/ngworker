@@ -1,12 +1,12 @@
 // Application testing API
-export * from './lib/application-testing/bootstrapping/bootstrap-spectacular-application';
-export * from './lib/application-testing/bootstrapping/bootstrap-spectacular-application-options';
-export * from './lib/application-testing/app-component/spectacular-app.component';
+export * from './lib/application-testing/application-harness/create-application-harness';
+export * from './lib/application-testing/application-harness/create-application-harness-options';
+export * from './lib/application-testing/application-harness/spectacular-application-harness';
 
 // Feature testing API
 //   Feature harness
 export * from './lib/feature-testing/feature-harness/create-feature-harness';
-export * from './lib/feature-testing/feature-harness/spectacular-create-feature-harness-options';
+export * from './lib/feature-testing/feature-harness/create-feature-harness-options';
 export * from './lib/feature-testing/feature-harness/spectacular-feature-harness';
 //   Feature testing module
 export * from './lib/feature-testing/feature-testing-module/spectacular-feature-testing-module-options';
@@ -15,7 +15,10 @@ export * from './lib/feature-testing/feature-testing-module/spectacular-feature-
 export * from './lib/feature-testing/navigation/spectacular-feature-location';
 export * from './lib/feature-testing/navigation/spectacular-feature-router';
 
-// Pipe test harness
-export * from './lib/pipe-test-harness/create-pipe-test-harness';
-export * from './lib/pipe-test-harness/create-pipe-test-harness-options';
-export * from './lib/pipe-test-harness/pipe-test-harness';
+// Pipe testing API
+export * from './lib/pipe-testing/pipe-harness/create-pipe-harness';
+export * from './lib/pipe-testing/pipe-harness/create-pipe-harness-options';
+export * from './lib/pipe-testing/pipe-harness/spectacular-pipe-harness';
+
+// Shared testing API
+export * from './lib/shared/app-component/spectacular-app.component';
