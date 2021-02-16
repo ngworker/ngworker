@@ -53,11 +53,5 @@ jobs:
         with:
           project: 'spectacular'
 
-      - if:
-          ${{ steps.affected.outputs.is-affected }} && github.event_name ==
-          'push'
-        run: pnpm test
-      - if:
-          ${{ steps.affected.outputs.is-affected }} && github.event_name ==
-          'pull_request'
-        run: pnpm affected:test -- --base=$BASE_BRANCH
+      - if: ${{ steps.affected.outputs.is-affected }} == 'true'
+        run: pnpx nx test spectacular
