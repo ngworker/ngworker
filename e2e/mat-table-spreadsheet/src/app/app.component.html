@@ -30,6 +30,7 @@
         <mat-cell
           (matCellChanged)="matCellChanged($event)"
           [matCellEdit]="element"
+          matCellEditKey="position"
           *matCellDef="let element"
         >
           {{ element.position }}
@@ -50,6 +51,7 @@
           (matCellClick)="matCellClicked($event)"
           (matCellChanged)="matCellChanged($event)"
           [matCellEdit]="element"
+          matCellEditKey="name"
           *matCellDef="let element"
         >
           {{ element.name }}
@@ -69,6 +71,7 @@
         <mat-cell
           (matCellChanged)="matCellChanged($event)"
           [matCellEdit]="element"
+          matCellEditKey="check"
           *matCellDef="let element"
         >
           {{ element.check }}

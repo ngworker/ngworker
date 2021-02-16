@@ -13,8 +13,8 @@ import { MatCellEditPluginComponent } from './mat-cell-edit.plugin.component';
 import { CdkPortalService } from './cdk-portal.service';
 import { fromEvent, Subject } from 'rxjs';
 import { filter, map, startWith, takeUntil, tap } from 'rxjs/operators';
-import { ObjectValue } from './mat-table.plugin.models';
 import { FocusHighlightable } from './table-spreadsheet-key-manager';
+import { MatColumnDef } from '@angular/material/table';
 
 const EMPTY_EVENT = new Event('EMPTY');
 
@@ -31,23 +31,23 @@ export class MatCellEditPluginDirective
   implements OnDestroy, FocusHighlightable {
   constructor(
     private readonly elementRef: ElementRef<HTMLElement>,
-    private readonly cdkPortalService: CdkPortalService
+    private readonly cdkPortalService: CdkPortalService,
+    private readonly matColumnDef: MatColumnDef
   ) {}
 
   readonly _unsub$ = new Subject();
   readonly _element: HTMLElement = this.elementRef.nativeElement;
-  readonly _elementClass = this._element.getAttribute('class');
 
   private _isActive = false;
-  private _columnName: string | undefined;
   private _cdkPortalElService!: CdkPortalService;
   private _matTableCellRef!: ComponentRef<MatCellEditPluginComponent>;
 
-  @Output() matCellChanged = new EventEmitter<ObjectValue>();
+  @Output() matCellChanged = new EventEmitter<Record<PropertyKey, unknown>>();
   @Output() matCellClick = new EventEmitter<MatCellEditPluginDirective>();
 
   @Input() matCellMutate = true;
-  @Input() matCellEdit!: ObjectValue;
+  @Input() matCellEdit!: Record<PropertyKey, unknown>;
+  @Input() matCellEditKey!: string;
 
   @HostBinding('class.mat-cell-edit-active') get isActive() {
     return this._isActive;
@@ -58,11 +58,6 @@ export class MatCellEditPluginDirective
   }
 
   show() {
-    this._columnName = this._getMatColumnName();
-    if (typeof this._columnName === 'undefined') {
-      throw new Error(`Could not find matColumnDef "${this._columnName}"`);
-    }
-
     if (!this._cdkPortalElService) {
       this._cdkPortalElService = this.cdkPortalService.create(this._element);
     }
@@ -99,10 +94,11 @@ export class MatCellEditPluginDirective
 
   private _registerEditableField() {
     const { matCellInputElement } = this._matTableCellRef.instance;
+    // @todo: move into an helper
     fromEvent(matCellInputElement, 'change')
       .pipe(
         startWith(EMPTY_EVENT),
-        tap(_ => this._show()),
+        tap(() => this._show()),
         filter(event => !!event.target),
         map(event => (event.target as HTMLInputElement).value),
         takeUntil(this._unsub$)
@@ -116,26 +112,30 @@ export class MatCellEditPluginDirective
 
   private _updateStates(value: string) {
     this._matTableCellRef.instance.value = value;
-    this._mutateInputValue(this._columnName as string, value);
+    this._mutateInputValue(this.matColumnDef.name, value);
     this.hide();
   }
 
   private _mutateInputValue(key: string, value: string) {
-    this.matCellEdit[key] = value;
-    if (this.matCellMutate) {
-      this.matCellChanged.emit(this.matCellEdit);
+    const keyExists = this.matCellEdit[key] ?? false;
+    if (keyExists === undefined) {
+      throw new Error(
+        `key: ${key} does not exists on ${JSON.stringify(this.matCellEdit)}`
+      );
     }
+
+    // @todo: when no "matCellEditKey" then show that is readonly
+    if (this.matCellEditKey && this.matCellMutate) {
+      this.matCellEdit[this.matCellEditKey] = value;
+    }
+
+    this.matCellChanged.emit(this.matCellEdit);
   }
 
   private _getInnerText() {
     const { innerText } = this._element;
     this._element.innerText = '';
     return innerText;
-  }
-
-  private _getMatColumnName() {
-    // @todo: bad bad bad!!!!!
-    return this._elementClass?.match(/mat-cell-(.*)/)?.[1];
   }
 
   ngOnDestroy() {
