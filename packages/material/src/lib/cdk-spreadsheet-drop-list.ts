@@ -1,11 +1,9 @@
 import { ScrollDispatcher } from '@angular/cdk/overlay';
-import { Directionality } from '@angular/cdk/bidi';
 import {
   ChangeDetectorRef,
   Directive,
   ElementRef,
   OnDestroy,
-  Optional,
   QueryList,
 } from '@angular/core';
 
@@ -25,9 +23,7 @@ export const CDK_SPREADSHEET_DROP_LIST_PROVIDERS = [
   selector: 'mat-table[cdkSpreadsheet], [cdkSpreadsheet][mat-table]',
   providers: CDK_SPREADSHEET_DROP_LIST_PROVIDERS,
 })
-export class CdkSpreadsheetDropListDirective<
-    T extends FocusHighlightable = FocusHighlightable
-  >
+export class CdkSpreadsheetDropListDirective<T extends FocusHighlightable>
   extends CdkDropList
   implements OnDestroy {
   public keyManager!: TableSpreadsheetKeyManager<T>;
@@ -38,10 +34,9 @@ export class CdkSpreadsheetDropListDirective<
     private readonly elementRef: ElementRef<HTMLElement>,
     private readonly dragDrop: DragDrop,
     private readonly changeDetectorRef: ChangeDetectorRef,
-    private readonly scrollDispatcher: ScrollDispatcher,
-    @Optional() private readonly dir?: Directionality
+    private readonly scrollDispatcher: ScrollDispatcher
   ) {
-    super(elementRef, dragDrop, changeDetectorRef, scrollDispatcher, dir);
+    super(elementRef, dragDrop, changeDetectorRef, scrollDispatcher);
   }
 
   registerSpreadsheet(columns: string[], cellEditQueryList: QueryList<T>) {
