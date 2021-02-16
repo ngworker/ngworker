@@ -14,7 +14,7 @@ runs:
   steps:
     - run: |
       export IS_AFFECTED=$( node ${{github.action_path}}/affected.mjs ${{ inputs.project }} )
-      echo "::set-env name=IS_AFFECTED::$( echo $IS_AFFECTED )"
+    # echo "::set-env name=IS_AFFECTED::$( echo $IS_AFFECTED )"
     - id: affected
       run:
         echo "::set-output name=is-affected::$( echo $IS_AFFECTED )"
