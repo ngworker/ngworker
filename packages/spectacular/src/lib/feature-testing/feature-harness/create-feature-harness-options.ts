@@ -2,7 +2,7 @@ import { NgModule, Type } from '@angular/core';
 import { ExtraOptions } from '@angular/router';
 
 /**
- * Feature test harness options.
+ * Feature harness options.
  */
 export interface CreateFeatureHarnessOptions<TFeatureModule>
   extends Pick<NgModule, 'imports' | 'providers'> {

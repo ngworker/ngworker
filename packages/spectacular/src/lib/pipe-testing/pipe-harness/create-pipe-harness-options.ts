@@ -3,7 +3,7 @@ import type { NgModule, PipeTransform, Type } from '@angular/core';
 import type { Observable } from 'rxjs';
 
 /**
- * Angular pipe test harness options.
+ * Angular pipe harness options.
  */
 export interface CreatePipeHarnessOptions<TValue>
   extends Pick<NgModule, 'declarations' | 'imports' | 'providers'> {

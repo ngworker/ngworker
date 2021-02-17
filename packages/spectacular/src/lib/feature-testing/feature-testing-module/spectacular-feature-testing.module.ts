@@ -6,12 +6,12 @@ import { SpectacularFeatureTestingModuleOptions } from './spectacular-feature-te
 import { SpectacularFeatureTestingRootModule } from './spectacular-feature-testing-root.module';
 
 /**
- * Configures the `RouterTestingModule` and provides Spectactular
- * services for testing feature modules
+ * Configure the `RouterTestingModule` and provide Spectactular services for
+ * testing feature modules.
  *
  * NOTE! Do not import directly. Use `SpectacularFeatureTestingModule.withFeature`.
  *
- * NOTE! Prefer to use `SpectacularFeatureTestbed`. This Angular module is a low
+ * NOTE! Prefer to use `createFeatureHarness`. This Angular module is a low
  * level building block in case you need more control over your test setup.
  */
 @NgModule()
