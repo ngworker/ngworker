@@ -12,11 +12,11 @@
       "rules": {
         "@angular-eslint/directive-selector": [
           "error",
-          { "type": "attribute", "prefix": "mat", "style": "kebab-case" }
+          { "type": "attribute", "prefix": ["mat", "cdk"], "style": "kebab-case" }
         ],
         "@angular-eslint/component-selector": [
           "error",
-          { "type": "element", "prefix": "mat", "style": "kebab-case" }
+          { "type": "element", "prefix": ["mat", "cdk"], "style": "kebab-case" }
         ]
       }
     },

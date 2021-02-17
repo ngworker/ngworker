@@ -19,7 +19,7 @@ import { MatColumnDef } from '@angular/material/table';
 const EMPTY_EVENT = new Event('EMPTY');
 
 @Directive({
-  selector: 'mat-cell, th[mat-cell]',
+  selector: 'mat-cell[matCellEdit], th[mat-cell][matCellEdit]',
   providers: [CdkPortalService],
   // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {

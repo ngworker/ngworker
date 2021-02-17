@@ -4,4 +4,4 @@ import { CommonModule } from '@angular/common';
 @NgModule({
   imports: [CommonModule],
 })
-export class CdkModule {}
+export class CdkSpreadsheetModule {}

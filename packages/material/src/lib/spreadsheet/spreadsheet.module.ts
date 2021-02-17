@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { MatCellEditPluginDirective } from './mat-cell-edit.plugin.directive';
-import { MatTablePluginDirective } from './mat-table.plugin.directive';
+import { MatSpreadsheetDirective } from './mat-spreadsheet.directive';
 import { CdkDropList, DragDropModule } from '@angular/cdk/drag-drop';
 import { MatHeaderDragDirective } from './mat-header-drag.directive';
-import { CdkSpreadsheetDropListDirective } from './cdk-spreadsheet-drop-list';
+import { CdkSpreadsheetDirective } from './cdk-spreadsheet.directive';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -21,16 +21,16 @@ import { MatButtonModule } from '@angular/material/button';
   ],
   providers: [CdkDropList],
   declarations: [
-    MatTablePluginDirective,
+    MatSpreadsheetDirective,
     MatCellEditPluginDirective,
     MatHeaderDragDirective,
-    CdkSpreadsheetDropListDirective,
+    CdkSpreadsheetDirective,
   ],
   exports: [
-    MatTablePluginDirective,
+    MatSpreadsheetDirective,
     MatCellEditPluginDirective,
     MatHeaderDragDirective,
-    CdkSpreadsheetDropListDirective,
+    CdkSpreadsheetDirective,
 
     MatSidenavModule,
     MatToolbarModule,
@@ -40,4 +40,4 @@ import { MatButtonModule } from '@angular/material/button';
     DragDropModule,
   ],
 })
-export class MatTablePluginModule {}
+export class MatSpreadsheetModule {}

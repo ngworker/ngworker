@@ -1,3 +1,4 @@
+import { MatTableModule } from '@angular/material/table';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -9,9 +10,6 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { MatTableModule } from '@angular/material/table';
-import { FocusKeyManager } from '@angular/cdk/a11y';
-import { FocusTrapManager } from '@angular/cdk/a11y/focus-trap/focus-trap-manager';
 
 @Component({
   selector: 'mat-cell-edit',
@@ -31,24 +29,22 @@ import { FocusTrapManager } from '@angular/cdk/a11y/focus-trap/focus-trap-manage
   `,
 })
 export class MatCellEditPluginComponent implements OnInit {
-  constructor(
-    private readonly _cdr: ChangeDetectorRef
-  ) // private readonly _focusManager: FocusKeyManager<any>,
-  {}
+  constructor(private readonly _cdr: ChangeDetectorRef) {}
 
   @Input() value = '';
+
   @ViewChild('matCellInputRef', { static: true })
   matCellInputRef!: ElementRef<HTMLInputElement>;
 
   matCellInputElement!: HTMLInputElement;
   showCellRaw = false;
   showCellEdit = false;
+
   set show(value: boolean) {
     this.showCellRaw = !value;
     this.showCellEdit = value;
     this._cdr.detectChanges();
 
-    // this._focusManager.setActiveItem(this.matCellInputElement);
     if (this.showCellEdit) {
       this.matCellInputElement.select();
     } else {

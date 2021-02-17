@@ -1,1 +1,1 @@
-export * from './lib/mat-table.plugin.module';
+export * from './lib/spreadsheet/spreadsheet.module';
