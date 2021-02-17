@@ -11,12 +11,12 @@ import {
 } from '@angular/core';
 
 import {
+  CdkTableSpreadsheetKeyManager,
   FocusHighlightable,
-  TableSpreadsheetKeyManager,
-} from './table-spreadsheet-key-manager';
+} from './cdk-table-spreadsheet-key-manager';
 
 import { CDK_DROP_LIST, CdkDropList } from '@angular/cdk/drag-drop';
-import { TableDragDropManager } from './table-drag-drop-manager';
+import { CdkTableDropList } from './cdk-table-drop-list';
 import { MatCellEditPluginDirective } from './mat-cell-edit.plugin.directive';
 import { MatHeaderRowDef } from '@angular/material/table';
 
@@ -31,10 +31,11 @@ export const CDK_SPREADSHEET_DROP_LIST_PROVIDERS = [
 export class CdkSpreadsheetDirective<
   T extends FocusHighlightable = FocusHighlightable
 > implements OnDestroy, AfterContentInit {
-  protected spreadsheetManager!: TableSpreadsheetKeyManager<T>;
-  private _dragDropManager!: TableDragDropManager;
+  protected spreadsheetManager!: CdkTableSpreadsheetKeyManager<T>;
+  private _dragDropManager!: CdkTableDropList;
 
   constructor(
+    // @todo: ueber factory
     private readonly _cdkDropList: CdkDropList,
     private readonly _elementRef: ElementRef<HTMLElement>
   ) {}
@@ -66,12 +67,9 @@ export class CdkSpreadsheetDirective<
   }
 
   private _registerSpreadsheet(columns: string[], queryList: QueryList<T>) {
-    this._dragDropManager = new TableDragDropManager(
-      this._cdkDropList,
-      columns
-    );
-
-    this.spreadsheetManager = new TableSpreadsheetKeyManager(
+    // @todo: ueber factory
+    this._dragDropManager = new CdkTableDropList(this._cdkDropList, columns);
+    this.spreadsheetManager = new CdkTableSpreadsheetKeyManager(
       queryList,
       this._elementRef.nativeElement,
       this._dragDropManager.columnsUpdated

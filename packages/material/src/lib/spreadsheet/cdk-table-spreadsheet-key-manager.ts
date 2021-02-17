@@ -1,18 +1,34 @@
 import { ActiveDescendantKeyManager, Highlightable } from '@angular/cdk/a11y';
 import { QueryList } from '@angular/core';
-import { Axis, Direction, MatrixY, MatrixX, NON_VALID_AXIS, Table } from './mat-table.plugin.models';
+import {
+  Axis,
+  Direction,
+  MatrixY,
+  MatrixX,
+  NON_VALID_AXIS,
+  Table,
+} from './mat-table.plugin.models';
 import { CdkTableUtil } from './mat-table.plugin.utils';
-import { DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
+import {
+  DOWN_ARROW,
+  LEFT_ARROW,
+  RIGHT_ARROW,
+  UP_ARROW,
+} from '@angular/cdk/keycodes';
 import { Observable, Subject } from 'rxjs';
 import { delay, filter, takeUntil, tap, withLatestFrom } from 'rxjs/operators';
-import { CdkTableColumn } from './table-drag-drop-manager';
+import { CdkTableColumn } from './cdk-table-drop-list';
 
-export interface FocusShow { focus: () => void; show: () => void }
+export interface FocusShow {
+  focus: () => void;
+  show: () => void;
+}
 export interface FocusHighlightable extends Highlightable, FocusShow {}
 
-export class TableSpreadsheetKeyManager<
-  T extends FocusHighlightable> extends ActiveDescendantKeyManager<T> {
-
+export class CdkTableSpreadsheetKeyManager<
+  T extends FocusHighlightable
+  // @todo: maybe this should be injected => ActiveDescendantKeyManager
+> extends ActiveDescendantKeyManager<T> {
   private _table!: Table;
   private _rowSel = '.cdk-row';
   private _cellSel = '.cdk-cell';
@@ -24,7 +40,7 @@ export class TableSpreadsheetKeyManager<
   constructor(
     private queryList: QueryList<T>,
     private _element: HTMLElement,
-    private _cdkTableColumn: Observable<CdkTableColumn>,
+    private _cdkTableColumn: Observable<CdkTableColumn>
   ) {
     super(queryList);
 
@@ -33,25 +49,31 @@ export class TableSpreadsheetKeyManager<
     this._init();
 
     // will be emitted when queryList (cell positions) changed in DOM
-    queryList.changes.pipe(
-      // re-init on any change
-      tap(_ => this._updateTableInfo()),
-      tap(queryList => this._updateQueryList(queryList)),
-      tap(_ => this._init()),
+    queryList.changes
+      .pipe(
+        // re-init on any change
+        tap(_ => this._updateTableInfo()),
+        tap(queryList => this._updateQueryList(queryList)),
+        tap(_ => this._init()),
 
-      // update cell position
-      filter(_ => !!this._currTableAxis),
-      withLatestFrom(this._cdkTableColumn),
-      tap(([, columns]) => this._updateCellPosition(columns, this._currTableAxis.x)),
-      takeUntil(this._unsub$),
-    ).subscribe();
+        // update cell position
+        filter(_ => !!this._currTableAxis),
+        withLatestFrom(this._cdkTableColumn),
+        tap(([, columns]) =>
+          this._updateCellPosition(columns, this._currTableAxis.x)
+        ),
+        takeUntil(this._unsub$)
+      )
+      .subscribe();
 
     // focus active item whenever an item is selected by keyManager
-    this.change.pipe(
-      delay(0),
-      takeUntil(this._unsub$),
-      // @todo: ??? this.focusMonitor.focusVia(this.keyManager.activeItem.nativeElement ??
-    ).subscribe(_ => this.activeItem?.focus());
+    this.change
+      .pipe(
+        delay(0),
+        takeUntil(this._unsub$)
+        // @todo: ??? this.focusMonitor.focusVia(this.keyManager.activeItem.nativeElement ??
+      )
+      .subscribe(_ => this.activeItem?.focus());
   }
 
   onKeydownArrow(event: KeyboardEvent) {
@@ -153,19 +175,27 @@ export class TableSpreadsheetKeyManager<
     let keyManagerItemIndex: number;
     if (CdkTableUtil.isUpOrDownArrow(tableAxisItemX, tableAxisItemY)) {
       keyManagerItemIndex = this._updateStates(tableAxisItemY, 'y');
-    } else if (CdkTableUtil.isLeftOrRightArrow(tableAxisItemX, tableAxisItemY)) {
+    } else if (
+      CdkTableUtil.isLeftOrRightArrow(tableAxisItemX, tableAxisItemY)
+    ) {
       keyManagerItemIndex = this._updateStates(tableAxisItemX, 'x');
     } else {
-      keyManagerItemIndex = this._getKeyMangerItemIndex(tableAxisItemY, tableAxisItemX);
+      keyManagerItemIndex = this._getKeyMangerItemIndex(
+        tableAxisItemY,
+        tableAxisItemX
+      );
     }
 
     this.setActiveItem(keyManagerItemIndex);
   }
 
   getKeyMangerItemAxis(event: MouseEvent): Axis {
-    const currentColIndex = CdkTableUtil.findIndexOf(this._table.cells, event.target as Element);
+    const currentColIndex = CdkTableUtil.findIndexOf(
+      this._table.cells,
+      event.target as Element
+    );
     const tableAxis = CdkTableUtil.findAxis(currentColIndex, this._tableMatrix);
-    return this._currTableAxis = tableAxis;
+    return (this._currTableAxis = tableAxis);
   }
 
   private _init() {
@@ -192,33 +222,44 @@ export class TableSpreadsheetKeyManager<
   }
 
   private _updateTableInfo() {
-    this._table = CdkTableUtil.tableInfo(this._element, this._rowSel, this._cellSel);
+    this._table = CdkTableUtil.tableInfo(
+      this._element,
+      this._rowSel,
+      this._cellSel
+    );
   }
 
   private _updateQueryList(queryList: QueryList<T>) {
-    const sortedQueryList = queryList.toArray().sort((a, b) =>
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      this._indexOf(a.elementRef.nativeElement) - this._indexOf(b.elementRef.nativeElement)
+    const sortedQueryList = queryList.toArray().sort(
+      (a, b) =>
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        this._indexOf(a.elementRef.nativeElement) -
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        this._indexOf(b.elementRef.nativeElement)
     );
     const result = this._sortYBased(sortedQueryList);
     this.queryList.reset(result);
   }
 
-  private _updateCellPosition({ previousIndex, currentIndex }: CdkTableColumn, x: number) {
+  private _updateCellPosition(
+    { previousIndex, currentIndex }: CdkTableColumn,
+    x: number
+  ) {
     // when columns on the right boundary of the active cell are changed
     if (currentIndex > x && previousIndex > x) {
-      this._currTableAxis = {...this._currTableAxis};
-    // when columns on the left boundary of the active cell is changed
+      this._currTableAxis = { ...this._currTableAxis };
+      // when columns on the left boundary of the active cell is changed
     } else if (currentIndex < x && previousIndex < x) {
-      this._currTableAxis = {...this._currTableAxis};
-    // when column contain the active cell
+      this._currTableAxis = { ...this._currTableAxis };
+      // when column contain the active cell
     } else if (previousIndex === x) {
       this._currTableAxis.x = currentIndex;
-    // when column moved from left to right over the active cell
+      // when column moved from left to right over the active cell
     } else if (previousIndex > x) {
       this._currTableAxis.x += 1;
-    // when column moved from right to left over the active cell
+      // when column moved from right to left over the active cell
     } else if (previousIndex < x) {
       this._currTableAxis.x -= 1;
     }
@@ -252,7 +293,10 @@ export class TableSpreadsheetKeyManager<
     return !!keyManagerItemIndex;
   }
 
-  private _getKeyMangerItemIndex(axisVal: number, axisTypeOrIndex: keyof Axis | number) {
+  private _getKeyMangerItemIndex(
+    axisVal: number,
+    axisTypeOrIndex: keyof Axis | number
+  ) {
     if (axisTypeOrIndex === 'y') {
       return this._keyManagerMatrix?.[axisVal]?.[this._currTableAxis.x];
     } else if (axisTypeOrIndex === 'x') {
