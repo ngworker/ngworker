@@ -8,6 +8,10 @@ import { SpectacularFeatureRouter } from '../navigation/spectacular-feature-rout
 import { CreateFeatureHarnessOptions } from './create-feature-harness-options';
 import { SpectacularFeatureHarness } from './spectacular-feature-harness';
 
+/**
+ * Configure `SpectacularFeatureTestingModule`, bootstrap `SpectacularAppComponent`
+ * and navigate to the default feature route.
+ */
 export function createFeatureHarness<TFeatureModule>({
   featureModule,
   featurePath,

@@ -3,8 +3,9 @@ import { AbstractType, InjectFlags, InjectionToken, Type } from '@angular/core';
 import type { Observable } from 'rxjs';
 
 /**
- * A test harness for an Angular pipe. Includes an API to write a value and read
- * the rendered text.
+ * A harness for testing an Angular pipe.
+ *
+ * Includes an API to write a value and read the rendered text.
  */
 export abstract class SpectacularPipeHarness<TValue> {
   /**

@@ -6,6 +6,7 @@ import { CreatePipeHarnessOptions } from './create-pipe-harness-options';
 import { SpectacularPipeHarness } from './spectacular-pipe-harness';
 
 import type { Observable } from 'rxjs';
+
 const textId = '__SPECTACULAR_PIPE_COMPONENT_TEXT__';
 
 function createPipeComponentTemplate(innerTemplate: string): string {
@@ -25,8 +26,9 @@ function createPipeFixture<TValue>(
 }
 
 /**
- * Create a test harness for the specified Angular pipe. Test it by updating the
- * value and reading the rendered test.
+ * Set up a host component for the Angular pipe under test.
+ *
+ * Test it by updating the value and reading the rendered text.
  */
 export function createPipeHarness<TValue>({
   declarations = [],
