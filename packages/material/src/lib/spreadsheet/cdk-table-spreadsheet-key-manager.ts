@@ -1,5 +1,5 @@
 import { ActiveDescendantKeyManager, Highlightable } from '@angular/cdk/a11y';
-import { QueryList } from '@angular/core';
+import { ElementRef, QueryList } from '@angular/core';
 import {
   Axis,
   Direction,
@@ -36,10 +36,11 @@ export class CdkTableSpreadsheetKeyManager<
   private _tableMatrix!: MatrixY<number>;
   private _keyManagerMatrix!: MatrixX<number>;
   private _unsub$ = new Subject();
+  private _onDestroy!: () => void;
 
   constructor(
+    private _elementRef: ElementRef<HTMLElement>,
     private queryList: QueryList<T>,
-    private _element: HTMLElement,
     private _cdkTableColumn: Observable<CdkTableColumn>
   ) {
     super(queryList);
@@ -209,7 +210,7 @@ export class CdkTableSpreadsheetKeyManager<
     return keyManagerItemIndex;
   }
 
-  private _createNumMatrix<K extends keyof Axis, N extends number>(axis: K) {
+  private _createNumMatrix<K extends keyof Axis>(axis: K) {
     return CdkTableUtil.createNumMatrix(axis, this._table);
   }
 
@@ -223,7 +224,7 @@ export class CdkTableSpreadsheetKeyManager<
 
   private _updateTableInfo() {
     this._table = CdkTableUtil.tableInfo(
-      this._element,
+      this._elementRef.nativeElement,
       this._rowSel,
       this._cellSel
     );
@@ -325,9 +326,15 @@ export class CdkTableSpreadsheetKeyManager<
     }
   }
 
+  onDestroy(onDestroy: () => void) {
+    this._onDestroy = onDestroy;
+  }
+
   destroy() {
     this._table = null as never;
     this._unsub$.next();
     this._unsub$.complete();
+
+    this._onDestroy ? this._onDestroy() : null;
   }
 }

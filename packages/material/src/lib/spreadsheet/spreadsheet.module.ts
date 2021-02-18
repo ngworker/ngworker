@@ -9,6 +9,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
+import { CDK_SPREADSHEET_MANAGER_PROVIDERS } from './cdk-spreadspeet-manager.factory';
 
 @NgModule({
   imports: [
@@ -19,7 +20,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatTableModule,
     MatButtonModule,
   ],
-  providers: [CdkDropList],
+  providers: [CdkDropList, ...CDK_SPREADSHEET_MANAGER_PROVIDERS],
   declarations: [
     MatSpreadsheetDirective,
     MatCellEditPluginDirective,
