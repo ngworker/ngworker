@@ -1,7 +1,6 @@
 import {
   Axis,
   Direction,
-  MatrixReturnType,
   MatrixX,
   MatrixY,
   NON_VALID_AXIS,
@@ -191,16 +190,6 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
     );
     const tableAxis = findAxis(currentColIndex, this._matrixY);
     return (this._currTableAxis = tableAxis);
-  }
-
-  createByAxis<AxisKeys extends keyof Axis, Count extends number>(
-    axis: AxisKeys
-  ): MatrixReturnType<AxisKeys, Count> {
-    return createByAxis(
-      axis,
-      this._table.cellCount,
-      this._table.columnCount
-    ) as MatrixReturnType<AxisKeys, Count>;
   }
 
   setTableState(cellSel: string): Table {
