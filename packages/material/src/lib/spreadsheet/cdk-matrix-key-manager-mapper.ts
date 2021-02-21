@@ -1,0 +1,225 @@
+import {
+  Axis,
+  Direction,
+  Matrix,
+  MatrixReturnType,
+  MatrixX,
+  MatrixY,
+  NON_VALID_AXIS,
+  Table,
+} from './mat-table.plugin.models';
+
+import {
+  DOWN_ARROW,
+  LEFT_ARROW,
+  RIGHT_ARROW,
+  UP_ARROW,
+} from '@angular/cdk/keycodes';
+
+import { QueryList } from '@angular/core';
+import { FocusHighlightable } from './cdk-spreadsheet-key-manager';
+import { Observable } from 'rxjs';
+import { CdkTableColumn } from './cdk-table-drop-list';
+import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
+import {
+  createByAxis,
+  findAxis,
+  findAxisByDir,
+  findIndexOf,
+  isXMove,
+  isYMove,
+  sortByXAxis,
+} from './cdk-matrix.util';
+
+export class CdkMatrixKeyManagerMapper<T extends FocusHighlightable> {
+  private _table!: Table;
+  private _matrixY!: MatrixY<number>;
+  private _matrixX!: MatrixX<number>;
+  private _currTableAxis!: Axis;
+
+  constructor(
+    private _element: HTMLElement,
+    private _keyManager: ActiveDescendantKeyManager<T>,
+    private _queryList: QueryList<T>,
+    private _cellSel = '.cdk-cell',
+    private _cdkTableColumn?: Observable<CdkTableColumn>
+  ) {}
+
+  init() {
+    this.reCalcState();
+    return this;
+  }
+
+  reCalcState() {
+    this._table = this.getState(this._cellSel);
+    const { cellCount, columnCount } = this._table;
+    this._matrixY = createByAxis('y', cellCount, columnCount);
+    this._matrixX = createByAxis('x', cellCount, columnCount);
+  }
+
+  setItemByDirection(dir: Direction, event: KeyboardEvent) {
+    if (!(event instanceof KeyboardEvent)) {
+      throw new Error('Event must be instanceof KeyboardEvent');
+    }
+
+    const axisPos = findAxisByDir(dir, this._currTableAxis);
+    if (dir === LEFT_ARROW || dir === RIGHT_ARROW) {
+      this.setActiveItemAxis({ x: axisPos });
+    } else if (dir === UP_ARROW || dir === DOWN_ARROW) {
+      this.setActiveItemAxis({ y: axisPos });
+    }
+
+    if (axisPos >= 0) {
+      event.preventDefault();
+    }
+  }
+
+  setActiveItemAxis(tableAxisItem: Partial<Axis>) {
+    const tableAxisItemY = tableAxisItem.y ?? NON_VALID_AXIS;
+    const tableAxisItemX = tableAxisItem.x ?? NON_VALID_AXIS;
+
+    let keyManagerItemIndex: number;
+    if (isYMove(tableAxisItemX, tableAxisItemY)) {
+      keyManagerItemIndex = this.updateStates(tableAxisItemY, 'y');
+    } else if (isXMove(tableAxisItemX, tableAxisItemY)) {
+      keyManagerItemIndex = this.updateStates(tableAxisItemX, 'x');
+    } else {
+      keyManagerItemIndex = this.getKeyMangerItemIndex(
+        tableAxisItemY,
+        tableAxisItemX
+      );
+    }
+
+    this.setActiveItem(keyManagerItemIndex);
+  }
+
+  setActiveItem(value: unknown) {
+    if (typeof value === 'number' && value >= 0) {
+      this._keyManager.setActiveItem(value);
+    } else if (value instanceof MouseEvent) {
+      this.setActiveItemAxis(this.getKeyMangerItemAxis(value));
+    } else if (typeof value !== 'undefined') {
+      this._keyManager.setActiveItem(value as T);
+    }
+  }
+
+  updateStates(tableAxisItem: number, ax: keyof Axis) {
+    const keyManagerItemIndex = this.getKeyMangerItemIndex(tableAxisItem, ax);
+    this.updateTableAxisPos(keyManagerItemIndex, tableAxisItem, ax);
+    return keyManagerItemIndex;
+  }
+
+  updateTableAxisPos(index: number, value: number, ax: keyof Axis) {
+    if (index >= 0) {
+      this._currTableAxis[ax] = value;
+    }
+  }
+
+  getKeyMangerItemIndex(axisVal: number, axisTypeOrIndex: keyof Axis | number) {
+    if (axisTypeOrIndex === 'y') {
+      return this._matrixX?.[axisVal]?.[this._currTableAxis.x];
+    } else if (axisTypeOrIndex === 'x') {
+      return this._matrixX?.[this._currTableAxis.y]?.[axisVal];
+    } else {
+      return this._matrixX?.[axisVal]?.[axisTypeOrIndex];
+    }
+  }
+
+  updateQueryList(queryList: QueryList<T>) {
+    const sortedQueryList = queryList.toArray().sort(
+      (a, b) =>
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        this._indexOf(a.elementRef.nativeElement) -
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        this._indexOf(b.elementRef.nativeElement)
+    );
+    const result = this.sortByXAxis(sortedQueryList, this._table.columnCount);
+    this._queryList.reset(result);
+  }
+
+  updateCellPosition(tableColumn: CdkTableColumn, x: number) {
+    const { previousIndex, currentIndex } = tableColumn;
+    // when columns on the right boundary of the active cell are changed
+    if (currentIndex > x && previousIndex > x) {
+      this._currTableAxis = { ...this._currTableAxis };
+      // when columns on the left boundary of the active cell is changed
+    } else if (currentIndex < x && previousIndex < x) {
+      this._currTableAxis = { ...this._currTableAxis };
+      // when column contain the active cell
+    } else if (previousIndex === x) {
+      this._currTableAxis.x = currentIndex;
+      // when column moved from left to right over the active cell
+    } else if (previousIndex > x) {
+      this._currTableAxis.x += 1;
+      // when column moved from right to left over the active cell
+    } else if (previousIndex < x) {
+      this._currTableAxis.x -= 1;
+    }
+
+    // ExpressionChangedAfterItHasBeenCheckedError
+    // @todo: see _updateStates, then _updateTableAxisPos.this._currTableAxis
+    setTimeout(() => this.setActiveItemAxis(this._currTableAxis), 0);
+  }
+
+  getKeyMangerItemAxis(event: MouseEvent): Axis {
+    const currentColIndex = this.findIndexOf(
+      this._table.cells,
+      event.target as Element
+    );
+    const tableAxis = this.findAxis(currentColIndex, this._matrixY);
+    return (this._currTableAxis = tableAxis);
+  }
+
+  createByAxis<AxisKeys extends keyof Axis, Count extends number>(
+    axis: AxisKeys
+  ): MatrixReturnType<AxisKeys, Count> {
+    return createByAxis(
+      axis,
+      this._table.cellCount,
+      this._table.columnCount
+    ) as MatrixReturnType<AxisKeys, Count>;
+  }
+
+  getState(cellSel: string): Table {
+    const cells = this._element.querySelectorAll<HTMLElement>(cellSel);
+    const columnCount = cells[0]?.parentElement?.childElementCount ?? 0;
+    const rowCount = cells.length / columnCount;
+    const cellCount = columnCount * rowCount;
+
+    return {
+      cells,
+      rowCount: rowCount ?? -1,
+      columnCount: columnCount ?? -1,
+      cellCount: cellCount ?? -1,
+    };
+  }
+
+  sortByXAxis<T>(list: T[], rows: number): T[][] {
+    return sortByXAxis(list, rows);
+  }
+
+  findAxisByDir(dir: Direction, axis: Axis) {
+    return findAxisByDir(dir, axis);
+  }
+
+  findAxis<T extends PropertyKey>(value: T, matrix: Matrix<T>) {
+    return findAxis(value, matrix);
+  }
+
+  findIndexOf<E extends Element, L extends NodeListOf<E>>(
+    list: L,
+    element: E
+  ): number {
+    return findIndexOf(list, element);
+  }
+
+  isXMove(x: number, y: number) {
+    return isXMove(x, y);
+  }
+
+  isYMove(x: number, y: number) {
+    return isYMove(x, y);
+  }
+}

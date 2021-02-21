@@ -12,35 +12,30 @@ import {
 } from '@angular/core';
 
 import {
-  CdkTableSpreadsheetKeyManager,
+  CdkSpreadsheetKeyManager,
   FocusHighlightable,
-} from './cdk-table-spreadsheet-key-manager';
-
-import { CDK_DROP_LIST, CdkDropList } from '@angular/cdk/drag-drop';
+} from './cdk-spreadsheet-key-manager';
 import { MatCellEditPluginDirective } from './mat-cell-edit.plugin.directive';
 import { MatHeaderRowDef } from '@angular/material/table';
 import {
   CDK_SPREADSHEET_FACTORY,
-  SpreadsheetFactory,
+  CDK_SPREADSHEET_MANAGER_PROVIDERS,
+  CdkSpreadsheetFactory,
 } from './cdk-spreadspeet-manager.factory';
-
-export const CDK_SPREADSHEET_DROP_LIST_PROVIDERS = [
-  { provide: CDK_DROP_LIST, useExisting: CdkDropList },
-];
 
 @Directive({
   selector: 'cdk-table[cdkSpreadsheet], [cdkSpreadsheet][cdk-table]',
-  providers: CDK_SPREADSHEET_DROP_LIST_PROVIDERS,
+  providers: CDK_SPREADSHEET_MANAGER_PROVIDERS,
 })
 export class CdkSpreadsheetDirective<
   T extends FocusHighlightable = FocusHighlightable
 > implements OnDestroy, AfterContentInit {
-  protected spreadsheetManager!: CdkTableSpreadsheetKeyManager<T>;
+  protected spreadsheetManager!: CdkSpreadsheetKeyManager<T>;
 
   constructor(
     @Inject(CDK_SPREADSHEET_FACTORY)
-    private _spreadsheetFactory: SpreadsheetFactory<T>,
-    private _elementRef: ElementRef<HTMLElement>
+    private _spreadsheetFactory: CdkSpreadsheetFactory<T>,
+    private _tableElementRef: ElementRef<HTMLElement>
   ) {}
 
   @HostBinding('class.cdk-spreadsheet') hostClass = true;
@@ -73,7 +68,7 @@ export class CdkSpreadsheetDirective<
     this.spreadsheetManager = this._spreadsheetFactory.create(
       this._cdkHeaderRowDef.columns,
       this._matCellEditQueryList,
-      this._elementRef
+      this._tableElementRef
     );
   }
 

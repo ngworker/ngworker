@@ -24,6 +24,10 @@ export class CdkTableDropList {
     .asObservable()
     .pipe(takeUntil(this._unsub$));
 
+  move(previousIndex: number, currentIndex: number) {
+    moveItemInArray(this._columns, previousIndex, currentIndex);
+  }
+
   private _init() {
     this._initColumnDropped();
   }

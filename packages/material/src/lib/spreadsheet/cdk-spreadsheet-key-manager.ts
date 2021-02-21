@@ -1,14 +1,14 @@
 import { ActiveDescendantKeyManager, Highlightable } from '@angular/cdk/a11y';
-import { ElementRef, QueryList } from '@angular/core';
+import { QueryList } from '@angular/core';
 import {
   Axis,
   Direction,
-  MatrixY,
   MatrixX,
+  MatrixY,
   NON_VALID_AXIS,
   Table,
 } from './mat-table.plugin.models';
-import { CdkTableUtil } from './mat-table.plugin.utils';
+import { CdkMatrixKeyManagerMapper } from './cdk-matrix-key-manager-mapper';
 import {
   DOWN_ARROW,
   LEFT_ARROW,
@@ -25,13 +25,9 @@ export interface FocusShow {
 }
 export interface FocusHighlightable extends Highlightable, FocusShow {}
 
-export class CdkTableSpreadsheetKeyManager<
-  T extends FocusHighlightable
-  // @todo: maybe this should be injected => ActiveDescendantKeyManager
-> extends ActiveDescendantKeyManager<T> {
+export class CdkSpreadsheetKeyManager<T extends FocusHighlightable> {
+  private cellSelector = '.cdk-cell';
   private _table!: Table;
-  private _rowSel = '.cdk-row';
-  private _cellSel = '.cdk-cell';
   private _currTableAxis!: Axis;
   private _tableMatrix!: MatrixY<number>;
   private _keyManagerMatrix!: MatrixX<number>;
@@ -39,18 +35,17 @@ export class CdkTableSpreadsheetKeyManager<
   private _onDestroy!: () => void;
 
   constructor(
-    private _elementRef: ElementRef<HTMLElement>,
-    private queryList: QueryList<T>,
-    private _cdkTableColumn: Observable<CdkTableColumn>
+    private _cdkKeyManagerMapper: CdkMatrixKeyManagerMapper<T>,
+    private _cdkTableColumn: Observable<CdkTableColumn>,
+    private _keyManager: ActiveDescendantKeyManager<T>,
+    private _queryList: QueryList<T>
   ) {
-    super(queryList);
-
     // first initialize
-    this._updateTableInfo();
-    this._init();
+    this._bootstrap();
 
     // will be emitted when queryList (cell positions) changed in DOM
-    queryList.changes
+    // @todo: das kann in matrix-table! and this should be injected into cdk-active-decendant-key-manager
+    this._queryList.changes
       .pipe(
         // re-init on any change
         tap(_ => this._updateTableInfo()),
@@ -68,13 +63,15 @@ export class CdkTableSpreadsheetKeyManager<
       .subscribe();
 
     // focus active item whenever an item is selected by keyManager
-    this.change
-      .pipe(
-        delay(0),
-        takeUntil(this._unsub$)
-        // @todo: ??? this.focusMonitor.focusVia(this.keyManager.activeItem.nativeElement ??
-      )
-      .subscribe(_ => this.activeItem?.focus());
+    // @todo: nach cdk-active-decendant-key-manager
+    this._keyManager.change
+      .pipe(delay(0), takeUntil(this._unsub$))
+      .subscribe(_ => this._keyManager.activeItem?.focus());
+  }
+
+  get activeItem() {
+    // @todo: nach cdk-active-decendant-key-manager
+    return this._keyManager.activeItem;
   }
 
   onKeydownArrow(event: KeyboardEvent) {
@@ -84,26 +81,32 @@ export class CdkTableSpreadsheetKeyManager<
 
   setNextItemActive() {
     if (this._canNextItemActive()) {
-      super.setNextItemActive();
+      // @todo: nach cdk-active-decendant-key-manager
+      this._keyManager.setNextItemActive();
     }
   }
 
+  // @todo: nach cdk-active-decendant-key-manager
   setArrowUpItemActive(event: KeyboardEvent) {
     this._setItemByDirection(UP_ARROW, event);
   }
 
+  // @todo: nach cdk-active-decendant-key-manager
   setArrowDownItemActive(event: KeyboardEvent) {
     this._setItemByDirection(DOWN_ARROW, event);
   }
 
+  // @todo: nach cdk-active-decendant-key-manager
   setArrowLeftItemActive(event: KeyboardEvent) {
     this._setItemByDirection(LEFT_ARROW, event);
   }
 
+  // @todo: nach cdk-active-decendant-key-manager
   setArrowRightItemActive(event: KeyboardEvent) {
     this._setItemByDirection(RIGHT_ARROW, event);
   }
 
+  // @todo: nach cdk-active-decendant-key-manager
   setFirstRowItemActive() {
     console.log('implement');
   }
@@ -124,26 +127,32 @@ export class CdkTableSpreadsheetKeyManager<
     console.log('implement');
   }
 
+  // @todo: nach cdk-matrix
   get rowCount() {
     return this._table.rowCount;
   }
 
+  // @todo: nach cdk-matrix
   get columnCount() {
     return this._table.columnCount;
   }
 
+  // @todo: nach cdk-matrix
   get cellCount() {
     return this._table.cellCount;
   }
 
+  // @todo: nach cdk-matrix
   get activeItemColumnIndex() {
     return this._currTableAxis.x;
   }
 
+  // @todo: nach cdk-matrix
   get activeItemRowIndex() {
     return this._currTableAxis.y;
   }
 
+  // @todo: nach cdk-matrix
   get activeItemRowColumnIndex() {
     return {
       x: this._currTableAxis.x,
@@ -151,6 +160,7 @@ export class CdkTableSpreadsheetKeyManager<
     };
   }
 
+  // @todo: nach cdk-matrix
   get table() {
     return {
       rowCount: this._table.rowCount,
@@ -159,25 +169,27 @@ export class CdkTableSpreadsheetKeyManager<
     };
   }
 
+  // @todo: nach cdk-activedescendant-key-manager
   setActiveItem(value: unknown) {
     if (typeof value === 'number' && value >= 0) {
-      super.setActiveItem(value);
+      this._keyManager.setActiveItem(value);
     } else if (value instanceof MouseEvent) {
       this.setActiveItemAxis(this.getKeyMangerItemAxis(value));
     } else if (typeof value !== 'undefined') {
-      super.setActiveItem(value as T);
+      this._keyManager.setActiveItem(value as T);
     }
   }
 
+  // @todo: nach cdk-matrix
   setActiveItemAxis(tableAxisItem: Partial<Axis>) {
     const tableAxisItemY = tableAxisItem.y ?? NON_VALID_AXIS;
     const tableAxisItemX = tableAxisItem.x ?? NON_VALID_AXIS;
 
     let keyManagerItemIndex: number;
-    if (CdkTableUtil.isUpOrDownArrow(tableAxisItemX, tableAxisItemY)) {
+    if (this._cdkKeyManagerMapper.isYMove(tableAxisItemX, tableAxisItemY)) {
       keyManagerItemIndex = this._updateStates(tableAxisItemY, 'y');
     } else if (
-      CdkTableUtil.isLeftOrRightArrow(tableAxisItemX, tableAxisItemY)
+      this._cdkKeyManagerMapper.isXMove(tableAxisItemX, tableAxisItemY)
     ) {
       keyManagerItemIndex = this._updateStates(tableAxisItemX, 'x');
     } else {
@@ -190,44 +202,55 @@ export class CdkTableSpreadsheetKeyManager<
     this.setActiveItem(keyManagerItemIndex);
   }
 
+  // @todo: nach cdk-matrix
   getKeyMangerItemAxis(event: MouseEvent): Axis {
-    const currentColIndex = CdkTableUtil.findIndexOf(
+    const currentColIndex = this._cdkKeyManagerMapper.findIndexOf(
       this._table.cells,
       event.target as Element
     );
-    const tableAxis = CdkTableUtil.findAxis(currentColIndex, this._tableMatrix);
+    const tableAxis = this._cdkKeyManagerMapper.findAxis(
+      currentColIndex,
+      this._tableMatrix
+    );
     return (this._currTableAxis = tableAxis);
   }
 
+  // @todo: nach cdk-matrix
   private _init() {
     this._tableMatrix = this._createNumMatrix('y');
     this._keyManagerMatrix = this._createNumMatrix('x');
   }
 
+  // @todo: nach cdk-active
   private _updateStates(tableAxisItem: number, ax: keyof Axis) {
     const keyManagerItemIndex = this._getKeyMangerItemIndex(tableAxisItem, ax);
     this._updateTableAxisPos(keyManagerItemIndex, tableAxisItem, ax);
     return keyManagerItemIndex;
   }
 
+  // @todo: nach cdk-active
   private _createNumMatrix<K extends keyof Axis>(axis: K) {
-    return CdkTableUtil.createNumMatrix(axis, this._table);
+    return this._cdkKeyManagerMapper.createByAxis(axis);
   }
 
+  // @todo: nach cdk-active
   private _sortYBased<T>(list: T[]) {
-    return CdkTableUtil.sortXBased(list, this._table.columnCount).flat();
+    return this._cdkKeyManagerMapper
+      .sortByXAxis(list, this._table.columnCount)
+      .flat();
   }
 
   private _indexOf(item: Element) {
-    return CdkTableUtil.findIndexOf(this._table.cells, item);
+    return this._cdkKeyManagerMapper.findIndexOf(this._table.cells, item);
+  }
+
+  private _bootstrap() {
+    this._updateTableInfo();
+    this._init();
   }
 
   private _updateTableInfo() {
-    this._table = CdkTableUtil.tableInfo(
-      this._elementRef.nativeElement,
-      this._rowSel,
-      this._cellSel
-    );
+    this._table = this._cdkKeyManagerMapper.getState(this.cellSelector);
   }
 
   private _updateQueryList(queryList: QueryList<T>) {
@@ -241,7 +264,7 @@ export class CdkTableSpreadsheetKeyManager<
         this._indexOf(b.elementRef.nativeElement)
     );
     const result = this._sortYBased(sortedQueryList);
-    this.queryList.reset(result);
+    this._queryList.reset(result);
   }
 
   private _updateCellPosition(
@@ -275,7 +298,11 @@ export class CdkTableSpreadsheetKeyManager<
       throw new Error('Event must be instanceof KeyboardEvent');
     }
 
-    const axisPos = this._getPossibleTableAxis(dir);
+    const axisPos = this._cdkKeyManagerMapper.findAxisByDir(
+      dir,
+      this._currTableAxis
+    );
+
     if (dir === LEFT_ARROW || dir === RIGHT_ARROW) {
       this.setActiveItemAxis({ x: axisPos });
     } else if (dir === UP_ARROW || dir === DOWN_ARROW) {
@@ -289,7 +316,10 @@ export class CdkTableSpreadsheetKeyManager<
 
   private _canNextItemActive() {
     // @todo: use this.setActiveItemAxis({ x: axisPos });
-    const axisPos = this._getPossibleTableAxis(DOWN_ARROW);
+    const axisPos = this._cdkKeyManagerMapper.findAxisByDir(
+      DOWN_ARROW,
+      this._currTableAxis
+    );
     const keyManagerItemIndex = this._updateStates(axisPos, 'y');
     return !!keyManagerItemIndex;
   }
@@ -310,19 +340,6 @@ export class CdkTableSpreadsheetKeyManager<
   private _updateTableAxisPos(index: number, value: number, ax: keyof Axis) {
     if (index >= 0) {
       this._currTableAxis[ax] = value;
-    }
-  }
-
-  private _getPossibleTableAxis(dir: Direction) {
-    switch (dir) {
-      case UP_ARROW:
-        return this._currTableAxis.y - 1;
-      case DOWN_ARROW:
-        return this._currTableAxis.y + 1;
-      case LEFT_ARROW:
-        return this._currTableAxis.x - 1;
-      case RIGHT_ARROW:
-        return this._currTableAxis.x + 1;
     }
   }
 

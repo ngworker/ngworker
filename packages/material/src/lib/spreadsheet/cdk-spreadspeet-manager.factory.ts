@@ -1,17 +1,20 @@
 import { ElementRef, InjectionToken, Provider, QueryList } from '@angular/core';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
-import { CdkDropList } from '@angular/cdk/drag-drop';
+import { CDK_DROP_LIST, CdkDropList } from '@angular/cdk/drag-drop';
 import { CdkTableDropList } from './cdk-table-drop-list';
+import { CdkSpreadsheetDirective } from './cdk-spreadsheet.directive';
 import {
-  CdkTableSpreadsheetKeyManager,
+  CdkSpreadsheetKeyManager,
   FocusHighlightable,
-} from './cdk-table-spreadsheet-key-manager';
+} from './cdk-spreadsheet-key-manager';
+import { CdkMatrixKeyManagerMapper } from './cdk-matrix-key-manager-mapper';
 
-export const CDK_SPREADSHEET_FACTORY = new InjectionToken<
-  ActiveDescendantKeyManager<FocusHighlightable>
->('cdkSpreadsheetManager');
+export const CDK_SPREADSHEET_FACTORY = new InjectionToken<CdkSpreadsheetDirective>(
+  'cdkSpreadsheetManager'
+);
 
 export const CDK_SPREADSHEET_MANAGER_PROVIDERS: Provider[] = [
+  { provide: CDK_DROP_LIST, useExisting: CdkDropList },
   {
     provide: CDK_SPREADSHEET_FACTORY,
     deps: [CdkDropList],
@@ -19,25 +22,38 @@ export const CDK_SPREADSHEET_MANAGER_PROVIDERS: Provider[] = [
   },
 ];
 
-export interface SpreadsheetFactory<T extends FocusHighlightable> {
+export interface CdkSpreadsheetFactory<T extends FocusHighlightable> {
   create(
     columns: string[],
     queryList: QueryList<T>,
     el: ElementRef
-  ): CdkTableSpreadsheetKeyManager<T>;
+  ): CdkSpreadsheetKeyManager<T>;
 }
+
 export function cdkSpreadsheetFactory<T extends FocusHighlightable>(
   dropList: CdkDropList
-): SpreadsheetFactory<T> {
+): CdkSpreadsheetFactory<T> {
   return {
     create: (columns: string[], queryList: QueryList<T>, el: ElementRef) => {
-      const dragDropManager = new CdkTableDropList(dropList, columns);
-      const deps = [el, queryList, dragDropManager.columns$] as const;
-      const spreadsheetManager = new CdkTableSpreadsheetKeyManager(
-        ...deps
+      const tableDragDropManager = new CdkTableDropList(dropList, columns);
+      const keyManager = new ActiveDescendantKeyManager<T>(
+        queryList
       ).withWrap();
 
-      spreadsheetManager.onDestroy(() => dragDropManager.destroy());
+      const matrixManager = new CdkMatrixKeyManagerMapper<T>(
+        el.nativeElement,
+        keyManager,
+        queryList
+      ).init();
+
+      const spreadsheetManager = new CdkSpreadsheetKeyManager(
+        matrixManager,
+        tableDragDropManager.columns$,
+        keyManager,
+        queryList
+      );
+
+      spreadsheetManager.onDestroy(() => tableDragDropManager.destroy());
       return spreadsheetManager;
     },
   };

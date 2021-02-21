@@ -13,7 +13,7 @@ import { MatCellEditPluginComponent } from './mat-cell-edit.plugin.component';
 import { CdkPortalService } from './cdk-portal.service';
 import { fromEvent, Subject } from 'rxjs';
 import { filter, map, startWith, takeUntil, tap } from 'rxjs/operators';
-import { FocusHighlightable } from './cdk-table-spreadsheet-key-manager';
+import { FocusHighlightable } from './cdk-spreadsheet-key-manager';
 import { MatColumnDef } from '@angular/material/table';
 
 const EMPTY_EVENT = new Event('EMPTY');
