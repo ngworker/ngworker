@@ -7,7 +7,7 @@ import {
   CdkSpreadsheetKeyManager,
   FocusHighlightable,
 } from './cdk-spreadsheet-key-manager';
-import { CdkMatrixKeyManagerMapper } from './cdk-matrix-key-manager-mapper';
+import { CdkKeyManagerMapper } from './cdk-key-manager-mapper';
 
 export const CDK_SPREADSHEET_FACTORY = new InjectionToken<CdkSpreadsheetDirective>(
   'cdkSpreadsheetManager'
@@ -40,7 +40,7 @@ export function cdkSpreadsheetFactory<T extends FocusHighlightable>(
         queryList
       ).withWrap();
 
-      const matrixManager = new CdkMatrixKeyManagerMapper<T>(
+      const matrixManager = new CdkKeyManagerMapper<T>(
         el.nativeElement,
         keyManager,
         queryList,

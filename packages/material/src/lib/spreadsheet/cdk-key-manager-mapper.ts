@@ -1,7 +1,6 @@
 import {
   Axis,
   Direction,
-  Matrix,
   MatrixReturnType,
   MatrixX,
   MatrixY,
@@ -32,7 +31,7 @@ import {
 } from './cdk-matrix.util';
 import { delay, filter, takeUntil, tap, withLatestFrom } from 'rxjs/operators';
 
-export class CdkMatrixKeyManagerMapper<T extends FocusHighlightable> {
+export class CdkKeyManagerMapper<T extends FocusHighlightable> {
   public cellPositions$ = this._queryList.changes;
   public itemSelected$ = this._keyManager.change;
   public state$ = new Subject(); // contains _table, currentTAbleAxis, etc
@@ -256,33 +255,6 @@ export class CdkMatrixKeyManagerMapper<T extends FocusHighlightable> {
         takeUntil(this._unsub$)
       )
       .subscribe();
-  }
-
-  sortByXAxis<T>(list: T[], rows: number): T[] {
-    return sortByXAxis(list, rows).flat();
-  }
-
-  findAxisByDir(dir: Direction, axis: Axis) {
-    return findAxisByDir(dir, axis);
-  }
-
-  findAxis<T extends PropertyKey>(value: T, matrix: Matrix<T>) {
-    return findAxis(value, matrix);
-  }
-
-  findIndexOf<E extends Element, L extends NodeListOf<E>>(
-    list: L,
-    element: E
-  ): number {
-    return findIndexOf(list, element);
-  }
-
-  isXMove(x: number, y: number) {
-    return isXMove(x, y);
-  }
-
-  isYMove(x: number, y: number) {
-    return isYMove(x, y);
   }
 
   destroy() {
