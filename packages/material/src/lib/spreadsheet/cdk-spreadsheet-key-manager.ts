@@ -1,5 +1,4 @@
-import { ActiveDescendantKeyManager, Highlightable } from '@angular/cdk/a11y';
-import { QueryList } from '@angular/core';
+import { Highlightable } from '@angular/cdk/a11y';
 import { Direction } from './mat-table.plugin.models';
 import { CdkKeyManagerMapper } from './cdk-key-manager-mapper';
 import {
@@ -8,8 +7,6 @@ import {
   RIGHT_ARROW,
   UP_ARROW,
 } from '@angular/cdk/keycodes';
-import { Observable } from 'rxjs';
-import { CdkTableColumn } from './cdk-table-drop-list';
 
 export interface FocusShow {
   focus: () => void;
@@ -21,12 +18,7 @@ export interface FocusHighlightable extends Highlightable, FocusShow {}
 export class CdkSpreadsheetKeyManager<T extends FocusHighlightable> {
   private _onDestroy!: () => void;
 
-  constructor(
-    private _keyManagerMapper: CdkKeyManagerMapper<T>,
-    private _tableColumn: Observable<CdkTableColumn>,
-    private _keyManager: ActiveDescendantKeyManager<T>,
-    private _queryList: QueryList<T>
-  ) {}
+  constructor(private _keyManagerMapper: CdkKeyManagerMapper<T>) {}
 
   get activeItem() {
     return this._keyManagerMapper.activeItem;

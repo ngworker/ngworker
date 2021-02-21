@@ -40,20 +40,14 @@ export function cdkSpreadsheetFactory<T extends FocusHighlightable>(
         queryList
       ).withWrap();
 
-      const matrixManager = new CdkKeyManagerMapper<T>(
+      const keyManagerMapper = new CdkKeyManagerMapper<T>(
         el.nativeElement,
         keyManager,
         queryList,
         tableDragDropManager.columns$
       ).init();
 
-      const spreadsheetManager = new CdkSpreadsheetKeyManager(
-        matrixManager,
-        tableDragDropManager.columns$,
-        keyManager,
-        queryList
-      );
-
+      const spreadsheetManager = new CdkSpreadsheetKeyManager(keyManagerMapper);
       spreadsheetManager.onDestroy(() => tableDragDropManager.destroy());
       return spreadsheetManager;
     },
