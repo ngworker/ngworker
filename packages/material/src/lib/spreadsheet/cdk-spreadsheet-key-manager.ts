@@ -1,5 +1,5 @@
 import { ActiveDescendantKeyManager, Highlightable } from '@angular/cdk/a11y';
-import { QueryList } from '@angular/core';
+import { ElementRef, QueryList } from '@angular/core';
 import {
   Axis,
   Direction,
@@ -23,6 +23,7 @@ export interface FocusShow {
   focus: () => void;
   show: () => void;
 }
+
 export interface FocusHighlightable extends Highlightable, FocusShow {}
 
 export class CdkSpreadsheetKeyManager<T extends FocusHighlightable> {
@@ -45,7 +46,7 @@ export class CdkSpreadsheetKeyManager<T extends FocusHighlightable> {
 
     // will be emitted when queryList (cell positions) changed in DOM
     // @todo: das kann in matrix-table! and this should be injected into cdk-active-decendant-key-manager
-    this._queryList.changes
+    this._cdkKeyManagerMapper.cellPositions$
       .pipe(
         // re-init on any change
         tap(_ => this._updateTableInfo()),
@@ -64,7 +65,7 @@ export class CdkSpreadsheetKeyManager<T extends FocusHighlightable> {
 
     // focus active item whenever an item is selected by keyManager
     // @todo: nach cdk-active-decendant-key-manager
-    this._keyManager.change
+    this._cdkKeyManagerMapper.itemSelected$
       .pipe(delay(0), takeUntil(this._unsub$))
       .subscribe(_ => this._keyManager.activeItem?.focus());
   }
@@ -235,9 +236,7 @@ export class CdkSpreadsheetKeyManager<T extends FocusHighlightable> {
 
   // @todo: nach cdk-active
   private _sortYBased<T>(list: T[]) {
-    return this._cdkKeyManagerMapper
-      .sortByXAxis(list, this._table.columnCount)
-      .flat();
+    return this._cdkKeyManagerMapper.sortByXAxis(list, this._table.columnCount);
   }
 
   private _indexOf(item: Element) {
@@ -250,7 +249,7 @@ export class CdkSpreadsheetKeyManager<T extends FocusHighlightable> {
   }
 
   private _updateTableInfo() {
-    this._table = this._cdkKeyManagerMapper.getState(this.cellSelector);
+    this._table = this._cdkKeyManagerMapper.setTableState(this.cellSelector);
   }
 
   private _updateQueryList(queryList: QueryList<T>) {

@@ -43,7 +43,8 @@ export function cdkSpreadsheetFactory<T extends FocusHighlightable>(
       const matrixManager = new CdkMatrixKeyManagerMapper<T>(
         el.nativeElement,
         keyManager,
-        queryList
+        queryList,
+        tableDragDropManager.columns$
       ).init();
 
       const spreadsheetManager = new CdkSpreadsheetKeyManager(

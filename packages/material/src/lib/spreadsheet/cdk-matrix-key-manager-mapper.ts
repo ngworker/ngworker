@@ -18,7 +18,7 @@ import {
 
 import { QueryList } from '@angular/core';
 import { FocusHighlightable } from './cdk-spreadsheet-key-manager';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { CdkTableColumn } from './cdk-table-drop-list';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import {
@@ -30,31 +30,64 @@ import {
   isYMove,
   sortByXAxis,
 } from './cdk-matrix.util';
+import { delay, filter, takeUntil, tap, withLatestFrom } from 'rxjs/operators';
 
 export class CdkMatrixKeyManagerMapper<T extends FocusHighlightable> {
+  public cellPositions$ = this._queryList.changes;
+  public itemSelected$ = this._keyManager.change;
+  public state$ = new Subject(); // contains _table, currentTAbleAxis, etc
+
   private _table!: Table;
   private _matrixY!: MatrixY<number>;
   private _matrixX!: MatrixX<number>;
   private _currTableAxis!: Axis;
+  private _unsub$ = new Subject();
 
   constructor(
     private _element: HTMLElement,
     private _keyManager: ActiveDescendantKeyManager<T>,
     private _queryList: QueryList<T>,
-    private _cellSel = '.cdk-cell',
-    private _cdkTableColumn?: Observable<CdkTableColumn>
+    private _cdkTableColumn: Observable<CdkTableColumn>,
+    private _cellSel = '.cdk-cell'
   ) {}
 
   init() {
     this.reCalcState();
+    this.initItemSelected();
+    this.initCellPositions();
     return this;
   }
 
   reCalcState() {
-    this._table = this.getState(this._cellSel);
-    const { cellCount, columnCount } = this._table;
-    this._matrixY = createByAxis('y', cellCount, columnCount);
-    this._matrixX = createByAxis('x', cellCount, columnCount);
+    this.setTableState(this._cellSel);
+    this.setMatrixStates(this._table.cellCount, this._table.columnCount);
+  }
+
+  get activeItem() {
+    return this._keyManager.activeItem;
+  }
+
+  setActiveItem(value: unknown) {
+    if (typeof value === 'number' && value >= 0) {
+      this._keyManager.setActiveItem(value);
+    } else if (value instanceof MouseEvent) {
+      this.setActiveItemAxis(this.getKeyMangerItemAxis(value));
+    } else if (typeof value !== 'undefined') {
+      this._keyManager.setActiveItem(value as T);
+    }
+  }
+
+  setNextItemActive() {
+    if (this.canNextItemActive()) {
+      this._keyManager.setNextItemActive();
+    }
+  }
+
+  canNextItemActive() {
+    const axisPos = findAxisByDir(DOWN_ARROW, this._currTableAxis);
+    // @todo: why we should update when we just want to see canNext?
+    const keyManagerItemIndex = this.updateStates(axisPos, 'y');
+    return !!keyManagerItemIndex;
   }
 
   setItemByDirection(dir: Direction, event: KeyboardEvent) {
@@ -93,16 +126,6 @@ export class CdkMatrixKeyManagerMapper<T extends FocusHighlightable> {
     this.setActiveItem(keyManagerItemIndex);
   }
 
-  setActiveItem(value: unknown) {
-    if (typeof value === 'number' && value >= 0) {
-      this._keyManager.setActiveItem(value);
-    } else if (value instanceof MouseEvent) {
-      this.setActiveItemAxis(this.getKeyMangerItemAxis(value));
-    } else if (typeof value !== 'undefined') {
-      this._keyManager.setActiveItem(value as T);
-    }
-  }
-
   updateStates(tableAxisItem: number, ax: keyof Axis) {
     const keyManagerItemIndex = this.getKeyMangerItemIndex(tableAxisItem, ax);
     this.updateTableAxisPos(keyManagerItemIndex, tableAxisItem, ax);
@@ -130,16 +153,16 @@ export class CdkMatrixKeyManagerMapper<T extends FocusHighlightable> {
       (a, b) =>
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        this._indexOf(a.elementRef.nativeElement) -
+        findIndexOf(this._table.cells, a.elementRef.nativeElement) -
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        this._indexOf(b.elementRef.nativeElement)
+        findIndexOf(this._table.cells, b.elementRef.nativeElement)
     );
-    const result = this.sortByXAxis(sortedQueryList, this._table.columnCount);
+    const result = sortByXAxis(sortedQueryList, this._table.columnCount);
     this._queryList.reset(result);
   }
 
-  updateCellPosition(tableColumn: CdkTableColumn, x: number) {
+  updateCellsByColumns(tableColumn: CdkTableColumn, x: number) {
     const { previousIndex, currentIndex } = tableColumn;
     // when columns on the right boundary of the active cell are changed
     if (currentIndex > x && previousIndex > x) {
@@ -158,17 +181,16 @@ export class CdkMatrixKeyManagerMapper<T extends FocusHighlightable> {
       this._currTableAxis.x -= 1;
     }
 
-    // ExpressionChangedAfterItHasBeenCheckedError
-    // @todo: see _updateStates, then _updateTableAxisPos.this._currTableAxis
+    // @why: ExpressionChangedAfterItHasBeenCheckedError
     setTimeout(() => this.setActiveItemAxis(this._currTableAxis), 0);
   }
 
   getKeyMangerItemAxis(event: MouseEvent): Axis {
-    const currentColIndex = this.findIndexOf(
+    const currentColIndex = findIndexOf(
       this._table.cells,
       event.target as Element
     );
-    const tableAxis = this.findAxis(currentColIndex, this._matrixY);
+    const tableAxis = findAxis(currentColIndex, this._matrixY);
     return (this._currTableAxis = tableAxis);
   }
 
@@ -182,22 +204,62 @@ export class CdkMatrixKeyManagerMapper<T extends FocusHighlightable> {
     ) as MatrixReturnType<AxisKeys, Count>;
   }
 
-  getState(cellSel: string): Table {
+  setTableState(cellSel: string): Table {
     const cells = this._element.querySelectorAll<HTMLElement>(cellSel);
     const columnCount = cells[0]?.parentElement?.childElementCount ?? 0;
     const rowCount = cells.length / columnCount;
     const cellCount = columnCount * rowCount;
 
-    return {
+    this._table = {
       cells,
       rowCount: rowCount ?? -1,
       columnCount: columnCount ?? -1,
       cellCount: cellCount ?? -1,
     };
+
+    return {
+      ...this._table,
+    };
   }
 
-  sortByXAxis<T>(list: T[], rows: number): T[][] {
-    return sortByXAxis(list, rows);
+  setMatrixStates(cellCount: number, columnCount: number) {
+    this._matrixY = createByAxis('y', cellCount, columnCount);
+    this._matrixX = createByAxis('x', cellCount, columnCount);
+    return {
+      ...this._matrixY,
+      ...this._matrixX,
+    };
+  }
+
+  initItemSelected() {
+    this.itemSelected$
+      .pipe(delay(0), takeUntil(this._unsub$))
+      .subscribe(_ => this._keyManager.activeItem?.focus());
+  }
+
+  initCellPositions() {
+    this.cellPositions$
+      .pipe(
+        // re-init on any change
+        tap(queryList => {
+          this.setTableState(this._cellSel);
+          this.updateQueryList(queryList);
+          this.setMatrixStates(this._table.cellCount, this._table.columnCount);
+        }),
+
+        // update cell position
+        filter(_ => !!this._currTableAxis),
+        withLatestFrom(this._cdkTableColumn),
+        tap(([, columns]) =>
+          this.updateCellsByColumns(columns, this._currTableAxis.x)
+        ),
+        takeUntil(this._unsub$)
+      )
+      .subscribe();
+  }
+
+  sortByXAxis<T>(list: T[], rows: number): T[] {
+    return sortByXAxis(list, rows).flat();
   }
 
   findAxisByDir(dir: Direction, axis: Axis) {
@@ -221,5 +283,10 @@ export class CdkMatrixKeyManagerMapper<T extends FocusHighlightable> {
 
   isYMove(x: number, y: number) {
     return isYMove(x, y);
+  }
+
+  destroy() {
+    this._unsub$.next();
+    this._unsub$.complete();
   }
 }
