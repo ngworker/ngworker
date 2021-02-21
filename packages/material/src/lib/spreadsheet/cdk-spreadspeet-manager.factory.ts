@@ -34,18 +34,31 @@ export function cdkSpreadsheetFactory<T extends FocusHighlightable>(
   dropList: CdkDropList
 ): CdkSpreadsheetFactory<T> {
   return {
-    create: (columns: string[], queryList: QueryList<T>, el: ElementRef) => {
-      const tableDragDropManager = new CdkTableDropList(dropList, columns);
+    create: (columns: string[], queryList: QueryList<T>, elRef: ElementRef) => {
       const keyManager = new ActiveDescendantKeyManager<T>(
         queryList
       ).withWrap();
 
+      const tableDragDropManager = new CdkTableDropList(dropList, columns);
+
       const keyManagerMapper = new CdkKeyManagerMapper<T>(
-        el.nativeElement,
+        elRef,
         keyManager,
         queryList,
         tableDragDropManager.columns$
       ).init();
+
+      // @note: for columns (x)
+      // tableDragDropManager.changed$.pipe({
+      //  filter(values: CdkDragDrop => values.axis.x),
+      //  tap(values: CdkDragDrop) => keyManagerMapper.updateStates(values: prevCurrentXPositions)),
+      // }).subscribe()
+
+      // @note: for rows (y)
+      // tableDragDropManager.changed$.pipe({
+      //  filter(values: CdkDragDrop => values.axis.y),
+      //  tap(values: CdkDragDrop) => keyManagerMapper.updateStates(values: prevCurrentXPositions)),
+      // }).subscribe()
 
       const spreadsheetManager = new CdkSpreadsheetKeyManager(keyManagerMapper);
       spreadsheetManager.onDestroy(() => tableDragDropManager.destroy());

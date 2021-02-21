@@ -13,6 +13,7 @@ export interface FocusShow {
   show: () => void;
 }
 
+// @todo: choose a different name and add elementRef because of CdkKeyManagerMapper.sortedQueryList
 export interface FocusHighlightable extends Highlightable, FocusShow {}
 
 export class CdkSpreadsheetKeyManager<T extends FocusHighlightable> {

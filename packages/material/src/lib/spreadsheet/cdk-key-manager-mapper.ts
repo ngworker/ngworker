@@ -14,7 +14,7 @@ import {
   UP_ARROW,
 } from '@angular/cdk/keycodes';
 
-import { QueryList } from '@angular/core';
+import { ElementRef, QueryList } from '@angular/core';
 import { FocusHighlightable } from './cdk-spreadsheet-key-manager';
 import { Observable, Subject } from 'rxjs';
 import { CdkTableColumn } from './cdk-table-drop-list';
@@ -33,6 +33,7 @@ import { delay, filter, takeUntil, tap, withLatestFrom } from 'rxjs/operators';
 export class CdkKeyManagerMapper<T extends FocusHighlightable> {
   public cellPositions$ = this._queryList.changes;
   public itemSelected$ = this._keyManager.change;
+  public tabOut$ = this._keyManager.tabOut;
   public state$ = new Subject(); // contains _table, currentTAbleAxis, etc
 
   private _table!: Table;
@@ -42,7 +43,7 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
   private _unsub$ = new Subject();
 
   constructor(
-    private _element: HTMLElement,
+    private _elementRef: ElementRef<HTMLElement>,
     private _keyManager: ActiveDescendantKeyManager<T>,
     private _queryList: QueryList<T>,
     private _cdkTableColumn: Observable<CdkTableColumn>,
@@ -88,6 +89,9 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
     return !!keyManagerItemIndex;
   }
 
+  // @todo:
+  //  - use setItemByDirection for custom KeyboardEvent
+  //  - add onKeydownArrow(event: KeyboardEvent);
   setItemByDirection(dir: Direction, event: KeyboardEvent) {
     if (!(event instanceof KeyboardEvent)) {
       throw new Error('Event must be instanceof KeyboardEvent');
@@ -160,7 +164,7 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
     this._queryList.reset(result);
   }
 
-  updateCellsByColumns(tableColumn: CdkTableColumn, x: number) {
+  updateAxisXByColumns(tableColumn: CdkTableColumn, x: number) {
     const { previousIndex, currentIndex } = tableColumn;
     // when columns on the right boundary of the active cell are changed
     if (currentIndex > x && previousIndex > x) {
@@ -193,7 +197,8 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
   }
 
   setTableState(cellSel: string): Table {
-    const cells = this._element.querySelectorAll<HTMLElement>(cellSel);
+    const element = this._elementRef.nativeElement;
+    const cells = element.querySelectorAll<HTMLElement>(cellSel);
     const columnCount = cells[0]?.parentElement?.childElementCount ?? 0;
     const rowCount = cells.length / columnCount;
     const cellCount = columnCount * rowCount;
@@ -220,12 +225,16 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
   }
 
   initItemSelected() {
-    this.itemSelected$
-      .pipe(delay(0), takeUntil(this._unsub$))
-      .subscribe(_ => this._keyManager.activeItem?.focus());
+    this.itemSelected$.pipe(delay(0), takeUntil(this._unsub$)).subscribe(_ => {
+      this._keyManager.activeItem?.focus();
+      console.log('itemSelected$: expose new state via this.state$.next()');
+    });
   }
 
   initCellPositions() {
+    // @todo:
+    //  - This has nothing to do here! This class should not know about that, also about
+    //    the columns are draggable! See promising pseudocode in cdk-spreadsheet-manager-factory.ts
     this.cellPositions$
       .pipe(
         // re-init on any change
@@ -239,11 +248,13 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
         filter(_ => !!this._currTableAxis),
         withLatestFrom(this._cdkTableColumn),
         tap(([, columns]) =>
-          this.updateCellsByColumns(columns, this._currTableAxis.x)
+          this.updateAxisXByColumns(columns, this._currTableAxis.x)
         ),
         takeUntil(this._unsub$)
       )
-      .subscribe();
+      .subscribe(() => {
+        console.log('cellPositions$: expose new state via this.state$.next()');
+      });
   }
 
   destroy() {
