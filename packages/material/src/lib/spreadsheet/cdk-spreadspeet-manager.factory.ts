@@ -51,13 +51,13 @@ export function cdkSpreadsheetFactory<T extends FocusHighlightable>(
       // @note: for columns (x)
       // tableDragDropManager.changed$.pipe({
       //  filter(values: CdkDragDrop => values.axis.x),
-      //  tap(values: CdkDragDrop) => keyManagerMapper.updateStates(values: prevCurrentXPositions)),
+      //  tap(values: CdkDragDrop) => keyManagerMapper.setState(values: prevCurrentXPositions)),
       // }).subscribe()
 
       // @note: for rows (y)
       // tableDragDropManager.changed$.pipe({
       //  filter(values: CdkDragDrop => values.axis.y),
-      //  tap(values: CdkDragDrop) => keyManagerMapper.updateStates(values: prevCurrentXPositions)),
+      //  tap(values: CdkDragDrop) => keyManagerMapper.setState(values: prevCurrentXPositions)),
       // }).subscribe()
 
       const spreadsheetManager = new CdkSpreadsheetKeyManager(keyManagerMapper);
