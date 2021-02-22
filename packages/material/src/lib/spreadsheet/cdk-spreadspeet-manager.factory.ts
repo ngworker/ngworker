@@ -48,13 +48,13 @@ export function cdkSpreadsheetFactory<T extends FocusHighlightable>(
         tableDragDropManager.columns$
       ).init();
 
-      // @note: for columns (x)
+      // @note: for columns (x)!
       // tableDragDropManager.changed$.pipe({
       //  filter(values: CdkDragDrop => values.axis.x),
       //  tap(values: CdkDragDrop) => keyManagerMapper.setState(values: prevCurrentXPositions)),
       // }).subscribe()
 
-      // @note: for rows (y)
+      // @note: for rows (y)!
       // tableDragDropManager.changed$.pipe({
       //  filter(values: CdkDragDrop => values.axis.y),
       //  tap(values: CdkDragDrop) => keyManagerMapper.setState(values: prevCurrentXPositions)),
