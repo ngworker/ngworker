@@ -8,6 +8,7 @@ import {
   FocusHighlightable,
 } from './cdk-spreadsheet-key-manager';
 import { CdkKeyManagerMapper } from './cdk-key-manager-mapper';
+import { tap } from 'rxjs/operators';
 
 export const CDK_SPREADSHEET_FACTORY = new InjectionToken<CdkSpreadsheetDirective>(
   'cdkSpreadsheetManager'
@@ -45,23 +46,25 @@ export function cdkSpreadsheetFactory<T extends FocusHighlightable>(
         elRef,
         keyManager,
         queryList,
-        tableDragDropManager.columns$
+        tableDragDropManager.change$
       ).init();
 
-      // @note: for columns (x)!
-      // tableDragDropManager.changed$.pipe({
-      //  filter(values: CdkDragDrop => values.axis.x),
-      //  tap(values: CdkDragDrop) => keyManagerMapper.setState(values: prevCurrentXPositions)),
-      // }).subscribe()
+      // @todo: columns (x)!
+      // const dragDropSub = tableDragDropManager.change$.subscribe(change =>
+      //   keyManagerMapper.setState(change)
+      // );
 
-      // @note: for rows (y)!
-      // tableDragDropManager.changed$.pipe({
-      //  filter(values: CdkDragDrop => values.axis.y),
-      //  tap(values: CdkDragDrop) => keyManagerMapper.setState(values: prevCurrentXPositions)),
-      // }).subscribe()
+      // @todo: columns (y)!
+      // const subscription = tableDragDropManager.change$.subscribe(change =>
+      //   keyManagerMapper.setState(change)
+      // );
 
       const spreadsheetManager = new CdkSpreadsheetKeyManager(keyManagerMapper);
-      spreadsheetManager.onDestroy(() => tableDragDropManager.destroy());
+      spreadsheetManager.onDestroy(() => {
+        tableDragDropManager.destroy();
+        // dragDropSub.unsubscribe();
+      });
+
       return spreadsheetManager;
     },
   };

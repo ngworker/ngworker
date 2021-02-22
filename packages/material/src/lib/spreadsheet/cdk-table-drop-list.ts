@@ -20,7 +20,7 @@ export class CdkTableDropList {
 
   private readonly _unsub$ = new Subject();
   private readonly _columnChangeSubject$ = new Subject<CdkTableColumn>();
-  public readonly columns$ = this._columnChangeSubject$
+  public readonly change$ = this._columnChangeSubject$
     .asObservable()
     .pipe(takeUntil(this._unsub$));
 

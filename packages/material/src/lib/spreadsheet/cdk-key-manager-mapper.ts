@@ -39,7 +39,7 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
   private _table!: Table;
   private _matrixY!: MatrixY<number>;
   private _matrixX!: MatrixX<number>;
-  private _currTableAxis!: Axis;
+  private _currTableAxis: Axis = { x: -1, y: -1 };
   private _unsub$ = new Subject();
 
   constructor(
@@ -60,6 +60,13 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
   reCalcState() {
     this.setTableState(this._cellSel);
     this.setMatrixStates(this._table.cellCount, this._table.columnCount);
+  }
+
+  setState(state: CdkTableColumn) {
+    this.setTableState(this._cellSel);
+    this.updateQueryList(this._queryList);
+    this.setMatrixStates(this._table.cellCount, this._table.columnCount);
+    this.updateAxisXByColumns(state, this._currTableAxis.x);
   }
 
   get activeItem() {
@@ -164,6 +171,7 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
     this._queryList.reset(result);
   }
 
+  // @todo: allow to pass only previousIndex and currentIndex for x
   updateAxisXByColumns(tableColumn: CdkTableColumn, x: number) {
     const { previousIndex, currentIndex } = tableColumn;
     // when columns on the right boundary of the active cell are changed
@@ -185,6 +193,7 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
 
     // @why: ExpressionChangedAfterItHasBeenCheckedError
     setTimeout(() => this.setActiveItemAxis(this._currTableAxis), 0);
+    // this.setActiveItemAxis(this._currTableAxis);
   }
 
   getKeyMangerItemAxis(event: MouseEvent): Axis {
