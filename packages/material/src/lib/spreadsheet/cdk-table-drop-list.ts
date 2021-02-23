@@ -5,6 +5,7 @@ import {
 } from '@angular/cdk/drag-drop';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { QueryList } from '@angular/core';
 
 export interface CdkTableColumn extends CdkDragDrop<string[]> {
   columns: string[];
@@ -13,6 +14,7 @@ export interface CdkTableColumn extends CdkDragDrop<string[]> {
 export class CdkTableDropList {
   constructor(
     private readonly _cdkDropList: CdkDropList,
+    private readonly _queryList: QueryList<unknown>,
     private readonly _columns: string[]
   ) {
     this._init();
@@ -20,6 +22,7 @@ export class CdkTableDropList {
 
   private readonly _unsub$ = new Subject();
   private readonly _columnChangeSubject$ = new Subject<CdkTableColumn>();
+  // @todo: queryList,
   public readonly change$ = this._columnChangeSubject$
     .asObservable()
     .pipe(takeUntil(this._unsub$));
@@ -29,6 +32,7 @@ export class CdkTableDropList {
   }
 
   private _init() {
+    // this._queryList
     this._initColumnDropped();
   }
 

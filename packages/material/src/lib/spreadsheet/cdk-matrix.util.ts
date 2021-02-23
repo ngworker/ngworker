@@ -6,6 +6,7 @@ import {
   MatrixX,
   MatrixY,
   NON_VALID_AXIS,
+  Table,
 } from './mat-table.plugin.models';
 import {
   DOWN_ARROW,
@@ -169,4 +170,26 @@ export function isXMove(x: number, y: number) {
  */
 export function isYMove(x: number, y: number) {
   return y >= 0 && x === NON_VALID_AXIS;
+}
+
+/**
+ * getTableStateByElement
+ * @param element
+ * @param cellSel
+ */
+export function getTableStateByElement(
+  element: HTMLElement,
+  cellSel: string
+): Table {
+  const cells = element.querySelectorAll<HTMLElement>(cellSel);
+  const columnCount = cells[0]?.parentElement?.childElementCount ?? 0;
+  const rowCount = cells.length / columnCount;
+  const cellCount = columnCount * rowCount;
+
+  return {
+    cells,
+    rowCount: rowCount ?? -1,
+    columnCount: columnCount ?? -1,
+    cellCount: cellCount ?? -1,
+  };
 }

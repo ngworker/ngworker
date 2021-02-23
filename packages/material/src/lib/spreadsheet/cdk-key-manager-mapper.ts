@@ -24,6 +24,7 @@ import {
   findAxis,
   findAxisByDir,
   findIndexOf,
+  getTableStateByElement,
   isXMove,
   isYMove,
   sortByXAxis,
@@ -207,17 +208,7 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
 
   setTableState(cellSel: string): Table {
     const element = this._elementRef.nativeElement;
-    const cells = element.querySelectorAll<HTMLElement>(cellSel);
-    const columnCount = cells[0]?.parentElement?.childElementCount ?? 0;
-    const rowCount = cells.length / columnCount;
-    const cellCount = columnCount * rowCount;
-
-    this._table = {
-      cells,
-      rowCount: rowCount ?? -1,
-      columnCount: columnCount ?? -1,
-      cellCount: cellCount ?? -1,
-    };
+    this._table = getTableStateByElement(element, cellSel);
 
     return {
       ...this._table,

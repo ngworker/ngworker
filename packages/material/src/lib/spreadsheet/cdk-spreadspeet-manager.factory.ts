@@ -8,7 +8,6 @@ import {
   FocusHighlightable,
 } from './cdk-spreadsheet-key-manager';
 import { CdkKeyManagerMapper } from './cdk-key-manager-mapper';
-import { tap } from 'rxjs/operators';
 
 export const CDK_SPREADSHEET_FACTORY = new InjectionToken<CdkSpreadsheetDirective>(
   'cdkSpreadsheetManager'
@@ -40,7 +39,11 @@ export function cdkSpreadsheetFactory<T extends FocusHighlightable>(
         queryList
       ).withWrap();
 
-      const tableDragDropManager = new CdkTableDropList(dropList, columns);
+      const tableDragDropManager = new CdkTableDropList(
+        dropList,
+        queryList,
+        columns
+      );
 
       const keyManagerMapper = new CdkKeyManagerMapper<T>(
         elRef,
