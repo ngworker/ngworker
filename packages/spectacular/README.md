@@ -6,6 +6,10 @@
 
 Spectacular offers test harnesses for Angular applications and libraries.
 
+<p align="center">
+ <img width="300" height="300" src="./assets/logo.png">
+</p>
+
 ## Application testing
 
 Spectacular's application testing API configures the Angular testing module and
