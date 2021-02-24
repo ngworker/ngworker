@@ -1,9 +1,6 @@
 name: 'Affected'
 description: 'Check whether an Nx workspace project is affected by changes.'
 
-env:
-  ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-
 inputs:
   project:
     description: 'The name of the project to check.'
