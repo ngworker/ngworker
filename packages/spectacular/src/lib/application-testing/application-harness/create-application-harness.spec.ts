@@ -1,4 +1,10 @@
-import { APP_BOOTSTRAP_LISTENER, APP_INITIALIZER, FactoryProvider, Injectable, NgModule } from '@angular/core';
+import {
+  APP_BOOTSTRAP_LISTENER,
+  APP_INITIALIZER,
+  FactoryProvider,
+  Injectable,
+  NgModule,
+} from '@angular/core';
 
 import { SpectacularAppComponent } from '../../shared/app-component/spectacular-app.component';
 import { createApplicationHarness } from './create-application-harness';

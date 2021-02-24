@@ -1,7 +1,11 @@
 import { Location } from '@angular/common';
 import { SpyLocation } from '@angular/common/testing';
 import { Component, Injectable, NgModule } from '@angular/core';
-import { ExtraOptions, ROUTER_CONFIGURATION, RouterModule } from '@angular/router';
+import {
+  ExtraOptions,
+  ROUTER_CONFIGURATION,
+  RouterModule,
+} from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { SpectacularAppComponent } from '../../shared/app-component/spectacular-app.component';
