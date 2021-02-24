@@ -16,6 +16,8 @@ outputs:
 runs:
   using: 'composite'
   steps:
+    - run: touch ./tmp/IS_AFFECTED
+      shell: bash
     - run:
         node ${{github.action_path}}/affected.mjs ${{ inputs.project }} >>
         ./tmp/IS_AFFECTED
