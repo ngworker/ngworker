@@ -1,13 +1,13 @@
 {
   "name": "@ngworker/spectacular",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Spectacular Angular integration testing. Test harnesses for Angular applications and libraries.",
   "license": "MIT",
   "peerDependencies": {
-    "@angular/common": "^11.0.8",
-    "@angular/core": "^11.0.8",
-    "@angular/platform-browser": "^11.0.8",
-    "@angular/router": "^11.0.8"
+    "@angular/common": "^11.0.9",
+    "@angular/core": "^11.0.9",
+    "@angular/platform-browser": "^11.0.9",
+    "@angular/router": "^11.0.9"
   },
   "dependencies": {
     "tslib": "^2.0.0"
