@@ -1,6 +1,9 @@
 import { Injectable, NgModule, Pipe, PipeTransform } from '@angular/core';
 
-import { PassthroughPipe, passthroughPipeName } from '../test-util/passthrough.pipe';
+import {
+  PassthroughPipe,
+  passthroughPipeName,
+} from '../test-util/passthrough.pipe';
 import { createPipeHarness } from './create-pipe-harness';
 
 describe(createPipeHarness.name, () => {

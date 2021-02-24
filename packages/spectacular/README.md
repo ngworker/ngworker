@@ -2,7 +2,7 @@
 
 ## @ngworker/spectacular
 
-> Spectacular Angular testing.
+> Spectacular Angular integration testing.
 
 Spectacular offers test harnesses for Angular applications and libraries.
 
