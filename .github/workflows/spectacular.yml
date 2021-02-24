@@ -51,7 +51,7 @@ jobs:
       - id: affected
         uses: ./.github/actions/affected
         with:
-          project: 'not-spectacular'
+          project: 'spectacular'
 
       - if: ${{ steps.affected.outputs.is-affected }} == 'true'
         run: pnpx nx test spectacular
