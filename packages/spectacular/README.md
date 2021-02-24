@@ -7,7 +7,7 @@
 Spectacular offers test harnesses for Angular applications and libraries.
 
 <p align="center">
- <img width="300" height="300" src="./assets/logo.png">
+ <img width="300" height="300" src="https://cdn.jsdelivr.net/gh/ngworker/ngworker@main/packages/spectacular/src/assets/logo.png">
 </p>
 
 ## Application testing
