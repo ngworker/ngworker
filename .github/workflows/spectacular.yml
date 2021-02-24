@@ -97,4 +97,4 @@ jobs:
           project: ${{ env.PROJECT_NAME }}
 
       - if: ${{ steps.affected.outputs.is-affected }} == 'true'
-        run: pnpx nx build ${{ env.PROJECT_NAME }}
+        run: pnpx nx build ${{ env.PROJECT_NAME }} --configuration=production
