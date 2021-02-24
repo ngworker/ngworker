@@ -1,6 +1,8 @@
 {
   "name": "@ngworker/spectacular",
   "version": "0.0.1",
+  "description": "Spectacular Angular integration testing. Test harnesses for Angular applications and libraries.",
+  "license": "MIT",
   "peerDependencies": {
     "@angular/common": "^11.0.8",
     "@angular/core": "^11.0.8",
@@ -9,5 +11,31 @@
   },
   "dependencies": {
     "tslib": "^2.0.0"
+  },
+  "keywords": [
+    "spectacular",
+    "ngworker",
+    "testing",
+    "angular",
+    "angular2"
+  ],
+  "author": {
+    "name": "Lars Gyrup Brink Nielsen",
+    "email": "larsbrinknielsen@gmail.com",
+    "url": "https://github.com/LayZeeDK"
+  },
+  "contributors": [],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/",
+    "tag": "unknown"
+  },
+  "bugs": {
+    "url": "https://github.com/ngworker/ngworker/issue"
+  },
+  "homepage": "https://github.com/ngworker/ngworker/tree/main/packages/spectacular#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ngworker/ngworker"
   }
 }
