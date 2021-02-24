@@ -20,10 +20,14 @@ runs:
       shell: bash
     - run: touch ./tmp/IS_AFFECTED
       shell: bash
+    # we store the result in a temporary file to allow the Node.js process to
+    # fail the calling job
     - run:
         node ${{github.action_path}}/affected.mjs ${{ inputs.project }} >>
         ./tmp/IS_AFFECTED
       shell: bash
+    # if we inline the Node.js execution here, the calling job will not fail in
+    # case of process errors
     - run: echo "::set-output name=is-affected::$(cat ./tmp/IS_AFFECTED)"
       shell: bash
     - run: rm ./tmp/IS_AFFECTED
