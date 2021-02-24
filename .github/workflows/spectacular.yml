@@ -7,6 +7,7 @@ env:
   NX_BRANCH: ${{ github.event.number }}
   NX_RUN_GROUP: ${{ github.run_id }}
   PNPM_STORE_PATH: ~/.pnpm-store
+  PROJECT_NAME: spectacular
 
 on:
   push:
@@ -20,7 +21,7 @@ jobs:
     steps:
       - if: github.event_name == 'push'
         uses: actions/checkout@v2
-      # needed for nx affected command
+      # needed for the nx affected command
       - if: github.event_name == 'pull_request'
         uses: actions/checkout@v2
         with:
@@ -51,7 +52,49 @@ jobs:
       - id: affected
         uses: ./.github/actions/affected
         with:
-          project: 'spectacular'
+          project: ${{ env.PROJECT_NAME }}
 
       - if: ${{ steps.affected.outputs.is-affected }} == 'true'
-        run: pnpx nx test spectacular
+        run: pnpx nx test ${{ env.PROJECT_NAME }} --with-deps --parallel
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - if: github.event_name == 'push'
+        uses: actions/checkout@v2
+      # needed for the nx affected command
+      - if: github.event_name == 'pull_request'
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+      - if: github.event_name == 'pull_request'
+        run: git fetch --no-tags --prune --depth=5 origin main
+
+      - name: Use Node.js ${{ env.NODE_LATEST }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.NODE_LATEST }}
+
+      - run: npm install --global pnpm
+      - run: pnpm config set store-dir $PNPM_STORE_PATH
+      - name: Cache PNPM store
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.PNPM_STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
+      - run:
+          pnpm install --reporter silent --frozen-lockfile false
+          --verify-store-integrity false
+      - run: pnpm store prune
+
+      - id: affected
+        uses: ./.github/actions/affected
+        with:
+          project: ${{ env.PROJECT_NAME }}
+
+      - if: ${{ steps.affected.outputs.is-affected }} == 'true'
+        run: pnpx nx build ${{ env.PROJECT_NAME }}
