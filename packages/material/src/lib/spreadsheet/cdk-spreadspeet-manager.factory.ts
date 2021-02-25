@@ -28,7 +28,7 @@ export function cdkSpreadsheetFactory<T extends FocusHighlightable>(
   dropList: CdkDropList
 ): CdkSpreadsheetFactory<T> {
   return {
-    create: (tableColumns: CdkHeaderRowDefColumns, queryList: QueryList<T>) => {
+    create: (headerRowDef: CdkHeaderRowDefColumns, queryList: QueryList<T>) => {
       const keyManager = new ActiveDescendantKeyManager<T>(
         queryList
       ).withWrap();
@@ -36,7 +36,7 @@ export function cdkSpreadsheetFactory<T extends FocusHighlightable>(
       const tableDragDropManager = new CdkTableDropList(
         dropList,
         queryList,
-        tableColumns.columns
+        headerRowDef
       );
 
       const { table } = tableDragDropManager;

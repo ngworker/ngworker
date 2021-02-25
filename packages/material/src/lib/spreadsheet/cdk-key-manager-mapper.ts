@@ -3,6 +3,7 @@ import {
   CdkTableDropListState,
   Direction,
   FocusHighlightable,
+  KeyCodes,
   MatrixX,
   MatrixY,
   NON_VALID_AXIS,
@@ -24,13 +25,15 @@ import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import * as matrixUtils from './cdk-matrix.utils';
 
 export class CdkKeyManagerMapper<T extends FocusHighlightable> {
-  public readonly itemSelected$ = this._keyManager.change;
-
   private _table!: Table;
   private _matrixY!: MatrixY<number>;
   private _matrixX!: MatrixX<number>;
   private _currTableAxis: Axis = { x: -1, y: -1 };
+
   private readonly _unsub$ = new Subject();
+  private readonly _selectedItem$ = this._keyManager.change
+    .pipe(delay(0), takeUntil(this._unsub$))
+    .subscribe(_ => this._keyManager.activeItem?.focus());
 
   constructor(
     private _elementRef: ElementRef<HTMLElement>,
@@ -40,20 +43,24 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
 
   init(table: Table) {
     this._table = table;
-
     this.reCalcState();
-    this.initItemSelected();
+
     return this;
   }
 
   reCalcState() {
-    this.setMatrixStates(this._table.cellCount, this._table.columnCount);
+    this.setMatrix(this._table.cellCount, this._table.columnCount);
   }
 
   setState(state: CdkTableDropListState) {
     this._table = state.table;
-    this.setMatrixStates(state.table.cellCount, state.table.columnCount);
-    this.updateAxisXByColumns(state.dropped, this._currTableAxis.x);
+    this.setMatrix(state.table.cellCount, state.table.columnCount);
+    this.setAxisXByColumns(state.dropped, this._currTableAxis.x);
+  }
+
+  setMatrix(cellCount: number, columnCount: number) {
+    this._matrixY = matrixUtils.createByAxis('y', cellCount, columnCount);
+    this._matrixX = matrixUtils.createByAxis('x', cellCount, columnCount);
   }
 
   get activeItem() {
@@ -76,13 +83,7 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
     }
   }
 
-  canNextItemActive() {
-    const axisPos = matrixUtils.findAxisByDir(DOWN_ARROW, this._currTableAxis);
-    const keyManagerItemIndex = this.updateStates(axisPos, 'y');
-    return !!keyManagerItemIndex;
-  }
-
-  setItemByDirection(dir: Direction, event: KeyboardEvent) {
+  setItemByArrowDirection(dir: Direction, event: KeyboardEvent) {
     if (!(event instanceof KeyboardEvent)) {
       throw new Error('Event must be instanceof KeyboardEvent');
     }
@@ -99,15 +100,26 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
     }
   }
 
+  setItemByKeyCode(keyCode: KeyCodes) {
+    console.log(`not setItemByKeyCode implemented`, keyCode);
+  }
+
+  canNextItemActive() {
+    const axisPos = matrixUtils.findAxisByDir(DOWN_ARROW, this._currTableAxis);
+    const keyManagerItemIndex = this.setTableAxis(axisPos, 'y');
+
+    return !!keyManagerItemIndex;
+  }
+
   setActiveItemAxis(tableAxisItem: Partial<Axis>) {
     const tableAxisItemY = tableAxisItem.y ?? NON_VALID_AXIS;
     const tableAxisItemX = tableAxisItem.x ?? NON_VALID_AXIS;
 
     let keyManagerItemIndex: number;
     if (matrixUtils.isYMove(tableAxisItemX, tableAxisItemY)) {
-      keyManagerItemIndex = this.updateStates(tableAxisItemY, 'y');
+      keyManagerItemIndex = this.setTableAxis(tableAxisItemY, 'y');
     } else if (matrixUtils.isXMove(tableAxisItemX, tableAxisItemY)) {
-      keyManagerItemIndex = this.updateStates(tableAxisItemX, 'x');
+      keyManagerItemIndex = this.setTableAxis(tableAxisItemX, 'x');
     } else {
       keyManagerItemIndex = this.getKeyMangerItemIndex(
         tableAxisItemY,
@@ -118,16 +130,21 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
     this.setActiveItem(keyManagerItemIndex);
   }
 
-  updateStates(tableAxisItem: number, ax: keyof Axis) {
+  setTableAxis(tableAxisItem: number, ax: keyof Axis) {
     const keyManagerItemIndex = this.getKeyMangerItemIndex(tableAxisItem, ax);
-    this.updateTableAxisPos(keyManagerItemIndex, tableAxisItem, ax);
+    if (keyManagerItemIndex >= 0) {
+      this.setTableByAxis(tableAxisItem, ax);
+    }
+
     return keyManagerItemIndex;
   }
 
-  updateTableAxisPos(index: number, value: number, ax: keyof Axis) {
-    if (index >= 0) {
-      this._currTableAxis[ax] = value;
+  setTableByAxis(value: number, ax: keyof Axis) {
+    const axis = this._currTableAxis[ax];
+    if (axis === undefined) {
+      throw new Error(`axis: "${ax}" does not exists on _currTableAxis`);
     }
+    this._currTableAxis[ax] = value;
   }
 
   getKeyMangerItemIndex(axisVal: number, axisTypeOrIndex: keyof Axis | number) {
@@ -140,7 +157,7 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
     }
   }
 
-  updateAxisXByColumns(tableColumn: CdkDragDrop<string[], unknown>, x: number) {
+  setAxisXByColumns(tableColumn: CdkDragDrop<string[], unknown>, x: number) {
     const { previousIndex, currentIndex } = tableColumn;
     // when columns on the right boundary of the active cell are changed
     if (currentIndex > x && previousIndex > x) {
@@ -169,22 +186,8 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
       event.target as Element
     );
     const tableAxis = matrixUtils.findAxis(currentColIndex, this._matrixY);
+
     return (this._currTableAxis = tableAxis);
-  }
-
-  setMatrixStates(cellCount: number, columnCount: number) {
-    this._matrixY = matrixUtils.createByAxis('y', cellCount, columnCount);
-    this._matrixX = matrixUtils.createByAxis('x', cellCount, columnCount);
-    return {
-      ...this._matrixY,
-      ...this._matrixX,
-    };
-  }
-
-  initItemSelected() {
-    this.itemSelected$
-      .pipe(delay(0), takeUntil(this._unsub$))
-      .subscribe(_ => this._keyManager.activeItem?.focus());
   }
 
   destroy() {

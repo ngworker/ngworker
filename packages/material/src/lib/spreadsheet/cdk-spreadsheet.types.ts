@@ -9,8 +9,11 @@ import { QueryList } from '@angular/core';
 import { CdkHeaderRowDef } from '@angular/cdk/table';
 import { Highlightable } from '@angular/cdk/a11y';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import * as keyCodes from '@angular/cdk/keycodes';
 
 export const NON_VALID_AXIS = -1;
+
+export type KeyCodes = keyof typeof keyCodes;
 
 export interface CdkHeaderRowDefColumns {
   columns: typeof CdkHeaderRowDef.ɵdir.inputs.columns[];

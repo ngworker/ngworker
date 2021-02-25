@@ -22,7 +22,7 @@ export class CdkSpreadsheetKeyManager<T extends FocusHighlightable> {
 
   onKeydownArrow(event: KeyboardEvent) {
     const keyCode = event.keyCode as Direction;
-    this._keyManagerMapper.setItemByDirection(keyCode, event);
+    this._keyManagerMapper.setItemByArrowDirection(keyCode, event);
   }
 
   setNextItemActive() {
@@ -30,19 +30,19 @@ export class CdkSpreadsheetKeyManager<T extends FocusHighlightable> {
   }
 
   setArrowUpItemActive(event: KeyboardEvent) {
-    this._keyManagerMapper.setItemByDirection(UP_ARROW, event);
+    this._keyManagerMapper.setItemByArrowDirection(UP_ARROW, event);
   }
 
   setArrowDownItemActive(event: KeyboardEvent) {
-    this._keyManagerMapper.setItemByDirection(DOWN_ARROW, event);
+    this._keyManagerMapper.setItemByArrowDirection(DOWN_ARROW, event);
   }
 
   setArrowLeftItemActive(event: KeyboardEvent) {
-    this._keyManagerMapper.setItemByDirection(LEFT_ARROW, event);
+    this._keyManagerMapper.setItemByArrowDirection(LEFT_ARROW, event);
   }
 
   setArrowRightItemActive(event: KeyboardEvent) {
-    this._keyManagerMapper.setItemByDirection(RIGHT_ARROW, event);
+    this._keyManagerMapper.setItemByArrowDirection(RIGHT_ARROW, event);
   }
 
   onDestroy(onDestroy: () => void) {

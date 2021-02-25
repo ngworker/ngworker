@@ -30,6 +30,7 @@ export class MatCellEditPluginDirective
   constructor(
     private readonly elementRef: ElementRef<HTMLElement>,
     private readonly cdkPortalService: CdkPortalService,
+    // @todo: use CdkColumnDef
     private readonly matColumnDef: MatColumnDef
   ) {}
 
