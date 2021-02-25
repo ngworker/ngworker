@@ -25,8 +25,7 @@ export const CDK_SPREADSHEET_MANAGER_PROVIDERS: Provider[] = [
 export interface CdkSpreadsheetFactory<T extends FocusHighlightable> {
   create(
     columns: string[],
-    queryList: QueryList<T>,
-    el: ElementRef
+    queryList: QueryList<T>
   ): CdkSpreadsheetKeyManager<T>;
 }
 
@@ -34,7 +33,8 @@ export function cdkSpreadsheetFactory<T extends FocusHighlightable>(
   dropList: CdkDropList
 ): CdkSpreadsheetFactory<T> {
   return {
-    create: (columns: string[], queryList: QueryList<T>, elRef: ElementRef) => {
+    // @todo: can we determine the columns automatically?
+    create: (columns: string[], queryList: QueryList<T>) => {
       const keyManager = new ActiveDescendantKeyManager<T>(
         queryList
       ).withWrap();
@@ -45,27 +45,26 @@ export function cdkSpreadsheetFactory<T extends FocusHighlightable>(
         columns
       );
 
-      const keyManagerMapper = new CdkKeyManagerMapper<T>(
-        elRef,
-        keyManager,
-        queryList,
-        tableDragDropManager.change$
+      const keyManagerMapper = new CdkKeyManagerMapper(
+        // @todo: pass this._table
+        dropList.element,
+        keyManager
       ).init();
 
-      // @todo: columns (x)!
+      // @todo: columns (y)!
       // const dragDropSub = tableDragDropManager.change$.subscribe(change =>
       //   keyManagerMapper.setState(change)
       // );
 
-      // @todo: columns (y)!
-      // const subscription = tableDragDropManager.change$.subscribe(change =>
-      //   keyManagerMapper.setState(change)
-      // );
+      // @todo: columns (x)!
+      const dragDropSub = tableDragDropManager.change$.subscribe(change =>
+        keyManagerMapper.setState(change)
+      );
 
       const spreadsheetManager = new CdkSpreadsheetKeyManager(keyManagerMapper);
       spreadsheetManager.onDestroy(() => {
         tableDragDropManager.destroy();
-        // dragDropSub.unsubscribe();
+        dragDropSub.unsubscribe();
       });
 
       return spreadsheetManager;

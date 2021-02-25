@@ -4,51 +4,55 @@ import {
   moveItemInArray,
 } from '@angular/cdk/drag-drop';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { map, takeUntil, withLatestFrom } from 'rxjs/operators';
 import { QueryList } from '@angular/core';
+import { Table } from './cdk-spreadsheet.models';
+import { getTableStateByElement, syncQueryList } from './cdk-matrix.util';
 
 export interface CdkTableColumn extends CdkDragDrop<string[]> {
   columns: string[];
 }
 
 export class CdkTableDropList {
+  private _table!: Table;
+  private readonly _element = this._cdkDropList.element.nativeElement;
+  private readonly _unsub$ = new Subject();
+  private readonly _changeSubject$ = new Subject<
+    { table: Table } & { dropped: CdkDragDrop<string[], unknown> }
+  >();
+  public readonly change$ = this._changeSubject$
+    .asObservable()
+    .pipe(takeUntil(this._unsub$));
+
   constructor(
-    private readonly _cdkDropList: CdkDropList,
+    private readonly _cdkDropList: CdkDropList<string[]>,
     private readonly _queryList: QueryList<unknown>,
-    private readonly _columns: string[]
+    private readonly _columns: string[],
+    private readonly _cellSel = '.cdk-cell'
   ) {
     this._init();
   }
 
-  private readonly _unsub$ = new Subject();
-  private readonly _columnChangeSubject$ = new Subject<CdkTableColumn>();
-  // @todo: queryList,
-  public readonly change$ = this._columnChangeSubject$
-    .asObservable()
-    .pipe(takeUntil(this._unsub$));
-
-  move(previousIndex: number, currentIndex: number) {
-    moveItemInArray(this._columns, previousIndex, currentIndex);
-  }
-
   private _init() {
-    // this._queryList
-    this._initColumnDropped();
-  }
-
-  private _initColumnDropped() {
+    this._table = getTableStateByElement(this._element, this._cellSel);
     this._cdkDropList.orientation = 'horizontal';
     this._cdkDropList.dropped
-      .pipe(takeUntil(this._unsub$))
-      .subscribe(event => this._updateStates(event));
-  }
+      .pipe(map(dropped => dropped))
+      .subscribe(({ previousIndex, currentIndex }) =>
+        moveItemInArray(this._columns, previousIndex, currentIndex)
+      );
 
-  private _updateStates(event: CdkDragDrop<string[]>) {
-    this._columnChangeSubject$.next({
-      ...event,
-      columns: this._columns,
-    });
-    moveItemInArray(this._columns, event.previousIndex, event.currentIndex);
+    const dropped = this._cdkDropList.dropped.pipe(map(x => x));
+    this._queryList.changes
+      .pipe(withLatestFrom(dropped), takeUntil(this._unsub$))
+      .subscribe(([queryList, dropped]) => {
+        this._table = getTableStateByElement(this._element, this._cellSel);
+        syncQueryList(queryList, this._table.cells, this._table.columnCount);
+        this._changeSubject$.next({
+          table: this._table,
+          dropped,
+        });
+      });
   }
 
   destroy() {

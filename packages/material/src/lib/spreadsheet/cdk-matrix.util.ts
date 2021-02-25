@@ -7,13 +7,14 @@ import {
   MatrixY,
   NON_VALID_AXIS,
   Table,
-} from './mat-table.plugin.models';
+} from './cdk-spreadsheet.models';
 import {
   DOWN_ARROW,
   LEFT_ARROW,
   RIGHT_ARROW,
   UP_ARROW,
 } from '@angular/cdk/keycodes';
+import { QueryList } from '@angular/core';
 
 /**
  * createByAxis
@@ -170,6 +171,32 @@ export function isXMove(x: number, y: number) {
  */
 export function isYMove(x: number, y: number) {
   return y >= 0 && x === NON_VALID_AXIS;
+}
+
+/**
+ * syncQueryList
+ * @param queryList
+ * @param cells
+ * @param columnCount
+ */
+export function syncQueryList(
+  queryList: QueryList<unknown>,
+  cells: NodeListOf<HTMLElement>,
+  columnCount: number
+) {
+  const sortedQueryList = queryList.toArray().sort(
+    (a, b) =>
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      findIndexOf(cells, a.elementRef.nativeElement) -
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      findIndexOf(cells, b.elementRef.nativeElement)
+  );
+
+  const result = sortByXAxis(sortedQueryList, columnCount).flat();
+  queryList.reset(result);
+  return queryList;
 }
 
 /**

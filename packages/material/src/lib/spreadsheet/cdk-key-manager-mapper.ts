@@ -5,7 +5,7 @@ import {
   MatrixY,
   NON_VALID_AXIS,
   Table,
-} from './mat-table.plugin.models';
+} from './cdk-spreadsheet.models';
 
 import {
   DOWN_ARROW,
@@ -14,11 +14,11 @@ import {
   UP_ARROW,
 } from '@angular/cdk/keycodes';
 
-import { ElementRef, QueryList } from '@angular/core';
-import { FocusHighlightable } from './cdk-spreadsheet-key-manager';
-import { Observable, Subject } from 'rxjs';
-import { CdkTableColumn } from './cdk-table-drop-list';
+import { ElementRef } from '@angular/core';
+import { Subject } from 'rxjs';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
+
+// @todo: import * as matrixUtil from './cdk-matrix.util'
 import {
   createByAxis,
   findAxis,
@@ -27,34 +27,28 @@ import {
   getTableStateByElement,
   isXMove,
   isYMove,
-  sortByXAxis,
 } from './cdk-matrix.util';
-import { delay, filter, takeUntil, tap, withLatestFrom } from 'rxjs/operators';
+import { delay, takeUntil } from 'rxjs/operators';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { FocusHighlightable } from './cdk-spreadsheet-key-manager';
 
 export class CdkKeyManagerMapper<T extends FocusHighlightable> {
-  public cellPositions$ = this._queryList.changes;
-  public itemSelected$ = this._keyManager.change;
-  public tabOut$ = this._keyManager.tabOut;
-  public state$ = new Subject(); // contains _table, currentTAbleAxis, etc
-
   private _table!: Table;
   private _matrixY!: MatrixY<number>;
   private _matrixX!: MatrixX<number>;
   private _currTableAxis: Axis = { x: -1, y: -1 };
-  private _unsub$ = new Subject();
+  private readonly _unsub$ = new Subject();
+  public readonly itemSelected$ = this._keyManager.change;
 
   constructor(
     private _elementRef: ElementRef<HTMLElement>,
     private _keyManager: ActiveDescendantKeyManager<T>,
-    private _queryList: QueryList<T>,
-    private _cdkTableColumn: Observable<CdkTableColumn>,
     private _cellSel = '.cdk-cell'
   ) {}
 
   init() {
     this.reCalcState();
     this.initItemSelected();
-    this.initCellPositions();
     return this;
   }
 
@@ -63,11 +57,12 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
     this.setMatrixStates(this._table.cellCount, this._table.columnCount);
   }
 
-  setState(state: CdkTableColumn) {
-    this.setTableState(this._cellSel);
-    this.updateQueryList(this._queryList);
-    this.setMatrixStates(this._table.cellCount, this._table.columnCount);
-    this.updateAxisXByColumns(state, this._currTableAxis.x);
+  setState(
+    state: { table: Table } & { dropped: CdkDragDrop<string[], unknown> }
+  ) {
+    this._table = state.table;
+    this.setMatrixStates(state.table.cellCount, state.table.columnCount);
+    this.updateAxisXByColumns(state.dropped, this._currTableAxis.x);
   }
 
   get activeItem() {
@@ -97,9 +92,6 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
     return !!keyManagerItemIndex;
   }
 
-  // @todo:
-  //  - use setItemByDirection for custom KeyboardEvent
-  //  - add onKeydownArrow(event: KeyboardEvent);
   setItemByDirection(dir: Direction, event: KeyboardEvent) {
     if (!(event instanceof KeyboardEvent)) {
       throw new Error('Event must be instanceof KeyboardEvent');
@@ -158,22 +150,7 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
     }
   }
 
-  updateQueryList(queryList: QueryList<T>) {
-    const sortedQueryList = queryList.toArray().sort(
-      (a, b) =>
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        findIndexOf(this._table.cells, a.elementRef.nativeElement) -
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        findIndexOf(this._table.cells, b.elementRef.nativeElement)
-    );
-    const result = sortByXAxis(sortedQueryList, this._table.columnCount);
-    this._queryList.reset(result);
-  }
-
-  // @todo: allow to pass only previousIndex and currentIndex for x
-  updateAxisXByColumns(tableColumn: CdkTableColumn, x: number) {
+  updateAxisXByColumns(tableColumn: CdkDragDrop<string[], unknown>, x: number) {
     const { previousIndex, currentIndex } = tableColumn;
     // when columns on the right boundary of the active cell are changed
     if (currentIndex > x && previousIndex > x) {
@@ -194,7 +171,6 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
 
     // @why: ExpressionChangedAfterItHasBeenCheckedError
     setTimeout(() => this.setActiveItemAxis(this._currTableAxis), 0);
-    // this.setActiveItemAxis(this._currTableAxis);
   }
 
   getKeyMangerItemAxis(event: MouseEvent): Axis {
@@ -225,36 +201,9 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
   }
 
   initItemSelected() {
-    this.itemSelected$.pipe(delay(0), takeUntil(this._unsub$)).subscribe(_ => {
-      this._keyManager.activeItem?.focus();
-      console.log('itemSelected$: expose new state via this.state$.next()');
-    });
-  }
-
-  initCellPositions() {
-    // @todo:
-    //  - This has nothing to do here! This class should not know about that, also about
-    //    the columns are draggable! See promising pseudocode in cdk-spreadsheet-manager-factory.ts
-    this.cellPositions$
-      .pipe(
-        // re-init on any change
-        tap(queryList => {
-          this.setTableState(this._cellSel);
-          this.updateQueryList(queryList);
-          this.setMatrixStates(this._table.cellCount, this._table.columnCount);
-        }),
-
-        // update cell position
-        filter(_ => !!this._currTableAxis),
-        withLatestFrom(this._cdkTableColumn),
-        tap(([, columns]) =>
-          this.updateAxisXByColumns(columns, this._currTableAxis.x)
-        ),
-        takeUntil(this._unsub$)
-      )
-      .subscribe(() => {
-        console.log('cellPositions$: expose new state via this.state$.next()');
-      });
+    this.itemSelected$
+      .pipe(delay(0), takeUntil(this._unsub$))
+      .subscribe(_ => this._keyManager.activeItem?.focus());
   }
 
   destroy() {

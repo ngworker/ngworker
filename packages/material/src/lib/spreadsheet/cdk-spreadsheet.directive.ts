@@ -3,7 +3,6 @@ import {
   ContentChild,
   ContentChildren,
   Directive,
-  ElementRef,
   HostBinding,
   HostListener,
   Inject,
@@ -34,8 +33,7 @@ export class CdkSpreadsheetDirective<
 
   constructor(
     @Inject(CDK_SPREADSHEET_FACTORY)
-    private _spreadsheetFactory: CdkSpreadsheetFactory<T>,
-    private _tableElementRef: ElementRef<HTMLElement>
+    private _spreadsheetFactory: CdkSpreadsheetFactory<T>
   ) {}
 
   @HostBinding('class.cdk-spreadsheet') hostClass = true;
@@ -67,8 +65,7 @@ export class CdkSpreadsheetDirective<
   ngAfterContentInit() {
     this.spreadsheetManager = this._spreadsheetFactory.create(
       this._cdkHeaderRowDef.columns,
-      this._matCellEditQueryList,
-      this._tableElementRef
+      this._matCellEditQueryList
     );
   }
 

@@ -5,7 +5,10 @@ import {
   UP_ARROW,
 } from '@angular/cdk/keycodes';
 
-export interface Table<N extends number = number, E extends Element = Element> {
+export interface Table<
+  N extends number = number,
+  E extends HTMLElement = HTMLElement
+> {
   readonly rowCount: N;
   readonly columnCount: N;
   readonly cellCount: N;

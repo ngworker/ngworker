@@ -1,5 +1,5 @@
 import { Highlightable } from '@angular/cdk/a11y';
-import { Direction } from './mat-table.plugin.models';
+import { Direction } from './cdk-spreadsheet.models';
 import { CdkKeyManagerMapper } from './cdk-key-manager-mapper';
 import {
   DOWN_ARROW,
