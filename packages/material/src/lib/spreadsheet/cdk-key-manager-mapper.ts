@@ -94,10 +94,6 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
     } else if (dir === UP_ARROW || dir === DOWN_ARROW) {
       this.setActiveItemAxis({ y: axisPos });
     }
-
-    if (axisPos >= 0) {
-      event.preventDefault();
-    }
   }
 
   setItemByKeyCode(keyCode: KeyCodes) {
