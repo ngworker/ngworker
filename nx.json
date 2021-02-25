@@ -13,12 +13,7 @@
       "runner": "@nrwl/nx-cloud",
       "options": {
         "accessToken": "ZTViM2YyNGQtNjk2My00YmFjLWJlYmQtZjIwMzJhMmIxNGMwfHJlYWQtd3JpdGU=",
-        "cacheableOperations": [
-          "build",
-          "e2e",
-          "lint",
-          "test"
-        ],
+        "cacheableOperations": ["build", "e2e", "lint", "test"],
         "canTrackAnalytics": false,
         "showUsageWarnings": true
       }
@@ -27,20 +22,15 @@
   "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" },
   "projects": {
     "examples-tour-of-heroes-crisis-center": {
-      "tags": [
-        "scope:internal",
-        "type:feature"
-      ]
+      "tags": ["scope:internal", "type:feature"]
     },
     "internal-test-util": {
-      "tags": [
-        "scope:internal",
-        "type:test-util"
-      ]
+      "tags": ["scope:internal", "type:test-util"]
     },
-    "spectacular": { "tags": ["type:package"
-      ]
-    },"workspace-tools": { "tags": ["type:tool"] },
+    "spectacular": {
+      "tags": ["type:package"]
+    },
+    "workspace-tools": { "tags": ["type:tool"] },
     "material": { "tags": [] },
     "cdk": { "tags": [] },
     "mat-table-spreadsheet": { "tags": [] },

@@ -97,9 +97,7 @@
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/packages/internal/test-util"
-          ],
+          "outputs": ["coverage/packages/internal/test-util"],
           "options": {
             "jestConfig": "packages/internal/test-util/jest.config.js",
             "passWithNoTests": true
@@ -136,9 +134,7 @@
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/packages/spectacular"
-          ],
+          "outputs": ["coverage/packages/spectacular"],
           "options": {
             "jestConfig": "packages/spectacular/jest.config.js",
             "passWithNoTests": true
@@ -154,16 +150,12 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "tools/**/*.ts"
-            ]
+            "lintFilePatterns": ["tools/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/tools"
-          ],
+          "outputs": ["coverage/tools"],
           "options": {
             "jestConfig": "tools/jest.config.js",
             "passWithNoTests": true
