@@ -13,10 +13,8 @@ import { MatCellEditPluginComponent } from './mat-cell-edit.plugin.component';
 import { CdkPortalService } from './cdk-portal.service';
 import { fromEvent, Subject } from 'rxjs';
 import { filter, map, startWith, takeUntil, tap } from 'rxjs/operators';
-import { FocusHighlightable } from './cdk-spreadsheet-key-manager';
 import { MatColumnDef } from '@angular/material/table';
-
-const EMPTY_EVENT = new Event('EMPTY');
+import { FocusHighlightable } from './cdk-spreadsheet.types';
 
 @Directive({
   selector: 'mat-cell[matCellEdit], th[mat-cell][matCellEdit]',
@@ -97,7 +95,7 @@ export class MatCellEditPluginDirective
     // @todo: move into an helper
     fromEvent(matCellInputElement, 'change')
       .pipe(
-        startWith(EMPTY_EVENT),
+        startWith(new Event('EMPTY')),
         tap(() => this._show()),
         filter(event => !!event.target),
         map(event => (event.target as HTMLInputElement).value),

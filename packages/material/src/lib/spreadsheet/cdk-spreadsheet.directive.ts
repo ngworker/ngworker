@@ -10,17 +10,18 @@ import {
   QueryList,
 } from '@angular/core';
 
-import {
-  CdkSpreadsheetKeyManager,
-  FocusHighlightable,
-} from './cdk-spreadsheet-key-manager';
+import { CdkSpreadsheetKeyManager } from './cdk-spreadsheet-key-manager';
 import { MatCellEditPluginDirective } from './mat-cell-edit.plugin.directive';
-import { MatHeaderRowDef } from '@angular/material/table';
 import {
   CDK_SPREADSHEET_FACTORY,
   CDK_SPREADSHEET_MANAGER_PROVIDERS,
-  CdkSpreadsheetFactory,
 } from './cdk-spreadspeet-manager.factory';
+import { CdkHeaderRowDef } from '@angular/cdk/table';
+import {
+  CdkHeaderRowDefColumns,
+  CdkSpreadsheetFactory,
+  FocusHighlightable,
+} from './cdk-spreadsheet.types';
 
 @Directive({
   selector: 'cdk-table[cdkSpreadsheet], [cdkSpreadsheet][cdk-table]',
@@ -41,10 +42,9 @@ export class CdkSpreadsheetDirective<
   @ContentChildren(MatCellEditPluginDirective)
   private _matCellEditQueryList!: QueryList<T>;
 
-  @ContentChild(MatHeaderRowDef)
-  private _cdkHeaderRowDef!: QueryList<MatHeaderRowDef> & {
-    columns: string[];
-  };
+  @ContentChild(CdkHeaderRowDef)
+  private _cdkHeaderRowDef!: QueryList<CdkHeaderRowDef> &
+    CdkHeaderRowDefColumns;
 
   @HostListener('click', ['$event']) onClick(event: MouseEvent) {
     this.spreadsheetManager.setActiveItem(event);
@@ -64,7 +64,7 @@ export class CdkSpreadsheetDirective<
 
   ngAfterContentInit() {
     this.spreadsheetManager = this._spreadsheetFactory.create(
-      this._cdkHeaderRowDef.columns,
+      this._cdkHeaderRowDef,
       this._matCellEditQueryList
     );
   }

@@ -1,5 +1,4 @@
-import { Highlightable } from '@angular/cdk/a11y';
-import { Direction } from './cdk-spreadsheet.models';
+import { Direction, FocusHighlightable } from './cdk-spreadsheet.types';
 import { CdkKeyManagerMapper } from './cdk-key-manager-mapper';
 import {
   DOWN_ARROW,
@@ -7,14 +6,6 @@ import {
   RIGHT_ARROW,
   UP_ARROW,
 } from '@angular/cdk/keycodes';
-
-export interface FocusShow {
-  focus: () => void;
-  show: () => void;
-}
-
-// @todo: choose a different name and add elementRef because of CdkKeyManagerMapper.sortedQueryList
-export interface FocusHighlightable extends Highlightable, FocusShow {}
 
 export class CdkSpreadsheetKeyManager<T extends FocusHighlightable> {
   private _onDestroy!: () => void;

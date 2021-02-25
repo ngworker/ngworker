@@ -1,11 +1,13 @@
 import {
   Axis,
+  CdkTableDropListState,
   Direction,
+  FocusHighlightable,
   MatrixX,
   MatrixY,
   NON_VALID_AXIS,
   Table,
-} from './cdk-spreadsheet.models';
+} from './cdk-spreadsheet.types';
 
 import {
   DOWN_ARROW,
@@ -17,28 +19,18 @@ import {
 import { ElementRef } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
-
-// @todo: import * as matrixUtil from './cdk-matrix.util'
-import {
-  createByAxis,
-  findAxis,
-  findAxisByDir,
-  findIndexOf,
-  getTableStateByElement,
-  isXMove,
-  isYMove,
-} from './cdk-matrix.util';
 import { delay, takeUntil } from 'rxjs/operators';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { FocusHighlightable } from './cdk-spreadsheet-key-manager';
+import * as matrixUtils from './cdk-matrix.utils';
 
 export class CdkKeyManagerMapper<T extends FocusHighlightable> {
+  public readonly itemSelected$ = this._keyManager.change;
+
   private _table!: Table;
   private _matrixY!: MatrixY<number>;
   private _matrixX!: MatrixX<number>;
   private _currTableAxis: Axis = { x: -1, y: -1 };
   private readonly _unsub$ = new Subject();
-  public readonly itemSelected$ = this._keyManager.change;
 
   constructor(
     private _elementRef: ElementRef<HTMLElement>,
@@ -46,20 +38,19 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
     private _cellSel = '.cdk-cell'
   ) {}
 
-  init() {
+  init(table: Table) {
+    this._table = table;
+
     this.reCalcState();
     this.initItemSelected();
     return this;
   }
 
   reCalcState() {
-    this.setTableState(this._cellSel);
     this.setMatrixStates(this._table.cellCount, this._table.columnCount);
   }
 
-  setState(
-    state: { table: Table } & { dropped: CdkDragDrop<string[], unknown> }
-  ) {
+  setState(state: CdkTableDropListState) {
     this._table = state.table;
     this.setMatrixStates(state.table.cellCount, state.table.columnCount);
     this.updateAxisXByColumns(state.dropped, this._currTableAxis.x);
@@ -86,8 +77,7 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
   }
 
   canNextItemActive() {
-    const axisPos = findAxisByDir(DOWN_ARROW, this._currTableAxis);
-    // @todo: why we should update when we just want to see canNext?
+    const axisPos = matrixUtils.findAxisByDir(DOWN_ARROW, this._currTableAxis);
     const keyManagerItemIndex = this.updateStates(axisPos, 'y');
     return !!keyManagerItemIndex;
   }
@@ -97,7 +87,7 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
       throw new Error('Event must be instanceof KeyboardEvent');
     }
 
-    const axisPos = findAxisByDir(dir, this._currTableAxis);
+    const axisPos = matrixUtils.findAxisByDir(dir, this._currTableAxis);
     if (dir === LEFT_ARROW || dir === RIGHT_ARROW) {
       this.setActiveItemAxis({ x: axisPos });
     } else if (dir === UP_ARROW || dir === DOWN_ARROW) {
@@ -114,9 +104,9 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
     const tableAxisItemX = tableAxisItem.x ?? NON_VALID_AXIS;
 
     let keyManagerItemIndex: number;
-    if (isYMove(tableAxisItemX, tableAxisItemY)) {
+    if (matrixUtils.isYMove(tableAxisItemX, tableAxisItemY)) {
       keyManagerItemIndex = this.updateStates(tableAxisItemY, 'y');
-    } else if (isXMove(tableAxisItemX, tableAxisItemY)) {
+    } else if (matrixUtils.isXMove(tableAxisItemX, tableAxisItemY)) {
       keyManagerItemIndex = this.updateStates(tableAxisItemX, 'x');
     } else {
       keyManagerItemIndex = this.getKeyMangerItemIndex(
@@ -174,26 +164,17 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
   }
 
   getKeyMangerItemAxis(event: MouseEvent): Axis {
-    const currentColIndex = findIndexOf(
+    const currentColIndex = matrixUtils.findIndexOf(
       this._table.cells,
       event.target as Element
     );
-    const tableAxis = findAxis(currentColIndex, this._matrixY);
+    const tableAxis = matrixUtils.findAxis(currentColIndex, this._matrixY);
     return (this._currTableAxis = tableAxis);
   }
 
-  setTableState(cellSel: string): Table {
-    const element = this._elementRef.nativeElement;
-    this._table = getTableStateByElement(element, cellSel);
-
-    return {
-      ...this._table,
-    };
-  }
-
   setMatrixStates(cellCount: number, columnCount: number) {
-    this._matrixY = createByAxis('y', cellCount, columnCount);
-    this._matrixX = createByAxis('x', cellCount, columnCount);
+    this._matrixY = matrixUtils.createByAxis('y', cellCount, columnCount);
+    this._matrixX = matrixUtils.createByAxis('x', cellCount, columnCount);
     return {
       ...this._matrixY,
       ...this._matrixX,

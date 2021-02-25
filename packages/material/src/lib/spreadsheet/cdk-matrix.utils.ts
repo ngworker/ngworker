@@ -7,7 +7,7 @@ import {
   MatrixY,
   NON_VALID_AXIS,
   Table,
-} from './cdk-spreadsheet.models';
+} from './cdk-spreadsheet.types';
 import {
   DOWN_ARROW,
   LEFT_ARROW,
