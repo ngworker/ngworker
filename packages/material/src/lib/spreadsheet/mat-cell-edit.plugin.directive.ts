@@ -10,7 +10,7 @@ import {
   Output,
 } from '@angular/core';
 import { MatCellEditPluginComponent } from './mat-cell-edit.plugin.component';
-import { CdkPortalService } from './cdk-portal.service';
+import { CdkPortal } from './cdk-portal';
 import { fromEvent, Subject } from 'rxjs';
 import { filter, map, startWith, takeUntil, tap } from 'rxjs/operators';
 import { MatColumnDef } from '@angular/material/table';
@@ -18,7 +18,7 @@ import { FocusHighlightable } from './cdk-spreadsheet.types';
 
 @Directive({
   selector: 'mat-cell[matCellEdit], th[mat-cell][matCellEdit]',
-  providers: [CdkPortalService],
+  providers: [CdkPortal],
   // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'mat-cell-edit',
@@ -29,7 +29,7 @@ export class MatCellEditPluginDirective
   implements OnDestroy, FocusHighlightable {
   constructor(
     private readonly elementRef: ElementRef<HTMLElement>,
-    private readonly cdkPortalService: CdkPortalService,
+    private readonly cdkPortalService: CdkPortal,
     // @todo: use CdkColumnDef
     private readonly matColumnDef: MatColumnDef
   ) {}
@@ -38,7 +38,7 @@ export class MatCellEditPluginDirective
   readonly _element: HTMLElement = this.elementRef.nativeElement;
 
   private _isActive = false;
-  private _cdkPortalElService!: CdkPortalService;
+  private _cdkPortalElService!: CdkPortal;
   private _matTableCellRef!: ComponentRef<MatCellEditPluginComponent>;
 
   @Output() matCellChanged = new EventEmitter<Record<PropertyKey, unknown>>();
