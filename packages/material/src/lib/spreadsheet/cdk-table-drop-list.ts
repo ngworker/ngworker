@@ -3,6 +3,7 @@ import { merge, Subject } from 'rxjs';
 import { map, takeUntil, withLatestFrom } from 'rxjs/operators';
 import { QueryList } from '@angular/core';
 import {
+  Axis,
   CdkDragDropCurrNext,
   CdkHeaderRowDefColumns,
   CdkTableDropListState,
@@ -27,12 +28,14 @@ export class CdkTableDropList {
     private readonly _cdkDropList: CdkDropList<unknown>,
     private readonly _queryList: QueryList<unknown>,
     private readonly _headerRowDef: CdkHeaderRowDefColumns,
+    // @todo: use our own custom class
     private readonly _cellSel = '.cdk-cell'
   ) {
     this._init();
   }
 
-  move(previousIndex: number, currentIndex: number) {
+  move(previousIndex: number, currentIndex: number, axis: Partial<Axis>) {
+    console.log('move not implemented yet', axis);
     this._moveSub$.next({ previousIndex, currentIndex });
   }
 

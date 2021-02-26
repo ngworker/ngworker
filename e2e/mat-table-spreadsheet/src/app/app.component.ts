@@ -9,7 +9,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 export class AppComponent {
   // @note: browser with 943px when when using 149px of columns
   columns = ['position', 'name', 'check', 'check1', 'check2', 'check3'];
-  dataSource = Array(50)
+  dataSource = Array(15)
     .fill(0)
     .map(_ => ({ position: 0, name: 'Foo', check: 'yes/no' }));
   matCellClicked(event: unknown) {

@@ -117,6 +117,7 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
     } else if (matrixUtils.isXMove(tableAxisItemX, tableAxisItemY)) {
       keyManagerItemIndex = this.setTableByAxis(tableAxisItemX, 'x');
     } else {
+      // @todo: what is this?
       keyManagerItemIndex = this.getKeyMangerItemIndex(
         tableAxisItemY,
         tableAxisItemX

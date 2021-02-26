@@ -21,7 +21,7 @@ export type Inputs<T> = Partial<InstanceType<ComponentType<T>>>;
 @Injectable({
   providedIn: 'root',
 })
-export class CdkPortal {
+export class CdkPortalFactory {
   constructor(
     @Inject(DOCUMENT) private readonly document: Document,
     private readonly cfr: ComponentFactoryResolver,
@@ -38,8 +38,8 @@ export class CdkPortal {
   /**
    *
    */
-  create(element: HTMLElement): CdkPortal {
-    const cdkPortalService = this.injector.get(CdkPortal);
+  create(element: HTMLElement): CdkPortalFactory {
+    const cdkPortalService = this.injector.get(CdkPortalFactory);
     cdkPortalService.setElement(element);
     return cdkPortalService;
   }
@@ -55,7 +55,7 @@ export class CdkPortal {
    *
    */
   useSelector(selector: string) {
-    console.warn('useSelector is not implemented');
+    console.warn('useSelector is not implemented', selector);
   }
 
   /**
@@ -120,14 +120,14 @@ export class CdkPortal {
   /**
    *
    */
-  detachByIndex<T>(id: number) {
+  detachByIndex(id: number) {
     this.vcr.remove(id);
   }
 
   /**
    *
    */
-  detachAll<T>() {
+  detachAll() {
     this.vcr.clear();
   }
 

@@ -10,15 +10,15 @@ import {
   Output,
 } from '@angular/core';
 import { MatCellEditPluginComponent } from './mat-cell-edit.plugin.component';
-import { CdkPortal } from './cdk-portal';
+import { CdkPortalFactory } from './cdk-portal.factory';
 import { fromEvent, Subject } from 'rxjs';
 import { filter, map, startWith, takeUntil, tap } from 'rxjs/operators';
-import { MatColumnDef } from '@angular/material/table';
 import { FocusHighlightable } from './cdk-spreadsheet.types';
+import { CdkColumnDef } from '@angular/cdk/table';
 
 @Directive({
   selector: 'mat-cell[matCellEdit], th[mat-cell][matCellEdit]',
-  providers: [CdkPortal],
+  providers: [CdkPortalFactory],
   // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'mat-cell-edit',
@@ -27,21 +27,21 @@ import { FocusHighlightable } from './cdk-spreadsheet.types';
 })
 export class MatCellEditPluginDirective
   implements OnDestroy, FocusHighlightable {
-  constructor(
-    private readonly elementRef: ElementRef<HTMLElement>,
-    private readonly cdkPortalService: CdkPortal,
-    // @todo: use CdkColumnDef
-    private readonly matColumnDef: MatColumnDef
-  ) {}
-
   readonly _unsub$ = new Subject();
   readonly _element: HTMLElement = this.elementRef.nativeElement;
 
   private _isActive = false;
-  private _cdkPortalElService!: CdkPortal;
+  private _cdkPortal!: CdkPortalFactory;
   private _matTableCellRef!: ComponentRef<MatCellEditPluginComponent>;
 
+  constructor(
+    readonly elementRef: ElementRef<HTMLElement>,
+    private readonly _cdkPortalFactory: CdkPortalFactory,
+    private readonly _cdkColumnDef: CdkColumnDef
+  ) {}
+
   @Output() matCellChanged = new EventEmitter<Record<PropertyKey, unknown>>();
+  // @todo: rename to matCellClicked
   @Output() matCellClick = new EventEmitter<MatCellEditPluginDirective>();
 
   @Input() matCellMutate = true;
@@ -57,17 +57,17 @@ export class MatCellEditPluginDirective
   }
 
   show() {
-    if (!this._cdkPortalElService) {
-      this._cdkPortalElService = this.cdkPortalService.create(this._element);
+    if (!this._cdkPortal) {
+      this._cdkPortal = this._cdkPortalFactory.create(this._element);
     }
 
-    if (this._cdkPortalElService.isAttached(this._matTableCellRef)) {
+    if (this._cdkPortal.isAttached(this._matTableCellRef)) {
       this._show();
       return;
     }
 
     const value = this._getInnerText();
-    this._matTableCellRef = this._cdkPortalElService.attachComponent(
+    this._matTableCellRef = this._cdkPortal.attachComponent(
       MatCellEditPluginComponent,
       { value }
     );
@@ -111,7 +111,7 @@ export class MatCellEditPluginDirective
 
   private _updateStates(value: string) {
     this._matTableCellRef.instance.value = value;
-    this._mutateInputValue(this.matColumnDef.name, value);
+    this._mutateInputValue(this._cdkColumnDef.name, value);
     this.hide();
   }
 
@@ -139,7 +139,7 @@ export class MatCellEditPluginDirective
   }
 
   ngOnDestroy() {
-    this.cdkPortalService.detachAll();
+    this._cdkPortalFactory.detachAll();
     this._unsub$.unsubscribe();
   }
 }
