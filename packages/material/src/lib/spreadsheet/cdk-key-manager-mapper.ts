@@ -137,16 +137,13 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
   }
 
   getKeyMangerItemIndex(axisVal: number, axisTypeOrIndex: keyof Axis | number) {
-    let axisValue: number | undefined;
     if (axisTypeOrIndex === 'y') {
-      axisValue = this._matrixX?.[axisVal]?.[this._currTableAxis.x];
+      return this._matrixX?.[axisVal]?.[this._currTableAxis.x];
     } else if (axisTypeOrIndex === 'x') {
-      axisValue = this._matrixX?.[this._currTableAxis.y]?.[axisVal];
+      return this._matrixX?.[this._currTableAxis.y]?.[axisVal];
     } else {
-      axisValue = this._matrixX?.[axisVal]?.[axisTypeOrIndex];
+      return this._matrixX?.[axisVal]?.[axisTypeOrIndex];
     }
-
-    return axisValue;
   }
 
   setAxisXByColumns(currNextIndex: CdkDragDropCurrNext, x: number) {
