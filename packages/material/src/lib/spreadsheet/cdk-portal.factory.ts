@@ -14,7 +14,7 @@ import {
 } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
 import { ComponentType } from '@angular/cdk/portal/portal';
-import { entries } from './mat-sidenav-plugin.utils';
+import { assertExists, entries } from './mat-sidenav-plugin.utils';
 
 export type Inputs<T> = Partial<InstanceType<ComponentType<T>>>;
 
@@ -30,10 +30,10 @@ export class CdkPortalFactory {
     private readonly vcr: ViewContainerRef
   ) {}
 
-  private _useEl!: HTMLElement;
-  private _useSel!: string;
-  private _useTemp!: TemplatePortal<unknown>;
-  private _domPortal!: DomPortalOutlet;
+  private _useEl: HTMLElement | undefined;
+  private _useSel: string | undefined;
+  private _useTemp: TemplatePortal<unknown> | undefined;
+  private _domPortal: DomPortalOutlet | undefined;
 
   /**
    *
@@ -74,6 +74,7 @@ export class CdkPortalFactory {
     changeDetection = true
   ): ComponentRef<T> {
     if (!this._domPortal) {
+      assertExists(this._useEl);
       this._domPortal = this._getDomPortalOutlet(this._useEl);
     }
     const componentPortal = this._getComponentPortal(component);

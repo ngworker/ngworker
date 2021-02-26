@@ -93,7 +93,6 @@ export class MatCellEditPluginDirective
 
   private _registerEditableField() {
     const { matCellInputElement } = this._matTableCellRef.instance;
-    // @todo: move into an helper
     fromEvent(matCellInputElement, 'change')
       .pipe(
         startWith(new Event('EMPTY')),

@@ -8,7 +8,7 @@ import {
 } from '@angular/cdk/keycodes';
 
 export class CdkSpreadsheetKeyManager<T extends FocusHighlightable> {
-  private _onDestroy!: () => void;
+  private _onDestroy: (() => void) | undefined;
 
   constructor(private _keyManagerMapper: CdkKeyManagerMapper<T>) {}
 

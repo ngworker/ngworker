@@ -45,5 +45,12 @@ export function values<T>(o: T): ObjectValues<T> {
 // in TS 3.0+, putting just "string" raises an error
 // @source: https://dev.to/kingdaro/indexing-objects-in-typescript-1cgi
 function hasKey<O>(obj: O, key: PropertyKey): key is keyof O {
-  return key in obj
+  return key in obj;
+}
+
+// @source: https://twitter.com/gc_psk/status/1353298960551653376
+export function assertExists<T>(value: T | undefined): asserts value is T {
+  if (!value) {
+    throw new Error(`value is undefined!`);
+  }
 }

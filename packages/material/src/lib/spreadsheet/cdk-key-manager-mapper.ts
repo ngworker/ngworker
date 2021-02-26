@@ -22,12 +22,13 @@ import { ElementRef } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { delay, takeUntil } from 'rxjs/operators';
+import { assertExists } from './mat-sidenav-plugin.utils';
 import * as matrixUtils from './cdk-matrix.utils';
 
 export class CdkKeyManagerMapper<T extends FocusHighlightable> {
-  private _table!: Table;
-  private _matrixY!: MatrixY<number>;
-  private _matrixX!: MatrixX<number>;
+  private _table: Table | undefined;
+  private _matrixY: MatrixY<number> | undefined;
+  private _matrixX: MatrixX<number> | undefined;
   private _currTableAxis: Axis = { x: -1, y: -1 };
 
   private readonly _unsub$ = new Subject();
@@ -49,6 +50,7 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
   }
 
   reCalcState() {
+    assertExists(this._table);
     this.setMatrix(this._table.cellCount, this._table.columnCount);
   }
 
@@ -102,16 +104,14 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
 
   canNextItemActive() {
     const axisPos = matrixUtils.findAxisByDir(DOWN_ARROW, this._currTableAxis);
-    const keyManagerItemIndex = this.setTableByAxis(axisPos, 'y');
-
-    return !!keyManagerItemIndex;
+    return !!this.setTableByAxis(axisPos, 'y');
   }
 
   setActiveItemAxis(tableAxisItem: Partial<Axis>) {
     const tableAxisItemY = tableAxisItem.y ?? NON_VALID_AXIS;
     const tableAxisItemX = tableAxisItem.x ?? NON_VALID_AXIS;
 
-    let keyManagerItemIndex: number;
+    let keyManagerItemIndex: number | undefined;
     if (matrixUtils.isYMove(tableAxisItemX, tableAxisItemY)) {
       keyManagerItemIndex = this.setTableByAxis(tableAxisItemY, 'y');
     } else if (matrixUtils.isXMove(tableAxisItemX, tableAxisItemY)) {
@@ -128,22 +128,25 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
   }
 
   setTableByAxis(tableAxisItem: number, ax: keyof Axis) {
-    const keyManagerItemIndex = this.getKeyMangerItemIndex(tableAxisItem, ax);
-    if (keyManagerItemIndex >= 0) {
+    const itemIndex = this.getKeyMangerItemIndex(tableAxisItem, ax);
+    if (typeof itemIndex === 'number' && itemIndex >= 0) {
       this._currTableAxis[ax] = tableAxisItem;
     }
 
-    return keyManagerItemIndex;
+    return itemIndex;
   }
 
   getKeyMangerItemIndex(axisVal: number, axisTypeOrIndex: keyof Axis | number) {
+    let axisValue: number | undefined;
     if (axisTypeOrIndex === 'y') {
-      return this._matrixX?.[axisVal]?.[this._currTableAxis.x];
+      axisValue = this._matrixX?.[axisVal]?.[this._currTableAxis.x];
     } else if (axisTypeOrIndex === 'x') {
-      return this._matrixX?.[this._currTableAxis.y]?.[axisVal];
+      axisValue = this._matrixX?.[this._currTableAxis.y]?.[axisVal];
     } else {
-      return this._matrixX?.[axisVal]?.[axisTypeOrIndex];
+      axisValue = this._matrixX?.[axisVal]?.[axisTypeOrIndex];
     }
+
+    return axisValue;
   }
 
   setAxisXByColumns(currNextIndex: CdkDragDropCurrNext, x: number) {
@@ -165,15 +168,18 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
       this._currTableAxis.x -= 1;
     }
 
-    // @why: ExpressionChangedAfterItHasBeenCheckedError
+    // @why: ExpressionChangedAfterItHasBeenCheckedError! How can be solved this?
     setTimeout(() => this.setActiveItemAxis(this._currTableAxis), 0);
   }
 
   getKeyMangerItemAxis(event: MouseEvent): Axis {
+    assertExists(this._table);
     const currentColIndex = matrixUtils.findIndexOf(
       this._table.cells,
       event.target as Element
     );
+
+    assertExists(this._matrixY);
     const tableAxis = matrixUtils.findAxis(currentColIndex, this._matrixY);
 
     return (this._currTableAxis = tableAxis);
