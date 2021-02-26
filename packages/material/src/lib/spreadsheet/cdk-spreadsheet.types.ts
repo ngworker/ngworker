@@ -67,7 +67,12 @@ export interface CdkSpreadsheetFactory<T extends FocusHighlightable> {
   ): CdkSpreadsheetKeyManager<T>;
 }
 
+export type CdkDragDropCurrNext = Pick<
+  CdkDragDrop<unknown>,
+  'previousIndex' | 'currentIndex'
+>;
+
 export interface CdkTableDropListState {
   table: Table;
-  dropped: CdkDragDrop<string[], unknown>;
+  dropped: CdkDragDropCurrNext;
 }
