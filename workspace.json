@@ -68,6 +68,43 @@
         }
       }
     },
+    "globalization": {
+      "projectType": "library",
+      "root": "packages/globalization",
+      "sourceRoot": "packages/globalization/src",
+      "prefix": "ngworker",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "packages/globalization/tsconfig.lib.json",
+            "project": "packages/globalization/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "packages/globalization/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "packages/globalization/src/**/*.ts",
+              "packages/globalization/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/packages/globalization"],
+          "options": {
+            "jestConfig": "packages/globalization/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "internal-test-util": {
       "projectType": "library",
       "root": "packages/internal/test-util",

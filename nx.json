@@ -32,6 +32,9 @@
     "examples-tour-of-heroes-crisis-center": {
       "tags": ["scope:internal", "type:feature"]
     },
+    "globalization": {
+      "tags": ["type:package"]
+    },
     "internal-test-util": {
       "tags": ["scope:internal", "type:test-util"]
     },
