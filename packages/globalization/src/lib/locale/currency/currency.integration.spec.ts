@@ -1,16 +1,7 @@
-import { Pipe, PipeTransform } from '@angular/core';
 import { createPipeHarness } from '@ngworker/spectacular';
 
+import { DummyPipe } from '../dummy.pipe';
 import { createDefaultCurrencyCodeProvider } from './create-default-currency-code-provider';
-
-@Pipe({
-  name: 'dummy',
-})
-class DummyPipe implements PipeTransform {
-  transform(value: unknown) {
-    return value;
-  }
-}
 
 describe('Currency', () => {
   const pipe = DummyPipe;
