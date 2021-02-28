@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 
 import { CdkSpreadsheetKeyManager } from './cdk-spreadsheet-key-manager';
-import { MatCellEditPluginDirective } from './mat-cell-edit.plugin.directive';
+import { CdkCellEditDirective } from './cdk-cell-edit.directive';
 import {
   CDK_SPREADSHEET_FACTORY,
   CDK_SPREADSHEET_MANAGER_PROVIDERS,
@@ -25,6 +25,7 @@ import {
 
 @Directive({
   selector: 'cdk-table[cdkSpreadsheet], [cdkSpreadsheet][cdk-table]',
+  exportAs: 'cdkSpreadsheet',
   providers: CDK_SPREADSHEET_MANAGER_PROVIDERS,
 })
 export class CdkSpreadsheetDirective<
@@ -39,12 +40,11 @@ export class CdkSpreadsheetDirective<
 
   @HostBinding('class.cdk-spreadsheet') hostClass = true;
 
-  @ContentChildren(MatCellEditPluginDirective)
-  private _matCellEditQueryList!: QueryList<T>;
+  @ContentChildren(CdkCellEditDirective)
+  private cellEditQueryList!: QueryList<T>;
 
   @ContentChild(CdkHeaderRowDef)
-  private _cdkHeaderRowDef!: QueryList<CdkHeaderRowDef> &
-    CdkHeaderRowDefColumns;
+  private headerRowDef!: QueryList<CdkHeaderRowDef> & CdkHeaderRowDefColumns;
 
   @HostListener('click', ['$event']) onClick(event: MouseEvent) {
     this.spreadsheetManager.setActiveItem(event);
@@ -64,8 +64,8 @@ export class CdkSpreadsheetDirective<
 
   ngAfterContentInit() {
     this.spreadsheetManager = this._spreadsheetFactory.create(
-      this._cdkHeaderRowDef,
-      this._matCellEditQueryList
+      this.headerRowDef,
+      this.cellEditQueryList
     );
   }
 

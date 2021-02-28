@@ -1,6 +1,5 @@
 import {
   Axis,
-  Direction,
   Matrix,
   MatrixReturnType,
   MatrixX,
@@ -8,12 +7,6 @@ import {
   NON_VALID_AXIS,
   Table,
 } from './cdk-spreadsheet.types';
-import {
-  DOWN_ARROW,
-  LEFT_ARROW,
-  RIGHT_ARROW,
-  UP_ARROW,
-} from '@angular/cdk/keycodes';
 import { QueryList } from '@angular/core';
 
 /**
@@ -135,24 +128,6 @@ export function findIndexOf<E extends Element, L extends NodeListOf<E>>(
   }
 
   return -1;
-}
-
-/**
- * getPossibleTableAxis
- * @param dir
- * @param axis
- */
-export function findAxisByDir(dir: Direction, axis: Axis) {
-  switch (dir) {
-    case UP_ARROW:
-      return axis.y - 1;
-    case DOWN_ARROW:
-      return axis.y + 1;
-    case LEFT_ARROW:
-      return axis.x - 1;
-    case RIGHT_ARROW:
-      return axis.x + 1;
-  }
 }
 
 /**

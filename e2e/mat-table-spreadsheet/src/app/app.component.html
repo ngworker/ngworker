@@ -28,9 +28,10 @@
           ></div>
         </mat-header-cell>
         <mat-cell
-          (matCellChanged)="matCellChanged($event)"
-          [matCellEdit]="element"
-          matCellEditKey="position"
+          matCellEdit
+          (cellChanged)='matCellChanged($event)'
+          [cellEdit]='element'
+          cellEditKey="position"
           *matCellDef="let element"
         >
           {{ element.position }}
@@ -48,10 +49,10 @@
           ></div>
         </mat-header-cell>
         <mat-cell
-          (matCellClick)="matCellClicked($event)"
-          (matCellChanged)="matCellChanged($event)"
-          [matCellEdit]="element"
-          matCellEditKey="name"
+          matCellEdit
+          (cellChanged)='matCellChanged($event)'
+          [cellEdit]='element'
+          cellEditKey="name"
           *matCellDef="let element"
         >
           {{ element.name }}
@@ -69,9 +70,10 @@
           ></div>
         </mat-header-cell>
         <mat-cell
-          (matCellChanged)="matCellChanged($event)"
-          [matCellEdit]="element"
-          matCellEditKey="check"
+          matCellEdit
+          (cellChanged)='matCellChanged($event)'
+          [cellEdit]='element'
+          cellEditKey="check"
           *matCellDef="let element"
         >
           {{ element.check }}
@@ -89,8 +91,9 @@
           ></div>
         </mat-header-cell>
         <mat-cell
-          (matCellChanged)="matCellChanged($event)"
-          [matCellEdit]="element"
+          matCellEdit
+          (cellChanged)='matCellChanged($event)'
+          [cellEdit]='element'
           *matCellDef="let element"
         >
           1
@@ -108,8 +111,9 @@
           ></div>
         </mat-header-cell>
         <mat-cell
-          (matCellChanged)="matCellChanged($event)"
-          [matCellEdit]="element"
+          matCellEdit
+          (cellChanged)='matCellChanged($event)'
+          [cellEdit]='element'
           *matCellDef="let element"
         >
           2
@@ -127,8 +131,9 @@
           ></div>
         </mat-header-cell>
         <mat-cell
-          (matCellChanged)="matCellChanged($event)"
-          [matCellEdit]="element"
+          matCellEdit
+          (cellChanged)='matCellChanged($event)'
+          [cellEdit]='element'
           *matCellDef="let element"
         >
           3

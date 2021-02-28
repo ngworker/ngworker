@@ -1,15 +1,15 @@
-import {
-  DOWN_ARROW,
-  LEFT_ARROW,
-  RIGHT_ARROW,
-  UP_ARROW,
-} from '@angular/cdk/keycodes';
 import { CdkSpreadsheetKeyManager } from './cdk-spreadsheet-key-manager';
 import { QueryList } from '@angular/core';
 import { CdkHeaderRowDef } from '@angular/cdk/table';
 import { Highlightable } from '@angular/cdk/a11y';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import * as keyCodes from '@angular/cdk/keycodes';
+import {
+  DOWN_ARROW,
+  LEFT_ARROW,
+  RIGHT_ARROW,
+  UP_ARROW,
+} from '@angular/cdk/keycodes';
 
 export const NON_VALID_AXIS = -1;
 

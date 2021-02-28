@@ -14,7 +14,7 @@ import {
 } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
 import { ComponentType } from '@angular/cdk/portal/portal';
-import { assertExists, entries } from './mat-sidenav-plugin.utils';
+import { assertExists, entries } from './ts-strict.utils';
 
 export type Inputs<T> = Partial<InstanceType<ComponentType<T>>>;
 

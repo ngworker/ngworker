@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-import { MatSpreadsheetModule } from '@ngworker/material';
+import { CdkSpreadsheetModule } from '@ngworker/material';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -10,7 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   imports: [
     BrowserModule,
     CommonModule,
-    MatSpreadsheetModule,
+    CdkSpreadsheetModule,
     BrowserAnimationsModule,
   ],
   providers: [],

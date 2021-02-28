@@ -29,32 +29,29 @@ export function cdkSpreadsheetFactory<T extends FocusHighlightable>(
 ): CdkSpreadsheetFactory<T> {
   return {
     create: (headerRowDef: CdkHeaderRowDefColumns, queryList: QueryList<T>) => {
-      const keyManager = new ActiveDescendantKeyManager<T>(
-        queryList
-      ).withWrap();
-
       const tableDragDropManager = new CdkTableDropList(
         dropList,
         queryList,
         headerRowDef
       );
 
-      const { table } = tableDragDropManager;
+      const activeDescendantKeyManager = new ActiveDescendantKeyManager<T>(
+        queryList
+      ).withWrap();
+
       const keyManagerMapper = new CdkKeyManagerMapper(
         dropList.element,
-        keyManager
-      ).init(table);
+        tableDragDropManager.table,
+        activeDescendantKeyManager
+      );
 
       // on x-axis move
-      const dragDropXSub = tableDragDropManager.change$.subscribe(change =>
+      tableDragDropManager.change$.subscribe(change =>
         keyManagerMapper.setState(change)
       );
 
       const spreadsheetManager = new CdkSpreadsheetKeyManager(keyManagerMapper);
-      spreadsheetManager.onDestroy(() => {
-        tableDragDropManager.destroy();
-        dragDropXSub.unsubscribe();
-      });
+      spreadsheetManager.onDestroy(() => tableDragDropManager.destroy());
 
       return spreadsheetManager;
     },

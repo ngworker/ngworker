@@ -1,6 +1,7 @@
 import { CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { merge, Subject } from 'rxjs';
 import { map, takeUntil, withLatestFrom } from 'rxjs/operators';
+import { getTableStateByElement, syncQueryList } from './cdk-matrix.utils';
 import { QueryList } from '@angular/core';
 import {
   Axis,
@@ -8,13 +9,12 @@ import {
   CdkHeaderRowDefColumns,
   CdkTableDropListState,
 } from './cdk-spreadsheet.types';
-import { getTableStateByElement, syncQueryList } from './cdk-matrix.utils';
 
 export class CdkTableDropList {
   private readonly _element = this._cdkDropList.element.nativeElement;
   private readonly _unsub$ = new Subject();
   private readonly _changeSubject$ = new Subject<CdkTableDropListState>();
-  private readonly _moveSub$ = new Subject<CdkDragDropCurrNext>();
+  private readonly _moveDropListIndex$ = new Subject<CdkDragDropCurrNext>();
   private readonly _dropList = this._cdkDropList.dropped.pipe(
     map(dropped => dropped as CdkDragDropCurrNext) // this mapping is required
   );
@@ -35,19 +35,20 @@ export class CdkTableDropList {
   }
 
   move(previousIndex: number, currentIndex: number, axis: Partial<Axis>) {
-    console.log('move not implemented yet', axis);
-    this._moveSub$.next({ previousIndex, currentIndex });
+    console.log('move.axis not implemented yet', axis);
+    this._moveDropListIndex$.next({ previousIndex, currentIndex });
   }
 
   private _init() {
     this._cdkDropList.orientation = 'horizontal';
 
-    merge(this._dropList, this._moveSub$)
+    merge(this._dropList, this._moveDropListIndex$)
       .pipe(
         map(dropped => dropped),
         takeUntil(this._unsub$)
       )
       .subscribe(({ previousIndex, currentIndex }) =>
+        // when ever moveItemInArray is invoked queryList.changes will be triggered
         moveItemInArray(this._headerRowDef.columns, previousIndex, currentIndex)
       );
 

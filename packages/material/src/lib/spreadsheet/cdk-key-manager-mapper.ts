@@ -22,51 +22,47 @@ import { ElementRef } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { delay, takeUntil } from 'rxjs/operators';
-import { assertExists } from './mat-sidenav-plugin.utils';
+import { assertExists } from './ts-strict.utils';
 import * as matrixUtils from './cdk-matrix.utils';
 
 export class CdkKeyManagerMapper<T extends FocusHighlightable> {
-  private _table: Table | undefined;
+  private readonly _unsub$ = new Subject();
+
   private _matrixY: MatrixY<number> | undefined;
   private _matrixX: MatrixX<number> | undefined;
   private _currTableAxis: Axis = { x: -1, y: -1 };
 
-  private readonly _unsub$ = new Subject();
-  private readonly _selectedItem$ = this._keyManager.change
+  private readonly _focusedItemSub = this._keyManager.change
     .pipe(delay(0), takeUntil(this._unsub$))
     .subscribe(_ => this._keyManager.activeItem?.focus());
 
   constructor(
     private _elementRef: ElementRef<HTMLElement>,
+    private _table: Table,
     private _keyManager: ActiveDescendantKeyManager<T>,
     private _cellSel = '.cdk-cell'
-  ) {}
+  ) {
+    this.init();
+  }
 
-  init(table: Table) {
-    this._table = table;
-    this.reCalcState();
-
+  init() {
+    this._createMatrix(this._table.cellCount, this._table.columnCount);
     return this;
-  }
-
-  reCalcState() {
-    assertExists(this._table);
-    this.setMatrix(this._table.cellCount, this._table.columnCount);
-  }
-
-  setState({ table, dropped }: CdkTableDropListState) {
-    this._table = table;
-    this.setMatrix(table.cellCount, table.columnCount);
-    this.setAxisXByColumns(dropped, this._currTableAxis.x);
-  }
-
-  setMatrix(cellCount: number, columnCount: number) {
-    this._matrixY = matrixUtils.createByAxis('y', cellCount, columnCount);
-    this._matrixX = matrixUtils.createByAxis('x', cellCount, columnCount);
   }
 
   get activeItem() {
     return this._keyManager.activeItem;
+  }
+
+  setState({ table, dropped }: CdkTableDropListState) {
+    this._table = table;
+    this._createMatrix(table.cellCount, table.columnCount);
+    this.setAxisXByColumns(dropped, this._currTableAxis.x);
+  }
+
+  private _createMatrix(cellCount: number, columnCount: number) {
+    this._matrixY = matrixUtils.createByAxis('y', cellCount, columnCount);
+    this._matrixX = matrixUtils.createByAxis('x', cellCount, columnCount);
   }
 
   setActiveItem(value: unknown) {
@@ -90,7 +86,7 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
       throw new Error('Event must be instanceof KeyboardEvent');
     }
 
-    const axisPos = matrixUtils.findAxisByDir(dir, this._currTableAxis);
+    const axisPos = this.getAxisByDir(dir);
     if (dir === LEFT_ARROW || dir === RIGHT_ARROW) {
       this.setActiveItemAxis({ x: axisPos });
     } else if (dir === UP_ARROW || dir === DOWN_ARROW) {
@@ -102,9 +98,9 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
     console.log(`not setItemByKeyCode implemented`, keyCode);
   }
 
-  canNextItemActive() {
-    const axisPos = matrixUtils.findAxisByDir(DOWN_ARROW, this._currTableAxis);
-    return !!this.setTableByAxis(axisPos, 'y');
+  canNextItemActive(axis: keyof Axis = 'y') {
+    const axisPos = this.getAxisByDir(DOWN_ARROW);
+    return !!this.setTableByAxis(axisPos, axis);
   }
 
   setActiveItemAxis(tableAxisItem: Partial<Axis>) {
@@ -117,7 +113,6 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
     } else if (matrixUtils.isXMove(tableAxisItemX, tableAxisItemY)) {
       keyManagerItemIndex = this.setTableByAxis(tableAxisItemX, 'x');
     } else {
-      // @todo: what is this?
       keyManagerItemIndex = this.getKeyMangerItemIndex(
         tableAxisItemY,
         tableAxisItemX
@@ -127,6 +122,7 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
     this.setActiveItem(keyManagerItemIndex);
   }
 
+  // @todo: this function set and gets! What to do?
   setTableByAxis(tableAxisItem: number, ax: keyof Axis) {
     const itemIndex = this.getKeyMangerItemIndex(tableAxisItem, ax);
     if (typeof itemIndex === 'number' && itemIndex >= 0) {
@@ -180,6 +176,20 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
     const tableAxis = matrixUtils.findAxis(currentColIndex, this._matrixY);
 
     return (this._currTableAxis = tableAxis);
+  }
+
+  getAxisByDir(dir: Direction) {
+    const currentAxis = this._currTableAxis;
+    switch (dir) {
+      case UP_ARROW:
+        return currentAxis.y - 1;
+      case DOWN_ARROW:
+        return currentAxis.y + 1;
+      case LEFT_ARROW:
+        return currentAxis.x - 1;
+      case RIGHT_ARROW:
+        return currentAxis.x + 1;
+    }
   }
 
   destroy() {

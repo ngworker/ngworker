@@ -1,1 +1,1 @@
-export * from './lib/spreadsheet/spreadsheet.module';
+export * from './lib/spreadsheet/cdk-spreadsheet.module';

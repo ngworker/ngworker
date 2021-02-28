@@ -1,3 +1,5 @@
+// @todo: this file should be moved to tsworker/esworker
+
 // @note: patched version of source
 // @source: https://fettblog.eu/typescript-better-object-keys/#option-2.-extending-object-constructor
 // prettier-ignore
