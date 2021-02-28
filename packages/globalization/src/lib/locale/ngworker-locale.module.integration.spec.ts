@@ -15,7 +15,7 @@ describe(NgworkerLocaleModule.name, () => {
 
     it(`the US Dollar is the application's default currency code when the English locale is used`, () => {
       const usDollar = 'USD';
-      const englishLocaleCode = 'en';
+      const englishLocaleCode = 'en-US';
 
       const harness = createPipeHarness({
         imports: [

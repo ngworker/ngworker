@@ -2,14 +2,13 @@ import { getLocaleCurrencyCode } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 
 import { createDefaultCurrencyCodeProvider } from './currency/create-default-currency-code-provider';
+import { angularDefaultLocaleCode } from './locale/angular-default-locale-code';
 import { createLocaleProvider } from './locale/create-locale-provider';
 import { NgworkerLocaleRootModule } from './ngworker-locale-root.module';
 
 export interface NgworkerLocaleOptions {
   readonly locale: string;
 }
-
-const angularDefaultLocaleCode = 'en';
 
 @NgModule()
 export class NgworkerLocaleModule {
