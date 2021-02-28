@@ -2,6 +2,7 @@ import { getLocaleCurrencyCode } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 
 import { createDefaultCurrencyCodeProvider } from './currency/create-default-currency-code-provider';
+import { createLocaleProvider } from './locale/create-locale-provider';
 import { NgworkerLocaleRootModule } from './ngworker-locale-root.module';
 
 export interface NgworkerLocaleOptions {
@@ -29,7 +30,10 @@ export class NgworkerLocaleModule {
 
     return {
       ngModule: NgworkerLocaleRootModule,
-      providers: [createDefaultCurrencyCodeProvider(currencyCode)],
+      providers: [
+        createLocaleProvider(locale),
+        createDefaultCurrencyCodeProvider(currencyCode),
+      ],
     };
   }
 

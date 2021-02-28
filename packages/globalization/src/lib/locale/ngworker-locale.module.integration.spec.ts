@@ -3,8 +3,9 @@ import danishLocaleData from '@angular/common/locales/da';
 import germanLocaleData from '@angular/common/locales/de';
 import { createPipeHarness } from '@ngworker/spectacular';
 
-import { DummyPipe } from './dummy.pipe';
 import { NgworkerLocaleModule } from './ngworker-locale.module';
+import { DummyPipe } from './test-util/dummy.pipe';
+import { spaceToNonBreakingSpace } from './test-util/space-to-non-breaking-space';
 
 describe(NgworkerLocaleModule.name, () => {
   describe('Currency', () => {
@@ -48,7 +49,7 @@ describe(NgworkerLocaleModule.name, () => {
         value: 9876.54,
       });
 
-      expect(harness.text).toBe(`${euro}9,876.54`);
+      expect(harness.text).toBe(spaceToNonBreakingSpace(`9.876,54 ${euro}`));
     });
 
     it(`the Danish Krone is the application's default currency code when the Danish locale is used`, () => {
@@ -68,7 +69,9 @@ describe(NgworkerLocaleModule.name, () => {
         value: 7654.32,
       });
 
-      expect(harness.text).toBe(`${danishKrone}7,654.32`);
+      expect(harness.text).toBe(
+        spaceToNonBreakingSpace(`7.654,32 ${danishKrone}`)
+      );
     });
   });
 });

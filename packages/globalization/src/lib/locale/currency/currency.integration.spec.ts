@@ -1,6 +1,6 @@
 import { createPipeHarness } from '@ngworker/spectacular';
 
-import { DummyPipe } from '../dummy.pipe';
+import { DummyPipe } from '../test-util/dummy.pipe';
 import { createDefaultCurrencyCodeProvider } from './create-default-currency-code-provider';
 
 describe('Currency', () => {
