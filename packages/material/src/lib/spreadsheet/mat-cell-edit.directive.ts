@@ -8,7 +8,7 @@ import { CdkCellEditDirective } from './cdk-cell-edit.directive';
   providers: [CdkPortalFactory],
 })
 export class MatCellEditDirective extends CdkCellEditDirective {
-  static EditComponent = MatCellEditComponent;
+  runtimeComponent = MatCellEditComponent;
 
   @HostBinding('class.mat-cell-edit') hostClass = true;
   @HostBinding('class.mat-cell-edit-active') isActive = false;

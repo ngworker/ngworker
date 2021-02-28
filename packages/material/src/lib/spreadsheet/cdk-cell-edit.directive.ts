@@ -13,15 +13,14 @@ import { fromEvent, Subject } from 'rxjs';
 import { filter, map, startWith, takeUntil, tap } from 'rxjs/operators';
 import { FocusHighlightable } from './cdk-spreadsheet.types';
 import { CdkColumnDef } from '@angular/cdk/table';
-import { MatCellEditComponent } from './mat-cell-edit.component';
 import { CdkCellEditComponent } from './cdk-cell-edit.component';
 
 @Directive({
-  selector: 'mat-cell[matCellEdit], th[mat-cell][matCellEdit]',
+  selector: 'cdk-cell[cdkCellEdit], th[cdk-cell][cdkCellEdit]',
   providers: [CdkPortalFactory],
 })
 export class CdkCellEditDirective implements OnDestroy, FocusHighlightable {
-  static EditComponent = MatCellEditComponent;
+  runtimeComponent = CdkCellEditComponent;
 
   private readonly _unsub$ = new Subject();
   private readonly _element: HTMLElement = this.elementRef.nativeElement;
@@ -35,9 +34,9 @@ export class CdkCellEditDirective implements OnDestroy, FocusHighlightable {
     private readonly _cdkColumnDef: CdkColumnDef
   ) {}
 
-  @HostBinding('class.mat-cell-edit') hostClass = true;
+  @HostBinding('class.cdk-cell-edit') hostClass = true;
   @HostBinding('tabindex') tabindexAttr = '-1';
-  @HostBinding('class.mat-cell-edit-active') isActive = false;
+  @HostBinding('class.cdk-cell-edit-active') isActive = false;
 
   @Output() cellChanged = new EventEmitter<Record<PropertyKey, unknown>>();
 
@@ -52,8 +51,8 @@ export class CdkCellEditDirective implements OnDestroy, FocusHighlightable {
       return this._show();
     }
 
-    const { EditComponent } = CdkCellEditDirective;
-    this._cellEditComp = this._cdkPortal.attachComponent(EditComponent, {
+    const EditableComp = this.runtimeComponent;
+    this._cellEditComp = this._cdkPortal.attachComponent(EditableComp, {
       value: this._getInnerText(),
     });
 

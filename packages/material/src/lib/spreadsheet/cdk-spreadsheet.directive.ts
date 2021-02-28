@@ -41,10 +41,10 @@ export class CdkSpreadsheetDirective<
   @HostBinding('class.cdk-spreadsheet') hostClass = true;
 
   @ContentChildren(CdkCellEditDirective)
-  private cellEditQueryList!: QueryList<T>;
+  cellEditQueryList!: QueryList<T>;
 
   @ContentChild(CdkHeaderRowDef)
-  private headerRowDef!: QueryList<CdkHeaderRowDef> & CdkHeaderRowDefColumns;
+  headerRowDef!: QueryList<CdkHeaderRowDef> & CdkHeaderRowDefColumns;
 
   @HostListener('click', ['$event']) onClick(event: MouseEvent) {
     this.spreadsheetManager.setActiveItem(event);
