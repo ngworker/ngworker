@@ -20,12 +20,25 @@ export function bootstrapComponent<TRootComponent>({
   const application = TestBed.inject(ApplicationRef);
 
   ensureFreshRootElement(tag);
-  const componentRef = application.bootstrap(component);
-  const fixture = new ComponentFixture<TRootComponent>(
-    componentRef,
-    ngZone,
-    autoDetectChanges
-  );
 
-  return fixture;
+  try {
+    const componentRef = application.bootstrap(component, tag);
+    const fixture = new ComponentFixture<TRootComponent>(
+      componentRef,
+      ngZone,
+      autoDetectChanges
+    );
+
+    return fixture;
+  } catch (error) {
+    const errorMessage = (error as Error)?.message ?? String(error);
+
+    if (!errorMessage.includes('ngDoBootstrap')) {
+      throw error;
+    }
+
+    const fixture = TestBed.createComponent(component);
+
+    return fixture;
+  }
 }
