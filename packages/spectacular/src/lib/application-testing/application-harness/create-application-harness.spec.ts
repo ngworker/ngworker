@@ -159,6 +159,48 @@ describe(createApplicationHarness.name, () => {
     });
   });
 
+  describe('All application hooks', () => {
+    it('registers and runs the specified initializer and bootstrap listener', () => {
+      createApplicationHarness({
+        providers: [applicationInitializer, bootstrapListener],
+      });
+
+      expect(initialized).toBe(true);
+      expect(bootstrapped).toBe(true);
+    });
+
+    it('registers the specified initializer and bootstrap Angular modules', () => {
+      createApplicationHarness({
+        imports: [InitializerModule, BootstrapListenerModule],
+      });
+
+      expect(initialized).toBe(true);
+      expect(bootstrapped).toBe(true);
+    });
+
+    it('registers and runs the specified asynchronous initializer and bootstrap listener', async () => {
+      const harness = createApplicationHarness({
+        providers: [asyncApplicationInitializer, asyncBootstrapListener],
+      });
+
+      await harness.rootFixture.whenStable();
+
+      expect(initialized).toBe(true);
+      expect(bootstrapped).toBe(true);
+    });
+
+    it('registers the specified asynchronous initializer and bootstrap listener Angular modules', async () => {
+      const harness = createApplicationHarness({
+        imports: [AsyncInitializerModule, AsyncBootstrapListenerModule],
+      });
+
+      await harness.rootFixture.whenStable();
+
+      expect(initialized).toBe(true);
+      expect(bootstrapped).toBe(true);
+    });
+  });
+
   describe('Configuration', () => {
     @Injectable()
     class AdminService {}
