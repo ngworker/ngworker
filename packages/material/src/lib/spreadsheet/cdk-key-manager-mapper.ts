@@ -1,6 +1,6 @@
 import {
   Axis,
-  CdkDragDropCurrNext,
+  CdkDragDropPrevNext,
   CdkTableDropListState,
   Direction,
   FocusHighlightable,
@@ -142,8 +142,8 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
     }
   }
 
-  setAxisXByColumns(currNextIndex: CdkDragDropCurrNext, x: number) {
-    const { previousIndex, currentIndex } = currNextIndex;
+  setAxisXByColumns(prevNextIndex: CdkDragDropPrevNext, x: number) {
+    const { previousIndex, currentIndex } = prevNextIndex;
     // when columns on the right boundary of the active cell are changed
     if (currentIndex > x && previousIndex > x) {
       this._currTableAxis = { ...this._currTableAxis };
@@ -166,6 +166,7 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
   }
 
   getKeyMangerItemAxis(event: MouseEvent): Axis {
+    // @todo: we can pass this._table so that we can remove assertExists
     assertExists(this._table);
     const currentColIndex = matrixUtils.findIndexOf(
       this._table.cells,

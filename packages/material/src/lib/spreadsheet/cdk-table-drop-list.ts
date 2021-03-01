@@ -5,7 +5,7 @@ import { getTableStateByElement, syncQueryList } from './cdk-matrix.utils';
 import { QueryList } from '@angular/core';
 import {
   Axis,
-  CdkDragDropCurrNext,
+  CdkDragDropPrevNext,
   CdkHeaderRowDefColumns,
   CdkTableDropListState,
 } from './cdk-spreadsheet.types';
@@ -14,9 +14,9 @@ export class CdkTableDropList {
   private readonly _element = this._cdkDropList.element.nativeElement;
   private readonly _unsub$ = new Subject();
   private readonly _changeSubject$ = new Subject<CdkTableDropListState>();
-  private readonly _moveDropListIndex$ = new Subject<CdkDragDropCurrNext>();
+  private readonly _moveDropListIndex$ = new Subject<CdkDragDropPrevNext>();
   private readonly _dropList = this._cdkDropList.dropped.pipe(
-    map(dropped => dropped as CdkDragDropCurrNext) // this mapping is required
+    map(dropped => dropped as CdkDragDropPrevNext) // this mapping is required
   );
 
   public table = getTableStateByElement(this._element, this._cellSel);
