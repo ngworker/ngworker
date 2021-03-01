@@ -6,6 +6,7 @@ import {
   HostBinding,
   Input,
   OnDestroy,
+  OnInit,
   Output,
 } from '@angular/core';
 import { CdkPortalFactory } from './cdk-portal.factory';
@@ -19,7 +20,8 @@ import { CdkCellEditComponent } from './cdk-cell-edit.component';
   selector: 'cdk-cell[cdkCellEdit], th[cdk-cell][cdkCellEdit]',
   providers: [CdkPortalFactory],
 })
-export class CdkCellEditDirective implements OnDestroy, FocusHighlightable {
+export class CdkCellEditDirective
+  implements OnInit, OnDestroy, FocusHighlightable {
   runtimeComponent = CdkCellEditComponent;
 
   private readonly _unsub$ = new Subject();
@@ -43,6 +45,10 @@ export class CdkCellEditDirective implements OnDestroy, FocusHighlightable {
   @Input() cellMutate = true;
   @Input() cellEdit!: Record<PropertyKey, unknown>;
   @Input() cellEditKey = '';
+
+  ngOnInit() {
+    this._element.contentEditable = 'true';
+  }
 
   show() {
     if (!this._cdkPortal) {

@@ -2,6 +2,7 @@ import { Direction, FocusHighlightable } from './cdk-spreadsheet.types';
 import { CdkKeyManagerMapper } from './cdk-key-manager-mapper';
 import {
   DOWN_ARROW,
+  ENTER,
   LEFT_ARROW,
   RIGHT_ARROW,
   UP_ARROW,
@@ -14,6 +15,14 @@ export class CdkSpreadsheetKeyManager<T extends FocusHighlightable> {
 
   get activeItem() {
     return this._keyManagerMapper.activeItem;
+  }
+
+  writeActiveItem(event: KeyboardEvent) {
+    if (event.keyCode === ENTER) {
+      const element = event.target as HTMLElement;
+      console.log(element);
+      element.innerHTML = element.innerHTML.replace(/<br>|<div>|<\/div>+/g, '');
+    }
   }
 
   setActiveItem(value: unknown) {
