@@ -1,5 +1,4 @@
 import { Injectable, ValueProvider } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
 import { Resolve } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -18,7 +17,7 @@ describe('initialFeatureNavigationInitializer', () => {
   };
 
   it('navigates to the default feature route when the specified feature route is registered', () => {
-    createApplicationHarness({
+    const harness = createApplicationHarness({
       imports: [
         RouterTestingModule.withRoutes([
           {
@@ -31,8 +30,7 @@ describe('initialFeatureNavigationInitializer', () => {
       providers: [featurePathProvider, initialFeatureNavigationInitializer],
     });
 
-    const location = TestBed.inject(SpectacularFeatureLocation);
-
+    const location = harness.inject(SpectacularFeatureLocation);
     expect(location.path()).toBe('~/');
   });
 
