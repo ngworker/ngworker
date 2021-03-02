@@ -45,6 +45,7 @@ modules.
 | `SpectacularFeatureHarness`              | Interface                                     | A harness for testing an Angular feature module.                                                                            |
 | `SpectacularFeatureTestingModuleOptions` | Options for `SpectacularFeatureTestingModule` | Feature testing options for `SpectacularFeatureTestingModule.withFeature`.                                                  |
 | `SpectacularFeatureTestingModule`        | Angular testing configuration module          | Configure the `RouterTestingModule` and provide Spectactular services for testing feature modules.                          |
+| `SpectacularFeatureTestingRootModule`    | Internal Angular testing configuration module | Internal use only. Used by `SpectacularFeatureTestingModule.withFeature`.                                                   |
 | `SpectacularFeatureLocation`             | Service                                       | A subset of Angular's `Location` service adjusted to the Angular feature module under test.                                 |
 | `SpectacularFeatureRouter`               | Service                                       | A subset of Angular's `Router` service adjusted to the Angular feature module under test.                                   |
 
