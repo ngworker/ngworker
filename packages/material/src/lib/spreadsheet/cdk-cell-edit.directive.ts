@@ -38,6 +38,7 @@ export class CdkCellEditDirective
 
   @HostBinding('class.cdk-cell-edit') hostClass = true;
   @HostBinding('tabindex') tabindexAttr = '-1';
+  @HostBinding('contentEditable') contentEditable = 'false';
   @HostBinding('class.cdk-cell-edit-active') isActive = false;
 
   @Output() cellChanged = new EventEmitter<Record<PropertyKey, unknown>>();
@@ -47,7 +48,8 @@ export class CdkCellEditDirective
   @Input() cellEditKey = '';
 
   ngOnInit() {
-    this._element.contentEditable = 'true';
+    this.contentEditable = 'true';
+    this._element.style.whiteSpace = 'nowrap';
   }
 
   show() {

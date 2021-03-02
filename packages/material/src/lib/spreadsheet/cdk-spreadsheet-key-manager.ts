@@ -10,6 +10,9 @@ import {
 
 export class CdkSpreadsheetKeyManager<T extends FocusHighlightable> {
   private _onDestroy: (() => void) | undefined;
+  private _currElement!: MouseEvent; // @todo: rename to HTMLInputElement?
+  private _currInputText = ''; // @todo:
+  private _activeIndex = 0; // @todo:
 
   constructor(private _keyManagerMapper: CdkKeyManagerMapper<T>) {}
 
@@ -18,15 +21,23 @@ export class CdkSpreadsheetKeyManager<T extends FocusHighlightable> {
   }
 
   writeActiveItem(event: KeyboardEvent) {
-    if (event.keyCode === ENTER) {
-      const element = event.target as HTMLElement;
-      console.log(element);
-      element.innerHTML = element.innerHTML.replace(/<br>|<div>|<\/div>+/g, '');
-    }
+    if (event.keyCode === ENTER) event.preventDefault();
+
+    // if (event.keyCode === ENTER) {
+    //   const element = event.target as HTMLElement;
+    //   console.log(element);
+    //   element.innerHTML = element.innerHTML.replace(/<br>|<div>|<\/div>+/g, '');
+    // }
   }
 
-  setActiveItem(value: unknown) {
-    this._keyManagerMapper.setActiveItem(value);
+  leaveTypeMode() {
+    // this._keyManagerMapper.setActiveItem(this._currElement);
+  }
+
+  // @todo: MouseEvent => use custom interface with target, etc.
+  setActiveItem(value: MouseEvent) {
+    this._currElement = value;
+    this._keyManagerMapper.setActiveItem(value as unknown);
   }
 
   onKeydownArrow(event: KeyboardEvent) {

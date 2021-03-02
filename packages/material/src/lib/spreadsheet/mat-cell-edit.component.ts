@@ -11,6 +11,7 @@ import { CdkCellEditComponent } from './cdk-cell-edit.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   template: `
+    <!--  @todo: kann eventuell raus: (keyup.enter)="cellInputRef.blur()" -->
     <div [class.mat-cell-raw-show]="showCellRaw">{{ value }}</div>
     <input
       #cellInputRef

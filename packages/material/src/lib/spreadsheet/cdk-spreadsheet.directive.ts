@@ -50,8 +50,12 @@ export class CdkSpreadsheetDirective<
     this.spreadsheetManager.setActiveItem(event);
   }
 
-  @HostListener('window:keyup', ['$event']) onWrite(event: KeyboardEvent) {
+  @HostListener('keypress', ['$event']) onWrite(event: KeyboardEvent) {
     this.spreadsheetManager.writeActiveItem(event);
+  }
+
+  @HostListener('keyup.esc') onEsc() {
+    this.spreadsheetManager.leaveTypeMode();
   }
 
   @HostListener('dblclick') onDblclick() {
