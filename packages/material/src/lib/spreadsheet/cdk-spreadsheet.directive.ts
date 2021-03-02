@@ -55,7 +55,7 @@ export class CdkSpreadsheetDirective<
   }
 
   @HostListener('keyup.esc') onEsc() {
-    this.spreadsheetManager.leaveTypeMode();
+    this.spreadsheetManager.leaveActiveMode();
   }
 
   @HostListener('dblclick') onDblclick() {
@@ -69,7 +69,10 @@ export class CdkSpreadsheetDirective<
   @HostListener('keydown.enter') onKeydownEnter() {
     this.spreadsheetManager.setNextItemActive();
   }
-
+  @HostListener('keydown.tab') onKeydownTab() {
+    // @todo: move on x axis
+    // this.spreadsheetManager.setNextItemActive('');
+  }
   ngAfterContentInit() {
     this.spreadsheetManager = this._spreadsheetFactory.create(
       this.headerRowDef,

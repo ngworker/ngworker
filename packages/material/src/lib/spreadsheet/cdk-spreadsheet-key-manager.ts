@@ -23,16 +23,6 @@ export class CdkSpreadsheetKeyManager<T extends FocusHighlightable> {
   writeActiveItem(event: KeyboardEvent) {
     // https://stackoverflow.com/questions/1367700/whats-the-difference-between-keydown-and-keypress-in-net
     if (event.keyCode === ENTER) event.preventDefault();
-
-    // if (event.keyCode === ENTER) {
-    //   const element = event.target as HTMLElement;
-    //   console.log(element);
-    //   element.innerHTML = element.innerHTML.replace(/<br>|<div>|<\/div>+/g, '');
-    // }
-  }
-
-  leaveTypeMode() {
-    // this._keyManagerMapper.setActiveItem(this._currElement);
   }
 
   // @todo: MouseEvent => use custom interface with target, etc.
@@ -64,6 +54,10 @@ export class CdkSpreadsheetKeyManager<T extends FocusHighlightable> {
 
   setArrowRightItemActive(event: KeyboardEvent) {
     this._keyManagerMapper.setItemByArrowDirection(RIGHT_ARROW, event);
+  }
+
+  leaveActiveMode() {
+    console.log('leave active mode');
   }
 
   onDestroy(onDestroy: () => void) {
