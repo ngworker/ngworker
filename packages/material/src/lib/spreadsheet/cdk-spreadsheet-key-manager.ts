@@ -21,6 +21,7 @@ export class CdkSpreadsheetKeyManager<T extends FocusHighlightable> {
   }
 
   writeActiveItem(event: KeyboardEvent) {
+    // https://stackoverflow.com/questions/1367700/whats-the-difference-between-keydown-and-keypress-in-net
     if (event.keyCode === ENTER) event.preventDefault();
 
     // if (event.keyCode === ENTER) {
