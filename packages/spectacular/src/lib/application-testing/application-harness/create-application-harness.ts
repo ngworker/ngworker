@@ -2,7 +2,10 @@ import { NgZone } from '@angular/core';
 import { ComponentFixtureAutoDetect, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { SpectacularAppComponent, spectacularAppTag } from '../../shared/app-component/spectacular-app.component';
+import {
+  SpectacularAppComponent,
+  spectacularAppTag,
+} from '../../shared/app-component/spectacular-app.component';
 import { SpectacularAppModule } from '../../shared/app-component/spectacular-app.module';
 import { bootstrapComponent } from '../util-bootstrapping/bootstrap-component';
 import { CreateApplicationHarnessOptions } from './create-application-harness-options';

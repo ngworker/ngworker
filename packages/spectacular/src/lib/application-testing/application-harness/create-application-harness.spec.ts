@@ -1,4 +1,11 @@
-import { APP_BOOTSTRAP_LISTENER, APP_INITIALIZER, ComponentRef, FactoryProvider, Injectable, NgModule } from '@angular/core';
+import {
+  APP_BOOTSTRAP_LISTENER,
+  APP_INITIALIZER,
+  ComponentRef,
+  FactoryProvider,
+  Injectable,
+  NgModule,
+} from '@angular/core';
 
 import { SpectacularAppComponent } from '../../shared/app-component/spectacular-app.component';
 import { createApplicationHarness } from './create-application-harness';
@@ -24,9 +31,13 @@ const asyncApplicationInitializer: FactoryProvider = {
 const bootstrapListener: FactoryProvider = {
   multi: true,
   provide: APP_BOOTSTRAP_LISTENER,
-  useFactory: () => (component: ComponentRef<SpectacularAppComponent>): void => {
+  useFactory: () => (
+    component: ComponentRef<SpectacularAppComponent>
+  ): void => {
     if (!(component.instance instanceof SpectacularAppComponent)) {
-      throw new Error('The bootstrapped component is not an instance of SpectacularAppComponent');
+      throw new Error(
+        'The bootstrapped component is not an instance of SpectacularAppComponent'
+      );
     }
 
     bootstrapped = true;
@@ -84,8 +95,9 @@ describe(createApplicationHarness.name, () => {
 
       expect(bootstrapped).toBe(true);
     });
+  });
 
-  describe('Initializers', () => {
+  describe('Application initializers', () => {
     it('registers and runs the specified initializer', () => {
       createApplicationHarness({
         providers: [applicationInitializer],
