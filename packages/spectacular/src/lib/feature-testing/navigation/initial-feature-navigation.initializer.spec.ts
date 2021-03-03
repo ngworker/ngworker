@@ -16,8 +16,8 @@ describe('initialFeatureNavigationInitializer', () => {
     useValue: featurePath,
   };
 
-  it('navigates to the default feature route when the specified feature route is registered', () => {
-    const harness = createApplicationHarness({
+  it('navigates to the default feature route when the specified feature route is registered', async () => {
+    const harness = await createApplicationHarness({
       imports: [
         RouterTestingModule.withRoutes([
           {
@@ -35,8 +35,8 @@ describe('initialFeatureNavigationInitializer', () => {
   });
 
   it('fails when the specified feature route has not been registered', () => {
-    const act = () =>
-      createApplicationHarness({
+    const act = async () =>
+      await createApplicationHarness({
         imports: [
           RouterTestingModule.withRoutes([
             {
@@ -49,7 +49,7 @@ describe('initialFeatureNavigationInitializer', () => {
         providers: [featurePathProvider, initialFeatureNavigationInitializer],
       });
 
-    expect(act).toThrowError('Cannot match any routes');
+    expect(act).rejects.toThrowError('Cannot match any routes');
   });
 
   it('fails when the default feature route fails to load', () => {
@@ -61,8 +61,8 @@ describe('initialFeatureNavigationInitializer', () => {
       }
     }
 
-    const act = () =>
-      createApplicationHarness({
+    const act = async () =>
+      await createApplicationHarness({
         imports: [
           RouterTestingModule.withRoutes([
             {
@@ -78,6 +78,6 @@ describe('initialFeatureNavigationInitializer', () => {
         providers: [featurePathProvider, initialFeatureNavigationInitializer],
       });
 
-    expect(act).toThrowError(errorMessage);
+    expect(act).rejects.toThrowError(errorMessage);
   });
 });
