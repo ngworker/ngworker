@@ -1,10 +1,4 @@
-import {
-  APP_BOOTSTRAP_LISTENER,
-  APP_INITIALIZER,
-  FactoryProvider,
-  Injectable,
-  NgModule,
-} from '@angular/core';
+import { APP_BOOTSTRAP_LISTENER, APP_INITIALIZER, FactoryProvider, Injectable, NgModule } from '@angular/core';
 
 import { SpectacularAppComponent } from '../../shared/app-component/spectacular-app.component';
 import { createApplicationHarness } from './create-application-harness';
@@ -15,38 +9,25 @@ let initialized = false;
 const applicationInitializer: FactoryProvider = {
   multi: true,
   provide: APP_INITIALIZER,
-  useFactory: () => () => {
+  useFactory: () => (): void => {
     initialized = true;
   },
 };
 const asyncApplicationInitializer: FactoryProvider = {
   multi: true,
   provide: APP_INITIALIZER,
-  useFactory: () => async () => {
+  useFactory: () => async (): Promise<void> => {
     await Promise.resolve();
     initialized = true;
-  },
-};
-const asyncBootstrapListener: FactoryProvider = {
-  multi: true,
-  provide: APP_BOOTSTRAP_LISTENER,
-  useFactory: () => async () => {
-    await Promise.resolve();
-    bootstrapped = true;
   },
 };
 const bootstrapListener: FactoryProvider = {
   multi: true,
   provide: APP_BOOTSTRAP_LISTENER,
-  useFactory: () => () => {
+  useFactory: () => (): void => {
     bootstrapped = true;
   },
 };
-
-@NgModule({
-  providers: [asyncBootstrapListener],
-})
-class AsyncBootstrapListenerModule {}
 
 @NgModule({
   providers: [asyncApplicationInitializer],
@@ -92,16 +73,6 @@ describe(createApplicationHarness.name, () => {
       expect(bootstrapped).toBe(true);
     });
 
-    it('registers and runs the specified asynchronous bootstrap listener', async () => {
-      const harness = createApplicationHarness({
-        providers: [asyncBootstrapListener],
-      });
-
-      await harness.rootFixture.whenStable();
-
-      expect(bootstrapped).toBe(true);
-    });
-
     it('registers the specified bootstrap listener Angular module', () => {
       createApplicationHarness({
         imports: [BootstrapListenerModule],
@@ -109,17 +80,6 @@ describe(createApplicationHarness.name, () => {
 
       expect(bootstrapped).toBe(true);
     });
-
-    it('registers the specified asynchronous bootstrap listener Angular module', async () => {
-      const harness = createApplicationHarness({
-        imports: [AsyncBootstrapListenerModule],
-      });
-
-      await harness.rootFixture.whenStable();
-
-      expect(bootstrapped).toBe(true);
-    });
-  });
 
   describe('Initializers', () => {
     it('registers and runs the specified initializer', () => {
@@ -180,7 +140,7 @@ describe(createApplicationHarness.name, () => {
 
     it('registers and runs the specified asynchronous initializer and bootstrap listener', async () => {
       const harness = createApplicationHarness({
-        providers: [asyncApplicationInitializer, asyncBootstrapListener],
+        providers: [asyncApplicationInitializer, bootstrapListener],
       });
 
       await harness.rootFixture.whenStable();
@@ -191,7 +151,7 @@ describe(createApplicationHarness.name, () => {
 
     it('registers the specified asynchronous initializer and bootstrap listener Angular modules', async () => {
       const harness = createApplicationHarness({
-        imports: [AsyncInitializerModule, AsyncBootstrapListenerModule],
+        imports: [AsyncInitializerModule, BootstrapListenerModule],
       });
 
       await harness.rootFixture.whenStable();
