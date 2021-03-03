@@ -129,7 +129,12 @@ jobs:
         run: pnpm build
       - if: github.event_name == 'pull_request'
         run: pnpm affected:build -- --base=$BASE_BRANCH
-      - uses: actions/upload-artifact@v2
+      - name: 'Spectacular: Remove @angular/forms dependency'
+        run:
+          pnpx json -I -f dist/packages/spectacular/package.json -e "delete
+          this.dependencies['@angular/forms'];" || true
+      - name: 'Spectacular: Upload package build artifact'
+        uses: actions/upload-artifact@v2
         with:
           name: spectacular-package
           path: dist/packages/spectacular
