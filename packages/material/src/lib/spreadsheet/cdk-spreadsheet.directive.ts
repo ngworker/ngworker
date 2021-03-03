@@ -9,14 +9,13 @@ import {
   OnDestroy,
   QueryList,
 } from '@angular/core';
-
 import { CdkSpreadsheetKeyManager } from './cdk-spreadsheet-key-manager';
 import { CdkCellEditDirective } from './cdk-cell-edit.directive';
+import { CdkHeaderRowDef } from '@angular/cdk/table';
 import {
   CDK_SPREADSHEET_FACTORY,
   CDK_SPREADSHEET_MANAGER_PROVIDERS,
 } from './cdk-spreadspeet-manager.factory';
-import { CdkHeaderRowDef } from '@angular/cdk/table';
 import {
   CdkHeaderRowDefColumns,
   CdkSpreadsheetFactory,
@@ -69,7 +68,8 @@ export class CdkSpreadsheetDirective<
   @HostListener('keydown.enter') onKeydownEnter() {
     this.spreadsheetManager.setNextItemActive();
   }
-  @HostListener('keydown.tab') onKeydownTab() {
+  @HostListener('keydown.tab', ['$event']) onKeydownTab(event: KeyboardEvent) {
+    event.preventDefault();
     // @todo: move on x axis
     // this.spreadsheetManager.setNextItemActive('');
   }

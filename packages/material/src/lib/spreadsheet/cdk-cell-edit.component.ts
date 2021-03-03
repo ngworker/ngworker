@@ -12,8 +12,13 @@ import {
 
 @Component({
   selector: 'cdk-cell-edit',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
+  styles: [
+    `
+      .mat-cell-edit input {
+        all: inherit;
+      }
+    `,
+  ],
   template: `
     <!-- #cellInputRef (keyup.enter)="cellInputRef.blur()" -->
     <div [class.cdk-cell-raw-show]="showCellRaw">{{ value }}</div>
@@ -23,6 +28,8 @@ import {
       type="text"
     />
   `,
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CdkCellEditComponent implements OnInit {
   constructor(private readonly _cdr: ChangeDetectorRef) {}

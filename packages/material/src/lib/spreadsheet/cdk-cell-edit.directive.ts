@@ -49,6 +49,7 @@ export class CdkCellEditDirective
 
   ngOnInit() {
     this.contentEditable = 'true';
+    // @todo: move this into scss!
     this._element.style.whiteSpace = 'nowrap';
   }
 
