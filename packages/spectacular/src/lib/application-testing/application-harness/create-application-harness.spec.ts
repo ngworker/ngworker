@@ -6,6 +6,7 @@ import {
   Injectable,
   NgModule,
 } from '@angular/core';
+import { ignoreDevelopmentModeLog } from '@internal/test-util';
 
 import { SpectacularAppComponent } from '../../shared/app-component/spectacular-app.component';
 import { createApplicationHarness } from './create-application-harness';
@@ -63,20 +64,7 @@ describe(createApplicationHarness.name, () => {
   beforeEach(() => {
     bootstrapped = false;
     initialized = false;
-    const _consoleLog = console.log;
-    // filter out development mode notice
-    jest.spyOn(console, 'log').mockImplementation((...args) => {
-      const [message] = args;
-
-      if (
-        typeof message === 'string' &&
-        message.startsWith('Angular is running in development mode.')
-      ) {
-        return;
-      }
-
-      _consoleLog.call(console, ...args);
-    });
+    ignoreDevelopmentModeLog();
   });
 
   describe('Bootstrap listeners', () => {
@@ -107,7 +95,7 @@ describe(createApplicationHarness.name, () => {
     });
 
     it('registers and runs the specified asynchronous initializer', async () => {
-      const harness = await createApplicationHarness({
+      await createApplicationHarness({
         providers: [asyncApplicationInitializer],
       });
 
@@ -123,7 +111,7 @@ describe(createApplicationHarness.name, () => {
     });
 
     it('registers the specified asynchronous initializer Angular module', async () => {
-      const harness = await createApplicationHarness({
+      await createApplicationHarness({
         imports: [AsyncApplicationInitializerModule],
       });
 

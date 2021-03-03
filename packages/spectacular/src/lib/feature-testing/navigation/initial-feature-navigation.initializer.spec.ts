@@ -1,6 +1,7 @@
 import { Injectable, ValueProvider } from '@angular/core';
 import { Resolve } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ignoreDevelopmentModeLog } from '@internal/test-util';
 
 import { createApplicationHarness } from '../../application-testing/application-harness/create-application-harness';
 import { SpectacularAppComponent } from '../../shared/app-component/spectacular-app.component';
@@ -10,6 +11,10 @@ import { initialFeatureNavigationInitializer } from './initial-feature-navigatio
 import { SpectacularFeatureLocation } from './spectacular-feature-location';
 
 describe('initialFeatureNavigationInitializer', () => {
+  beforeEach(() => {
+    ignoreDevelopmentModeLog();
+  });
+
   const featurePath = 'admin';
   const featurePathProvider: ValueProvider = {
     provide: featurePathToken,
