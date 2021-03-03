@@ -50,6 +50,8 @@ export class CdkSpreadsheetDirective<
   }
 
   @HostListener('keypress', ['$event']) onWrite(event: KeyboardEvent) {
+    // @HostListener('keyup', ['$event']) onWrite(event: KeyboardEvent) {
+    console.log(event);
     this.spreadsheetManager.writeActiveItem(event);
   }
 

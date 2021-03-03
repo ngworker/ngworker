@@ -20,9 +20,10 @@ import {
     `,
   ],
   template: `
-    <!-- #cellInputRef (keyup.enter)="cellInputRef.blur()" -->
     <div [class.cdk-cell-raw-show]="showCellRaw">{{ value }}</div>
     <input
+      #cellInputRef
+      (keyup.enter)="cellInputRef.blur()"
       [class.cdk-cell-edit-show]="showCellEdit"
       [value]="value"
       type="text"
