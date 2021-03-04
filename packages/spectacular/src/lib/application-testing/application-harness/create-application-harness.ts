@@ -16,10 +16,10 @@ import { SpectacularApplicationHarness } from './spectacular-application-harness
  * configuration Angular modules, bootstrap listeners, and application
  * initializers.
  */
-export function createApplicationHarness({
+export async function createApplicationHarness({
   imports = [],
   providers = [],
-}: CreateApplicationHarnessOptions = {}): SpectacularApplicationHarness {
+}: CreateApplicationHarnessOptions = {}): Promise<SpectacularApplicationHarness> {
   TestBed.configureTestingModule({
     imports: [RouterTestingModule, ...imports, SpectacularAppModule],
     providers: [...providers],
@@ -37,7 +37,7 @@ export function createApplicationHarness({
 
   const [autoDetectChanges] = autoDetectChangesArray;
 
-  const rootFixture = bootstrapComponent({
+  const rootFixture = await bootstrapComponent({
     autoDetectChanges,
     component: SpectacularAppComponent,
     ngZone: TestBed.inject(NgZone),

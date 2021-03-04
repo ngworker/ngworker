@@ -1,10 +1,12 @@
 import {
   APP_BOOTSTRAP_LISTENER,
   APP_INITIALIZER,
+  ComponentRef,
   FactoryProvider,
   Injectable,
   NgModule,
 } from '@angular/core';
+import { ignoreDevelopmentModeLog } from '@internal/test-util';
 
 import { SpectacularAppComponent } from '../../shared/app-component/spectacular-app.component';
 import { createApplicationHarness } from './create-application-harness';
@@ -15,18 +17,38 @@ let initialized = false;
 const applicationInitializer: FactoryProvider = {
   multi: true,
   provide: APP_INITIALIZER,
-  useFactory: () => () => {
+  useFactory: () => (): void => {
     initialized = true;
   },
 };
-
+const asyncApplicationInitializer: FactoryProvider = {
+  multi: true,
+  provide: APP_INITIALIZER,
+  useFactory: () => async (): Promise<void> => {
+    await Promise.resolve();
+    initialized = true;
+  },
+};
 const bootstrapListener: FactoryProvider = {
   multi: true,
   provide: APP_BOOTSTRAP_LISTENER,
-  useFactory: () => () => {
+  useFactory: () => (
+    component: ComponentRef<SpectacularAppComponent>
+  ): void => {
+    if (!(component.instance instanceof SpectacularAppComponent)) {
+      throw new Error(
+        'The bootstrapped component is not an instance of SpectacularAppComponent'
+      );
+    }
+
     bootstrapped = true;
   },
 };
+
+@NgModule({
+  providers: [asyncApplicationInitializer],
+})
+class AsyncApplicationInitializerModule {}
 
 @NgModule({
   providers: [bootstrapListener],
@@ -42,33 +64,20 @@ describe(createApplicationHarness.name, () => {
   beforeEach(() => {
     bootstrapped = false;
     initialized = false;
-    const _consoleLog = console.log;
-    // filter out development mode notice
-    jest.spyOn(console, 'log').mockImplementation((...args) => {
-      const [message] = args;
-
-      if (
-        typeof message === 'string' &&
-        message.startsWith('Angular is running in development mode.')
-      ) {
-        return;
-      }
-
-      _consoleLog.call(console, ...args);
-    });
+    ignoreDevelopmentModeLog();
   });
 
   describe('Bootstrap listeners', () => {
-    it('registers and runs the specified bootstrap listener', () => {
-      createApplicationHarness({
+    it('registers and runs the specified bootstrap listener', async () => {
+      await createApplicationHarness({
         providers: [bootstrapListener],
       });
 
       expect(bootstrapped).toBe(true);
     });
 
-    it('registers the specified bootstrap listener Angular module', () => {
-      createApplicationHarness({
+    it('registers the specified bootstrap listener Angular module', async () => {
+      await createApplicationHarness({
         imports: [BootstrapListenerModule],
       });
 
@@ -76,10 +85,18 @@ describe(createApplicationHarness.name, () => {
     });
   });
 
-  describe('Initializers', () => {
+  describe('Application initializers', () => {
     it('registers and runs the specified initializer', () => {
       createApplicationHarness({
         providers: [applicationInitializer],
+      });
+
+      expect(initialized).toBe(true);
+    });
+
+    it('registers and runs the specified asynchronous initializer', async () => {
+      await createApplicationHarness({
+        providers: [asyncApplicationInitializer],
       });
 
       expect(initialized).toBe(true);
@@ -92,6 +109,52 @@ describe(createApplicationHarness.name, () => {
 
       expect(initialized).toBe(true);
     });
+
+    it('registers the specified asynchronous initializer Angular module', async () => {
+      await createApplicationHarness({
+        imports: [AsyncApplicationInitializerModule],
+      });
+
+      expect(initialized).toBe(true);
+    });
+  });
+
+  describe('All application hooks', () => {
+    it('registers and runs the specified initializer and bootstrap listener', async () => {
+      await createApplicationHarness({
+        providers: [applicationInitializer, bootstrapListener],
+      });
+
+      expect(initialized).toBe(true);
+      expect(bootstrapped).toBe(true);
+    });
+
+    it('registers the specified initializer and bootstrap Angular modules', async () => {
+      await createApplicationHarness({
+        imports: [InitializerModule, BootstrapListenerModule],
+      });
+
+      expect(initialized).toBe(true);
+      expect(bootstrapped).toBe(true);
+    });
+
+    it('registers and runs the specified asynchronous initializer and bootstrap listener', async () => {
+      await createApplicationHarness({
+        providers: [asyncApplicationInitializer, bootstrapListener],
+      });
+
+      expect(initialized).toBe(true);
+      expect(bootstrapped).toBe(true);
+    });
+
+    it('registers the specified asynchronous initializer and bootstrap listener Angular modules', async () => {
+      await createApplicationHarness({
+        imports: [AsyncApplicationInitializerModule, BootstrapListenerModule],
+      });
+
+      expect(initialized).toBe(true);
+      expect(bootstrapped).toBe(true);
+    });
   });
 
   describe('Configuration', () => {
@@ -103,8 +166,8 @@ describe(createApplicationHarness.name, () => {
     })
     class AdminServiceModule {}
 
-    it('adds the specified imports', () => {
-      const harness = createApplicationHarness({
+    it('adds the specified imports', async () => {
+      const harness = await createApplicationHarness({
         imports: [AdminServiceModule],
       });
 
@@ -112,8 +175,8 @@ describe(createApplicationHarness.name, () => {
       expect(jobService).toBeInstanceOf(AdminService);
     });
 
-    it('adds the specified providers', () => {
-      const harness = createApplicationHarness({
+    it('adds the specified providers', async () => {
+      const harness = await createApplicationHarness({
         providers: [AdminService],
       });
 
@@ -123,8 +186,24 @@ describe(createApplicationHarness.name, () => {
   });
 
   describe('Bootstrapping', () => {
-    it(`bootstraps ${SpectacularAppComponent.name}`, () => {
-      const harness = createApplicationHarness();
+    it(`bootstraps ${SpectacularAppComponent.name} without application hooks`, async () => {
+      const harness = await createApplicationHarness();
+
+      expect(harness.rootComponent).toBeInstanceOf(SpectacularAppComponent);
+    });
+
+    it(`bootstraps ${SpectacularAppComponent.name} with an async initializer`, async () => {
+      const harness = await createApplicationHarness({
+        providers: [asyncApplicationInitializer],
+      });
+
+      expect(harness.rootComponent).toBeInstanceOf(SpectacularAppComponent);
+    });
+
+    it(`bootstraps ${SpectacularAppComponent.name} with a bootstrap listener`, async () => {
+      const harness = await createApplicationHarness({
+        providers: [bootstrapListener],
+      });
 
       expect(harness.rootComponent).toBeInstanceOf(SpectacularAppComponent);
     });
