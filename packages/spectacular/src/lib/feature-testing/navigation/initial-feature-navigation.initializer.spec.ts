@@ -1,7 +1,7 @@
 import { Injectable, ValueProvider } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
 import { Resolve } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ignoreDevelopmentModeLog } from '@internal/test-util';
 
 import { createApplicationHarness } from '../../application-testing/application-harness/create-application-harness';
 import { SpectacularAppComponent } from '../../shared/app-component/spectacular-app.component';
@@ -11,14 +11,18 @@ import { initialFeatureNavigationInitializer } from './initial-feature-navigatio
 import { SpectacularFeatureLocation } from './spectacular-feature-location';
 
 describe('initialFeatureNavigationInitializer', () => {
+  beforeEach(() => {
+    ignoreDevelopmentModeLog();
+  });
+
   const featurePath = 'admin';
   const featurePathProvider: ValueProvider = {
     provide: featurePathToken,
     useValue: featurePath,
   };
 
-  it('navigates to the default feature route when the specified feature route is registered', () => {
-    createApplicationHarness({
+  it('navigates to the default feature route when the specified feature route is registered', async () => {
+    const harness = await createApplicationHarness({
       imports: [
         RouterTestingModule.withRoutes([
           {
@@ -31,14 +35,13 @@ describe('initialFeatureNavigationInitializer', () => {
       providers: [featurePathProvider, initialFeatureNavigationInitializer],
     });
 
-    const location = TestBed.inject(SpectacularFeatureLocation);
-
+    const location = harness.inject(SpectacularFeatureLocation);
     expect(location.path()).toBe('~/');
   });
 
   it('fails when the specified feature route has not been registered', () => {
-    const act = () =>
-      createApplicationHarness({
+    const act = async () =>
+      await createApplicationHarness({
         imports: [
           RouterTestingModule.withRoutes([
             {
@@ -51,7 +54,7 @@ describe('initialFeatureNavigationInitializer', () => {
         providers: [featurePathProvider, initialFeatureNavigationInitializer],
       });
 
-    expect(act).toThrowError('Cannot match any routes');
+    expect(act).rejects.toThrowError('Cannot match any routes');
   });
 
   it('fails when the default feature route fails to load', () => {
@@ -63,8 +66,8 @@ describe('initialFeatureNavigationInitializer', () => {
       }
     }
 
-    const act = () =>
-      createApplicationHarness({
+    const act = async () =>
+      await createApplicationHarness({
         imports: [
           RouterTestingModule.withRoutes([
             {
@@ -80,6 +83,6 @@ describe('initialFeatureNavigationInitializer', () => {
         providers: [featurePathProvider, initialFeatureNavigationInitializer],
       });
 
-    expect(act).toThrowError(errorMessage);
+    expect(act).rejects.toThrowError(errorMessage);
   });
 });
