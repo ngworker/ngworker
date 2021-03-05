@@ -10,6 +10,7 @@ export * from './lib/feature-testing/feature-harness/create-feature-harness-opti
 export * from './lib/feature-testing/feature-harness/spectacular-feature-harness';
 //   Feature testing module
 export * from './lib/feature-testing/feature-testing-module/spectacular-feature-testing-module-options';
+export * from './lib/feature-testing/feature-testing-module/spectacular-feature-testing-root.module';
 export * from './lib/feature-testing/feature-testing-module/spectacular-feature-testing.module';
 //   Navigation
 export * from './lib/feature-testing/navigation/spectacular-feature-location';

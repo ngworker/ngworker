@@ -1,4 +1,9 @@
-import { CurrencyPipe, DatePipe, DecimalPipe, PercentPipe } from '@angular/common';
+import {
+  CurrencyPipe,
+  DatePipe,
+  DecimalPipe,
+  PercentPipe,
+} from '@angular/common';
 
 import { SpectacularPipeHarness } from './pipe-harness/spectacular-pipe-harness';
 import { createCommonPipeHarness } from './test-util/create-common-pipe-harness';

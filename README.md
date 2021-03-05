@@ -8,6 +8,14 @@
 
 Monorepo for the `ngworker` NPM organization. Packages for Angular applications.
 
+## Packages
+
+Packages in this monorepo.
+
+| Package                                                     | Description                                                                                     |
+| ----------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| [Spectacular (@ngworker/spectacular)](packages/spectacular) | Spectacular Angular integration testing. Test harnesses for Angular applications and libraries. |
+
 ## Sponsors
 
 ### Wallaby 🦘
@@ -56,7 +64,7 @@ in Denmark.
 
 ## Contributors
 
-Thanks goes to these wonderful people
+Thanks goes to these wonderful people:
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
@@ -75,22 +83,7 @@ Thanks goes to these wonderful people
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-([emoji key](https://allcontributors.org/docs/en/emoji-key)):
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<table>
-  <tr>
-    <td align="center"><a href="https://dev.to/layzee"><img src="https://avatars1.githubusercontent.com/u/6364586?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Lars Gyrup Brink Nielsen</b></sub></a><br /><a href="#question-LayZeeDK" title="Answering Questions">💬</a> <a href="#blog-LayZeeDK" title="Blogposts">📝</a> <a href="https://github.com/ngworker/ngworker/issues?q=author%3ALayZeeDK" title="Bug reports">🐛</a> <a href="https://github.com/ngworker/ngworker/commits?author=LayZeeDK" title="Code">💻</a> <a href="https://github.com/ngworker/ngworker/commits?author=LayZeeDK" title="Documentation">📖</a> <a href="#example-LayZeeDK" title="Examples">💡</a> <a href="#ideas-LayZeeDK" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-LayZeeDK" title="Maintenance">🚧</a> <a href="#mentoring-LayZeeDK" title="Mentoring">🧑‍🏫</a> <a href="#platform-LayZeeDK" title="Packaging/porting to new platform">📦</a> <a href="#plugin-LayZeeDK" title="Plugin/utility libraries">🔌</a> <a href="#projectManagement-LayZeeDK" title="Project Management">📆</a> <a href="#research-LayZeeDK" title="Research">🔬</a> <a href="https://github.com/ngworker/ngworker/pulls?q=is%3Apr+reviewed-by%3ALayZeeDK" title="Reviewed Pull Requests">👀</a> <a href="#security-LayZeeDK" title="Security">🛡️</a> <a href="https://github.com/ngworker/ngworker/commits?author=LayZeeDK" title="Tests">⚠️</a> <a href="#tool-LayZeeDK" title="Tools">🔧</a> <a href="#tutorial-LayZeeDK" title="Tutorials">✅</a> <a href="#userTesting-LayZeeDK" title="User Testing">📓</a></td>
-    <td align="center"><a href="https://github.com/NachoVazquez"><img src="https://avatars3.githubusercontent.com/u/9338604?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Nacho Vazquez</b></sub></a><br /><a href="https://github.com/ngworker/ngworker/issues?q=author%3ANachoVazquez" title="Bug reports">🐛</a> <a href="https://github.com/ngworker/ngworker/commits?author=NachoVazquez" title="Code">💻</a> <a href="https://github.com/ngworker/ngworker/commits?author=NachoVazquez" title="Documentation">📖</a> <a href="#example-NachoVazquez" title="Examples">💡</a> <a href="#ideas-NachoVazquez" title="Ideas, Planning, & Feedback">🤔</a> <a href="#infra-NachoVazquez" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#maintenance-NachoVazquez" title="Maintenance">🚧</a> <a href="#plugin-NachoVazquez" title="Plugin/utility libraries">🔌</a> <a href="https://github.com/ngworker/ngworker/pulls?q=is%3Apr+reviewed-by%3ANachoVazquez" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/ngworker/ngworker/commits?author=NachoVazquez" title="Tests">⚠️</a> <a href="#tool-NachoVazquez" title="Tools">🔧</a> <a href="#userTesting-NachoVazquez" title="User Testing">📓</a></td>
-  </tr>
-</table>
-
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
+([emoji key](https://allcontributors.org/docs/en/emoji-key))
 
 This project follows the
 [all-contributors](https://github.com/all-contributors/all-contributors)
