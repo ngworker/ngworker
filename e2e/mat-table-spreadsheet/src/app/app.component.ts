@@ -12,6 +12,7 @@ export class AppComponent {
   dataSource = Array(10)
     .fill(0)
     .map(_ => ({ position: 0, name: 'Foo', check: 'yes/no' }));
+
   matCellClicked(event: unknown) {
     console.log('matCellClicked', event);
   }

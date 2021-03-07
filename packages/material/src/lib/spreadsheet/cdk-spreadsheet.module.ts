@@ -9,12 +9,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
-import { CdkCellEditComponent } from './cdk-cell-edit.component';
-import { MatCellEditComponent } from './mat-cell-edit.component';
 import { MatCellEditDirective } from './mat-cell-edit.directive';
 import { CdkHeaderDragDirective } from './cdk-header-drag.directive';
 
-// @todo: wenn alles fertig ist, dann cdk- oder mat- aus den filenames rausnehmen
+// @todo: remove mat- or cdk- from file name!
 
 @NgModule({
   imports: [
@@ -27,24 +25,22 @@ import { CdkHeaderDragDirective } from './cdk-header-drag.directive';
   ],
   providers: [CdkDropList],
   declarations: [
-    MatSpreadsheetDirective,
-    MatHeaderDragDirective,
-    MatCellEditComponent,
-    MatCellEditDirective,
     CdkHeaderDragDirective,
     CdkCellEditDirective,
     CdkSpreadsheetDirective,
-    CdkCellEditComponent,
+
+    MatSpreadsheetDirective,
+    MatHeaderDragDirective,
+    MatCellEditDirective,
   ],
   exports: [
-    MatSpreadsheetDirective,
-    MatHeaderDragDirective,
-    MatCellEditComponent,
-    MatCellEditDirective,
     CdkHeaderDragDirective,
     CdkCellEditDirective,
     CdkSpreadsheetDirective,
-    CdkCellEditComponent,
+
+    MatSpreadsheetDirective,
+    MatHeaderDragDirective,
+    MatCellEditDirective,
 
     MatSidenavModule,
     MatToolbarModule,

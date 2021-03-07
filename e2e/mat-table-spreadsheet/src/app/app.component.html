@@ -90,14 +90,7 @@
             *cdkDragPlaceholder
           ></div>
         </mat-header-cell>
-        <mat-cell
-          matCellEdit
-          (cellChanged)="matCellChanged($event)"
-          [cellEdit]="element"
-          *matCellDef="let element"
-        >
-          1
-        </mat-cell>
+        <mat-cell *matCellDef="let element"> 1 </mat-cell>
       </ng-container>
       <ng-container matColumnDef="check2">
         <mat-header-cell matColumnDrag *matHeaderCellDef>
@@ -110,14 +103,7 @@
             *cdkDragPlaceholder
           ></div>
         </mat-header-cell>
-        <mat-cell
-          matCellEdit
-          (cellChanged)="matCellChanged($event)"
-          [cellEdit]="element"
-          *matCellDef="let element"
-        >
-          2
-        </mat-cell>
+        <mat-cell *matCellDef="let element"> 2 </mat-cell>
       </ng-container>
       <ng-container matColumnDef="check3">
         <mat-header-cell matColumnDrag *matHeaderCellDef>

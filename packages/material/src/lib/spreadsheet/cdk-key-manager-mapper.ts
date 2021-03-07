@@ -4,7 +4,6 @@ import {
   CdkTableDropListState,
   Direction,
   FocusHighlightable,
-  KeyCodes,
   MatrixX,
   MatrixY,
   NON_VALID_AXIS,
@@ -23,7 +22,7 @@ import { Subject } from 'rxjs';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { delay, takeUntil } from 'rxjs/operators';
 import { assertExists } from './ts-strict.utils';
-import * as matrixUtils from './cdk-matrix.utils';
+import * as matrixUtils from './cdk-key-manager-mapper.utils';
 
 export class CdkKeyManagerMapper<T extends FocusHighlightable> {
   private readonly _unsub$ = new Subject();
@@ -32,9 +31,9 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
   private _matrixX: MatrixX<number> | undefined;
   private _currTableAxis: Axis = { x: -1, y: -1 };
 
-  private readonly _focusedItemSub = this._keyManager.change
+  private readonly _focusedNextItem = this._keyManager.change
     .pipe(delay(0), takeUntil(this._unsub$))
-    .subscribe(_ => this._keyManager.activeItem?.focus());
+    .subscribe(_ => this._keyManager.activeItem?.focusActiveItem());
 
   constructor(
     private _elementRef: ElementRef<HTMLElement>,
@@ -81,21 +80,13 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
     }
   }
 
-  setItemByArrowDirection(dir: Direction, event: KeyboardEvent) {
-    if (!(event instanceof KeyboardEvent)) {
-      throw new Error('Event must be instanceof KeyboardEvent');
-    }
-
+  setItemByArrowDirection(dir: Direction) {
     const axisPos = this.getAxisByDir(dir);
     if (dir === LEFT_ARROW || dir === RIGHT_ARROW) {
       this.setActiveItemAxis({ x: axisPos });
     } else if (dir === UP_ARROW || dir === DOWN_ARROW) {
       this.setActiveItemAxis({ y: axisPos });
     }
-  }
-
-  setItemByKeyCode(keyCode: KeyCodes) {
-    console.log(`not setItemByKeyCode implemented`, keyCode);
   }
 
   canNextItemActive(axis: keyof Axis = 'y') {

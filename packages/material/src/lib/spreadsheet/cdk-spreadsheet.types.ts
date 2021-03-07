@@ -1,5 +1,5 @@
 import { CdkSpreadsheetKeyManager } from './cdk-spreadsheet-key-manager';
-import { QueryList } from '@angular/core';
+import { ElementRef, QueryList } from '@angular/core';
 import { CdkHeaderRowDef } from '@angular/cdk/table';
 import { Highlightable } from '@angular/cdk/a11y';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
@@ -52,12 +52,14 @@ export type MatrixReturnType<
   K extends PropertyKey
 > = T extends 'y' ? MatrixY<K> : T extends 'x' ? MatrixX<K> : never;
 
+// @todo: rename or split it!
 export interface FocusShow {
-  focus: () => void;
-  show: () => void;
+  focusActiveItem: () => void;
+  writeActiveItem: (value: string) => void;
+  blurActiveItem: () => void;
+  elementRef: ElementRef<HTMLElement>;
 }
 
-// @todo: choose a different name and add elementRef because of CdkKeyManagerMapper.sortedQueryList
 export interface FocusHighlightable extends Highlightable, FocusShow {}
 
 export interface CdkSpreadsheetFactory<T extends FocusHighlightable> {

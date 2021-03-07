@@ -6,6 +6,7 @@ import {
   HostBinding,
   HostListener,
   Inject,
+  Input,
   OnDestroy,
   QueryList,
 } from '@angular/core';
@@ -21,6 +22,15 @@ import {
   CdkSpreadsheetFactory,
   FocusHighlightable,
 } from './cdk-spreadsheet.types';
+import { DataSource } from '@angular/cdk/collections';
+import { Observable } from 'rxjs';
+
+// @note: copied from table.d.ts
+type CdkTableDataSourceInput<T = Record<PropertyKey, unknown>> =
+  | DataSource<T>
+  | Observable<ReadonlyArray<T> | T[]>
+  | ReadonlyArray<T>
+  | T[];
 
 @Directive({
   selector: 'cdk-table[cdkSpreadsheet], [cdkSpreadsheet][cdk-table]',
@@ -37,6 +47,8 @@ export class CdkSpreadsheetDirective<
     private _spreadsheetFactory: CdkSpreadsheetFactory<T>
   ) {}
 
+  @Input() dataSource!: CdkTableDataSourceInput;
+
   @HostBinding('class.cdk-spreadsheet') hostClass = true;
 
   @ContentChildren(CdkCellEditDirective)
@@ -45,41 +57,64 @@ export class CdkSpreadsheetDirective<
   @ContentChild(CdkHeaderRowDef)
   headerRowDef!: QueryList<CdkHeaderRowDef> & CdkHeaderRowDefColumns;
 
-  @HostListener('click', ['$event']) onClick(event: MouseEvent) {
-    this.spreadsheetManager.setActiveItem(event);
+  @HostListener('click', ['$event']) click(e: MouseEvent) {
+    this.spreadsheetManager.editMode('blank').setActiveItem(e);
   }
 
-  @HostListener('keypress', ['$event']) onWrite(event: KeyboardEvent) {
-    // @HostListener('keyup', ['$event']) onWrite(event: KeyboardEvent) {
-    console.log(event);
-    this.spreadsheetManager.writeActiveItem(event);
+  @HostListener('dblclick') dblclick() {
+    this.spreadsheetManager.editMode('mutable').lockArrowKeys();
   }
 
-  @HostListener('keyup.esc') onEsc() {
-    this.spreadsheetManager.leaveActiveMode();
+  @HostListener('keyup', ['$event']) onWrite(e: KeyboardEvent) {
+    this.spreadsheetManager.writeActiveItem(e);
   }
 
-  @HostListener('dblclick') onDblclick() {
-    this.spreadsheetManager.activeItem?.show();
+  @HostListener('keyup.esc') esc() {
+    this.spreadsheetManager.unlockArrowKeys().resetActiveItem();
   }
 
-  @HostListener('keydown', ['$event']) onKeydownArrow(event: KeyboardEvent) {
-    this.spreadsheetManager.onKeydownArrow(event);
+  @HostListener('keydown', ['$event']) arrowKey(e: KeyboardEvent) {
+    if (!this.spreadsheetManager.arrowKeyLocked) {
+      this.spreadsheetManager.onKeydownArrow(e);
+    }
   }
 
-  @HostListener('keydown.enter') onKeydownEnter() {
-    this.spreadsheetManager.setNextItemActive();
+  @HostListener('keydown.enter', ['$event']) enter(e: Event) {
+    this.spreadsheetManager
+      .unlockArrowKeys()
+      .setArrowDownItemActive()
+      .prevDefault(e);
   }
-  @HostListener('keydown.tab', ['$event']) onKeydownTab(event: KeyboardEvent) {
-    event.preventDefault();
-    // @todo: move on x axis
-    // this.spreadsheetManager.setNextItemActive('');
+
+  @HostListener('keydown.shift.enter', ['$event']) shiftEnter(e: Event) {
+    this.spreadsheetManager
+      .unlockArrowKeys()
+      .setArrowUpItemActive()
+      .prevDefault(e);
   }
+
+  @HostListener('keydown.tab', ['$event']) tab(e: Event) {
+    this.spreadsheetManager
+      .unlockArrowKeys()
+      .setArrowRightItemActive()
+      .prevDefault(e);
+  }
+
+  @HostListener('keydown.shift.tab', ['$event']) shiftTab(e: Event) {
+    this.spreadsheetManager
+      .unlockArrowKeys()
+      .setArrowLeftItemActive()
+      .prevDefault(e);
+  }
+
   ngAfterContentInit() {
     this.spreadsheetManager = this._spreadsheetFactory.create(
       this.headerRowDef,
       this.cellEditQueryList
     );
+
+    // @todo: clone initial dataSource
+    console.log(this.dataSource);
   }
 
   ngOnDestroy() {

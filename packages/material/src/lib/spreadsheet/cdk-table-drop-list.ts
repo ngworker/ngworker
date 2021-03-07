@@ -1,7 +1,10 @@
 import { CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { merge, Subject } from 'rxjs';
 import { map, takeUntil, withLatestFrom } from 'rxjs/operators';
-import { getTableStateByElement, syncQueryList } from './cdk-matrix.utils';
+import {
+  getTableStateByElement,
+  syncQueryList,
+} from './cdk-key-manager-mapper.utils';
 import { QueryList } from '@angular/core';
 import {
   Axis,
