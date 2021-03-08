@@ -33,6 +33,8 @@ $angular-material-theme: mat-light-theme((
 // that you are using.
 @include angular-material-theme($angular-material-theme);
 
+@import '../../../packages/material/src/lib/spreadsheet/cdk-spreadsheet';
+
 /* You can add global styles to this file, and also import other style files */
 
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

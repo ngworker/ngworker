@@ -39,6 +39,7 @@ export class CdkSpreadsheetKeyManager<T extends FocusHighlightable> {
   setActiveItem(event: MouseEvent) {
     this._currEvent = event;
     this._keyManagerMapper.setActiveItem(event as unknown);
+    return this;
   }
 
   onKeydownArrow(event: KeyboardEvent) {
@@ -48,10 +49,12 @@ export class CdkSpreadsheetKeyManager<T extends FocusHighlightable> {
 
     const keyCode = event.keyCode as Direction;
     this._keyManagerMapper.setItemByArrowDirection(keyCode);
+    return this;
   }
 
   setNextItemActive() {
     this._keyManagerMapper.setNextItemActive();
+    return this;
   }
 
   setArrowUpItemActive() {
@@ -76,20 +79,27 @@ export class CdkSpreadsheetKeyManager<T extends FocusHighlightable> {
 
   prevDefault(e: Event) {
     e.preventDefault();
+    return this;
   }
 
   lockArrowKeys() {
     this._arrowKeysLocked = true;
+    return this;
   }
 
   resetActiveItem() {
     this.setActiveItem(this._currEvent);
+    return this;
   }
 
   unlockArrowKeys(event?: KeyboardEvent) {
     if (event) event.preventDefault();
     this._arrowKeysLocked = false;
     return this;
+  }
+
+  run() {
+    console.log('execute!');
   }
 
   onDestroy(onDestroy: () => void) {
