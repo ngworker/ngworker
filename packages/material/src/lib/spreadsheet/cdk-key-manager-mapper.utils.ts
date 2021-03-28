@@ -9,17 +9,11 @@ import {
 } from './cdk-spreadsheet.types';
 import { QueryList } from '@angular/core';
 
-/**
- * createByAxis
- * @param axis
- * @param count (cell)
- * @param chunk (column)
- */
-export function createByAxis<T extends keyof Axis, N extends number>(
+export function createByAxis<T extends keyof Axis>(
   axis: T,
-  count: N,
-  chunk: N
-): MatrixReturnType<T, N> {
+  count: number,
+  chunk: number
+): MatrixReturnType<T, number> {
   let result: unknown;
   const enumeration = createEnumerationList(count);
 
@@ -28,29 +22,26 @@ export function createByAxis<T extends keyof Axis, N extends number>(
   } else {
     result = createByAxisX(enumeration, chunk);
   }
-  return result as MatrixReturnType<T, N>;
+  return result as MatrixReturnType<T, number>;
 }
 
-/**
- * createEnumerationList
- * @param count
- */
-export function createEnumerationList<T extends number>(count: T): T[] {
-  const cellCountArr = new Array<T>(count);
-  for (let i = 0; i < count; ++i) {
-    cellCountArr[i] = i as T;
+export function createEnumerationList(count: number): number[] {
+  if (count < 0) {
+    return [];
+  }
+  return new Array(count).fill(null).map((_, i) => i);
+}
+
+export function getAxisYCount<T extends number>(list: T[], chunk: T) {
+  const yCount = list.length / chunk;
+  if (isNaN(yCount) || !Number.isInteger(yCount)) {
+    return 0;
   }
 
-  return cellCountArr;
+  return list.length / chunk;
 }
 
-/**
- * createYMatrix
- * @param enumeration
- * @param chunk
- * @source https://stackoverflow.com/questions/8495687/split-array-into-chunks#55435856
- */
-export function createByAxisY<T extends PropertyKey>(
+export function createByAxisY<T extends number>(
   enumeration: T[],
   chunk: number
 ): MatrixY<T> {
@@ -60,32 +51,28 @@ export function createByAxisY<T extends PropertyKey>(
     }
   }
 
-  return [..._chunks(enumeration, chunk)] as MatrixY<T>;
+  const result = [..._chunks(enumeration, chunk)] as MatrixY<T>;
+  if (result.flat().length < chunk) {
+    return ([] as unknown) as MatrixY<T>;
+  }
+
+  return result;
 }
 
-/**
- * createXMatrix
- * @param enumeration
- * @param chunk
- * @source https://stackoverflow.com/questions/16348226/horizontal-to-vertical-in-a-javascript-array#16348407
- */
-export function createByAxisX<T extends PropertyKey>(
+export function createByAxisX<T extends number>(
   enumeration: T[],
   chunk: number
 ): MatrixX<T> {
-  const rows = Math.round(enumeration.length / chunk);
-  return sortByXAxis(enumeration, rows) as MatrixX<T>;
+  const rows = getAxisYCount(enumeration, chunk);
+  return _createByAxisX(enumeration, rows) as MatrixX<T>;
 }
 
-/**
- * sortByXAxis
- * @param list
- * @param rows
- */
-export function sortByXAxis<T>(list: T[], rows: number): T[][] {
+export function _createByAxisX<T>(list: T[], chunk: number): T[][] {
   const result: T[][] = [];
   list.forEach((value, index) => {
-    const group = index % rows;
+    const group = index % chunk;
+    if (isNaN(group)) return;
+
     let temp = result[group];
     temp = Array.isArray(temp) ? temp : [];
     temp.push(value);
@@ -95,12 +82,7 @@ export function sortByXAxis<T>(list: T[], rows: number): T[][] {
   return result;
 }
 
-/**
- * findAxis
- * @param value
- * @param matrix
- */
-export function findAxis<T extends PropertyKey>(value: T, matrix: Matrix<T>) {
+export function findAxis<T extends number>(value: T, matrix: Matrix<T>) {
   for (let y = 0; y < matrix.length; y++) {
     for (let x = 0; x < matrix[y].length; x++) {
       if (matrix[y][x] === value) {
@@ -112,12 +94,7 @@ export function findAxis<T extends PropertyKey>(value: T, matrix: Matrix<T>) {
   return { y: -1, x: -1 };
 }
 
-/**
- * findIndexOf
- * @param list
- * @param element
- */
-export function findIndexOf<E extends Element, L extends NodeListOf<E>>(
+export function findIndexOfEl<E extends Element, L extends NodeListOf<E>>(
   list: L,
   element: E
 ): number {
@@ -130,30 +107,14 @@ export function findIndexOf<E extends Element, L extends NodeListOf<E>>(
   return -1;
 }
 
-/**
- * isXMove
- * @param x
- * @param y
- */
 export function isXMove(x: number, y: number) {
   return y === NON_VALID_AXIS && x >= 0;
 }
 
-/**
- * isYMove
- * @param x
- * @param y
- */
 export function isYMove(x: number, y: number) {
   return y >= 0 && x === NON_VALID_AXIS;
 }
 
-/**
- * syncQueryList
- * @param queryList
- * @param cells
- * @param columnCount
- */
 export function syncQueryList(
   queryList: QueryList<unknown>,
   cells: NodeListOf<HTMLElement>,
@@ -163,22 +124,17 @@ export function syncQueryList(
     (a, b) =>
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      findIndexOf(cells, a.elementRef.nativeElement) -
+      findIndexOfEl(cells, a.elementRef.nativeElement) -
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      findIndexOf(cells, b.elementRef.nativeElement)
+      findIndexOfEl(cells, b.elementRef.nativeElement)
   );
 
-  const result = sortByXAxis(sortedQueryList, columnCount).flat();
+  const result = _createByAxisX(sortedQueryList, columnCount).flat();
   queryList.reset(result);
   return queryList;
 }
 
-/**
- * getTableStateByElement
- * @param element
- * @param cellSel
- */
 export function getTableStateByElement(
   element: HTMLElement,
   cellSel: string

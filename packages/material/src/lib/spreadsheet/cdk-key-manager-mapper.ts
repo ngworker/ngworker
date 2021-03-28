@@ -74,12 +74,6 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
     }
   }
 
-  setNextItemActive() {
-    if (this.canNextItemActive()) {
-      this._keyManager.setNextItemActive();
-    }
-  }
-
   setItemByArrowDirection(dir: Direction) {
     const axisPos = this.getAxisByDir(dir);
     if (dir === LEFT_ARROW || dir === RIGHT_ARROW) {
@@ -87,11 +81,6 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
     } else if (dir === UP_ARROW || dir === DOWN_ARROW) {
       this.setActiveItemAxis({ y: axisPos });
     }
-  }
-
-  canNextItemActive(axis: keyof Axis = 'y') {
-    const axisPos = this.getAxisByDir(DOWN_ARROW);
-    return !!this.setTableByAxis(axisPos, axis);
   }
 
   setActiveItemAxis(tableAxisItem: Partial<Axis>) {
@@ -113,7 +102,6 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
     this.setActiveItem(keyManagerItemIndex);
   }
 
-  // @todo: this function set and gets! What to do?
   setTableByAxis(tableAxisItem: number, ax: keyof Axis) {
     const itemIndex = this.getKeyMangerItemIndex(tableAxisItem, ax);
     if (typeof itemIndex === 'number' && itemIndex >= 0) {
@@ -157,9 +145,8 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
   }
 
   getKeyMangerItemAxis(event: MouseEvent): Axis {
-    // @todo: we can pass this._table so that we can remove assertExists
     assertExists(this._table);
-    const currentColIndex = matrixUtils.findIndexOf(
+    const currentColIndex = matrixUtils.findIndexOfEl(
       this._table.cells,
       event.target as Element
     );

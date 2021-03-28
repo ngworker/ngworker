@@ -58,19 +58,19 @@ export class CdkSpreadsheetDirective<
   headerRowDef!: QueryList<CdkHeaderRowDef> & CdkHeaderRowDefColumns;
 
   @HostListener('click', ['$event']) click(e: MouseEvent) {
-    this.spreadsheetManager.editMode('blank').setActiveItem(e);
+    this.spreadsheetManager.editMode('blank').setActiveItem(e).exec();
   }
 
   @HostListener('dblclick') dblclick() {
-    this.spreadsheetManager.editMode('mutable').lockArrowKeys();
+    this.spreadsheetManager.editMode('mutable').lockArrowKeys().exec();
   }
 
   @HostListener('keyup', ['$event']) onWrite(e: KeyboardEvent) {
-    this.spreadsheetManager.writeActiveItem(e);
+    this.spreadsheetManager.writeActiveItem(e).exec();
   }
 
   @HostListener('keyup.esc') esc() {
-    this.spreadsheetManager.unlockArrowKeys().resetActiveItem();
+    this.spreadsheetManager.unlockArrowKeys().resetActiveItem().exec();
   }
 
   @HostListener('keydown', ['$event']) arrowKey(e: KeyboardEvent) {
@@ -83,28 +83,32 @@ export class CdkSpreadsheetDirective<
     this.spreadsheetManager
       .unlockArrowKeys()
       .setArrowDownItemActive()
-      .prevDefault(e);
+      .prevDef(e)
+      .exec();
   }
 
   @HostListener('keydown.shift.enter', ['$event']) shiftEnter(e: Event) {
     this.spreadsheetManager
       .unlockArrowKeys()
       .setArrowUpItemActive()
-      .prevDefault(e);
+      .prevDef(e)
+      .exec();
   }
 
   @HostListener('keydown.tab', ['$event']) tab(e: Event) {
     this.spreadsheetManager
       .unlockArrowKeys()
       .setArrowRightItemActive()
-      .prevDefault(e);
+      .prevDef(e)
+      .exec();
   }
 
   @HostListener('keydown.shift.tab', ['$event']) shiftTab(e: Event) {
     this.spreadsheetManager
       .unlockArrowKeys()
       .setArrowLeftItemActive()
-      .prevDefault(e);
+      .prevDef(e)
+      .exec();
   }
 
   ngAfterContentInit() {

@@ -25,13 +25,11 @@ export class CdkSpreadsheetKeyManager<T extends FocusHighlightable> {
   }
 
   editMode(mode: EditMode) {
-    console.log(mode);
     return this;
   }
 
   writeActiveItem(event: KeyboardEvent) {
     const text = (event.target as HTMLElement).innerText;
-    console.log(event, text);
     // this.activeItem?.writeActiveItem(text);
     return this;
   }
@@ -49,11 +47,6 @@ export class CdkSpreadsheetKeyManager<T extends FocusHighlightable> {
 
     const keyCode = event.keyCode as Direction;
     this._keyManagerMapper.setItemByArrowDirection(keyCode);
-    return this;
-  }
-
-  setNextItemActive() {
-    this._keyManagerMapper.setNextItemActive();
     return this;
   }
 
@@ -77,7 +70,7 @@ export class CdkSpreadsheetKeyManager<T extends FocusHighlightable> {
     return this;
   }
 
-  prevDefault(e: Event) {
+  prevDef(e: Event) {
     e.preventDefault();
     return this;
   }
@@ -98,9 +91,7 @@ export class CdkSpreadsheetKeyManager<T extends FocusHighlightable> {
     return this;
   }
 
-  run() {
-    console.log('execute!');
-  }
+  exec() {}
 
   onDestroy(onDestroy: () => void) {
     this._onDestroy = onDestroy;
