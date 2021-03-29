@@ -41,7 +41,7 @@ export function cdkSpreadsheetFactory<T extends FocusHighlightable>(
 
       const keyManagerMapper = new CdkKeyManagerMapper(
         dropList.element,
-        tableDragDropManager.table,
+        tableDragDropManager.tableState,
         activeDescendantKeyManager
       );
 

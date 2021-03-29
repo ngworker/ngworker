@@ -1,16 +1,14 @@
 import { CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { merge, Subject } from 'rxjs';
 import { map, takeUntil, withLatestFrom } from 'rxjs/operators';
-import {
-  getTableStateByElement,
-  syncQueryList,
-} from './cdk-key-manager-mapper.utils';
-import { QueryList } from '@angular/core';
+import { _createByAxisX, findIndexOfEl } from './cdk-key-manager-mapper.utils';
+import { ElementRef, QueryList } from '@angular/core';
 import {
   Axis,
   CdkDragDropPrevNext,
   CdkHeaderRowDefColumns,
   CdkTableDropListState,
+  Table,
 } from './cdk-spreadsheet.types';
 
 export class CdkTableDropList {
@@ -22,7 +20,8 @@ export class CdkTableDropList {
     map(dropped => dropped as CdkDragDropPrevNext) // this mapping is required
   );
 
-  public table = getTableStateByElement(this._element, this._cellSel);
+  public tableState = this._getTableState();
+
   public readonly change$ = this._changeSubject$
     .asObservable()
     .pipe(takeUntil(this._unsub$));
@@ -31,7 +30,6 @@ export class CdkTableDropList {
     private readonly _cdkDropList: CdkDropList<unknown>,
     private readonly _queryList: QueryList<unknown>,
     private readonly _headerRowDef: CdkHeaderRowDefColumns,
-    // @todo: use our own custom class
     private readonly _cellSel = '.cdk-cell'
   ) {
     this._init();
@@ -58,13 +56,40 @@ export class CdkTableDropList {
     this._queryList.changes
       .pipe(withLatestFrom(this._dropList), takeUntil(this._unsub$))
       .subscribe(([queryList, dropped]) => {
-        this.table = getTableStateByElement(this._element, this._cellSel);
-        syncQueryList(queryList, this.table.cells, this.table.columnCount);
+        this.tableState = this._getTableState();
+        this._syncQueryList(queryList);
         this._changeSubject$.next({
-          table: this.table,
+          table: this.tableState,
           dropped,
         });
       });
+  }
+
+  _syncQueryList(queryList: QueryList<{ elementRef: ElementRef }>) {
+    const { cells, columnCount } = this.tableState;
+    const sortedQueryList = queryList
+      .toArray()
+      .sort(
+        (a, b) =>
+          findIndexOfEl(cells, a.elementRef.nativeElement) -
+          findIndexOfEl(cells, b.elementRef.nativeElement)
+      );
+    const result = _createByAxisX(sortedQueryList, columnCount);
+    queryList.reset(result.flat());
+  }
+
+  _getTableState(): Table {
+    const cells = this._element.querySelectorAll<HTMLElement>(this._cellSel);
+    const columnCount = cells[0]?.parentElement?.childElementCount ?? 0;
+    const rowCount = cells.length / columnCount;
+    const cellCount = columnCount * rowCount;
+
+    return {
+      cells,
+      rowCount: rowCount ?? -1,
+      columnCount: columnCount ?? -1,
+      cellCount: cellCount ?? -1,
+    };
   }
 
   destroy() {

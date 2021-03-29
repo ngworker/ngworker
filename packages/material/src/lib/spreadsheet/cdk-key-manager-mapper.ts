@@ -37,7 +37,7 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
 
   constructor(
     private _elementRef: ElementRef<HTMLElement>,
-    private _table: Table,
+    private _tableState: Table,
     private _keyManager: ActiveDescendantKeyManager<T>,
     private _cellSel = '.cdk-cell'
   ) {
@@ -45,8 +45,8 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
   }
 
   init() {
-    this._createMatrix(this._table.cellCount, this._table.columnCount);
-    return this;
+    const { cellCount, columnCount } = this._tableState;
+    this._createMatrix(cellCount, columnCount);
   }
 
   get activeItem() {
@@ -54,7 +54,7 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
   }
 
   setState({ table, dropped }: CdkTableDropListState) {
-    this._table = table;
+    this._tableState = table;
     this._createMatrix(table.cellCount, table.columnCount);
     this.setAxisXByColumns(dropped, this._currTableAxis.x);
   }
@@ -88,9 +88,9 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
     const tableAxisItemX = tableAxisItem.x ?? NON_VALID_AXIS;
 
     let keyManagerItemIndex: number | undefined;
-    if (matrixUtils.isYMove(tableAxisItemX, tableAxisItemY)) {
+    if (this.isYMove(tableAxisItemX, tableAxisItemY)) {
       keyManagerItemIndex = this.setTableByAxis(tableAxisItemY, 'y');
-    } else if (matrixUtils.isXMove(tableAxisItemX, tableAxisItemY)) {
+    } else if (this.isXMove(tableAxisItemX, tableAxisItemY)) {
       keyManagerItemIndex = this.setTableByAxis(tableAxisItemX, 'x');
     } else {
       keyManagerItemIndex = this.getKeyMangerItemIndex(
@@ -145,9 +145,9 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
   }
 
   getKeyMangerItemAxis(event: MouseEvent): Axis {
-    assertExists(this._table);
+    assertExists(this._tableState);
     const currentColIndex = matrixUtils.findIndexOfEl(
-      this._table.cells,
+      this._tableState.cells,
       event.target as Element
     );
 
@@ -169,6 +169,14 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
       case RIGHT_ARROW:
         return currentAxis.x + 1;
     }
+  }
+
+  isXMove(x: number, y: number) {
+    return y === NON_VALID_AXIS && x >= 0;
+  }
+
+  isYMove(x: number, y: number) {
+    return y >= 0 && x === NON_VALID_AXIS;
   }
 
   destroy() {

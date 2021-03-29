@@ -6,6 +6,7 @@
 
   .cdk-cell-edit-active[contenteditable="false"] {
     opacity: 0.3;
+    user-select: none;
   }
 
   .cdk-cell:focus {
