@@ -1,7 +1,7 @@
 name: '@ngworker CI pipeline'
 
 env:
-  BASE_BRANCH: origin/main
+  BASE_BRANCH: ${{ github.event.pull_request.base.ref }}
   NODE_OPTIONS: --max_old_space_size=4096
   NX_BRANCH: ${{ github.event.number }}
   NX_RUN_GROUP: ${{ github.run_id }}
@@ -23,10 +23,10 @@ jobs:
       - if: github.event_name == 'pull_request'
         uses: actions/checkout@v2
         with:
-          ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
+      # needed for nx affected command
       - if: github.event_name == 'pull_request'
-        run: git fetch --no-tags --prune --depth=5 origin main
+        run: git fetch --no-tags --depth=1 origin $BASE_BRANCH
 
       - name: Use Node.js
         uses: actions/setup-node@v2
@@ -50,7 +50,7 @@ jobs:
       - if: github.event_name == 'push'
         run: pnpm lint
       - if: github.event_name == 'pull_request'
-        run: pnpm affected:lint -- --base=$BASE_BRANCH
+        run: pnpm affected:lint -- --base=origin/$BASE_BRANCH
 
   test:
     runs-on: ubuntu-20.04
@@ -62,10 +62,10 @@ jobs:
       - if: github.event_name == 'pull_request'
         uses: actions/checkout@v2
         with:
-          ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
+      # needed for nx affected command
       - if: github.event_name == 'pull_request'
-        run: git fetch --no-tags --prune --depth=5 origin main
+        run: git fetch --no-tags --depth=1 origin $BASE_BRANCH
 
       - name: Use Node.js
         uses: actions/setup-node@v2
@@ -89,7 +89,7 @@ jobs:
       - if: github.event_name == 'push'
         run: pnpm test
       - if: github.event_name == 'pull_request'
-        run: pnpm affected:test -- --base=$BASE_BRANCH
+        run: pnpm affected:test -- --base=origin/$BASE_BRANCH
 
   build:
     runs-on: ubuntu-20.04
@@ -101,10 +101,10 @@ jobs:
       - if: github.event_name == 'pull_request'
         uses: actions/checkout@v2
         with:
-          ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
+      # needed for nx affected command
       - if: github.event_name == 'pull_request'
-        run: git fetch --no-tags --prune --depth=5 origin main
+        run: git fetch --no-tags --depth=1 origin $BASE_BRANCH
 
       - name: Use Node.js
         uses: actions/setup-node@v2
@@ -128,7 +128,7 @@ jobs:
       - if: github.event_name == 'push'
         run: pnpm build
       - if: github.event_name == 'pull_request'
-        run: pnpm affected:build -- --base=$BASE_BRANCH
+        run: pnpm affected:build -- --base=origin/$BASE_BRANCH
       - name: 'Spectacular: Remove @angular/forms dependency'
         run:
           pnpx json -I -f dist/packages/spectacular/package.json -e "delete
@@ -150,10 +150,10 @@ jobs:
       - if: github.event_name == 'pull_request'
         uses: actions/checkout@v2
         with:
-          ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
+      # needed for nx affected command
       - if: github.event_name == 'pull_request'
-        run: git fetch --no-tags --prune --depth=5 origin main
+        run: git fetch --no-tags --depth=1 origin $BASE_BRANCH
 
       - name: Use Node.js
         uses: actions/setup-node@v2
