@@ -1,14 +1,9 @@
 {
   "npmScope": "ngworker",
-  "affected": {
-    "defaultBase": "main"
-  },
+  "affected": { "defaultBase": "main" },
   "implicitDependencies": {
     "workspace.json": "*",
-    "package.json": {
-      "dependencies": "*",
-      "devDependencies": "*"
-    },
+    "package.json": { "dependencies": "*", "devDependencies": "*" },
     "tsconfig.base.json": "*",
     ".eslintrc.json": "*",
     "nx.json": "*"
@@ -24,22 +19,15 @@
       }
     }
   },
-  "workspaceLayout": {
-    "appsDir": "e2e",
-    "libsDir": "packages"
-  },
+  "workspaceLayout": { "appsDir": "e2e", "libsDir": "packages" },
   "projects": {
     "examples-tour-of-heroes-crisis-center": {
       "tags": ["scope:internal", "type:feature"]
     },
-    "internal-test-util": {
-      "tags": ["scope:internal", "type:test-util"]
-    },
-    "spectacular": {
-      "tags": ["type:package"]
-    },
-    "workspace-tools": {
-      "tags": ["type:tool"]
-    }
+    "internal-test-util": { "tags": ["scope:internal", "type:test-util"] },
+    "spectacular": { "tags": ["type:package"] },
+    "workspace-tools": { "tags": ["type:tool"] },
+    "schematics": { "tags": ["type:package"] },
+    "schematics-e2e": { "tags": [], "implicitDependencies": ["schematics"] }
   }
 }

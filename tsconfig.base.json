@@ -19,7 +19,8 @@
       "@tour-of-heroes/crisis-center": [
         "packages/examples/tour-of-heroes/crisis-center/src/index.ts"
       ],
-      "@internal/test-util": ["packages/internal/test-util/src/index.ts"]
+      "@internal/test-util": ["packages/internal/test-util/src/index.ts"],
+      "@ngworker/schematics": ["packages/schematics/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

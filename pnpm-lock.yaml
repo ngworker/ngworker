@@ -21,6 +21,7 @@ devDependencies:
   '@angular/language-service': 11.0.9
   '@nrwl/cli': 11.2.10
   '@nrwl/cypress': 11.2.10_cypress@6.4.0+typescript@4.0.5
+  '@nrwl/devkit': 11.2.10
   '@nrwl/eslint-plugin-nx': 11.2.10_0a641c819e3f5e2d27a85327fbf21101
   '@nrwl/jest': 11.2.10
   '@nrwl/node': 11.2.10_typescript@4.0.5
@@ -6497,19 +6498,6 @@ packages:
         optional: true
     resolution:
       integrity: sha512-6mPTgLxYm3r6Bkkg0vNM0HTjfGrOEtsfbhagQvbxDEsEkpNhw582upBaoRZylzen6krEmxXJgt9Ju6HiI4O7BA==
-  /follow-redirects/1.13.2_debug@4.3.1:
-    dependencies:
-      debug: 4.3.1_supports-color@6.1.0
-    dev: true
-    engines:
-      node: '>=4.0'
-    peerDependencies:
-      debug: '*'
-    peerDependenciesMeta:
-      debug:
-        optional: true
-    resolution:
-      integrity: sha512-6mPTgLxYm3r6Bkkg0vNM0HTjfGrOEtsfbhagQvbxDEsEkpNhw582upBaoRZylzen6krEmxXJgt9Ju6HiI4O7BA==
   /for-in/1.0.2:
     engines:
       node: '>=0.10.0'
@@ -7051,7 +7039,7 @@ packages:
   /http-proxy/1.18.1_debug@4.3.1:
     dependencies:
       eventemitter3: 4.0.7
-      follow-redirects: 1.13.2_debug@4.3.1
+      follow-redirects: 1.13.2
       requires-port: 1.0.0
     dev: true
     engines:
@@ -13587,6 +13575,7 @@ specifiers:
   '@nrwl/angular': 11.2.10
   '@nrwl/cli': 11.2.10
   '@nrwl/cypress': 11.2.10
+  '@nrwl/devkit': 11.2.10
   '@nrwl/eslint-plugin-nx': 11.2.10
   '@nrwl/jest': 11.2.10
   '@nrwl/node': 11.2.10

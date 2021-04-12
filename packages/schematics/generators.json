@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "name": "schematics",
+  "version": "0.0.1",
+  "generators": {
+    "schematics": {
+      "factory": "./src/generators/schematics/generator",
+      "schema": "./src/generators/schematics/schema.json",
+      "description": "schematics generator"
+    }
+  }
+}

@@ -97,7 +97,9 @@
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/internal/test-util"],
+          "outputs": [
+            "coverage/packages/internal/test-util"
+          ],
           "options": {
             "jestConfig": "packages/internal/test-util/jest.config.js",
             "passWithNoTests": true
@@ -134,7 +136,9 @@
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/packages/spectacular"],
+          "outputs": [
+            "coverage/packages/spectacular"
+          ],
           "options": {
             "jestConfig": "packages/spectacular/jest.config.js",
             "passWithNoTests": true
@@ -150,15 +154,90 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["tools/**/*.ts"]
+            "lintFilePatterns": [
+              "tools/**/*.ts"
+            ]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/tools"],
+          "outputs": [
+            "coverage/tools"
+          ],
           "options": {
             "jestConfig": "tools/jest.config.js",
             "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "schematics": {
+      "root": "packages/schematics",
+      "sourceRoot": "packages/schematics/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "packages/schematics/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/packages/schematics"
+          ],
+          "options": {
+            "jestConfig": "packages/schematics/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": [
+            "{options.outputPath}"
+          ],
+          "options": {
+            "outputPath": "dist/packages/schematics",
+            "tsConfig": "packages/schematics/tsconfig.lib.json",
+            "packageJson": "packages/schematics/package.json",
+            "main": "packages/schematics/src/index.ts",
+            "assets": [
+              "packages/schematics/*.md",
+              {
+                "input": "./packages/schematics/src",
+                "glob": "**/*.!(ts)",
+                "output": "./src"
+              },
+              {
+                "input": "./packages/schematics",
+                "glob": "generators.json",
+                "output": "."
+              },
+              {
+                "input": "./packages/schematics",
+                "glob": "executors.json",
+                "output": "."
+              }
+            ]
+          }
+        }
+      }
+    },
+    "schematics-e2e": {
+      "projectType": "application",
+      "root": "e2e\\schematics-e2e",
+      "sourceRoot": "e2e\\schematics-e2e/src",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/nx-plugin:e2e",
+          "options": {
+            "target": "schematics:build",
+            "npmPackageName": "@ngworker/schematics",
+            "pluginOutputPath": "dist/packages/schematics",
+            "jestConfig": "e2e/schematics-e2e/jest.config.js"
           }
         }
       }
