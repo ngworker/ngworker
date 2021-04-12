@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/schema",
   "cli": "nx",
-  "id": "Schematics",
+  "id": "ComponentTest",
   "title": "",
   "type": "object",
   "properties": {
@@ -12,16 +12,11 @@
         "$source": "argv",
         "index": 0
       },
-      "x-prompt": "What name would you like to use?"
-    },
-    "tags": {
-      "type": "string",
-      "description": "Add tags to the project (used for linting)",
-      "alias": "t"
+      "x-prompt": "What is the name of the component?"
     },
     "directory": {
       "type": "string",
-      "description": "A directory where the project is placed",
+      "description": "A directory where the component is placed",
       "alias": "d"
     }
   },

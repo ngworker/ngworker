@@ -2,11 +2,11 @@ import { createTreeWithEmptyWorkspace } from '@nrwl/devkit/testing';
 import { Tree, readProjectConfiguration } from '@nrwl/devkit';
 
 import generator from './generator';
-import { SchematicsGeneratorSchema } from './schema';
+import { ComponentTestGeneratorSchema } from './schema';
 
-describe('schematics generator', () => {
+describe('component-test generator', () => {
   let appTree: Tree;
-  const options: SchematicsGeneratorSchema = { name: 'test' };
+  const options: ComponentTestGeneratorSchema = { name: 'test' };
 
   beforeEach(() => {
     appTree = createTreeWithEmptyWorkspace();
@@ -16,5 +16,5 @@ describe('schematics generator', () => {
     await generator(appTree, options);
     const config = readProjectConfiguration(appTree, 'test');
     expect(config).toBeDefined();
-  });
+  })
 });

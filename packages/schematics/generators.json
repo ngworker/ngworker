@@ -7,6 +7,11 @@
       "factory": "./src/generators/schematics/generator",
       "schema": "./src/generators/schematics/schema.json",
       "description": "schematics generator"
+    },
+    "component-test": {
+      "factory": "./src/generators/component-test/generator",
+      "schema": "./src/generators/component-test/schema.json",
+      "description": "Generate a test suite for a component."
     }
   }
 }
