@@ -40,3 +40,5 @@ export function cdkSpreadsheetFactory<T extends FocusHighlightable>(
     },
   };
 }
+
+// @marker: git commit hash: 44c7f6fe79e2377b4757499910636629bd200d26
