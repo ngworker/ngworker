@@ -17,16 +17,7 @@
 
     <mat-table matSpreadsheet mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="position">
-        <mat-header-cell matColumnDrag *matHeaderCellDef>
-          <div class="mat-header-inner">
-            <div style="user-select: none">Number</div>
-            <mat-icon cdkDragHandle>drag_handle</mat-icon>
-          </div>
-          <div
-            style="background-color: gray; width: 149px; height: 56px"
-            *cdkDragPlaceholder
-          ></div>
-        </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef> Number </mat-header-cell>
         <mat-cell
           matCellEdit
           (cellChanged)="matCellChanged($event)"
@@ -38,16 +29,7 @@
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="name">
-        <mat-header-cell matColumnDrag *matHeaderCellDef>
-          <div class="mat-header-inner">
-            <div style="user-select: none">Name</div>
-            <mat-icon cdkDragHandle>drag_handle</mat-icon>
-          </div>
-          <div
-            style="background-color: gray; width: 149px; height: 56px"
-            *cdkDragPlaceholder
-          ></div>
-        </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
         <mat-cell
           matCellEdit
           (cellChanged)="matCellChanged($event)"
@@ -59,16 +41,7 @@
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="check">
-        <mat-header-cell matColumnDrag *matHeaderCellDef>
-          <div class="mat-header-inner">
-            <div style="user-select: none">Check</div>
-            <mat-icon cdkDragHandle>drag_handle</mat-icon>
-          </div>
-          <div
-            style="background-color: gray; width: 149px; height: 56px"
-            *cdkDragPlaceholder
-          ></div>
-        </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef> Check </mat-header-cell>
         <mat-cell
           matCellEdit
           (cellChanged)="matCellChanged($event)"
@@ -80,42 +53,15 @@
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="check1">
-        <mat-header-cell matColumnDrag *matHeaderCellDef>
-          <div class="mat-header-inner">
-            <div style="user-select: none">Check1</div>
-            <mat-icon cdkDragHandle>drag_handle</mat-icon>
-          </div>
-          <div
-            style="background-color: gray; width: 149px; height: 56px"
-            *cdkDragPlaceholder
-          ></div>
-        </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef> Check1 </mat-header-cell>
         <mat-cell *matCellDef="let element"> 1 </mat-cell>
       </ng-container>
       <ng-container matColumnDef="check2">
-        <mat-header-cell matColumnDrag *matHeaderCellDef>
-          <div class="mat-header-inner">
-            <div style="user-select: none">Check2</div>
-            <mat-icon cdkDragHandle>drag_handle</mat-icon>
-          </div>
-          <div
-            style="background-color: gray; width: 149px; height: 56px"
-            *cdkDragPlaceholder
-          ></div>
-        </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef> Check2 </mat-header-cell>
         <mat-cell *matCellDef="let element"> 2 </mat-cell>
       </ng-container>
       <ng-container matColumnDef="check3">
-        <mat-header-cell matColumnDrag *matHeaderCellDef>
-          <div class="mat-header-inner">
-            <div style="user-select: none">Check3</div>
-            <mat-icon cdkDragHandle>drag_handle</mat-icon>
-          </div>
-          <div
-            style="background-color: gray; width: 149px; height: 56px"
-            *cdkDragPlaceholder
-          ></div>
-        </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef> Check3 </mat-header-cell>
         <mat-cell
           matCellEdit
           (cellChanged)="matCellChanged($event)"

@@ -16,8 +16,6 @@ import {
   RIGHT_ARROW,
   UP_ARROW,
 } from '@angular/cdk/keycodes';
-
-import { ElementRef } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { delay, takeUntil } from 'rxjs/operators';
@@ -36,7 +34,6 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
     .subscribe(_ => this._keyManager.activeItem?.focusActiveItem());
 
   constructor(
-    private _elementRef: ElementRef<HTMLElement>,
     private _tableState: Table,
     private _keyManager: ActiveDescendantKeyManager<T>,
     private _cellSel = '.cdk-cell'

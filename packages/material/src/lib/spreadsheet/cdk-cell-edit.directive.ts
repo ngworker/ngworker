@@ -28,6 +28,7 @@ export class CdkCellEditDirective implements OnInit, FocusHighlightable {
   @Output() cellChanged = new EventEmitter<Record<PropertyKey, unknown>>();
 
   @Input() cellEdit!: Record<PropertyKey, unknown>;
+  // @todo: when nothing defined then take from "_cdkColumnDef.name"
   @Input() cellEditKey = '';
 
   setActiveStyles() {

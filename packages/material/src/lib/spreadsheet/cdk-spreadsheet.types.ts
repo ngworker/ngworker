@@ -63,10 +63,7 @@ export interface FocusShow {
 export interface FocusHighlightable extends Highlightable, FocusShow {}
 
 export interface CdkSpreadsheetFactory<T extends FocusHighlightable> {
-  create(
-    columns: CdkHeaderRowDefColumns,
-    queryList: QueryList<T>
-  ): CdkSpreadsheetKeyManager<T>;
+  create(queryList: QueryList<T>): CdkSpreadsheetKeyManager<T>;
 }
 
 export type CdkDragDropPrevNext = Pick<
@@ -77,4 +74,5 @@ export type CdkDragDropPrevNext = Pick<
 export interface CdkTableDropListState {
   table: Table;
   dropped: CdkDragDropPrevNext;
+  queryList: QueryList<unknown>;
 }

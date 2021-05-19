@@ -1,6 +1,5 @@
 import {
   AfterContentInit,
-  ContentChild,
   ContentChildren,
   Directive,
   HostBinding,
@@ -12,13 +11,11 @@ import {
 } from '@angular/core';
 import { CdkSpreadsheetKeyManager } from './cdk-spreadsheet-key-manager';
 import { CdkCellEditDirective } from './cdk-cell-edit.directive';
-import { CdkHeaderRowDef } from '@angular/cdk/table';
 import {
   CDK_SPREADSHEET_FACTORY,
   CDK_SPREADSHEET_MANAGER_PROVIDERS,
 } from './cdk-spreadspeet-manager.factory';
 import {
-  CdkHeaderRowDefColumns,
   CdkSpreadsheetFactory,
   FocusHighlightable,
 } from './cdk-spreadsheet.types';
@@ -52,10 +49,7 @@ export class CdkSpreadsheetDirective<
   @HostBinding('class.cdk-spreadsheet') hostClass = true;
 
   @ContentChildren(CdkCellEditDirective)
-  cellEditQueryList!: QueryList<T>;
-
-  @ContentChild(CdkHeaderRowDef)
-  headerRowDef!: QueryList<CdkHeaderRowDef> & CdkHeaderRowDefColumns;
+  cellQueryList!: QueryList<T>;
 
   @HostListener('click', ['$event']) click(e: MouseEvent) {
     this.spreadsheetManager.editMode('blank').setActiveItem(e).exec();
@@ -113,12 +107,8 @@ export class CdkSpreadsheetDirective<
 
   ngAfterContentInit() {
     this.spreadsheetManager = this._spreadsheetFactory.create(
-      this.headerRowDef,
-      this.cellEditQueryList
+      this.cellQueryList
     );
-
-    // @todo: clone initial dataSource
-    console.log(this.dataSource);
   }
 
   ngOnDestroy() {
