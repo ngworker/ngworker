@@ -3,7 +3,7 @@ import {
   CdkDragDropPrevNext,
   CdkTableDropListState,
   Direction,
-  FocusHighlightable,
+  CdkCellEditable,
   MatrixX,
   MatrixY,
   NON_VALID_AXIS,
@@ -22,7 +22,7 @@ import { delay, takeUntil } from 'rxjs/operators';
 import { assertExists } from './ts-strict.utils';
 import * as matrixUtils from './cdk-key-manager-mapper.utils';
 
-export class CdkKeyManagerMapper<T extends FocusHighlightable> {
+export class CdkKeyManagerMapper<T extends CdkCellEditable> {
   private readonly _unsub$ = new Subject();
 
   private _matrixY: MatrixY<number> | undefined;
@@ -35,8 +35,7 @@ export class CdkKeyManagerMapper<T extends FocusHighlightable> {
 
   constructor(
     private _tableState: Table,
-    private _keyManager: ActiveDescendantKeyManager<T>,
-    private _cellSel = '.cdk-cell'
+    private _keyManager: ActiveDescendantKeyManager<T>
   ) {
     this.init();
   }

@@ -1,4 +1,4 @@
-import { Direction, FocusHighlightable } from './cdk-spreadsheet.types';
+import { Direction, CdkCellEditable } from './cdk-spreadsheet.types';
 import { CdkKeyManagerMapper } from './cdk-key-manager-mapper';
 import {
   DOWN_ARROW,
@@ -7,14 +7,12 @@ import {
   UP_ARROW,
 } from '@angular/cdk/keycodes';
 
-type EditMode = 'blank' | 'mutable';
-
-export class CdkSpreadsheetKeyManager<T extends FocusHighlightable> {
+export class CdkSpreadsheetKeyManager<CellEdit extends CdkCellEditable> {
   private _onDestroy: (() => void) | undefined;
   private _arrowKeysLocked = false;
   private _currEvent!: MouseEvent;
 
-  constructor(private _keyManagerMapper: CdkKeyManagerMapper<T>) {}
+  constructor(private _keyManagerMapper: CdkKeyManagerMapper<CellEdit>) {}
 
   get arrowKeyLocked() {
     return this._arrowKeysLocked;
@@ -24,13 +22,9 @@ export class CdkSpreadsheetKeyManager<T extends FocusHighlightable> {
     return this._keyManagerMapper.activeItem;
   }
 
-  editMode(mode: EditMode) {
-    return this;
-  }
-
   writeActiveItem(event: KeyboardEvent) {
     const text = (event.target as HTMLElement).innerText;
-    // this.activeItem?.writeActiveItem(text);
+    this.activeItem?.writeActiveItem(text);
     return this;
   }
 
@@ -70,8 +64,8 @@ export class CdkSpreadsheetKeyManager<T extends FocusHighlightable> {
     return this;
   }
 
-  prevDef(e: Event) {
-    e.preventDefault();
+  prevDef(event: Event) {
+    event.preventDefault();
     return this;
   }
 
@@ -85,13 +79,14 @@ export class CdkSpreadsheetKeyManager<T extends FocusHighlightable> {
     return this;
   }
 
-  unlockArrowKeys(event?: KeyboardEvent) {
-    if (event) event.preventDefault();
+  unlockArrowKeys() {
     this._arrowKeysLocked = false;
     return this;
   }
 
-  exec() {}
+  exec(event?: Event) {
+    event && this.prevDef(event);
+  }
 
   onDestroy(onDestroy: () => void) {
     this._onDestroy = onDestroy;

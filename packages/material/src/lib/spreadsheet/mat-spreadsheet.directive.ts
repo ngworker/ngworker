@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { CdkSpreadsheetDirective } from './cdk-spreadsheet.directive';
 import { CDK_SPREADSHEET_MANAGER_PROVIDERS } from './cdk-spreadspeet-manager.factory';
-import { FocusHighlightable } from './cdk-spreadsheet.types';
+import { CdkCellEditable } from './cdk-spreadsheet.types';
 import { MatCellEditDirective } from './mat-cell-edit.directive';
 
 @Directive({
@@ -18,5 +18,5 @@ export class MatSpreadsheetDirective extends CdkSpreadsheetDirective {
   @HostBinding('class.mat-spreadsheet') hostClass = true;
 
   @ContentChildren(MatCellEditDirective)
-  cellQueryList!: QueryList<FocusHighlightable>;
+  cellQueryList!: QueryList<CdkCellEditable>;
 }

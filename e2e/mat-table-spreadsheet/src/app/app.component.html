@@ -19,11 +19,10 @@
       <ng-container matColumnDef="position">
         <mat-header-cell *matHeaderCellDef> Number </mat-header-cell>
         <mat-cell
-          matCellEdit
+          *matCellDef="let element"
           (cellChanged)="matCellChanged($event)"
           [cellEdit]="element"
           cellEditKey="position"
-          *matCellDef="let element"
         >
           {{ element.position }}
         </mat-cell>
@@ -31,11 +30,10 @@
       <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
         <mat-cell
-          matCellEdit
+          *matCellDef="let element"
           (cellChanged)="matCellChanged($event)"
           [cellEdit]="element"
           cellEditKey="name"
-          *matCellDef="let element"
         >
           {{ element.name }}
         </mat-cell>
@@ -43,11 +41,10 @@
       <ng-container matColumnDef="check">
         <mat-header-cell *matHeaderCellDef> Check </mat-header-cell>
         <mat-cell
-          matCellEdit
+          *matCellDef="let element"
           (cellChanged)="matCellChanged($event)"
           [cellEdit]="element"
           cellEditKey="check"
-          *matCellDef="let element"
         >
           {{ element.check }}
         </mat-cell>
@@ -63,10 +60,9 @@
       <ng-container matColumnDef="check3">
         <mat-header-cell *matHeaderCellDef> Check3 </mat-header-cell>
         <mat-cell
-          matCellEdit
+          *matCellDef="let element"
           (cellChanged)="matCellChanged($event)"
           [cellEdit]="element"
-          *matCellDef="let element"
         >
           3
         </mat-cell>

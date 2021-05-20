@@ -1,9 +1,7 @@
-import { CdkSpreadsheetKeyManager } from './cdk-spreadsheet-key-manager';
 import { ElementRef, QueryList } from '@angular/core';
 import { CdkHeaderRowDef } from '@angular/cdk/table';
 import { Highlightable } from '@angular/cdk/a11y';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import * as keyCodes from '@angular/cdk/keycodes';
 import {
   DOWN_ARROW,
   LEFT_ARROW,
@@ -12,8 +10,6 @@ import {
 } from '@angular/cdk/keycodes';
 
 export const NON_VALID_AXIS = -1;
-
-export type KeyCodes = keyof typeof keyCodes;
 
 export interface CdkHeaderRowDefColumns {
   columns: typeof CdkHeaderRowDef.ɵdir.inputs.columns[];
@@ -52,19 +48,14 @@ export type MatrixReturnType<
   K extends PropertyKey
 > = T extends 'y' ? MatrixY<K> : T extends 'x' ? MatrixX<K> : never;
 
-// @todo: rename or split it!
-export interface FocusShow {
+export interface CellEditable {
   focusActiveItem: () => void;
   writeActiveItem: (value: string) => void;
   blurActiveItem: () => void;
   elementRef: ElementRef<HTMLElement>;
 }
 
-export interface FocusHighlightable extends Highlightable, FocusShow {}
-
-export interface CdkSpreadsheetFactory<T extends FocusHighlightable> {
-  create(queryList: QueryList<T>): CdkSpreadsheetKeyManager<T>;
-}
+export interface CdkCellEditable extends Highlightable, CellEditable {}
 
 export type CdkDragDropPrevNext = Pick<
   CdkDragDrop<unknown>,

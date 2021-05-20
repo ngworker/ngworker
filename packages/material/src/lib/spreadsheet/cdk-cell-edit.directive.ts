@@ -8,13 +8,12 @@ import {
   Output,
 } from '@angular/core';
 import { CdkColumnDef } from '@angular/cdk/table';
-import { FocusHighlightable } from './cdk-spreadsheet.types';
+import { CdkCellEditable } from './cdk-spreadsheet.types';
 
 @Directive({
-  selector:
-    'cdk-cell, cdk-cell[cdkCellEdit], th[cdk-cell], th[cdk-cell][cdkCellEdit]',
+  selector: 'cdk-cell, th[cdk-cell]',
 })
-export class CdkCellEditDirective implements OnInit, FocusHighlightable {
+export class CdkCellEditDirective implements OnInit, CdkCellEditable {
   constructor(
     public readonly elementRef: ElementRef<HTMLElement>,
     private readonly _cdkColumnDef: CdkColumnDef
@@ -48,7 +47,8 @@ export class CdkCellEditDirective implements OnInit, FocusHighlightable {
   }
 
   writeActiveItem(value: string) {
-    this.setCellValue(this._cdkColumnDef.name, value);
+    console.log(value);
+    // this.setCellValue(this._cdkColumnDef.name, value);
   }
 
   private setCellValue(key: string, value: string) {

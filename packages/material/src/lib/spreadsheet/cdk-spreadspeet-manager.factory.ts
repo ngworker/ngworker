@@ -4,10 +4,7 @@ import { CdkKeyManagerMapper } from './cdk-key-manager-mapper';
 import { CdkSpreadsheetDirective } from './cdk-spreadsheet.directive';
 import { CdkSpreadsheetKeyManager } from './cdk-spreadsheet-key-manager';
 import { cdkTableSnapshot } from './cdk-table-snapshot';
-import {
-  CdkSpreadsheetFactory,
-  FocusHighlightable,
-} from './cdk-spreadsheet.types';
+import { CdkCellEditable } from './cdk-spreadsheet.types';
 
 export const CDK_SPREADSHEET_FACTORY = new InjectionToken<CdkSpreadsheetDirective>(
   'cdkSpreadsheetManager'
@@ -21,7 +18,11 @@ export const CDK_SPREADSHEET_MANAGER_PROVIDERS: Provider[] = [
   },
 ];
 
-export function cdkSpreadsheetFactory<T extends FocusHighlightable>(
+export interface CdkSpreadsheetFactory<CellEdit extends CdkCellEditable> {
+  create(queryList: QueryList<CellEdit>): CdkSpreadsheetKeyManager<CellEdit>;
+}
+
+export function cdkSpreadsheetFactory<T extends CdkCellEditable>(
   elementRef: ElementRef
 ): CdkSpreadsheetFactory<T> {
   return {
@@ -30,9 +31,8 @@ export function cdkSpreadsheetFactory<T extends FocusHighlightable>(
         queryList
       ).withWrap();
 
-      const { nativeElement } = elementRef;
       const keyManagerMapper = new CdkKeyManagerMapper(
-        cdkTableSnapshot(nativeElement, '.cdk-cell'),
+        cdkTableSnapshot(elementRef.nativeElement, '.cdk-cell'),
         activeDescendantKeyManager
       );
 
