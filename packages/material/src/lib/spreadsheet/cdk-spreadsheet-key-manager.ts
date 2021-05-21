@@ -22,12 +22,6 @@ export class CdkSpreadsheetKeyManager<CellEdit extends CdkCellEditable> {
     return this._keyManagerMapper.activeItem;
   }
 
-  writeActiveItem(event: KeyboardEvent) {
-    const text = (event.target as HTMLElement).innerText;
-    this.activeItem?.writeActiveItem(text);
-    return this;
-  }
-
   setActiveItem(event: MouseEvent) {
     this._currEvent = event;
     this._keyManagerMapper.setActiveItem(event as unknown);

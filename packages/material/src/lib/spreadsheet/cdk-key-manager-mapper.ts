@@ -1,9 +1,7 @@
 import {
   Axis,
-  CdkDragDropPrevNext,
-  CdkTableDropListState,
-  Direction,
   CdkCellEditable,
+  Direction,
   MatrixX,
   MatrixY,
   NON_VALID_AXIS,
@@ -18,8 +16,6 @@ import {
 } from '@angular/cdk/keycodes';
 import { Subject } from 'rxjs';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
-import { delay, takeUntil } from 'rxjs/operators';
-import { assertExists } from './ts-strict.utils';
 import * as matrixUtils from './cdk-key-manager-mapper.utils';
 
 export class CdkKeyManagerMapper<T extends CdkCellEditable> {
@@ -28,10 +24,6 @@ export class CdkKeyManagerMapper<T extends CdkCellEditable> {
   private _matrixY: MatrixY<number> | undefined;
   private _matrixX: MatrixX<number> | undefined;
   private _currTableAxis: Axis = { x: -1, y: -1 };
-
-  private readonly _focusedNextItem = this._keyManager.change
-    .pipe(delay(0), takeUntil(this._unsub$))
-    .subscribe(_ => this._keyManager.activeItem?.focusActiveItem());
 
   constructor(
     private _tableState: Table,
@@ -47,12 +39,6 @@ export class CdkKeyManagerMapper<T extends CdkCellEditable> {
 
   get activeItem() {
     return this._keyManager.activeItem;
-  }
-
-  setState({ table, dropped }: CdkTableDropListState) {
-    this._tableState = table;
-    this._createMatrix(table.cellCount, table.columnCount);
-    this.setAxisXByColumns(dropped, this._currTableAxis.x);
   }
 
   private _createMatrix(cellCount: number, columnCount: number) {
@@ -117,37 +103,15 @@ export class CdkKeyManagerMapper<T extends CdkCellEditable> {
     }
   }
 
-  setAxisXByColumns(prevNextIndex: CdkDragDropPrevNext, x: number) {
-    const { previousIndex, currentIndex } = prevNextIndex;
-    // when columns on the right boundary of the active cell are changed
-    if (currentIndex > x && previousIndex > x) {
-      this._currTableAxis = { ...this._currTableAxis };
-      // when columns on the left boundary of the active cell is changed
-    } else if (currentIndex < x && previousIndex < x) {
-      this._currTableAxis = { ...this._currTableAxis };
-      // when column contain the active cell
-    } else if (previousIndex === x) {
-      this._currTableAxis.x = currentIndex;
-      // when column moved from left to right over the active cell
-    } else if (previousIndex > x) {
-      this._currTableAxis.x += 1;
-      // when column moved from right to left over the active cell
-    } else if (previousIndex < x) {
-      this._currTableAxis.x -= 1;
-    }
-
-    // @why: ExpressionChangedAfterItHasBeenCheckedError! How can be solved this?
-    setTimeout(() => this.setActiveItemAxis(this._currTableAxis), 0);
-  }
-
   getKeyMangerItemAxis(event: MouseEvent): Axis {
-    assertExists(this._tableState);
+    if (!this._tableState) throw new Error(`value is undefined!`);
+
     const currentColIndex = matrixUtils.findIndexOfEl(
       this._tableState.cells,
       event.target as Element
     );
 
-    assertExists(this._matrixY);
+    if (!this._matrixY) throw new Error(`value is undefined!`);
     const tableAxis = matrixUtils.findAxis(currentColIndex, this._matrixY);
 
     return (this._currTableAxis = tableAxis);

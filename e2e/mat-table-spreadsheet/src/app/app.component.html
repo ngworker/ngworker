@@ -17,36 +17,38 @@
 
     <mat-table matSpreadsheet mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="position">
-        <mat-header-cell *matHeaderCellDef> Number </mat-header-cell>
-        <mat-cell
-          *matCellDef="let element"
-          (cellChanged)="matCellChanged($event)"
-          [cellEdit]="element"
-          cellEditKey="position"
-        >
-          {{ element.position }}
+        <mat-header-cell *matHeaderCellDef> Position </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <ng-container #inactive> {{ element.position }}</ng-container>
+          <ng-template #active>
+            <mat-select (selectionChange)="foo($event)">
+              <mat-option *ngFor="let item of list; index as i" [value]="i"
+                >{{ item.name }}-{{ i }}
+              </mat-option>
+            </mat-select>
+          </ng-template>
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-        <mat-cell
-          *matCellDef="let element"
-          (cellChanged)="matCellChanged($event)"
-          [cellEdit]="element"
-          cellEditKey="name"
-        >
-          {{ element.name }}
+        <mat-cell *matCellDef="let element">
+          <ng-container #inactive>{{ element.name }} </ng-container>
+          <ng-template #active>
+            <input type="text" [value]="element.name" matInput />
+          </ng-template>
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="check">
         <mat-header-cell *matHeaderCellDef> Check </mat-header-cell>
-        <mat-cell
-          *matCellDef="let element"
-          (cellChanged)="matCellChanged($event)"
-          [cellEdit]="element"
-          cellEditKey="check"
-        >
-          {{ element.check }}
+        <mat-cell *matCellDef="let element">
+          <ng-container #inactive>{{ element.check }} </ng-container>
+          <ng-template #active>
+            <mat-select>
+              <mat-option *ngFor="let item of list; index as i" [value]="i"
+                >{{ item.name }}-{{ i }}
+              </mat-option>
+            </mat-select>
+          </ng-template>
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="check1">
@@ -59,12 +61,15 @@
       </ng-container>
       <ng-container matColumnDef="check3">
         <mat-header-cell *matHeaderCellDef> Check3 </mat-header-cell>
-        <mat-cell
-          *matCellDef="let element"
-          (cellChanged)="matCellChanged($event)"
-          [cellEdit]="element"
-        >
-          3
+        <mat-cell *matCellDef="let element">
+          <ng-container #inactive> 3 </ng-container>
+          <ng-template #active>
+            <mat-select>
+              <mat-option *ngFor="let item of list; index as i" [value]="i"
+                >{{ item.name }}-{{ i }}
+              </mat-option>
+            </mat-select>
+          </ng-template>
         </mat-cell>
       </ng-container>
       <mat-header-row

@@ -1,41 +1,56 @@
 import {
+  ContentChild,
+  ContentChildren,
   Directive,
   ElementRef,
-  EventEmitter,
+  EmbeddedViewRef,
   HostBinding,
-  Input,
-  OnInit,
-  Output,
+  HostListener,
+  QueryList,
+  TemplateRef,
+  ViewContainerRef,
 } from '@angular/core';
 import { CdkColumnDef } from '@angular/cdk/table';
 import { CdkCellEditable } from './cdk-spreadsheet.types';
+import { MatSelect } from '@angular/material/select';
 
 @Directive({
   selector: 'cdk-cell, th[cdk-cell]',
 })
-export class CdkCellEditDirective implements OnInit, CdkCellEditable {
+export class CdkCellEditDirective implements CdkCellEditable {
   constructor(
     public readonly elementRef: ElementRef<HTMLElement>,
     private readonly _cdkColumnDef: CdkColumnDef
   ) {}
 
+  private _emViewRef!: EmbeddedViewRef<unknown>;
+
+  @ContentChildren(MatSelect)
+  matSelect!: QueryList<MatSelect>; // this.matSelect?.first?.selectionChange
+
+  @ContentChild('inactive', { read: ViewContainerRef })
+  private _vcrRef!: ViewContainerRef;
+
+  @ContentChild('active', { read: TemplateRef })
+  private _tplRef!: TemplateRef<unknown>;
+
   @HostBinding('class.cdk-cell-edit') hostClass = true;
   @HostBinding('tabindex') tabindexAttr = '-1';
-  @HostBinding('contentEditable') contentEditable = 'true';
   @HostBinding('class.cdk-cell-edit-active') isActive = false;
 
-  @Output() cellChanged = new EventEmitter<Record<PropertyKey, unknown>>();
-
-  @Input() cellEdit!: Record<PropertyKey, unknown>;
-  // @todo: when nothing defined then take from "_cdkColumnDef.name"
-  @Input() cellEditKey = '';
+  @HostListener('click', ['$event']) onClick() {
+    if (this._emViewRef) return;
+    this._emViewRef = this._vcrRef?.createEmbeddedView(this._tplRef);
+  }
 
   setActiveStyles() {
     this.isActive = true;
+    this._emViewRef && this._vcrRef?.insert(this._emViewRef);
   }
 
   setInactiveStyles() {
     this.isActive = false;
+    this._vcrRef?.detach();
   }
 
   focusActiveItem() {
@@ -44,31 +59,5 @@ export class CdkCellEditDirective implements OnInit, CdkCellEditable {
 
   blurActiveItem() {
     this.elementRef.nativeElement.blur();
-  }
-
-  writeActiveItem(value: string) {
-    console.log(value);
-    // this.setCellValue(this._cdkColumnDef.name, value);
-  }
-
-  private setCellValue(key: string, value: string) {
-    const keyExists = this.cellEdit[key];
-    if (keyExists === undefined) {
-      throw new Error(
-        `key: ${key} does not exists on ${JSON.stringify(this.cellEdit)}`
-      );
-    }
-
-    if (this.cellEditKey) {
-      this.cellEdit[this.cellEditKey] = value;
-    }
-
-    this.cellChanged.emit(this.cellEdit);
-  }
-
-  ngOnInit() {
-    if (!this.cellEdit) {
-      this.contentEditable = 'false';
-    }
   }
 }

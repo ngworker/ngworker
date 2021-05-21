@@ -4,7 +4,6 @@ import { MatSpreadsheetDirective } from './mat-spreadsheet.directive';
 import { CdkSpreadsheetDirective } from './cdk-spreadsheet.directive';
 import { MatTableModule } from '@angular/material/table';
 import { MatCellEditDirective } from './mat-cell-edit.directive';
-import { MatCellDefDirective } from './mat-cell-def.directive';
 
 @NgModule({
   declarations: [
@@ -12,7 +11,6 @@ import { MatCellDefDirective } from './mat-cell-def.directive';
     CdkSpreadsheetDirective,
     MatSpreadsheetDirective,
     MatCellEditDirective,
-    MatCellDefDirective,
   ],
   exports: [
     CdkCellEditDirective,
@@ -20,7 +18,6 @@ import { MatCellDefDirective } from './mat-cell-def.directive';
     MatSpreadsheetDirective,
     MatCellEditDirective,
     MatTableModule,
-    MatCellDefDirective,
   ],
 })
 export class CdkSpreadsheetModule {}

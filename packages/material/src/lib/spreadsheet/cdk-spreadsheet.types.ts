@@ -1,7 +1,5 @@
-import { ElementRef, QueryList } from '@angular/core';
-import { CdkHeaderRowDef } from '@angular/cdk/table';
+import { ElementRef } from '@angular/core';
 import { Highlightable } from '@angular/cdk/a11y';
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import {
   DOWN_ARROW,
   LEFT_ARROW,
@@ -10,10 +8,6 @@ import {
 } from '@angular/cdk/keycodes';
 
 export const NON_VALID_AXIS = -1;
-
-export interface CdkHeaderRowDefColumns {
-  columns: typeof CdkHeaderRowDef.ɵdir.inputs.columns[];
-}
 
 export interface Table<
   N extends number = number,
@@ -37,9 +31,7 @@ export type Direction =
   | typeof RIGHT_ARROW;
 
 export type MatrixY<T extends PropertyKey> = T[][] & { _brand: 'matrix_y' };
-
 export type MatrixX<T extends PropertyKey> = T[][] & { _brand: 'matrix_x' };
-
 export type Matrix<T extends PropertyKey> = MatrixY<T> | MatrixX<T>;
 
 // @todo: works not well!
@@ -50,20 +42,8 @@ export type MatrixReturnType<
 
 export interface CellEditable {
   focusActiveItem: () => void;
-  writeActiveItem: (value: string) => void;
   blurActiveItem: () => void;
   elementRef: ElementRef<HTMLElement>;
 }
 
 export interface CdkCellEditable extends Highlightable, CellEditable {}
-
-export type CdkDragDropPrevNext = Pick<
-  CdkDragDrop<unknown>,
-  'previousIndex' | 'currentIndex'
->;
-
-export interface CdkTableDropListState {
-  table: Table;
-  dropped: CdkDragDropPrevNext;
-  queryList: QueryList<unknown>;
-}

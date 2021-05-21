@@ -50,18 +50,13 @@ export class CdkSpreadsheetDirective<
     this.spreadsheetManager.lockArrowKeys().exec();
   }
 
-  @HostListener('keyup', ['$event']) onWrite(e: KeyboardEvent) {
-    this.spreadsheetManager.writeActiveItem(e).exec();
-  }
-
   @HostListener('keyup.esc') esc() {
     this.spreadsheetManager.unlockArrowKeys().resetActiveItem().exec();
   }
 
   @HostListener('keydown', ['$event']) arrowKey(e: KeyboardEvent) {
     if (this.spreadsheetManager.arrowKeyLocked) return;
-
-    this.spreadsheetManager.onKeydownArrow(e);
+    this.spreadsheetManager.onKeydownArrow(e)?.exec(e);
   }
 
   @HostListener('keydown.enter', ['$event']) enter(e: Event) {
