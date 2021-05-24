@@ -16,6 +16,7 @@ import { MatSelect } from '@angular/material/select';
 
 @Directive({
   selector: 'cdk-cell, th[cdk-cell]',
+  exportAs: 'cdkCellEdit',
 })
 export class CdkCellEditDirective implements CdkCellEditable {
   constructor(
@@ -24,6 +25,7 @@ export class CdkCellEditDirective implements CdkCellEditable {
   ) {}
 
   private _emViewRef!: EmbeddedViewRef<unknown>;
+  private _nativeElement = this.elementRef.nativeElement;
 
   @ContentChildren(MatSelect)
   matSelect!: QueryList<MatSelect>; // this.matSelect?.first?.selectionChange
@@ -45,19 +47,23 @@ export class CdkCellEditDirective implements CdkCellEditable {
 
   setActiveStyles() {
     this.isActive = true;
+    this.focusActiveItem();
+
     this._emViewRef && this._vcrRef?.insert(this._emViewRef);
   }
 
   setInactiveStyles() {
     this.isActive = false;
+    this.blurActiveItem();
+
     this._vcrRef?.detach();
   }
 
   focusActiveItem() {
-    this.elementRef.nativeElement.focus();
+    this._nativeElement.focus();
   }
 
   blurActiveItem() {
-    this.elementRef.nativeElement.blur();
+    this._nativeElement.blur();
   }
 }

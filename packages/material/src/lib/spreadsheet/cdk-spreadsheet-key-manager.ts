@@ -10,7 +10,7 @@ import {
 export class CdkSpreadsheetKeyManager<CellEdit extends CdkCellEditable> {
   private _onDestroy: (() => void) | undefined;
   private _arrowKeysLocked = false;
-  private _currEvent!: MouseEvent;
+  private _currElement!: Element;
 
   constructor(private _keyManagerMapper: CdkKeyManagerMapper<CellEdit>) {}
 
@@ -22,9 +22,14 @@ export class CdkSpreadsheetKeyManager<CellEdit extends CdkCellEditable> {
     return this._keyManagerMapper.activeItem;
   }
 
-  setActiveItem(event: MouseEvent) {
-    this._currEvent = event;
-    this._keyManagerMapper.setActiveItem(event as unknown);
+  setActiveItem(element: Element) {
+    if (element.tagName.toLocaleLowerCase() !== 'mat-cell') {
+      element = element.closest('mat-cell') as Element;
+    }
+
+    this._currElement = element;
+    this._keyManagerMapper.setActiveItem(element as unknown);
+
     return this;
   }
 
@@ -69,7 +74,7 @@ export class CdkSpreadsheetKeyManager<CellEdit extends CdkCellEditable> {
   }
 
   resetActiveItem() {
-    this.setActiveItem(this._currEvent);
+    this.setActiveItem(this._currElement);
     return this;
   }
 
@@ -87,7 +92,6 @@ export class CdkSpreadsheetKeyManager<CellEdit extends CdkCellEditable> {
   }
 
   destroy() {
-    this._keyManagerMapper.destroy();
     this._onDestroy ? this._onDestroy() : null;
   }
 }

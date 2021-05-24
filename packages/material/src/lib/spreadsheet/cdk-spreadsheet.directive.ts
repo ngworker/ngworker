@@ -30,7 +30,7 @@ import { CdkCellEditable } from './cdk-spreadsheet.types';
 export class CdkSpreadsheetDirective<
   CellEdit extends CdkCellEditable = CdkCellEditable
 > implements OnDestroy, AfterContentInit {
-  protected spreadsheetManager!: CdkSpreadsheetKeyManager<CellEdit>;
+  public spreadsheetManager!: CdkSpreadsheetKeyManager<CellEdit>;
 
   constructor(
     @Inject(CDK_SPREADSHEET_FACTORY)
@@ -42,8 +42,8 @@ export class CdkSpreadsheetDirective<
   @ContentChildren(CdkCellEditDirective)
   cellQueryList!: QueryList<CellEdit>;
 
-  @HostListener('click', ['$event']) click(e: MouseEvent) {
-    this.spreadsheetManager.setActiveItem(e).exec();
+  @HostListener('click', ['$event.target']) click(element: Element) {
+    this.spreadsheetManager.setActiveItem(element).exec();
   }
 
   @HostListener('dblclick') dblclick() {

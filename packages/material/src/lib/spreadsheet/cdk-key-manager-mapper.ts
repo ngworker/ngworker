@@ -14,13 +14,10 @@ import {
   RIGHT_ARROW,
   UP_ARROW,
 } from '@angular/cdk/keycodes';
-import { Subject } from 'rxjs';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import * as matrixUtils from './cdk-key-manager-mapper.utils';
 
 export class CdkKeyManagerMapper<T extends CdkCellEditable> {
-  private readonly _unsub$ = new Subject();
-
   private _matrixY: MatrixY<number> | undefined;
   private _matrixX: MatrixX<number> | undefined;
   private _currTableAxis: Axis = { x: -1, y: -1 };
@@ -49,7 +46,7 @@ export class CdkKeyManagerMapper<T extends CdkCellEditable> {
   setActiveItem(value: unknown) {
     if (typeof value === 'number' && value >= 0) {
       this._keyManager.setActiveItem(value);
-    } else if (value instanceof MouseEvent) {
+    } else if (value instanceof Element) {
       this.setActiveItemAxis(this.getKeyMangerItemAxis(value));
     } else if (typeof value !== 'undefined') {
       this._keyManager.setActiveItem(value as T);
@@ -103,12 +100,12 @@ export class CdkKeyManagerMapper<T extends CdkCellEditable> {
     }
   }
 
-  getKeyMangerItemAxis(event: MouseEvent): Axis {
+  getKeyMangerItemAxis(element: Element): Axis {
     if (!this._tableState) throw new Error(`value is undefined!`);
 
     const currentColIndex = matrixUtils.findIndexOfEl(
       this._tableState.cells,
-      event.target as Element
+      element
     );
 
     if (!this._matrixY) throw new Error(`value is undefined!`);
@@ -137,10 +134,5 @@ export class CdkKeyManagerMapper<T extends CdkCellEditable> {
 
   isYMove(x: number, y: number) {
     return y >= 0 && x === NON_VALID_AXIS;
-  }
-
-  destroy() {
-    this._unsub$.next();
-    this._unsub$.complete();
   }
 }

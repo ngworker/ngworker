@@ -1,37 +1,27 @@
-// @todo: create with a scss function for example (.cdk/.mat)-spreadsheet
-.cdk-spreadsheet {
-  .cdk-cell-edit {
-    white-space: nowrap;
-  }
-
-  .cdk-cell-edit-active[contenteditable="false"] {
-    opacity: 0.3;
-    user-select: none;
-  }
-
-  .cdk-cell:focus {
+.cdk-spreadsheet, .mat-spreadsheet {
+  .cdk-cell:focus, .mat-cell:focus {
     outline: none;
   }
 
-  .cdk-cell-edit-active {
+  input {
+    all: inherit;
+  }
+
+  .cdk-cell-edit-active, .mat-cell-edit-active {
     box-shadow: inset 0 0 0 1px #4296ff;
   }
-}
 
-.mat-spreadsheet {
-  .mat-cell-edit {
-    white-space: nowrap;
-  }
+  .cdk-cell-edit, .mat-cell-edit {
+    &:not(.cdk-cell-edit-active),
+    &:not(.mat-cell-edit-active) {
+     .active { display: none }
+     .inactive { display: block }
+    }
 
-  .mat-cell-edit-active[contenteditable="false"] {
-    opacity: 0.3;
-  }
-
-  .mat-cell:focus {
-    outline: none;
-  }
-
-  .mat-cell-edit-active {
-    box-shadow: inset 0 0 0 1px #4296ff;
+    &.cdk-cell-edit-active,
+    &.mat-cell-edit-active {
+      .active { display: block }
+      .inactive { display: none }
+    }
   }
 }
