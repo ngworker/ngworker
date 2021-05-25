@@ -5,17 +5,16 @@ import {
   HostBinding,
   HostListener,
   Inject,
-  OnDestroy,
   QueryList,
 } from '@angular/core';
 import { CdkSpreadsheetKeyManager } from './cdk-spreadsheet-key-manager';
-import { CdkCellEditDirective } from './cdk-cell-edit.directive';
+import { CdkCellDirective } from './cdk-cell.directive';
 import {
   CDK_SPREADSHEET_FACTORY,
   CDK_SPREADSHEET_MANAGER_PROVIDERS,
   CdkSpreadsheetFactory,
 } from './cdk-spreadspeet-manager.factory';
-import { CdkCellEditable } from './cdk-spreadsheet.types';
+import { CdkCellAble } from './cdk-spreadsheet.types';
 
 /**
  * Type-safe MatCellDef
@@ -27,9 +26,8 @@ import { CdkCellEditable } from './cdk-spreadsheet.types';
   exportAs: 'cdkSpreadsheet',
   providers: CDK_SPREADSHEET_MANAGER_PROVIDERS,
 })
-export class CdkSpreadsheetDirective<
-  CellEdit extends CdkCellEditable = CdkCellEditable
-> implements OnDestroy, AfterContentInit {
+export class CdkSpreadsheetDirective<CellEdit extends CdkCellAble = CdkCellAble>
+  implements AfterContentInit {
   public spreadsheetManager!: CdkSpreadsheetKeyManager<CellEdit>;
 
   constructor(
@@ -39,23 +37,23 @@ export class CdkSpreadsheetDirective<
 
   @HostBinding('class.cdk-spreadsheet') hostClass = true;
 
-  @ContentChildren(CdkCellEditDirective)
+  @ContentChildren(CdkCellDirective)
   cellQueryList!: QueryList<CellEdit>;
 
   @HostListener('click', ['$event.target']) click(element: Element) {
     this.spreadsheetManager.setActiveItem(element).exec();
   }
 
-  @HostListener('dblclick') dblclick() {
-    this.spreadsheetManager.lockArrowKeys().exec();
-  }
+  // @HostListener('dblclick') dblclick() {
+  //   this.spreadsheetManager.lockArrowKeys().exec();
+  // }
 
   @HostListener('keyup.esc') esc() {
     this.spreadsheetManager.unlockArrowKeys().resetActiveItem().exec();
   }
 
   @HostListener('keydown', ['$event']) arrowKey(e: KeyboardEvent) {
-    if (this.spreadsheetManager.arrowKeyLocked) return;
+    // if (this.spreadsheetManager.arrowKeyLocked) return;
     this.spreadsheetManager.onKeydownArrow(e)?.exec(e);
   }
 
@@ -79,9 +77,5 @@ export class CdkSpreadsheetDirective<
     this.spreadsheetManager = this._spreadsheetFactory.create(
       this.cellQueryList
     );
-  }
-
-  ngOnDestroy() {
-    this.spreadsheetManager.destroy();
   }
 }

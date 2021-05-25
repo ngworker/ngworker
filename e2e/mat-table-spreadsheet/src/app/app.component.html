@@ -23,36 +23,31 @@
     >
       <ng-container matColumnDef="position">
         <mat-header-cell *matHeaderCellDef> Position </mat-header-cell>
-        <mat-cell *matCellDef="let element" #matEdit="matCellEdit">
-          <div class="inactive" #inactive>{{ element.position }}</div>
-          <ng-template #active>
-            <mat-select
-              #matSelect
-              (keydown.enter)="matSelect.close()"
-              class="active"
-              (selectionChange)="element.position = $event.value.position"
-            >
-              <mat-option *ngFor="let item of list" [value]="item">
-                {{ item.position }}
-              </mat-option>
-            </mat-select>
-          </ng-template>
+        <mat-cell *matCellDef="let element" #matCell="matCell">
+          <mat-spreadsheet-select
+            [connectCell]="matCell"
+            [list]="list"
+            [listOptionRenderKey]="'position'"
+            [placeholder]="element.position"
+            (selectionChange)="onChange($event.value, element, 'position')"
+          >
+            {{ element.position }}
+          </mat-spreadsheet-select>
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-        <mat-cell *matCellDef="let element" #matEdit="matCellEdit">
-          <div class="inactive" #inactive>{{ element.name }}</div>
-          <ng-template #active>
-            <input
-              class="active"
-              #input
-              type="text"
-              (change)="element.name = input.value"
-              [value]="element.name"
-              matInput
-            />
-          </ng-template>
+        <mat-cell *matCellDef="let element" #matCell="matCell">
+          <mat-spreadsheet-combobox
+            [connectCell]="matCell"
+            [list]="list"
+            [listOptionRenderKey]="'name'"
+            [listOptionValue]="'name'"
+            [placeholder]="element.name"
+            (selectionChange)="console($event, element, 'name')"
+          >
+            {{ element.name }}
+          </mat-spreadsheet-combobox>
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="check">

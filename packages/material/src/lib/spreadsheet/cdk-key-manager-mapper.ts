@@ -1,6 +1,6 @@
 import {
   Axis,
-  CdkCellEditable,
+  CdkCellAble,
   Direction,
   MatrixX,
   MatrixY,
@@ -17,7 +17,7 @@ import {
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import * as matrixUtils from './cdk-key-manager-mapper.utils';
 
-export class CdkKeyManagerMapper<T extends CdkCellEditable> {
+export class CdkKeyManagerMapper<T extends CdkCellAble> {
   private _matrixY: MatrixY<number> | undefined;
   private _matrixX: MatrixX<number> | undefined;
   private _currTableAxis: Axis = { x: -1, y: -1 };

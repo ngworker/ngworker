@@ -4,7 +4,7 @@ import { CdkKeyManagerMapper } from './cdk-key-manager-mapper';
 import { CdkSpreadsheetDirective } from './cdk-spreadsheet.directive';
 import { CdkSpreadsheetKeyManager } from './cdk-spreadsheet-key-manager';
 import { cdkTableSnapshot } from './cdk-table-snapshot';
-import { CdkCellEditable } from './cdk-spreadsheet.types';
+import { CdkCellAble } from './cdk-spreadsheet.types';
 
 export const CDK_SPREADSHEET_FACTORY = new InjectionToken<CdkSpreadsheetDirective>(
   'cdkSpreadsheetManager'
@@ -18,11 +18,11 @@ export const CDK_SPREADSHEET_MANAGER_PROVIDERS: Provider[] = [
   },
 ];
 
-export interface CdkSpreadsheetFactory<CellEdit extends CdkCellEditable> {
+export interface CdkSpreadsheetFactory<CellEdit extends CdkCellAble> {
   create(queryList: QueryList<CellEdit>): CdkSpreadsheetKeyManager<CellEdit>;
 }
 
-export function cdkSpreadsheetFactory<T extends CdkCellEditable>(
+export function cdkSpreadsheetFactory<T extends CdkCellAble>(
   elementRef: ElementRef
 ): CdkSpreadsheetFactory<T> {
   return {

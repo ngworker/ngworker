@@ -1,11 +1,11 @@
 import { Directive, HostBinding } from '@angular/core';
-import { CdkCellEditDirective } from './cdk-cell-edit.directive';
+import { CdkCellDirective } from './cdk-cell.directive';
 
 @Directive({
   selector: 'mat-cell, th[mat-cell]',
-  exportAs: 'matCellEdit',
+  exportAs: 'matCell',
 })
-export class MatCellEditDirective extends CdkCellEditDirective {
+export class MatCellDirective extends CdkCellDirective {
   @HostBinding('class.mat-cell-edit') hostClass = true;
   @HostBinding('class.mat-cell-edit-active') isActive = false;
 }

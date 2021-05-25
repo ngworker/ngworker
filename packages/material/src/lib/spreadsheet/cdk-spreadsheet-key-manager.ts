@@ -1,4 +1,4 @@
-import { Direction, CdkCellEditable } from './cdk-spreadsheet.types';
+import { Direction, CdkCellAble } from './cdk-spreadsheet.types';
 import { CdkKeyManagerMapper } from './cdk-key-manager-mapper';
 import {
   DOWN_ARROW,
@@ -7,8 +7,7 @@ import {
   UP_ARROW,
 } from '@angular/cdk/keycodes';
 
-export class CdkSpreadsheetKeyManager<CellEdit extends CdkCellEditable> {
-  private _onDestroy: (() => void) | undefined;
+export class CdkSpreadsheetKeyManager<CellEdit extends CdkCellAble> {
   private _arrowKeysLocked = false;
   private _currElement!: Element;
 
@@ -85,13 +84,5 @@ export class CdkSpreadsheetKeyManager<CellEdit extends CdkCellEditable> {
 
   exec(event?: Event) {
     event && this.prevDef(event);
-  }
-
-  onDestroy(onDestroy: () => void) {
-    this._onDestroy = onDestroy;
-  }
-
-  destroy() {
-    this._onDestroy ? this._onDestroy() : null;
   }
 }

@@ -6,8 +6,8 @@ import {
 } from '@angular/core';
 import { CdkSpreadsheetDirective } from './cdk-spreadsheet.directive';
 import { CDK_SPREADSHEET_MANAGER_PROVIDERS } from './cdk-spreadspeet-manager.factory';
-import { CdkCellEditable } from './cdk-spreadsheet.types';
-import { MatCellEditDirective } from './mat-cell-edit.directive';
+import { CdkCellAble } from './cdk-spreadsheet.types';
+import { MatCellDirective } from './mat-cell.directive';
 
 @Directive({
   selector: 'mat-table[matSpreadsheet], [matSpreadsheet][mat-table]',
@@ -17,6 +17,6 @@ import { MatCellEditDirective } from './mat-cell-edit.directive';
 export class MatSpreadsheetDirective extends CdkSpreadsheetDirective {
   @HostBinding('class.mat-spreadsheet') hostClass = true;
 
-  @ContentChildren(MatCellEditDirective)
-  cellQueryList!: QueryList<CdkCellEditable>;
+  @ContentChildren(MatCellDirective)
+  cellQueryList!: QueryList<CdkCellAble>;
 }

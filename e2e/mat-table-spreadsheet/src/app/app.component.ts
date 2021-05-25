@@ -36,12 +36,12 @@ export class AppComponent implements OnInit {
     element[field] = item[field];
   }
 
-  console(value: unknown) {
-    console.log(value);
+  console(...args: unknown[]) {
+    console.log(args);
   }
 
   ngOnInit() {
-    this.dataSource.data = Array(10)
+    this.dataSource.data = Array(100)
       .fill(0)
       .map((_, i) => ({ position: i, name: `Foo ${i}`, check: `yes/no/${i}` }));
   }

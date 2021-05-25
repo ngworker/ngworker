@@ -1,4 +1,4 @@
-import { ElementRef } from '@angular/core';
+import { ElementRef, EventEmitter } from '@angular/core';
 import { Highlightable } from '@angular/cdk/a11y';
 import {
   DOWN_ARROW,
@@ -40,10 +40,12 @@ export type MatrixReturnType<
   K extends PropertyKey
 > = T extends 'y' ? MatrixY<K> : T extends 'x' ? MatrixX<K> : never;
 
-export interface CellEditable {
+export type CellChange = { active: boolean };
+export interface CellAble {
   focusActiveItem: () => void;
   blurActiveItem: () => void;
   elementRef: ElementRef<HTMLElement>;
+  cellChange: EventEmitter<CellChange>;
 }
 
-export interface CdkCellEditable extends Highlightable, CellEditable {}
+export interface CdkCellAble extends Highlightable, CellAble {}

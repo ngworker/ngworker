@@ -1,23 +1,43 @@
 import { NgModule } from '@angular/core';
-import { CdkCellEditDirective } from './cdk-cell-edit.directive';
+import { CdkCellDirective } from './cdk-cell.directive';
 import { MatSpreadsheetDirective } from './mat-spreadsheet.directive';
 import { CdkSpreadsheetDirective } from './cdk-spreadsheet.directive';
 import { MatTableModule } from '@angular/material/table';
-import { MatCellEditDirective } from './mat-cell-edit.directive';
+import { MatCellDirective } from './mat-cell.directive';
+import { MatSpreadsheetSelectOptionComponent } from './mat-spreadsheet-select-option';
+import { MatSelectModule } from '@angular/material/select';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { MatSpreadsheetComboboxComponent } from './mat-spreadsheet-combobox';
+import { MatInputModule } from '@angular/material/input';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
-    CdkCellEditDirective,
+    CdkCellDirective,
     CdkSpreadsheetDirective,
     MatSpreadsheetDirective,
-    MatCellEditDirective,
+    MatCellDirective,
+    MatSpreadsheetSelectOptionComponent,
+    MatSpreadsheetComboboxComponent,
   ],
   exports: [
-    CdkCellEditDirective,
+    CdkCellDirective,
     CdkSpreadsheetDirective,
     MatSpreadsheetDirective,
-    MatCellEditDirective,
+    MatCellDirective,
     MatTableModule,
+    MatSpreadsheetSelectOptionComponent,
+    MatSpreadsheetComboboxComponent,
+  ],
+  imports: [
+    MatSelectModule,
+    CommonModule,
+    FormsModule,
+    MatInputModule,
+    MatAutocompleteModule,
+    MatIconModule,
   ],
 })
 export class CdkSpreadsheetModule {}
