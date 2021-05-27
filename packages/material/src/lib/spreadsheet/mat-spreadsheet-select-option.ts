@@ -72,8 +72,6 @@ export class MatSpreadsheetSelectOptionComponent<Item extends unknown = unknown>
   /** @internal */
   _selectionChange(change: MatSelectChange) {
     this._selectChange = change.value;
-    this._matSelect.close();
-    this.connectCell.setActiveStyles();
     this.selectionChange.emit(change);
   }
 

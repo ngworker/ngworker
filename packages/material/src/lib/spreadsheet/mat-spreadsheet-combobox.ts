@@ -44,9 +44,9 @@ import {
         #input
         #matAutocompleteTrigger="matAutocompleteTrigger"
         (keydown.enter)="_addSelection(input.value)"
-        type="text"
-        matInput
         [matAutocomplete]="auto"
+        matInput
+        type="text"
       />
       <mat-icon (click)="_addSelection(input.value)" color="primary" matSuffix>
         add
@@ -98,8 +98,6 @@ export class MatSpreadsheetComboboxComponent<Item extends unknown = unknown>
   /** @internal */
   _selectionChange(change: MatAutocompleteSelectedEvent) {
     this._selectChange = change;
-    this._autocompleteTrigger.closePanel();
-    this.connectCell.setActiveStyles();
     this.selectionChange.emit(change);
   }
 
@@ -110,7 +108,7 @@ export class MatSpreadsheetComboboxComponent<Item extends unknown = unknown>
 
   /** @internal */
   _displayWith(option: Item) {
-    return option[this.listOptionRenderKey];
+    return (option[this.listOptionRenderKey] as unknown) as string;
   }
 
   ngOnInit() {
