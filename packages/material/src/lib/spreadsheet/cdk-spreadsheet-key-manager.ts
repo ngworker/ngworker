@@ -8,60 +8,58 @@ import {
 } from '@angular/cdk/keycodes';
 
 export class CdkSpreadsheetKeyManager<CellEdit extends CdkCellAble> {
-  private _currElement!: Element;
+  private _currEvent!: Event;
 
   constructor(
     private _keyManagerMapper: CdkKeyManagerMapper<CellEdit>,
     private _cellSel = 'mat-cell'
   ) {}
 
-  setActiveItem(element: Element) {
-    if (element.tagName.toLocaleLowerCase() !== this._cellSel) {
-      element = element.closest('mat-cell') as Element;
-    }
-
-    this._currElement = element;
+  setActiveItem(event: Event) {
+    const element = this._getParentCell(event.target as Element);
+    this._currEvent = event;
     this._keyManagerMapper.setActiveItem(element as unknown);
-
-    return this;
+    this._preventDefault(event);
   }
 
   onKeydownArrow(event: KeyboardEvent) {
     const keyCode = event.keyCode as Direction;
-    if (keyCode === 37 || keyCode === 38 || keyCode === 39 || keyCode === 40) {
-      event.preventDefault();
-    }
-
     this._keyManagerMapper.setItemByArrowDirection(keyCode);
-    return this;
+    this._preventDefault(event);
   }
 
-  setArrowUpItemActive() {
+  setArrowUpItemActive(event: Event) {
     this._keyManagerMapper.setItemByArrowDirection(UP_ARROW);
-    return this;
+    this._preventDefault(event);
   }
 
-  setArrowDownItemActive() {
+  setArrowDownItemActive(event: Event) {
     this._keyManagerMapper.setItemByArrowDirection(DOWN_ARROW);
-    return this;
+    this._preventDefault(event);
   }
 
-  setArrowLeftItemActive() {
+  setArrowLeftItemActive(event: Event) {
     this._keyManagerMapper.setItemByArrowDirection(LEFT_ARROW);
-    return this;
+    this._preventDefault(event);
   }
 
-  setArrowRightItemActive() {
+  setArrowRightItemActive(event: Event) {
     this._keyManagerMapper.setItemByArrowDirection(RIGHT_ARROW);
-    return this;
+    this._preventDefault(event);
   }
 
-  resetActiveItem() {
-    this.setActiveItem(this._currElement);
-    return this;
+  resetActiveItem(event: Event) {
+    this.setActiveItem(event);
   }
 
-  exec(event: Event) {
+  private _preventDefault(event: Event) {
     event.preventDefault();
+  }
+
+  private _getParentCell(element: Element) {
+    if (element.tagName.toLocaleLowerCase() !== this._cellSel) {
+      element = element.closest(this._cellSel) as Element;
+    }
+    return element;
   }
 }

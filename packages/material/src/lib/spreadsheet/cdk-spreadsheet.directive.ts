@@ -40,33 +40,32 @@ export class CdkSpreadsheetDirective<CellEdit extends CdkCellAble = CdkCellAble>
   @ContentChildren(CdkCellDirective) cellQueryList!: QueryList<CellEdit>;
 
   @HostListener('click', ['$event']) click(e: MouseEvent) {
-    this.spreadsheetManager.setActiveItem(e.target as Element).exec(e);
+    this.spreadsheetManager.setActiveItem(e);
   }
 
   @HostListener('keyup.esc', ['$event']) esc(e: KeyboardEvent) {
-    this.spreadsheetManager.resetActiveItem().exec(e);
+    this.spreadsheetManager.resetActiveItem(e);
   }
 
   @HostListener('keydown', ['$event']) arrowKey(e: KeyboardEvent) {
-    // const keyCode = e.keyCode as Direction;
-    this.spreadsheetManager.onKeydownArrow(e) /*.exec(e)*/;
+    this.spreadsheetManager.onKeydownArrow(e);
   }
 
   @HostListener('keydown.enter', ['$event']) enter(e: KeyboardEvent) {
-    this.spreadsheetManager.setArrowDownItemActive().exec(e);
+    this.spreadsheetManager.setArrowDownItemActive(e);
   }
 
   // prettier-ignore
   @HostListener('keydown.shift.enter', ['$event']) shiftEnter(e: KeyboardEvent) {
-    this.spreadsheetManager.setArrowUpItemActive().exec(e);
+    this.spreadsheetManager.setArrowUpItemActive(e);
   }
 
   @HostListener('keydown.tab', ['$event']) tab(e: KeyboardEvent) {
-    this.spreadsheetManager.setArrowRightItemActive().exec(e);
+    this.spreadsheetManager.setArrowRightItemActive(e);
   }
 
   @HostListener('keydown.shift.tab', ['$event']) shiftTab(e: KeyboardEvent) {
-    this.spreadsheetManager.setArrowLeftItemActive().exec(e);
+    this.spreadsheetManager.setArrowLeftItemActive(e);
   }
 
   ngAfterContentInit() {
