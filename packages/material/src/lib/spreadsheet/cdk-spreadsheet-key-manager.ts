@@ -7,6 +7,8 @@ import {
   UP_ARROW,
 } from '@angular/cdk/keycodes';
 
+type Event = MouseEvent | KeyboardEvent;
+
 export class CdkSpreadsheetKeyManager<CellEdit extends CdkCellAble> {
   private _currEvent!: Event;
 
@@ -22,10 +24,18 @@ export class CdkSpreadsheetKeyManager<CellEdit extends CdkCellAble> {
     this._preventDefault(event);
   }
 
-  onKeydownArrow(event: KeyboardEvent) {
+  onKeydownArrow(event: Event) {
+    if (!(event instanceof KeyboardEvent)) {
+      throw new Error('Event must be instanceof KeyboardEvent');
+    }
+
     const keyCode = event.keyCode as Direction;
     this._keyManagerMapper.setItemByArrowDirection(keyCode);
-    this._preventDefault(event);
+
+    const result = [UP_ARROW, DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW].find(
+      value => value === keyCode
+    );
+    result && this._preventDefault(event);
   }
 
   setArrowUpItemActive(event: Event) {
