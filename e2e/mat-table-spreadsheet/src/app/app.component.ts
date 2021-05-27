@@ -31,9 +31,12 @@ export class AppComponent implements OnInit {
     .map((_, i) => ({ position: i, name: `Foo ${i}`, check: `yes/no/${i}` }));
 
   onChange(item: Item, element: Item, field: keyof Item) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    element[field] = item[field];
+    Object.assign(element, { [field]: item[field] });
+  }
+
+  onAdd(item: Item, element: Item, field: keyof Item) {
+    this.list.unshift(item);
+    Object.assign(element, { [field]: item[field] });
   }
 
   console(...args: unknown[]) {

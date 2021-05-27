@@ -42,9 +42,9 @@
             [connectCell]="matCell"
             [list]="list"
             [listOptionRenderKey]="'name'"
-            [listOptionValue]="'name'"
             [placeholder]="element.name"
-            (selectionChange)="console($event, element, 'name')"
+            (selectionAdded)="onAdd($event, element, 'name')"
+            (selectionChange)="onChange($event.option.value, element, 'name')"
           >
             {{ element.name }}
           </mat-spreadsheet-combobox>
@@ -89,7 +89,7 @@
       </ng-container>
       <mat-header-row
         mat-header-row
-        *matHeaderRowDef="columns"
+        *matHeaderRowDef="columns; sticky: true"
       ></mat-header-row>
       <mat-row *matRowDef="let row; columns: columns"></mat-row>
     </mat-table>
