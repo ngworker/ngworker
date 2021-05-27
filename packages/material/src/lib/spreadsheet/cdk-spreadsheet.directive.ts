@@ -37,40 +37,36 @@ export class CdkSpreadsheetDirective<CellEdit extends CdkCellAble = CdkCellAble>
 
   @HostBinding('class.cdk-spreadsheet') hostClass = true;
 
-  @ContentChildren(CdkCellDirective)
-  cellQueryList!: QueryList<CellEdit>;
+  @ContentChildren(CdkCellDirective) cellQueryList!: QueryList<CellEdit>;
 
-  @HostListener('click', ['$event.target']) click(element: Element) {
-    this.spreadsheetManager.setActiveItem(element).exec();
+  @HostListener('click', ['$event']) click(e: MouseEvent) {
+    this.spreadsheetManager.setActiveItem(e.target as Element).exec(e);
   }
 
-  // @HostListener('dblclick') dblclick() {
-  //   this.spreadsheetManager.lockArrowKeys().exec();
-  // }
-
-  @HostListener('keyup.esc') esc() {
-    this.spreadsheetManager.unlockArrowKeys().resetActiveItem().exec();
+  @HostListener('keyup.esc', ['$event']) esc(e: KeyboardEvent) {
+    this.spreadsheetManager.resetActiveItem().exec(e);
   }
 
   @HostListener('keydown', ['$event']) arrowKey(e: KeyboardEvent) {
-    // if (this.spreadsheetManager.arrowKeyLocked) return;
-    this.spreadsheetManager.onKeydownArrow(e)?.exec(e);
+    // const keyCode = e.keyCode as Direction;
+    this.spreadsheetManager.onKeydownArrow(e) /*.exec(e)*/;
   }
 
-  @HostListener('keydown.enter', ['$event']) enter(e: Event) {
-    this.spreadsheetManager.unlockArrowKeys().setArrowDownItemActive().exec(e);
+  @HostListener('keydown.enter', ['$event']) enter(e: KeyboardEvent) {
+    this.spreadsheetManager.setArrowDownItemActive().exec(e);
   }
 
-  @HostListener('keydown.shift.enter', ['$event']) shiftEnter(e: Event) {
-    this.spreadsheetManager.unlockArrowKeys().setArrowUpItemActive().exec(e);
+  // prettier-ignore
+  @HostListener('keydown.shift.enter', ['$event']) shiftEnter(e: KeyboardEvent) {
+    this.spreadsheetManager.setArrowUpItemActive().exec(e);
   }
 
-  @HostListener('keydown.tab', ['$event']) tab(e: Event) {
-    this.spreadsheetManager.unlockArrowKeys().setArrowRightItemActive().exec(e);
+  @HostListener('keydown.tab', ['$event']) tab(e: KeyboardEvent) {
+    this.spreadsheetManager.setArrowRightItemActive().exec(e);
   }
 
-  @HostListener('keydown.shift.tab', ['$event']) shiftTab(e: Event) {
-    this.spreadsheetManager.unlockArrowKeys().setArrowLeftItemActive().exec(e);
+  @HostListener('keydown.shift.tab', ['$event']) shiftTab(e: KeyboardEvent) {
+    this.spreadsheetManager.setArrowLeftItemActive().exec(e);
   }
 
   ngAfterContentInit() {

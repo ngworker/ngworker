@@ -42,8 +42,6 @@ export type MatrixReturnType<
 
 export type CellChange = { active: boolean };
 export interface CellAble {
-  focusActiveItem: () => void;
-  blurActiveItem: () => void;
   elementRef: ElementRef<HTMLElement>;
   cellChange: EventEmitter<CellChange>;
 }

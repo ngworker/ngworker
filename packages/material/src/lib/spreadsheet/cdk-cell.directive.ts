@@ -18,8 +18,6 @@ export class CdkCellDirective implements CdkCellAble {
     private readonly _cdkColumnDef: CdkColumnDef
   ) {}
 
-  private _nativeElement = this.elementRef.nativeElement;
-
   @Output() cellChange = new EventEmitter<CellChange>();
 
   @HostBinding('class.cdk-cell-edit') hostClass = true;
@@ -28,21 +26,11 @@ export class CdkCellDirective implements CdkCellAble {
 
   setActiveStyles() {
     this.isActive = true;
-    this.focusActiveItem();
     this.cellChange.next({ active: true });
   }
 
   setInactiveStyles() {
     this.isActive = false;
-    this.blurActiveItem();
     this.cellChange.next({ active: false });
-  }
-
-  focusActiveItem() {
-    this._nativeElement.focus();
-  }
-
-  blurActiveItem() {
-    this._nativeElement.blur();
   }
 }

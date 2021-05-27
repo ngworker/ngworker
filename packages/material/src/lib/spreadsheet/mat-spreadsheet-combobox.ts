@@ -45,14 +45,12 @@ import {
         #matAutocompleteTrigger="matAutocompleteTrigger"
         type="text"
         matInput
-        (keyup.enter)="add(input)"
         [matAutocomplete]="auto"
       />
       <!--      <mat-icon (click)="add(input)" color="primary" matSuffix> add</mat-icon>-->
 
       <mat-autocomplete
         #auto="matAutocomplete"
-        (opened)="matAutocompleteTrigger.updatePosition()"
         (optionSelected)="_selectionChange($event)"
       >
         <mat-option
@@ -99,10 +97,6 @@ export class MatSpreadsheetComboboxComponent<Item extends unknown = unknown>
     this._autocompleteTrigger.closePanel();
     this.connectCell.setActiveStyles();
     this.selectionChange.emit(change);
-  }
-
-  add(...args: unknown[]) {
-    console.log(args);
   }
 
   ngOnInit() {

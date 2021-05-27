@@ -8,21 +8,15 @@ import {
 } from '@angular/cdk/keycodes';
 
 export class CdkSpreadsheetKeyManager<CellEdit extends CdkCellAble> {
-  private _arrowKeysLocked = false;
   private _currElement!: Element;
 
-  constructor(private _keyManagerMapper: CdkKeyManagerMapper<CellEdit>) {}
-
-  get arrowKeyLocked() {
-    return this._arrowKeysLocked;
-  }
-
-  get activeItem() {
-    return this._keyManagerMapper.activeItem;
-  }
+  constructor(
+    private _keyManagerMapper: CdkKeyManagerMapper<CellEdit>,
+    private _cellSel = 'mat-cell'
+  ) {}
 
   setActiveItem(element: Element) {
-    if (element.tagName.toLocaleLowerCase() !== 'mat-cell') {
+    if (element.tagName.toLocaleLowerCase() !== this._cellSel) {
       element = element.closest('mat-cell') as Element;
     }
 
@@ -33,11 +27,11 @@ export class CdkSpreadsheetKeyManager<CellEdit extends CdkCellAble> {
   }
 
   onKeydownArrow(event: KeyboardEvent) {
-    if (this._arrowKeysLocked) {
-      return;
+    const keyCode = event.keyCode as Direction;
+    if (keyCode === 37 || keyCode === 38 || keyCode === 39 || keyCode === 40) {
+      event.preventDefault();
     }
 
-    const keyCode = event.keyCode as Direction;
     this._keyManagerMapper.setItemByArrowDirection(keyCode);
     return this;
   }
@@ -62,27 +56,12 @@ export class CdkSpreadsheetKeyManager<CellEdit extends CdkCellAble> {
     return this;
   }
 
-  prevDef(event: Event) {
-    event.preventDefault();
-    return this;
-  }
-
-  lockArrowKeys() {
-    this._arrowKeysLocked = true;
-    return this;
-  }
-
   resetActiveItem() {
     this.setActiveItem(this._currElement);
     return this;
   }
 
-  unlockArrowKeys() {
-    this._arrowKeysLocked = false;
-    return this;
-  }
-
-  exec(event?: Event) {
-    event && this.prevDef(event);
+  exec(event: Event) {
+    event.preventDefault();
   }
 }
