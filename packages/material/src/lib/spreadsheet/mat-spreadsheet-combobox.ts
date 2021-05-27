@@ -8,15 +8,11 @@ import {
   OnDestroy,
   OnInit,
   Output,
-  ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import {
-  MatAutocompleteSelectedEvent,
-  MatAutocompleteTrigger,
-} from '@angular/material/autocomplete';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'mat-spreadsheet-combobox',
@@ -24,10 +20,6 @@ import {
     `
       .mat-spreadsheet-combobox {
         width: 100%;
-        all: inherit;
-      }
-
-      .mat-spreadsheet-combobox mat-form-field {
         all: inherit;
       }
     `,
@@ -45,7 +37,7 @@ import {
         #matAutocompleteTrigger="matAutocompleteTrigger"
         (keydown.enter)="_addSelection(input.value)"
         [matAutocomplete]="auto"
-        matInput
+        [value]="placeholder"
         type="text"
       />
       <mat-icon (click)="_addSelection(input.value)" color="primary" matSuffix>
@@ -73,17 +65,12 @@ export class MatSpreadsheetComboboxComponent<Item extends unknown = unknown>
   implements OnInit, OnDestroy {
   @HostBinding('class.mat-spreadsheet-combobox') hostClass = true;
 
-  /** @internal */
-  @ViewChild(MatAutocompleteTrigger)
-  _autocompleteTrigger!: MatAutocompleteTrigger;
-
   @Output() selectionChange = new EventEmitter<MatAutocompleteSelectedEvent>();
   @Output() selectionAdded = new EventEmitter<Item>();
 
   @Input() placeholder = '';
   @Input() panelOpen = false;
   @Input() connectCell!: CdkCellAble;
-  @Input() cellDef: unknown;
   @Input() list!: Item[];
   @Input() listOptionRenderKey!: keyof Item;
   @Input() listOptionValue!: keyof Item;

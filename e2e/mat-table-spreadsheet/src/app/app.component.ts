@@ -10,7 +10,7 @@ import { MatTableDataSource } from '@angular/material/table';
 interface Item {
   position: number;
   name: string;
-  check: string;
+  date: string;
 }
 
 @Component({
@@ -23,12 +23,12 @@ interface Item {
 export class AppComponent implements OnInit {
   constructor(private _cdr: ChangeDetectorRef) {}
 
-  columns = ['position', 'name', 'check', 'check1', 'check2', 'check3'];
+  columns = ['position', 'name', 'date', 'check1', 'check2', 'check3'];
   dataSource = new MatTableDataSource<Item>();
 
   list = Array(10)
     .fill(0)
-    .map((_, i) => ({ position: i, name: `Foo ${i}`, check: `yes/no/${i}` }));
+    .map((_, i) => ({ position: i, name: `Foo ${i}`, date: `23.0${i}.2021` }));
 
   onChange(item: Item, element: Item, field: keyof Item) {
     Object.assign(element, { [field]: item[field] });
@@ -44,9 +44,9 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.dataSource.data = Array(100)
+    this.dataSource.data = Array(300)
       .fill(0)
-      .map((_, i) => ({ position: i, name: `Foo ${i}`, check: `yes/no/${i}` }));
+      .map((_, i) => ({ position: i, name: `Foo ${i}`, date: `1.1.2020` }));
   }
 
   trackBy(_: number, item: Item) {

@@ -50,20 +50,15 @@
           </mat-spreadsheet-combobox>
         </mat-cell>
       </ng-container>
-      <ng-container matColumnDef="check">
-        <mat-header-cell *matHeaderCellDef> Check </mat-header-cell>
-        <mat-cell *matCellDef="let element">
-          <div class="inactive" #inactive>{{ element.check }}</div>
-          <ng-template #active>
-            <mat-select
-              class="active"
-              (selectionChange)="onChange($event.value, element, 'check')"
-            >
-              <mat-option *ngFor="let item of list" [value]="item">
-                {{ item.check }}
-              </mat-option>
-            </mat-select>
-          </ng-template>
+      <ng-container matColumnDef="date">
+        <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+        <mat-cell *matCellDef="let element" #matCell="matCell">
+          <mat-spreadsheet-datepicker
+            [placeholder]="element.date"
+            [connectCell]="matCell"
+          >
+            {{ element.date }}
+          </mat-spreadsheet-datepicker>
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="check1">

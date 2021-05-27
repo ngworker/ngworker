@@ -45,6 +45,7 @@
     "@angular/router": "~11.0.9",
     "@nrwl/angular": "11.2.10",
     "@testing-library/angular": "^10.5.0",
+    "dayjs": "^1.10.5",
     "rxjs": "~6.5.5",
     "tslib": "^2.1.0",
     "zone.js": "~0.10.3"
