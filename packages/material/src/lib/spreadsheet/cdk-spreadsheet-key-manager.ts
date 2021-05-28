@@ -1,4 +1,4 @@
-import { Direction, CdkCellAble } from './cdk-spreadsheet.types';
+import { CdkCellAble, Direction } from './cdk-spreadsheet.types';
 import { CdkKeyManagerMapper } from './cdk-key-manager-mapper';
 import {
   DOWN_ARROW,
@@ -30,10 +30,12 @@ export class CdkSpreadsheetKeyManager<CellEdit extends CdkCellAble> {
       throw new Error('Event must be instanceof KeyboardEvent');
     }
 
+    // allow writing into an input-field by skipping preventDefault when
+    // using characters except arrow-keys!
     const keyCode = event.keyCode as Direction;
     const isArrowKey = ARROW_KEY_CODES.find(value => value === keyCode);
     if (!isArrowKey) return;
-    console.log(keyCode);
+
     this._keyManagerMapper.setItemByArrowDirection(keyCode);
     this._preventDefault(event);
   }

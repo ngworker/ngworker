@@ -56,7 +56,7 @@ export class AppComponent implements OnInit {
       .map((_, i) => ({
         position: i,
         name: `Foo ${i}`,
-        date: `2020-12-0${i}T12:00:00Z`,
+        date: `2025-12-01T12:00:00Z`,
         street: `Musterstrasse ${i}`,
       }));
   }

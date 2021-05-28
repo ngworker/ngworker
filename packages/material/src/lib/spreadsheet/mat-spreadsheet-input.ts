@@ -26,9 +26,9 @@ import {
     `,
   ],
   template: `
-    <div *ngIf="(_active$ | async) === false; else template">
-      <ng-content></ng-content>
-    </div>
+    <ng-container *ngIf="(_active$ | async) === false; else template">
+      {{ placeholder }}
+    </ng-container>
     <ng-template #template>
       <input
         [(ngModel)]="_inputModelChange"

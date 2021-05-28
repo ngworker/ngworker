@@ -26,10 +26,10 @@ export class CdkKeyManagerMapper<T extends CdkCellAble> {
     private _tableState: Table,
     private _keyManager: ActiveDescendantKeyManager<T>
   ) {
-    this.init();
+    this._init();
   }
 
-  init() {
+  private _init() {
     const { cellCount, columnCount } = this._tableState;
     this._createMatrix(cellCount, columnCount);
   }
