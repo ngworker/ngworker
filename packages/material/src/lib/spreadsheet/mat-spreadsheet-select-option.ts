@@ -25,10 +25,10 @@ import { takeUntil } from 'rxjs/operators';
     `,
   ],
   template: `
-    <div class="inactive" *ngIf="(_active$ | async) === false; else matSelect">
+    <div *ngIf="(_active$ | async) === false; else template">
       <ng-content></ng-content>
     </div>
-    <ng-template #matSelect>
+    <ng-template #template>
       <mat-select
         [(ngModel)]="_selectChange"
         [placeholder]="placeholder + ''"

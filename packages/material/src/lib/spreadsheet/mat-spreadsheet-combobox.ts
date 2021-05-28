@@ -25,22 +25,24 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
     `,
   ],
   template: `
-    <div
-      class="inactive"
-      *ngIf="(_active$ | async) === false; else matCombobox"
-    >
+    <div *ngIf="(_active$ | async) === false; else template">
       <ng-content></ng-content>
     </div>
-    <ng-template #matCombobox>
+    <ng-template #template>
       <input
         #input
         #matAutocompleteTrigger="matAutocompleteTrigger"
-        (keydown.enter)="_addSelection(input.value)"
+        (keydown.enter)="canAdd && _addSelection(input.value)"
         [matAutocomplete]="auto"
         [value]="placeholder"
         type="text"
       />
-      <mat-icon (click)="_addSelection(input.value)" color="primary" matSuffix>
+      <mat-icon
+        *ngIf="canAdd"
+        (click)="_addSelection(input.value)"
+        color="primary"
+        matSuffix
+      >
         add
       </mat-icon>
 
@@ -68,6 +70,8 @@ export class MatSpreadsheetComboboxComponent<Item extends unknown = unknown>
   @Output() selectionChange = new EventEmitter<MatAutocompleteSelectedEvent>();
   @Output() selectionAdded = new EventEmitter<Item>();
 
+  @Input() canAdd = false;
+  @Input() canFilter = false;
   @Input() placeholder = '';
   @Input() panelOpen = false;
   @Input() connectCell!: CdkCellAble;

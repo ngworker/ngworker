@@ -9,12 +9,12 @@ import {
 } from '@angular/core';
 import { CdkSpreadsheetKeyManager } from './cdk-spreadsheet-key-manager';
 import { CdkCellDirective } from './cdk-cell.directive';
+import { CdkCellAble } from './cdk-spreadsheet.types';
 import {
   CDK_SPREADSHEET_FACTORY,
   CDK_SPREADSHEET_MANAGER_PROVIDERS,
   CdkSpreadsheetFactory,
 } from './cdk-spreadspeet-manager.factory';
-import { CdkCellAble } from './cdk-spreadsheet.types';
 
 /**
  * Type-safe MatCellDef

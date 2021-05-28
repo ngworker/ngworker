@@ -1,24 +1,25 @@
 import { CdkCellAble, CellChange } from './cdk-spreadsheet.types';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
   HostBinding,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
   Output,
+  SimpleChanges,
   ViewEncapsulation,
 } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 @Component({
-  selector: 'mat-spreadsheet-datepicker',
+  selector: 'mat-spreadsheet-input',
   styles: [
     `
-      .mat-spreadsheet-datepicker {
+      .mat-spreadsheet-input {
         width: 100%;
         all: inherit;
       }
@@ -30,26 +31,24 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
     </div>
     <ng-template #template>
       <input
-        (click)="picker.open()"
-        (dateInput)="_dateChange($event)"
-        [matDatepicker]="picker"
+        [(ngModel)]="_inputModelChange"
+        #input
+        (ngModelChange)="_inputChange(input.value)"
         [value]="placeholder"
-        autocomplete="off"
+        type="text"
       />
-      <mat-datepicker #picker></mat-datepicker>
     </ng-template>
   `,
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MatSpreadsheetDatepickerComponent<Item extends unknown = unknown>
-  implements OnInit, OnDestroy {
-  @HostBinding('class.mat-spreadsheet-datepicker') hostClass = true;
+export class MatSpreadsheetInputComponent<Item extends unknown = unknown>
+  implements OnInit, OnChanges, OnDestroy {
+  @HostBinding('class.mat-spreadsheet-input') hostClass = true;
 
-  @Output() dateChange = new EventEmitter<Item>();
+  @Output() inputChange = new EventEmitter<Item>();
 
   @Input() placeholder = '';
-  @Input() panelOpen = false;
   @Input() connectCell!: CdkCellAble;
   @Input() item!: Item;
   @Input() itemRenderKey!: keyof Item;
@@ -57,20 +56,24 @@ export class MatSpreadsheetDatepickerComponent<Item extends unknown = unknown>
   private _unsub$ = new Subject();
 
   /** @internal */
-  _selectChange: unknown;
+  _inputModelChange: unknown;
   /** @internal */
   _active$ = new BehaviorSubject<boolean>(false);
 
   /** @internal */
-  _dateChange(change: MatDatepickerInputEvent<string>) {
-    this._selectChange = change;
-    this.dateChange.emit({ [this.itemRenderKey]: change.value } as Item);
+  _inputChange(change: string) {
+    this._inputModelChange = change;
+    this.inputChange.emit({ [this.itemRenderKey]: change } as Item);
   }
 
   ngOnInit() {
     this.connectCell.cellChange
       .pipe(takeUntil(this._unsub$))
       .subscribe((change: CellChange) => this._active$.next(change.active));
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    this._inputModelChange = changes.placeholder.currentValue;
   }
 
   ngOnDestroy() {

@@ -34,10 +34,6 @@ export class CdkKeyManagerMapper<T extends CdkCellAble> {
     this._createMatrix(cellCount, columnCount);
   }
 
-  get activeItem() {
-    return this._keyManager.activeItem;
-  }
-
   private _createMatrix(cellCount: number, columnCount: number) {
     this._matrixY = matrixUtils.createByAxis('y', cellCount, columnCount);
     this._matrixX = matrixUtils.createByAxis('x', cellCount, columnCount);

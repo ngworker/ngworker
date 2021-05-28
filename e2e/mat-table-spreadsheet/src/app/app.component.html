@@ -40,6 +40,7 @@
         <mat-cell *matCellDef="let element" #matCell="matCell">
           <mat-spreadsheet-combobox
             [connectCell]="matCell"
+            [canAdd]="false"
             [list]="list"
             [listOptionRenderKey]="'name'"
             [placeholder]="element.name"
@@ -56,14 +57,27 @@
           <mat-spreadsheet-datepicker
             [placeholder]="element.date"
             [connectCell]="matCell"
+            [item]="element"
+            [itemRenderKey]="'date'"
+            (dateChange)="onChange($event, element, 'date')"
           >
             {{ element.date }}
           </mat-spreadsheet-datepicker>
         </mat-cell>
       </ng-container>
-      <ng-container matColumnDef="check1">
-        <mat-header-cell *matHeaderCellDef> Check1 </mat-header-cell>
-        <mat-cell *matCellDef="let element"> 1 </mat-cell>
+      <ng-container matColumnDef="street">
+        <mat-header-cell *matHeaderCellDef> Street </mat-header-cell>
+        <mat-cell *matCellDef="let element" #matCell="matCell">
+          <mat-spreadsheet-input
+            [placeholder]="element.street"
+            [connectCell]="matCell"
+            [item]="element"
+            [itemRenderKey]="'street'"
+            (inputChange)="onChange($event, element, 'street')"
+          >
+            {{ element.street }}
+          </mat-spreadsheet-input>
+        </mat-cell>
       </ng-container>
       <ng-container matColumnDef="check2">
         <mat-header-cell *matHeaderCellDef> Check2 </mat-header-cell>

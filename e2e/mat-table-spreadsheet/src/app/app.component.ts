@@ -11,6 +11,7 @@ interface Item {
   position: number;
   name: string;
   date: string;
+  street: string;
 }
 
 @Component({
@@ -23,15 +24,21 @@ interface Item {
 export class AppComponent implements OnInit {
   constructor(private _cdr: ChangeDetectorRef) {}
 
-  columns = ['position', 'name', 'date', 'check1', 'check2', 'check3'];
+  columns = ['position', 'name', 'date', 'street', 'check2', 'check3'];
   dataSource = new MatTableDataSource<Item>();
 
   list = Array(10)
     .fill(0)
-    .map((_, i) => ({ position: i, name: `Foo ${i}`, date: `23.0${i}.2021` }));
+    .map((_, i) => ({
+      position: i,
+      name: `Foo ${i}`,
+      date: `2020-12-0${i}T12:00:00Z`,
+      street: `Musterstrasse ${i}`,
+    }));
 
-  onChange(item: Item, element: Item, field: keyof Item) {
-    Object.assign(element, { [field]: item[field] });
+  onChange(item: Item, element: Item, key: keyof Item) {
+    console.log(item, item, key);
+    Object.assign(element, { [key]: item[key] });
   }
 
   onAdd(item: Item, element: Item, field: keyof Item) {
@@ -46,7 +53,12 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.dataSource.data = Array(300)
       .fill(0)
-      .map((_, i) => ({ position: i, name: `Foo ${i}`, date: `1.1.2020` }));
+      .map((_, i) => ({
+        position: i,
+        name: `Foo ${i}`,
+        date: `2020-12-0${i}T12:00:00Z`,
+        street: `Musterstrasse ${i}`,
+      }));
   }
 
   trackBy(_: number, item: Item) {
