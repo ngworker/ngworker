@@ -6,6 +6,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import * as dayjs from 'dayjs';
 
 interface Item {
   position: number;
@@ -45,12 +46,19 @@ export class AppComponent implements OnInit {
     Object.assign(element, { [field]: item[field] });
   }
 
+  onDateChange(date: string | Date | null) {
+    if (!date) return;
+
+    const fmDate = dayjs(date).format('YYYY-MM-DDThh:mm:ss[Z]');
+    console.log('onDateChange', fmDate);
+  }
+
   console(...args: unknown[]) {
-    console.log(args);
+    console.log(...args);
   }
 
   ngOnInit() {
-    this.dataSource.data = Array(300)
+    this.dataSource.data = Array(100)
       .fill(0)
       .map((_, i) => ({
         position: i,

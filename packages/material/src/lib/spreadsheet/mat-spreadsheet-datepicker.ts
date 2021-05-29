@@ -15,11 +15,16 @@ import { takeUntil } from 'rxjs/operators';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 // @todo: this is a workaround
-// https://www.angulararchitects.io/aktuelles/lazy-loading-locales-with-angular/
-// https://angular.io/api/common/DatePipe
+// - https://www.angulararchitects.io/aktuelles/lazy-loading-locales-with-angular/
+// - https://angular.io/api/common/DatePipe
 import en from '@angular/common/locales/de';
 import { registerLocaleData } from '@angular/common';
 registerLocaleData(en);
+
+// @todo:
+// - find a scalable way for formatting date. See template!
+
+type MatInputDate = MatDatepickerInputEvent<Date | string>;
 
 @Component({
   selector: 'mat-spreadsheet-datepicker',
@@ -33,16 +38,15 @@ registerLocaleData(en);
   ],
   template: `
     <ng-container *ngIf="(_active$ | async) === false; else template">
-      <!-- @todo: find a clean way! -->
-      {{ placeholder | date: 'd.MM.yyyy':'':'de-DE' }}
+      {{ _date | date: format:'':locale }}
     </ng-container>
     <ng-template #template>
       <input
         (click)="picker.open()"
         (dateInput)="_dateChange($event)"
         [matDatepicker]="picker"
-        [value]="placeholder"
-        autocomplete="off"
+        [value]="_date"
+        [autocomplete]="_autoComplete"
       />
       <mat-datepicker #picker></mat-datepicker>
     </ng-template>
@@ -50,34 +54,34 @@ registerLocaleData(en);
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MatSpreadsheetDatepickerComponent<Item extends unknown = unknown>
-  implements OnInit, OnDestroy {
+export class MatSpreadsheetDatepickerComponent implements OnInit, OnDestroy {
   @HostBinding('class.mat-spreadsheet-datepicker') hostClass = true;
-
-  @Output() dateChange = new EventEmitter<Item>();
-
-  @Input() placeholder = '';
-  @Input() panelOpen = false;
   @Input() connectCell!: CdkCellAble;
-  @Input() item!: Item;
-  @Input() itemRenderKey!: keyof Item;
+  @Input() format = 'short';
+  @Input() locale = 'en-US';
+  @Output() dateChange = new EventEmitter<MatInputDate>();
 
-  _value!: Date;
-  @Input() set value(value: Date | string) {
-    this._value = new Date(value);
+  /** @internal */
+  _autoComplete = 'off';
+  @Input() set autocomplete(value: boolean) {
+    this._autoComplete = value ? '' : 'off';
   }
 
+  /** @internal */
+  _date!: Date | string | null;
+  @Input() set date(value: Date | string) {
+    this._date = new Date(value);
+  }
+
+  /** @internal */
+  _active$ = new BehaviorSubject<boolean>(false);
+  /** @internal */
   private _unsub$ = new Subject();
 
   /** @internal */
-  _selectChange: unknown;
-  /** @internal */
-  _active$ = new BehaviorSubject<boolean>(false);
-
-  /** @internal */
-  _dateChange(change: MatDatepickerInputEvent<string>) {
-    this._selectChange = change;
-    this.dateChange.emit({ [this.itemRenderKey]: change.value } as Item);
+  _dateChange(change: MatInputDate) {
+    this._date = change.value;
+    this.dateChange.emit(change);
   }
 
   ngOnInit() {

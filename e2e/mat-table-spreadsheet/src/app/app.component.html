@@ -50,11 +50,11 @@
         <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
         <mat-cell *matCellDef="let element" #matCell="matCell">
           <mat-spreadsheet-datepicker
-            [placeholder]="element.date"
             [connectCell]="matCell"
-            [item]="element"
-            [itemRenderKey]="'date'"
-            (dateChange)="onChange($event, element, 'date')"
+            [date]="element.date"
+            [format]="'d.MM.yyyy'"
+            [locale]="'de-DE'"
+            (dateChange)="onDateChange($event.value)"
           ></mat-spreadsheet-datepicker>
         </mat-cell>
       </ng-container>
