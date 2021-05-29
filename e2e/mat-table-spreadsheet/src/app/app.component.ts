@@ -37,7 +37,6 @@ export class AppComponent implements OnInit {
     }));
 
   onChange(item: Item, element: Item, key: keyof Item) {
-    console.log(item, item, key);
     Object.assign(element, { [key]: item[key] });
   }
 

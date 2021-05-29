@@ -21,6 +21,15 @@ import {
  * https://nartc.me/blog/typed-mat-cell-def
  */
 
+/**
+ * @todo:
+ * - scrollDispatcher not working due to preventDefault (maybe stopPropagation better)
+ * - when selected e.g. in combobox, input, etc it jumps to the next mat-cell but further
+ *   arrow down/up/left/right/ usage is not working
+ * - material mat-form-field around e.g. mat-select, matInput, etc. not working
+ * - add custom directive *ngLoop="list; 'date'"...
+ */
+
 @Directive({
   selector: 'cdk-table[cdkSpreadsheet], [cdkSpreadsheet][cdk-table]',
   exportAs: 'cdkSpreadsheet',

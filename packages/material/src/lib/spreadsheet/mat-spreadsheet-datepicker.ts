@@ -14,6 +14,13 @@ import { BehaviorSubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
+// @todo: this is a workaround
+// https://www.angulararchitects.io/aktuelles/lazy-loading-locales-with-angular/
+// https://angular.io/api/common/DatePipe
+import en from '@angular/common/locales/de';
+import { registerLocaleData } from '@angular/common';
+registerLocaleData(en);
+
 @Component({
   selector: 'mat-spreadsheet-datepicker',
   styles: [
@@ -26,7 +33,8 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
   ],
   template: `
     <ng-container *ngIf="(_active$ | async) === false; else template">
-      {{ placeholder }}
+      <!-- @todo: find a clean way! -->
+      {{ placeholder | date: 'd.MM.yyyy':'':'de-DE' }}
     </ng-container>
     <ng-template #template>
       <input
@@ -53,6 +61,11 @@ export class MatSpreadsheetDatepickerComponent<Item extends unknown = unknown>
   @Input() connectCell!: CdkCellAble;
   @Input() item!: Item;
   @Input() itemRenderKey!: keyof Item;
+
+  _value!: Date;
+  @Input() set value(value: Date | string) {
+    this._value = new Date(value);
+  }
 
   private _unsub$ = new Subject();
 

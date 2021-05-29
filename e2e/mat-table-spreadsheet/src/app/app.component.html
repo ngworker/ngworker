@@ -76,16 +76,7 @@
       </ng-container>
       <ng-container matColumnDef="check3">
         <mat-header-cell *matHeaderCellDef> Check3 </mat-header-cell>
-        <mat-cell *matCellDef="let element">
-          <div class="inactive" #inactive>3</div>
-          <ng-template #active>
-            <mat-select class="active">
-              <mat-option *ngFor="let item of list" [value]="item">
-                {{ item.name }}
-              </mat-option>
-            </mat-select>
-          </ng-template>
-        </mat-cell>
+        <mat-cell *matCellDef="let element"> 3 </mat-cell>
       </ng-container>
       <mat-header-row
         mat-header-row

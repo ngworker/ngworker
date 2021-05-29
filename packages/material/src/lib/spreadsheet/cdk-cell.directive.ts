@@ -27,6 +27,12 @@ export class CdkCellDirective implements CdkCellAble {
   setActiveStyles() {
     this.isActive = true;
     this.cellChange.next({ active: true });
+
+    // @todo: inject .scroll-container otherwise entire window
+    // check if element is in viewport oterwise jump like in excel
+    // this.elementRef.nativeElement
+    //   .closest('.scroll-container')
+    //   ?.scrollTo({ top: 1900 });
   }
 
   setInactiveStyles() {
