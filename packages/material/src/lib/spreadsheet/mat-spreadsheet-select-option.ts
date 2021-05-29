@@ -8,11 +8,10 @@ import {
   OnDestroy,
   OnInit,
   Output,
-  ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { MatSelect, MatSelectChange } from '@angular/material/select';
+import { MatSelectChange } from '@angular/material/select';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -26,19 +25,19 @@ import { takeUntil } from 'rxjs/operators';
   ],
   template: `
     <ng-container *ngIf="(_active$ | async) === false; else template">
-      {{ placeholder }}
+      {{ _renderDefault }}
     </ng-container>
     <ng-template #template>
       <mat-select
         [(ngModel)]="_selectChange"
-        [placeholder]="placeholder + ''"
+        [placeholder]="optionDefault + ''"
         (selectionChange)="_selectionChange($event)"
       >
         <mat-option
-          *ngFor="let item of list"
-          [value]="listOptionValue ? item[listOptionValue] : item"
+          *ngFor="let option of options"
+          [value]="optionValue ? option[optionValue] : option"
         >
-          {{ item[listOptionRenderKey] }}
+          {{ option[optionRender] }}
         </mat-option>
       </mat-select>
     </ng-template>
@@ -50,29 +49,32 @@ export class MatSpreadsheetSelectOptionComponent<Item extends unknown = unknown>
   implements OnInit, OnDestroy {
   @HostBinding('class.mat-spreadsheet-select') hostClass = true;
 
-  /** @internal */
-  @ViewChild(MatSelect) _matSelect!: MatSelect;
-
   @Output() selectionChange = new EventEmitter<MatSelectChange>();
 
-  @Input() placeholder = '';
-  @Input() panelOpen = false;
   @Input() connectCell!: CdkCellAble;
-  @Input() list!: Item[];
-  @Input() listOptionRenderKey!: keyof Item;
-  @Input() listOptionValue!: keyof Item;
+  @Input() options!: Item[];
+  @Input() optionRender!: keyof Item;
+  @Input() optionValue!: keyof Item;
+  @Input() optionDefault!: unknown;
 
   private _unsub$ = new Subject();
 
   /** @internal */
-  _selectChange: unknown;
+  _selectChange!: Item;
   /** @internal */
   _active$ = new BehaviorSubject<boolean>(false);
 
   /** @internal */
   _selectionChange(change: MatSelectChange) {
-    this._selectChange = change.value;
     this.selectionChange.emit(change);
+  }
+
+  get _renderDefault() {
+    return this._selectChange
+      ? this._selectChange[this.optionRender]
+        ? this._selectChange[this.optionRender]
+        : this._selectChange
+      : this.optionDefault;
   }
 
   ngOnInit() {

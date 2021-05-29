@@ -16,8 +16,8 @@
     </mat-toolbar>
 
     <mat-table
-      matSpreadsheet
       mat-table
+      matSpreadsheet
       [dataSource]="dataSource"
       [trackBy]="trackBy"
     >
@@ -26,9 +26,9 @@
         <mat-cell *matCellDef="let element" #matCell="matCell">
           <mat-spreadsheet-select
             [connectCell]="matCell"
-            [list]="list"
-            [listOptionRenderKey]="'position'"
-            [placeholder]="element.position"
+            [options]="list"
+            [optionRender]="'position'"
+            [optionDefault]="element.position"
             (selectionChange)="onChange($event.value, element, 'position')"
           ></mat-spreadsheet-select>
         </mat-cell>
