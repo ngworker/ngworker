@@ -7,11 +7,9 @@ import {
   EventEmitter,
   HostBinding,
   Input,
-  OnChanges,
   OnDestroy,
   OnInit,
   Output,
-  SimpleChanges,
   ViewEncapsulation,
 } from '@angular/core';
 
@@ -27,53 +25,44 @@ import {
   ],
   template: `
     <ng-container *ngIf="(_active$ | async) === false; else template">
-      {{ placeholder }}
+      {{ value }}
     </ng-container>
     <ng-template #template>
       <input
-        [(ngModel)]="_inputModelChange"
         #input
+        [(ngModel)]="value"
         (ngModelChange)="_inputChange(input.value)"
-        [value]="placeholder"
-        type="text"
+        [value]="value"
+        [type]="type"
       />
     </ng-template>
   `,
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MatSpreadsheetInputComponent<Item extends unknown = unknown>
-  implements OnInit, OnChanges, OnDestroy {
+export class MatSpreadsheetInputComponent implements OnInit, OnDestroy {
   @HostBinding('class.mat-spreadsheet-input') hostClass = true;
 
-  @Output() inputChange = new EventEmitter<Item>();
+  @Output() inputChange = new EventEmitter<string>();
 
-  @Input() placeholder = '';
   @Input() connectCell!: CdkCellAble;
-  @Input() item!: Item;
-  @Input() itemRenderKey!: keyof Item;
+  @Input() value: unknown = '';
+  @Input() type = 'text';
 
   private _unsub$ = new Subject();
 
   /** @internal */
-  _inputModelChange: unknown;
-  /** @internal */
   _active$ = new BehaviorSubject<boolean>(false);
 
   /** @internal */
-  _inputChange(change: string) {
-    this._inputModelChange = change;
-    this.inputChange.emit({ [this.itemRenderKey]: change } as Item);
+  _inputChange(value: string) {
+    this.inputChange.emit(value);
   }
 
   ngOnInit() {
     this.connectCell.cellChange
       .pipe(takeUntil(this._unsub$))
       .subscribe((change: CellChange) => this._active$.next(change.active));
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    this._inputModelChange = changes.placeholder.currentValue;
   }
 
   ngOnDestroy() {

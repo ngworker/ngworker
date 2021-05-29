@@ -62,10 +62,8 @@
         <mat-header-cell *matHeaderCellDef> Street </mat-header-cell>
         <mat-cell *matCellDef="let element" #matCell="matCell">
           <mat-spreadsheet-input
-            [placeholder]="element.street"
             [connectCell]="matCell"
-            [item]="element"
-            [itemRenderKey]="'street'"
+            [value]="element.street"
             (inputChange)="onChange($event, element, 'street')"
           ></mat-spreadsheet-input>
         </mat-cell>

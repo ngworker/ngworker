@@ -37,8 +37,9 @@ export class AppComponent implements OnInit {
       street: `Musterstrasse ${i}`,
     }));
 
-  onChange(item: Item, element: Item, key: keyof Item) {
-    Object.assign(element, { [key]: item[key] });
+  onChange(item: unknown, element: unknown, key: keyof Item) {
+    console.log(item, element, key);
+    // Object.assign(element, { [key]: item[key] });
   }
 
   onAdd(item: Item, element: Item, field: keyof Item) {

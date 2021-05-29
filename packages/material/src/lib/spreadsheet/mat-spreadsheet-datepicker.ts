@@ -56,9 +56,11 @@ type MatInputDate = MatDatepickerInputEvent<Date | string>;
 })
 export class MatSpreadsheetDatepickerComponent implements OnInit, OnDestroy {
   @HostBinding('class.mat-spreadsheet-datepicker') hostClass = true;
+
   @Input() connectCell!: CdkCellAble;
   @Input() format = 'short';
   @Input() locale = 'en-US';
+
   @Output() dateChange = new EventEmitter<MatInputDate>();
 
   /** @internal */
