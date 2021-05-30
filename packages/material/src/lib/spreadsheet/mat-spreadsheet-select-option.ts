@@ -69,6 +69,7 @@ export class MatSpreadsheetSelectOptionComponent<Item extends unknown = unknown>
     this.selectionChange.emit(change);
   }
 
+  /** @internal */
   get _renderDefault() {
     return this._selectChange
       ? this._selectChange[this.optionRender]

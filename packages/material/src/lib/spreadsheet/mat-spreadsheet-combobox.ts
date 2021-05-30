@@ -26,19 +26,20 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
   ],
   template: `
     <ng-container *ngIf="(_active$ | async) === false; else template">
-      {{ placeholder }}
+      {{ _renderDefault }}
     </ng-container>
     <ng-template #template>
       <input
         #input
+        [(ngModel)]="_selectChange"
         #matAutocompleteTrigger="matAutocompleteTrigger"
-        (keydown.enter)="canAdd && _addSelection(input.value)"
+        (keydown.enter)="add && _addSelection(input.value)"
         [matAutocomplete]="auto"
-        [value]="placeholder"
-        type="text"
+        [value]="optionDefault + ''"
+        [type]="type"
       />
       <mat-icon
-        *ngIf="canAdd"
+        *ngIf="add"
         (click)="_addSelection(input.value)"
         color="primary"
         matSuffix
@@ -52,10 +53,10 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
         (optionSelected)="_selectionChange($event)"
       >
         <mat-option
-          *ngFor="let item of list"
-          [value]="listOptionValue ? item[listOptionValue] : item"
+          *ngFor="let option of options"
+          [value]="optionValue ? option[optionValue] : option"
         >
-          {{ item[listOptionRenderKey] }}
+          {{ option[optionRender] }}
         </mat-option>
       </mat-autocomplete>
     </ng-template>
@@ -70,36 +71,43 @@ export class MatSpreadsheetComboboxComponent<Item extends unknown = unknown>
   @Output() selectionChange = new EventEmitter<MatAutocompleteSelectedEvent>();
   @Output() selectionAdded = new EventEmitter<Item>();
 
-  @Input() canAdd = false;
-  @Input() canFilter = false;
-  @Input() placeholder = '';
-  @Input() panelOpen = false;
   @Input() connectCell!: CdkCellAble;
-  @Input() list!: Item[];
-  @Input() listOptionRenderKey!: keyof Item;
-  @Input() listOptionValue!: keyof Item;
+  @Input() add = false;
+  @Input() options!: Item[];
+  @Input() optionRender!: keyof Item;
+  @Input() optionValue!: keyof Item;
+  @Input() optionDefault!: unknown;
+  @Input() type = 'text';
 
   private _unsub$ = new Subject();
 
   /** @internal */
-  _selectChange: unknown;
+  _selectChange!: Item;
   /** @internal */
   _active$ = new BehaviorSubject<boolean>(false);
 
   /** @internal */
   _selectionChange(change: MatAutocompleteSelectedEvent) {
-    this._selectChange = change;
     this.selectionChange.emit(change);
   }
 
   /** @internal */
   _addSelection(value: string) {
-    this.selectionAdded.emit({ [this.listOptionRenderKey]: value } as Item);
+    this.selectionAdded.emit(value as Item);
   }
 
   /** @internal */
   _displayWith(option: Item) {
-    return (option[this.listOptionRenderKey] as unknown) as string;
+    return (option?.[this.optionRender] as unknown) as string;
+  }
+
+  /** @internal */
+  get _renderDefault() {
+    return this._selectChange
+      ? this._selectChange?.[this.optionRender]
+        ? this._selectChange?.[this.optionRender]
+        : this._selectChange
+      : this.optionDefault;
   }
 
   ngOnInit() {

@@ -38,9 +38,9 @@
         <mat-cell *matCellDef="let element" #matCell="matCell">
           <mat-spreadsheet-combobox
             [connectCell]="matCell"
-            [list]="list"
-            [listOptionRenderKey]="'name'"
-            [placeholder]="element.name"
+            [options]="list"
+            [optionRender]="'name'"
+            [optionDefault]="element.name"
             (selectionAdded)="onAdd($event, element, 'name')"
             (selectionChange)="onChange($event.option.value, element, 'name')"
           ></mat-spreadsheet-combobox>
