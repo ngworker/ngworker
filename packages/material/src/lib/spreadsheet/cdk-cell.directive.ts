@@ -39,4 +39,8 @@ export class CdkCellDirective implements CdkCellAble {
     this.isActive = false;
     this.cellChange.next({ active: false });
   }
+
+  setActiveFocus() {
+    this.elementRef.nativeElement.focus();
+  }
 }

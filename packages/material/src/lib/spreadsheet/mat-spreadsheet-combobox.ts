@@ -31,11 +31,10 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
     <ng-template #template>
       <input
         #input
-        [(ngModel)]="_selectChange"
         #matAutocompleteTrigger="matAutocompleteTrigger"
-        (keydown.enter)="selectionAdd && _addSelection(input.value)"
+        (keydown.enter)="_addSelection(input.value)"
         [matAutocomplete]="auto"
-        [value]="optionDefault + ''"
+        [value]="_renderDefault + ''"
         [type]="type"
       />
       <mat-icon
@@ -48,6 +47,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
       </mat-icon>
 
       <mat-autocomplete
+        (closed)="connectCell.setActiveFocus()"
         #auto="matAutocomplete"
         [displayWith]="_displayWith.bind(this)"
         (optionSelected)="_selectionChange($event)"
@@ -93,6 +93,7 @@ export class MatSpreadsheetComboboxComponent<Item extends unknown = unknown>
 
   /** @internal */
   _selectionChange(change: MatAutocompleteSelectedEvent) {
+    this._selectChange = change.option.value as Item;
     this.selectionChange.emit(change);
   }
 

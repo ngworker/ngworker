@@ -38,13 +38,13 @@ export class AppComponent implements OnInit {
     }));
 
   onChange(item: unknown, element: unknown, key: keyof Item) {
-    console.log(item, element, key);
+    console.log('onChange', item, element, key);
     // Object.assign(element, { [key]: item[key] });
   }
 
-  onAdd(item: Item, element: Item, field: keyof Item) {
-    this.list.unshift(item);
-    Object.assign(element, { [field]: item[field] });
+  onAdd(item: unknown, element: unknown, key: keyof Item) {
+    console.log('onAdd', item, element, key);
+    // Object.assign(element, { [field]: item[field] });
   }
 
   onDateChange(date: string | Date | null) {
@@ -52,10 +52,6 @@ export class AppComponent implements OnInit {
 
     const fmDate = dayjs(date).format('YYYY-MM-DDThh:mm:ss[Z]');
     console.log('onDateChange', fmDate);
-  }
-
-  console(...args: unknown[]) {
-    console.log(...args);
   }
 
   ngOnInit() {

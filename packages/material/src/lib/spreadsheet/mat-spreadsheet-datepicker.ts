@@ -38,7 +38,7 @@ type MatInputDate = MatDatepickerInputEvent<Date | string>;
   ],
   template: `
     <ng-container *ngIf="(_active$ | async) === false; else template">
-      {{ _date | date: format:'':locale }}
+      {{ _date | date: format:timezone:locale }}
     </ng-container>
     <ng-template #template>
       <input
@@ -48,7 +48,10 @@ type MatInputDate = MatDatepickerInputEvent<Date | string>;
         [value]="_date"
         [autocomplete]="_autoComplete"
       />
-      <mat-datepicker #picker></mat-datepicker>
+      <mat-datepicker
+        (closed)="connectCell.setActiveFocus()"
+        #picker
+      ></mat-datepicker>
     </ng-template>
   `,
   encapsulation: ViewEncapsulation.None,
@@ -60,6 +63,7 @@ export class MatSpreadsheetDatepickerComponent implements OnInit, OnDestroy {
   @Input() connectCell!: CdkCellAble;
 
   @Input() format = 'short';
+  @Input() timezone = '';
   @Input() locale = 'en-US';
 
   @Output() dateChange = new EventEmitter<MatInputDate>();

@@ -44,6 +44,7 @@ export type CellChange = { active: boolean };
 export interface CellAble {
   elementRef: ElementRef<HTMLElement>;
   cellChange: EventEmitter<CellChange>;
+  setActiveFocus(): void;
 }
 
 export interface CdkCellAble extends Highlightable, CellAble {}

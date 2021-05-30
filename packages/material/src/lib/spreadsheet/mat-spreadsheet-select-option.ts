@@ -29,6 +29,7 @@ import { takeUntil } from 'rxjs/operators';
     </ng-container>
     <ng-template #template>
       <mat-select
+        (closed)="connectCell.setActiveFocus()"
         [(ngModel)]="_selectChange"
         [placeholder]="optionDefault + ''"
         (selectionChange)="_selectionChange($event)"
