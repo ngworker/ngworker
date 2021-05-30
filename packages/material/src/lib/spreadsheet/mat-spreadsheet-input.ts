@@ -19,22 +19,24 @@ import {
     `
       .mat-spreadsheet-input {
         width: 100%;
-        all: inherit;
       }
     `,
   ],
   template: `
     <ng-container *ngIf="(_active$ | async) === false; else template">
-      {{ value }}
+      <div>{{ value }}</div>
     </ng-container>
     <ng-template #template>
-      <input
-        #input
-        [(ngModel)]="value"
-        (ngModelChange)="_inputChange(input.value)"
-        [value]="value"
-        [type]="type"
-      />
+      <mat-form-field appearance="outline">
+        <input
+          #input
+          matInput
+          [(ngModel)]="value"
+          (ngModelChange)="_inputChange(input.value)"
+          [value]="value"
+          [type]="type"
+        />
+      </mat-form-field>
     </ng-template>
   `,
   encapsulation: ViewEncapsulation.None,

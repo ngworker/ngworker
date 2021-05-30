@@ -20,45 +20,47 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
     `
       .mat-spreadsheet-combobox {
         width: 100%;
-        all: inherit;
       }
     `,
   ],
   template: `
     <ng-container *ngIf="(_active$ | async) === false; else template">
-      {{ _renderDefault }}
+      <div>{{ _renderDefault }}</div>
     </ng-container>
     <ng-template #template>
-      <input
-        #input
-        #matAutocompleteTrigger="matAutocompleteTrigger"
-        (keydown.enter)="_addSelection(input.value)"
-        [matAutocomplete]="auto"
-        [value]="_renderDefault + ''"
-        [type]="type"
-      />
-      <mat-icon
-        *ngIf="selectionAdd"
-        (click)="_addSelection(input.value)"
-        [color]="selectionAddIconColor"
-        matSuffix
-      >
-        {{ selectionAddIcon }}
-      </mat-icon>
-
-      <mat-autocomplete
-        (closed)="connectCell.setActiveFocus()"
-        #auto="matAutocomplete"
-        [displayWith]="_displayWith.bind(this)"
-        (optionSelected)="_selectionChange($event)"
-      >
-        <mat-option
-          *ngFor="let option of options"
-          [value]="optionValue ? option[optionValue] : option"
+      <mat-form-field appearance="outline">
+        <input
+          matInput
+          #input
+          #matAutocompleteTrigger="matAutocompleteTrigger"
+          (keydown.enter)="_addSelection(input.value)"
+          [matAutocomplete]="auto"
+          [value]="_renderDefault + ''"
+          [type]="type"
+        />
+        <mat-icon
+          *ngIf="selectionAdd"
+          (click)="_addSelection(input.value)"
+          [color]="selectionAddIconColor"
+          matSuffix
         >
-          {{ option[optionRender] }}
-        </mat-option>
-      </mat-autocomplete>
+          {{ selectionAddIcon }}
+        </mat-icon>
+
+        <mat-autocomplete
+          (closed)="connectCell.setActiveFocus()"
+          #auto="matAutocomplete"
+          [displayWith]="_displayWith.bind(this)"
+          (optionSelected)="_selectionChange($event)"
+        >
+          <mat-option
+            *ngFor="let option of options"
+            [value]="optionValue ? option[optionValue] : option"
+          >
+            {{ option[optionRender] }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
     </ng-template>
   `,
   encapsulation: ViewEncapsulation.None,

@@ -15,7 +15,7 @@ export class CdkSpreadsheetKeyManager<CellEdit extends CdkCellAble> {
 
   constructor(
     private _keyManagerMapper: CdkKeyManagerMapper<CellEdit>,
-    private _cellSel = 'mat-cell'
+    private _cellSel = '.mat-cell'
   ) {}
 
   setActiveItem(event: Event) {

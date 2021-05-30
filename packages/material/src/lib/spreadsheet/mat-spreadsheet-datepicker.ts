@@ -32,26 +32,28 @@ type MatInputDate = MatDatepickerInputEvent<Date | string>;
     `
       .mat-spreadsheet-datepicker {
         width: 100%;
-        all: inherit;
       }
     `,
   ],
   template: `
     <ng-container *ngIf="(_active$ | async) === false; else template">
-      {{ _date | date: format:timezone:locale }}
+      <div>{{ _date | date: format:timezone:locale }}</div>
     </ng-container>
     <ng-template #template>
-      <input
-        (click)="picker.open()"
-        (dateInput)="_dateChange($event)"
-        [matDatepicker]="picker"
-        [value]="_date"
-        [autocomplete]="_autoComplete"
-      />
-      <mat-datepicker
-        (closed)="connectCell.setActiveFocus()"
-        #picker
-      ></mat-datepicker>
+      <mat-form-field appearance="outline">
+        <input
+          matInput
+          (dateInput)="_dateChange($event)"
+          [matDatepicker]="picker"
+          [value]="_date"
+          [autocomplete]="_autoComplete"
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker
+          (closed)="connectCell.setActiveFocus()"
+          #picker
+        ></mat-datepicker>
+      </mat-form-field>
     </ng-template>
   `,
   encapsulation: ViewEncapsulation.None,

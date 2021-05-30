@@ -25,22 +25,24 @@ import { takeUntil } from 'rxjs/operators';
   ],
   template: `
     <ng-container *ngIf="(_active$ | async) === false; else template">
-      {{ _renderDefault }}
+      <div>{{ _renderDefault }}</div>
     </ng-container>
     <ng-template #template>
-      <mat-select
-        (closed)="connectCell.setActiveFocus()"
-        [(ngModel)]="_selectChange"
-        [placeholder]="optionDefault + ''"
-        (selectionChange)="_selectionChange($event)"
-      >
-        <mat-option
-          *ngFor="let option of options"
-          [value]="optionValue ? option[optionValue] : option"
+      <mat-form-field appearance="outline">
+        <mat-select
+          (closed)="connectCell.setActiveFocus()"
+          [(ngModel)]="_selectChange"
+          [placeholder]="optionDefault + ''"
+          (selectionChange)="_selectionChange($event)"
         >
-          {{ option[optionRender] }}
-        </mat-option>
-      </mat-select>
+          <mat-option
+            *ngFor="let option of options"
+            [value]="optionValue ? option[optionValue] : option"
+          >
+            {{ option[optionRender] }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </ng-template>
   `,
   encapsulation: ViewEncapsulation.None,

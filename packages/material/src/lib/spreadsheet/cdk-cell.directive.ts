@@ -9,7 +9,7 @@ import { CdkColumnDef } from '@angular/cdk/table';
 import { CdkCellAble, CellChange } from './cdk-spreadsheet.types';
 
 @Directive({
-  selector: 'cdk-cell, th[cdk-cell]',
+  selector: 'cdk-cell, td[cdk-cell]',
   exportAs: 'cdkCellSheet',
 })
 export class CdkCellDirective implements CdkCellAble {

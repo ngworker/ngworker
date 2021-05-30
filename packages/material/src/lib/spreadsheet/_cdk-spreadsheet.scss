@@ -3,27 +3,9 @@
     outline: none;
   }
 
-  input {
-    all: inherit;
-  }
-
 
   .cdk-cell-edit-active, .mat-cell-edit-active {
     box-shadow: inset 0 0 0 1px #4296ff;
-  }
-
-  .cdk-cell-edit, .mat-cell-edit {
-    &:not(.cdk-cell-edit-active),
-    &:not(.mat-cell-edit-active) {
-     .active { display: none }
-     .inactive { display: block }
-    }
-
-    &.cdk-cell-edit-active,
-    &.mat-cell-edit-active {
-      .active { display: block }
-      .inactive { display: none }
-    }
   }
 
 }

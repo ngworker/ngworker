@@ -32,7 +32,7 @@ export function cdkSpreadsheetFactory<T extends CdkCellAble>(
       ).withWrap();
 
       const keyManagerMapper = new CdkKeyManagerMapper(
-        cdkTableSnapshot(elementRef.nativeElement, '.cdk-cell'),
+        cdkTableSnapshot(elementRef.nativeElement, '.mat-cell'),
         activeDescendantKeyManager
       );
 
