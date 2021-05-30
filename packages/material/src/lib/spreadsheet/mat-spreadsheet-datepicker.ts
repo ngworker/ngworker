@@ -58,6 +58,7 @@ export class MatSpreadsheetDatepickerComponent implements OnInit, OnDestroy {
   @HostBinding('class.mat-spreadsheet-datepicker') hostClass = true;
 
   @Input() connectCell!: CdkCellAble;
+
   @Input() format = 'short';
   @Input() locale = 'en-US';
 

@@ -52,6 +52,7 @@ export class MatSpreadsheetSelectOptionComponent<Item extends unknown = unknown>
   @Output() selectionChange = new EventEmitter<MatSelectChange>();
 
   @Input() connectCell!: CdkCellAble;
+
   @Input() options!: Item[];
   @Input() optionRender!: keyof Item;
   @Input() optionValue!: keyof Item;

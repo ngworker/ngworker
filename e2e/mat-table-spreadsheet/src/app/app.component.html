@@ -23,9 +23,9 @@
     >
       <ng-container matColumnDef="position">
         <mat-header-cell *matHeaderCellDef> Position </mat-header-cell>
-        <mat-cell *matCellDef="let element" #matCell="matCell">
+        <mat-cell *matCellDef="let element" #matCellSheet="matCellSheet">
           <mat-spreadsheet-select
-            [connectCell]="matCell"
+            [connectCell]="matCellSheet"
             [options]="list"
             [optionRender]="'position'"
             [optionDefault]="element.position"
@@ -35,12 +35,13 @@
       </ng-container>
       <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-        <mat-cell *matCellDef="let element" #matCell="matCell">
+        <mat-cell *matCellDef="let element" #matCellSheet="matCellSheet">
           <mat-spreadsheet-combobox
-            [connectCell]="matCell"
+            [connectCell]="matCellSheet"
             [options]="list"
             [optionRender]="'name'"
             [optionDefault]="element.name"
+            [selectionAdd]="true"
             (selectionAdded)="onAdd($event, element, 'name')"
             (selectionChange)="onChange($event.option.value, element, 'name')"
           ></mat-spreadsheet-combobox>
@@ -48,9 +49,9 @@
       </ng-container>
       <ng-container matColumnDef="date">
         <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
-        <mat-cell *matCellDef="let element" #matCell="matCell">
+        <mat-cell *matCellDef="let element" #matCellSheet="matCellSheet">
           <mat-spreadsheet-datepicker
-            [connectCell]="matCell"
+            [connectCell]="matCellSheet"
             [date]="element.date"
             [format]="'d.MM.yyyy'"
             [locale]="'de-DE'"
@@ -59,18 +60,27 @@
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="street">
-        <mat-header-cell *matHeaderCellDef> Street </mat-header-cell>
-        <mat-cell *matCellDef="let element" #matCell="matCell">
+        <mat-header-cell *matHeaderCellDef>
+          Input + DefaultValue
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" #matCellSheet="matCellSheet">
           <mat-spreadsheet-input
-            [connectCell]="matCell"
+            [connectCell]="matCellSheet"
             [value]="element.street"
             (inputChange)="onChange($event, element, 'street')"
           ></mat-spreadsheet-input>
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="check2">
-        <mat-header-cell *matHeaderCellDef> Check2 </mat-header-cell>
-        <mat-cell *matCellDef="let element"> 2 </mat-cell>
+        <mat-header-cell *matHeaderCellDef>
+          Input + NoDefaultValue
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" #matCellSheet="matCellSheet">
+          <mat-spreadsheet-input
+            [connectCell]="matCellSheet"
+            (inputChange)="onChange($event, element, 'street')"
+          ></mat-spreadsheet-input>
+        </mat-cell>
       </ng-container>
       <ng-container matColumnDef="check3">
         <mat-header-cell *matHeaderCellDef> Check3 </mat-header-cell>

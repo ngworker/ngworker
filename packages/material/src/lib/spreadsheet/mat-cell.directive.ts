@@ -3,7 +3,7 @@ import { CdkCellDirective } from './cdk-cell.directive';
 
 @Directive({
   selector: 'mat-cell, th[mat-cell]',
-  exportAs: 'matCell',
+  exportAs: 'matCellSheet',
 })
 export class MatCellDirective extends CdkCellDirective {
   @HostBinding('class.mat-cell-edit') hostClass = true;

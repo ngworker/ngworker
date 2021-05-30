@@ -33,18 +33,18 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
         #input
         [(ngModel)]="_selectChange"
         #matAutocompleteTrigger="matAutocompleteTrigger"
-        (keydown.enter)="add && _addSelection(input.value)"
+        (keydown.enter)="selectionAdd && _addSelection(input.value)"
         [matAutocomplete]="auto"
         [value]="optionDefault + ''"
         [type]="type"
       />
       <mat-icon
-        *ngIf="add"
+        *ngIf="selectionAdd"
         (click)="_addSelection(input.value)"
-        color="primary"
+        [color]="selectionAddIconColor"
         matSuffix
       >
-        add
+        {{ selectionAddIcon }}
       </mat-icon>
 
       <mat-autocomplete
@@ -72,11 +72,16 @@ export class MatSpreadsheetComboboxComponent<Item extends unknown = unknown>
   @Output() selectionAdded = new EventEmitter<Item>();
 
   @Input() connectCell!: CdkCellAble;
-  @Input() add = false;
+
+  @Input() selectionAdd = false;
+  @Input() selectionAddIcon = 'add';
+  @Input() selectionAddIconColor = 'primary';
+
   @Input() options!: Item[];
   @Input() optionRender!: keyof Item;
   @Input() optionValue!: keyof Item;
   @Input() optionDefault!: unknown;
+
   @Input() type = 'text';
 
   private _unsub$ = new Subject();

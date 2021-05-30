@@ -10,7 +10,7 @@ import { CdkCellAble, CellChange } from './cdk-spreadsheet.types';
 
 @Directive({
   selector: 'cdk-cell, th[cdk-cell]',
-  exportAs: 'cdkCell',
+  exportAs: 'cdkCellSheet',
 })
 export class CdkCellDirective implements CdkCellAble {
   constructor(

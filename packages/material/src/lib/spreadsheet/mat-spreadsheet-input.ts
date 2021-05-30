@@ -47,6 +47,7 @@ export class MatSpreadsheetInputComponent implements OnInit, OnDestroy {
 
   @Input() connectCell!: CdkCellAble;
   @Input() value: unknown = '';
+
   @Input() type = 'text';
 
   private _unsub$ = new Subject();
