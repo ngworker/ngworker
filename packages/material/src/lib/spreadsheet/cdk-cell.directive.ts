@@ -1,10 +1,4 @@
-import {
-  Directive,
-  ElementRef,
-  EventEmitter,
-  HostBinding,
-  Output,
-} from '@angular/core';
+import { Directive, ElementRef, EventEmitter, HostBinding, Output } from '@angular/core';
 import { CdkColumnDef } from '@angular/cdk/table';
 import { CdkCellAble, CellChange } from './cdk-spreadsheet.types';
 
@@ -15,7 +9,7 @@ import { CdkCellAble, CellChange } from './cdk-spreadsheet.types';
 export class CdkCellDirective implements CdkCellAble {
   constructor(
     public readonly elementRef: ElementRef<HTMLElement>,
-    private readonly _cdkColumnDef: CdkColumnDef
+    private readonly _cdkColumnDef: CdkColumnDef,
   ) {}
 
   @Output() cellChange = new EventEmitter<CellChange>();

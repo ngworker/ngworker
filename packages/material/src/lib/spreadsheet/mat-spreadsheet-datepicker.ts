@@ -37,7 +37,7 @@ type MatInputDate = MatDatepickerInputEvent<Date | string>;
   ],
   template: `
     <ng-container *ngIf="(_active$ | async) === false; else template">
-      <div>{{ _date | date: format:timezone:locale }}</div>
+      <div class="cdk-default-field">{{ _date | date: format:timezone:locale }}</div>
     </ng-container>
     <ng-template #template>
       <mat-form-field appearance="outline">
@@ -46,13 +46,10 @@ type MatInputDate = MatDatepickerInputEvent<Date | string>;
           (dateInput)="_dateChange($event)"
           [matDatepicker]="picker"
           [value]="_date"
-          [autocomplete]="_autoComplete"
+          [autocomplete]="autocomplete"
         />
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker
-          (closed)="connectCell.setActiveFocus()"
-          #picker
-        ></mat-datepicker>
+        <mat-datepicker (closed)="connectCell.setActiveFocus()" #picker></mat-datepicker>
       </mat-form-field>
     </ng-template>
   `,
@@ -63,6 +60,8 @@ export class MatSpreadsheetDatepickerComponent implements OnInit, OnDestroy {
   @HostBinding('class.mat-spreadsheet-datepicker') hostClass = true;
 
   @Input() connectCell!: CdkCellAble;
+  @Input() autocomplete = 'off';
+  @Input() disabled = false;
 
   @Input() format = 'short';
   @Input() timezone = '';
@@ -71,21 +70,15 @@ export class MatSpreadsheetDatepickerComponent implements OnInit, OnDestroy {
   @Output() dateChange = new EventEmitter<MatInputDate>();
 
   /** @internal */
-  _autoComplete = 'off';
-  @Input() set autocomplete(value: boolean) {
-    this._autoComplete = value ? '' : 'off';
-  }
-
-  /** @internal */
   _date!: Date | string | null;
   @Input() set date(value: Date | string) {
-    this._date = new Date(value);
+    this._date = value ? new Date(value) : '';
   }
 
   /** @internal */
   _active$ = new BehaviorSubject<boolean>(false);
   /** @internal */
-  private _unsub$ = new Subject();
+  private readonly _unsub$ = new Subject();
 
   /** @internal */
   _dateChange(change: MatInputDate) {

@@ -1,11 +1,6 @@
 import { CdkCellAble, Direction } from './cdk-spreadsheet.types';
 import { CdkKeyManagerMapper } from './cdk-key-manager-mapper';
-import {
-  DOWN_ARROW,
-  LEFT_ARROW,
-  RIGHT_ARROW,
-  UP_ARROW,
-} from '@angular/cdk/keycodes';
+import { DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
 
 type Event = MouseEvent | KeyboardEvent;
 const ARROW_KEY_CODES = [UP_ARROW, DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW];
@@ -14,8 +9,8 @@ export class CdkSpreadsheetKeyManager<CellEdit extends CdkCellAble> {
   private _currEvent!: Event;
 
   constructor(
-    private _keyManagerMapper: CdkKeyManagerMapper<CellEdit>,
-    private _cellSel = '.mat-cell'
+    private readonly _keyManagerMapper: CdkKeyManagerMapper<CellEdit>,
+    private readonly _cellSel = '.mat-cell',
   ) {}
 
   setActiveItem(event: Event) {

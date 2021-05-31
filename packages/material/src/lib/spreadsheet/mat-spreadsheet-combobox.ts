@@ -13,6 +13,7 @@ import {
 import { BehaviorSubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { TooltipPosition } from '@angular/material/tooltip/tooltip';
 
 @Component({
   selector: 'mat-spreadsheet-combobox',
@@ -21,26 +22,39 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
       .mat-spreadsheet-combobox {
         width: 100%;
       }
+
+      .mat-spreadsheet-combobox .add-icon {
+        cursor: pointer;
+      }
     `,
   ],
   template: `
     <ng-container *ngIf="(_active$ | async) === false; else template">
-      <div>{{ _renderDefault }}</div>
+      <div [title]="_renderDefault" class="cdk-default-field">{{ _renderDefault }}</div>
     </ng-container>
     <ng-template #template>
-      <mat-form-field appearance="outline">
+      <!-- @todo: create combobox component in libs/components -->
+      <mat-form-field
+        [appearance]="'outline'"
+        [matTooltip]="tooltip"
+        [matTooltipPosition]="tooltipPosition"
+        [matTooltipDisabled]="!tooltip.length"
+      >
         <input
           matInput
           #input
           #matAutocompleteTrigger="matAutocompleteTrigger"
-          (keydown.enter)="_addSelection(input.value)"
+          [readonly]="_readonly"
+          [title]="_renderDefault"
           [matAutocomplete]="auto"
-          [value]="_renderDefault + ''"
+          [value]="_renderDefault"
+          [autocomplete]="autocomplete"
           [type]="type"
         />
         <mat-icon
+          class="add-icon"
           *ngIf="selectionAdd"
-          (click)="_addSelection(input.value)"
+          (click)="_addSelection(input.value); input.value = ''"
           [color]="selectionAddIconColor"
           matSuffix
         >
@@ -48,16 +62,13 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
         </mat-icon>
 
         <mat-autocomplete
-          (closed)="connectCell.setActiveFocus()"
           #auto="matAutocomplete"
+          (closed)="connectCell.setActiveFocus()"
           [displayWith]="_displayWith.bind(this)"
           (optionSelected)="_selectionChange($event)"
         >
-          <mat-option
-            *ngFor="let option of options"
-            [value]="optionValue ? option[optionValue] : option"
-          >
-            {{ option[optionRender] }}
+          <mat-option *ngFor="let option of options" [value]="option">
+            <div>{{ option[optionRender] }}</div>
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
@@ -67,26 +78,37 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MatSpreadsheetComboboxComponent<Item extends unknown = unknown>
-  implements OnInit, OnDestroy {
+  implements OnInit, OnDestroy
+{
   @HostBinding('class.mat-spreadsheet-combobox') hostClass = true;
 
   @Output() selectionChange = new EventEmitter<MatAutocompleteSelectedEvent>();
-  @Output() selectionAdded = new EventEmitter<Item>();
+  @Output() selectionAdded = new EventEmitter<string>();
 
   @Input() connectCell!: CdkCellAble;
 
   @Input() selectionAdd = false;
   @Input() selectionAddIcon = 'add';
   @Input() selectionAddIconColor = 'primary';
+  @Input() filter: unknown;
 
   @Input() options!: Item[];
   @Input() optionRender!: keyof Item;
-  @Input() optionValue!: keyof Item;
-  @Input() optionDefault!: unknown;
+  @Input() optionRenderDefault = '';
+
+  @Input() tooltip = '';
+  @Input() tooltipPosition: TooltipPosition = 'above';
+  @Input() tooltipDisabled = true;
+
+  _readonly = 'false';
+  @Input() set readonly(value: boolean) {
+    this._readonly = value ? 'true' : 'false';
+  }
 
   @Input() type = 'text';
+  @Input() autocomplete = 'off';
 
-  private _unsub$ = new Subject();
+  private readonly _unsub$ = new Subject();
 
   /** @internal */
   _selectChange!: Item;
@@ -101,21 +123,18 @@ export class MatSpreadsheetComboboxComponent<Item extends unknown = unknown>
 
   /** @internal */
   _addSelection(value: string) {
-    this.selectionAdded.emit(value as Item);
+    this.selectionAdded.emit(value);
   }
 
   /** @internal */
   _displayWith(option: Item) {
-    return (option?.[this.optionRender] as unknown) as string;
+    return option?.[this.optionRender] as unknown as string;
   }
 
   /** @internal */
   get _renderDefault() {
-    return this._selectChange
-      ? this._selectChange?.[this.optionRender]
-        ? this._selectChange?.[this.optionRender]
-        : this._selectChange
-      : this.optionDefault;
+    const render = this._selectChange?.[this.optionRender];
+    return render ? render : this.optionRenderDefault;
   }
 
   ngOnInit() {

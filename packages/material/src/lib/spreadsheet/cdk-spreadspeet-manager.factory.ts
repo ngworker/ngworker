@@ -7,7 +7,7 @@ import { cdkTableSnapshot } from './cdk-table-snapshot';
 import { CdkCellAble } from './cdk-spreadsheet.types';
 
 export const CDK_SPREADSHEET_FACTORY = new InjectionToken<CdkSpreadsheetDirective>(
-  'cdkSpreadsheetManager'
+  'cdkSpreadsheetManager',
 );
 
 export const CDK_SPREADSHEET_MANAGER_PROVIDERS: Provider[] = [
@@ -23,17 +23,15 @@ export interface CdkSpreadsheetFactory<CellEdit extends CdkCellAble> {
 }
 
 export function cdkSpreadsheetFactory<T extends CdkCellAble>(
-  elementRef: ElementRef
+  elementRef: ElementRef,
 ): CdkSpreadsheetFactory<T> {
   return {
     create: (queryList: QueryList<T>) => {
-      const activeDescendantKeyManager = new ActiveDescendantKeyManager<T>(
-        queryList
-      ).withWrap();
+      const activeDescendantKeyManager = new ActiveDescendantKeyManager<T>(queryList).withWrap();
 
       const keyManagerMapper = new CdkKeyManagerMapper(
         cdkTableSnapshot(elementRef.nativeElement, '.mat-cell'),
-        activeDescendantKeyManager
+        activeDescendantKeyManager,
       );
 
       return new CdkSpreadsheetKeyManager(keyManagerMapper);

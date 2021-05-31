@@ -16,6 +16,7 @@ import { MatSpreadsheetDatepickerComponent } from './mat-spreadsheet-datepicker'
 import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSpreadsheetInputComponent } from './mat-spreadsheet-input';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'de-DE' }],
@@ -49,6 +50,7 @@ import { MatSpreadsheetInputComponent } from './mat-spreadsheet-input';
     MatIconModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatTooltipModule,
   ],
 })
 export class CdkSpreadsheetModule {}

@@ -16,6 +16,7 @@
     </mat-toolbar>
 
     <mat-table
+      class="mat-fields-table input-density-sm hiddenOutline hideDivider rowHover"
       mat-table
       matSpreadsheet
       [dataSource]="dataSource"
@@ -28,7 +29,7 @@
             [connectCell]="matCellSheet"
             [options]="list"
             [optionRender]="'position'"
-            [optionDefault]="element.position"
+            [optionRenderDefault]="element.position"
             (selectionChange)="onChange($event.value, element, 'position')"
           ></mat-spreadsheet-select>
         </mat-cell>
@@ -40,7 +41,7 @@
             [connectCell]="matCellSheet"
             [options]="list"
             [optionRender]="'name'"
-            [optionDefault]="element.name"
+            [optionRenderDefault]="element.name"
             [selectionAdd]="true"
             (selectionAdded)="onAdd($event, element, 'name')"
             (selectionChange)="onChange($event.option.value, element, 'name')"

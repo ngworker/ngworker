@@ -4,17 +4,20 @@ import { takeUntil } from 'rxjs/operators';
 import {
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
   EventEmitter,
   HostBinding,
   Input,
   OnDestroy,
   OnInit,
   Output,
+  ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
 
 @Component({
   selector: 'mat-spreadsheet-input',
+  exportAs: 'matSpreadsheetInput',
   styles: [
     `
       .mat-spreadsheet-input {
@@ -24,7 +27,7 @@ import {
   ],
   template: `
     <ng-container *ngIf="(_active$ | async) === false; else template">
-      <div>{{ value }}</div>
+      <div class="cdk-default-field">{{ value }}</div>
     </ng-container>
     <ng-template #template>
       <mat-form-field appearance="outline">
@@ -35,6 +38,7 @@ import {
           (ngModelChange)="_inputChange(input.value)"
           [value]="value"
           [type]="type"
+          [autocomplete]="autocomplete"
         />
       </mat-form-field>
     </ng-template>
@@ -44,15 +48,18 @@ import {
 })
 export class MatSpreadsheetInputComponent implements OnInit, OnDestroy {
   @HostBinding('class.mat-spreadsheet-input') hostClass = true;
+  @ViewChild('input', { static: true }) input!: ElementRef<HTMLInputElement>;
 
   @Output() inputChange = new EventEmitter<string>();
 
   @Input() connectCell!: CdkCellAble;
+  @Input() autocomplete = 'off';
   @Input() value: unknown = '';
+  @Input() disabled = false;
 
   @Input() type = 'text';
 
-  private _unsub$ = new Subject();
+  private readonly _unsub$ = new Subject();
 
   /** @internal */
   _active$ = new BehaviorSubject<boolean>(false);

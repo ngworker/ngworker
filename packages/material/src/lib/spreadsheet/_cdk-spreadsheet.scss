@@ -3,9 +3,154 @@
     outline: none;
   }
 
-
   .cdk-cell-edit-active, .mat-cell-edit-active {
-    box-shadow: inset 0 0 0 1px #4296ff;
+    //box-shadow: inset 0 0 0 1px #4296ff;
+  }
+}
+// padding for each cell
+
+.mat-header-cell,
+.mat-cell,
+tr th:not(:last-child),
+tr td:not(:last-child) {
+  padding-right: 8px;
+}
+
+//general styles for mat-fields-table
+.mat-fields-table {
+  .cdk-default-field {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
+  // remove height from rows
+  .mat-row {
+    height: auto;
+  }
+
+  .mat-form-field {
+    width: 100%;
+  }
+
+  .mat-form-field-infix {
+    width: auto;
+  }
+
+  // remove padding below form-fields
+  .mat-form-field-appearance-outline .mat-form-field-wrapper {
+    padding-bottom: 0;
+    //margin: 0; // do this when no outline left
+  }
+
+  // when density applied: fix for mat-select arrow icon
+  .mat-form-field-appearance-outline .mat-select-arrow-wrapper {
+    transform: translateY(0);
+  }
+
+  // default centering when do density applied
+  .mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 10px 0 18px 0;
+    border-top-width: 11.5px;
+  }
 }
+
+// faked density-helpers for table inputs
+.mat-fields-table {
+  &.input-density-xs {
+    .mat-form-field-appearance-outline .mat-form-field-infix {
+      padding: 4px 0 6px 0;
+      border-top-width: 6px;
+    }
+    .mat-form-field:not(.mat-form-field-appearance-legacy) {
+      .mat-form-field-prefix .mat-icon-button,
+      .mat-form-field-suffix .mat-icon-button {
+        width: 1.5rem !important;
+        height: 1.5rem !important;
+        svg {
+          width: 1rem;
+          height: 1rem;
+        }
+      }
+    }
+  }
+
+  &.input-density-sm {
+    .mat-form-field-appearance-outline .mat-form-field-infix {
+      padding: 6px 0 10px 0;
+      border-top-width: 8px;
+    }
+    .mat-form-field-appearance-outline .mat-form-field-prefix,
+    .mat-form-field-appearance-outline .mat-form-field-suffix {
+      top: 0.35rem;
+    }
+  }
+
+  &.input-density-md {
+    .mat-form-field-appearance-outline .mat-form-field-infix {
+      padding: 8px 0 14px 0;
+      border-top-width: 9.25px;
+    }
+    .mat-form-field-appearance-outline .mat-form-field-prefix,
+    .mat-form-field-appearance-outline .mat-form-field-suffix {
+      top: 0.4rem;
+    }
+  }
+
+  &.input-density-lg {
+    .mat-form-field-appearance-outline .mat-form-field-infix {
+      padding: 10px 0 18px 0;
+      border-top-width: 11.5px;
+    }
+    .mat-form-field-appearance-outline .mat-form-field-prefix,
+    .mat-form-field-appearance-outline .mat-form-field-suffix {
+      top: 0.4rem;
+    }
+  }
+}
+
+//
+// zebra mode
+//
+// mat-dark-blue-palette: 50
+$zebra-color: hsla(206, 100%, 93%, 0.65);
+
+// mat-row hover
+.rowHover .mat-row:hover {
+  background-color: $zebra-color;
+}
+
+// add bg to active row
+.activeRows .rowActive {
+  background-color: $zebra-color;
+}
+
+// hidden border
+.hiddenOutline {
+  .mat-form-field-appearance-outline .mat-form-field-outline {
+    opacity: 0;
+  }
+
+  .mat-header-cell,
+  .mat-cell,
+  tr th:not(:last-child),
+  tr td:not(:last-child) {
+    padding-right: 0;
+  }
+}
+
+// row distance
+.collapsedRows .mat-form-field-appearance-outline .mat-form-field-wrapper {
+  margin: 0 !important;
+}
+
+// remove border between rows
+.hideDivider {
+  mat-row,
+  mat-footer-row,
+  td.mat-cell,
+  td.mat-footer-cell {
+    border-bottom: 0;
+  }
+}
+

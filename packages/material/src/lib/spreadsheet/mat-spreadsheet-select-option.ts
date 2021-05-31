@@ -25,14 +25,14 @@ import { takeUntil } from 'rxjs/operators';
   ],
   template: `
     <ng-container *ngIf="(_active$ | async) === false; else template">
-      <div>{{ _renderDefault }}</div>
+      <div class="cdk-default-field">{{ _renderDefault }}</div>
     </ng-container>
     <ng-template #template>
       <mat-form-field appearance="outline">
         <mat-select
           (closed)="connectCell.setActiveFocus()"
           [(ngModel)]="_selectChange"
-          [placeholder]="optionDefault + ''"
+          [placeholder]="optionRenderDefault + ''"
           (selectionChange)="_selectionChange($event)"
         >
           <mat-option
@@ -55,13 +55,14 @@ export class MatSpreadsheetSelectOptionComponent<Item extends unknown = unknown>
   @Output() selectionChange = new EventEmitter<MatSelectChange>();
 
   @Input() connectCell!: CdkCellAble;
+  @Input() disabled = false;
 
   @Input() options!: Item[];
   @Input() optionRender!: keyof Item;
   @Input() optionValue!: keyof Item;
-  @Input() optionDefault!: unknown;
+  @Input() optionRenderDefault = '';
 
-  private _unsub$ = new Subject();
+  private readonly _unsub$ = new Subject();
 
   /** @internal */
   _selectChange!: Item;
@@ -70,6 +71,7 @@ export class MatSpreadsheetSelectOptionComponent<Item extends unknown = unknown>
 
   /** @internal */
   _selectionChange(change: MatSelectChange) {
+    this._selectChange = change.value;
     this.selectionChange.emit(change);
   }
 
@@ -79,7 +81,7 @@ export class MatSpreadsheetSelectOptionComponent<Item extends unknown = unknown>
       ? this._selectChange[this.optionRender]
         ? this._selectChange[this.optionRender]
         : this._selectChange
-      : this.optionDefault;
+      : this.optionRenderDefault;
   }
 
   ngOnInit() {

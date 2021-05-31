@@ -1,18 +1,10 @@
 import { ElementRef, EventEmitter } from '@angular/core';
 import { Highlightable } from '@angular/cdk/a11y';
-import {
-  DOWN_ARROW,
-  LEFT_ARROW,
-  RIGHT_ARROW,
-  UP_ARROW,
-} from '@angular/cdk/keycodes';
+import { DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
 
 export const NON_VALID_AXIS = -1;
 
-export interface Table<
-  N extends number = number,
-  E extends HTMLElement = HTMLElement
-> {
+export interface Table<N extends number = number, E extends HTMLElement = HTMLElement> {
   readonly rowCount: N;
   readonly columnCount: N;
   readonly cellCount: N;
@@ -35,10 +27,11 @@ export type MatrixX<T extends PropertyKey> = T[][] & { _brand: 'matrix_x' };
 export type Matrix<T extends PropertyKey> = MatrixY<T> | MatrixX<T>;
 
 // @todo: works not well!
-export type MatrixReturnType<
-  T extends string,
-  K extends PropertyKey
-> = T extends 'y' ? MatrixY<K> : T extends 'x' ? MatrixX<K> : never;
+export type MatrixReturnType<T extends string, K extends PropertyKey> = T extends 'y'
+  ? MatrixY<K>
+  : T extends 'x'
+  ? MatrixX<K>
+  : never;
 
 export type CellChange = { active: boolean };
 export interface CellAble {

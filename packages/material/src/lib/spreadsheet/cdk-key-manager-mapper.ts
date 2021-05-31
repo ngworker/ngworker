@@ -8,12 +8,7 @@ import {
   Table,
 } from './cdk-spreadsheet.types';
 
-import {
-  DOWN_ARROW,
-  LEFT_ARROW,
-  RIGHT_ARROW,
-  UP_ARROW,
-} from '@angular/cdk/keycodes';
+import { DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import * as matrixUtils from './cdk-key-manager-mapper.utils';
 
@@ -23,8 +18,8 @@ export class CdkKeyManagerMapper<T extends CdkCellAble> {
   private _currTableAxis: Axis = { x: -1, y: -1 };
 
   constructor(
-    private _tableState: Table,
-    private _keyManager: ActiveDescendantKeyManager<T>
+    private readonly _tableState: Table,
+    private readonly _keyManager: ActiveDescendantKeyManager<T>,
   ) {
     this._init();
   }
@@ -68,10 +63,7 @@ export class CdkKeyManagerMapper<T extends CdkCellAble> {
     } else if (this.isXMove(tableAxisItemX, tableAxisItemY)) {
       keyManagerItemIndex = this.setTableByAxis(tableAxisItemX, 'x');
     } else {
-      keyManagerItemIndex = this.getKeyMangerItemIndex(
-        tableAxisItemY,
-        tableAxisItemX
-      );
+      keyManagerItemIndex = this.getKeyMangerItemIndex(tableAxisItemY, tableAxisItemX);
     }
 
     this.setActiveItem(keyManagerItemIndex);
@@ -99,10 +91,7 @@ export class CdkKeyManagerMapper<T extends CdkCellAble> {
   getKeyMangerItemAxis(element: Element): Axis {
     if (!this._tableState) throw new Error(`value is undefined!`);
 
-    const currentColIndex = matrixUtils.findIndexOfEl(
-      this._tableState.cells,
-      element
-    );
+    const currentColIndex = matrixUtils.findIndexOfEl(this._tableState.cells, element);
 
     if (!this._matrixY) throw new Error(`value is undefined!`);
     const tableAxis = matrixUtils.findAxis(currentColIndex, this._matrixY);

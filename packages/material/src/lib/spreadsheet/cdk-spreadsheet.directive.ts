@@ -36,12 +36,13 @@ import {
   providers: CDK_SPREADSHEET_MANAGER_PROVIDERS,
 })
 export class CdkSpreadsheetDirective<CellEdit extends CdkCellAble = CdkCellAble>
-  implements AfterContentInit {
-  public spreadsheetManager!: CdkSpreadsheetKeyManager<CellEdit>;
+  implements AfterContentInit
+{
+  spreadsheetManager!: CdkSpreadsheetKeyManager<CellEdit>;
 
   constructor(
     @Inject(CDK_SPREADSHEET_FACTORY)
-    private _spreadsheetFactory: CdkSpreadsheetFactory<CellEdit>
+    private readonly _spreadsheetFactory: CdkSpreadsheetFactory<CellEdit>,
   ) {}
 
   @HostBinding('class.cdk-spreadsheet') hostClass = true;
@@ -78,8 +79,6 @@ export class CdkSpreadsheetDirective<CellEdit extends CdkCellAble = CdkCellAble>
   }
 
   ngAfterContentInit() {
-    this.spreadsheetManager = this._spreadsheetFactory.create(
-      this.cellQueryList
-    );
+    this.spreadsheetManager = this._spreadsheetFactory.create(this.cellQueryList);
   }
 }

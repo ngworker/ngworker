@@ -6,8 +6,8 @@ export function cdkTableSnapshot(element: HTMLElement, selector: string) {
 
   return {
     cells,
-    rowCount: rowCount ?? -1,
-    columnCount: columnCount ?? -1,
-    cellCount: cellCount ?? -1,
+    rowCount: isNaN(rowCount) ? 0 : rowCount ?? -1,
+    columnCount: isNaN(columnCount) ? 0 : columnCount ?? -1,
+    cellCount: isNaN(cellCount) ? 0 : cellCount ?? -1,
   };
 }
