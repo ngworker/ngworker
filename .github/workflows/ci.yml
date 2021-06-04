@@ -7,7 +7,6 @@ env:
   NX_RUN_GROUP: ${{ github.run_id }}
   PNPM_STORE_PATH: ~/.pnpm-store
   node-version: 12.x
-  os: ubuntu-latest
   spectacular-docs-package-name: spectacular-docs
 
 on:
@@ -17,7 +16,7 @@ on:
 
 jobs:
   lint:
-    runs-on: ${{ env.os }}
+    runs-on: ubuntu-latest
 
     steps:
       - if: github.event_name == 'push'
@@ -54,7 +53,7 @@ jobs:
         run: pnpm affected:lint -- --base=origin/$BASE_BRANCH
 
   test:
-    runs-on: ${{ env.os }}
+    runs-on: ubuntu-latest
 
     steps:
       - if: github.event_name == 'push'
@@ -93,7 +92,7 @@ jobs:
         run: pnpm affected:test -- --base=origin/$BASE_BRANCH
 
   build:
-    runs-on: ${{ env.os }}
+    runs-on: ubuntu-latest
 
     steps:
       - if: github.event_name == 'push'
@@ -151,7 +150,7 @@ jobs:
       ${{ github.ref == 'refs/heads/main' && (github.event_name ==
       'workflow_dispatch' || github.event_name == 'push') }}
     needs: build
-    runs-on: ${{ env.os }}
+    runs-on: ubuntu-latest
 
     env:
       package-path: ./spectacular-docs/
@@ -172,7 +171,7 @@ jobs:
           folder: ${{ env.package-path }}
 
   e2e:
-    runs-on: ${{ env.os }}
+    runs-on: ubuntu-latest
 
     steps:
       - if: github.event_name == 'push'
