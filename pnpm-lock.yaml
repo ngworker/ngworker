@@ -40,6 +40,7 @@ specifiers:
   '@typescript-eslint/eslint-plugin': 4.3.0
   '@typescript-eslint/parser': 4.3.0
   all-contributors-cli: ^6.19.0
+  any-observable: ^0.5.1
   clsx: ^1.1.1
   cypress: ^6.4.0
   docusaurus-plugin-typedoc: ~0.14.2
@@ -113,6 +114,7 @@ devDependencies:
   '@typescript-eslint/eslint-plugin': 4.3.0_994d979c051549b216df6838c5973d27
   '@typescript-eslint/parser': 4.3.0_eslint@7.10.0+typescript@4.0.7
   all-contributors-cli: 6.20.0
+  any-observable: 0.5.1_rxjs@6.5.5
   clsx: 1.1.1
   cypress: 6.9.1
   docusaurus-plugin-typedoc: 0.14.2_0777806f538244711b8ecfde78c12638
@@ -5040,6 +5042,21 @@ packages:
   /any-observable/0.3.0:
     resolution: {integrity: sha512-/FQM1EDkTsf63Ub2C6O7GuYFDsSXUwsaZDurV0np41ocwq0jthUAYCmhBX9f+KwlaCgIuWyr/4WlUQUBfKfZog==}
     engines: {node: '>=6'}
+    dev: true
+
+  /any-observable/0.5.1_rxjs@6.5.5:
+    resolution: {integrity: sha512-8zv01bgDOp9PTmRTNCAHTw64TFP2rvlX4LvtNJLachaXY+AjmIvLT47fABNPCiIe89hKiSCo2n5zmPqI9CElPA==}
+    engines: {node: '>=8'}
+    peerDependencies:
+      rxjs: '*'
+      zen-observable: '*'
+    peerDependenciesMeta:
+      rxjs:
+        optional: true
+      zen-observable:
+        optional: true
+    dependencies:
+      rxjs: 6.5.5
     dev: true
 
   /anymatch/2.0.0:

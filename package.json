@@ -77,6 +77,7 @@
     "@typescript-eslint/eslint-plugin": "4.3.0",
     "@typescript-eslint/parser": "4.3.0",
     "all-contributors-cli": "^6.19.0",
+    "any-observable": "^0.5.1",
     "clsx": "^1.1.1",
     "cypress": "^6.4.0",
     "docusaurus-plugin-typedoc": "~0.14.2",
