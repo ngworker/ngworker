@@ -6,6 +6,8 @@ env:
   NX_BRANCH: ${{ github.event.number }}
   NX_RUN_GROUP: ${{ github.run_id }}
   PNPM_STORE_PATH: ~/.pnpm-store
+  node-version: 12.x
+  os: ubuntu-latest
   spectacular-docs-package-name: spectacular-docs
 
 on:
@@ -15,7 +17,7 @@ on:
 
 jobs:
   lint:
-    runs-on: ubuntu-20.04
+    runs-on: ${{ env.os }}
 
     steps:
       - if: github.event_name == 'push'
@@ -29,10 +31,10 @@ jobs:
       - if: github.event_name == 'pull_request'
         run: git fetch --no-tags --depth=1 origin $BASE_BRANCH
 
-      - name: Use Node.js
+      - name: Use Node.js ${{ env.node-version }}
         uses: actions/setup-node@v2
         with:
-          node-version: 12.x
+          node-version: ${{ env.node-version }}
 
       - run: npm install --global pnpm
       - run: pnpm config set store-dir $PNPM_STORE_PATH
@@ -52,7 +54,7 @@ jobs:
         run: pnpm affected:lint -- --base=origin/$BASE_BRANCH
 
   test:
-    runs-on: ubuntu-20.04
+    runs-on: ${{ env.os }}
 
     steps:
       - if: github.event_name == 'push'
@@ -66,10 +68,10 @@ jobs:
       - if: github.event_name == 'pull_request'
         run: git fetch --no-tags --depth=1 origin $BASE_BRANCH
 
-      - name: Use Node.js
+      - name: Use Node.js ${{ env.node-version }}
         uses: actions/setup-node@v2
         with:
-          node-version: 12.x
+          node-version: ${{ env.node-version }}
 
       - run: npm install --global pnpm
       - run: pnpm config set store-dir $PNPM_STORE_PATH
@@ -91,7 +93,7 @@ jobs:
         run: pnpm affected:test -- --base=origin/$BASE_BRANCH
 
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ${{ env.os }}
 
     steps:
       - if: github.event_name == 'push'
@@ -105,10 +107,10 @@ jobs:
       - if: github.event_name == 'pull_request'
         run: git fetch --no-tags --depth=1 origin $BASE_BRANCH
 
-      - name: Use Node.js
+      - name: Use Node.js ${{ env.node-version }}
         uses: actions/setup-node@v2
         with:
-          node-version: 12.x
+          node-version: ${{ env.node-version }}
 
       - run: npm install --global pnpm
       - run: pnpm config set store-dir $PNPM_STORE_PATH
@@ -149,7 +151,7 @@ jobs:
       ${{ github.ref == 'refs/heads/main' && (github.event_name ==
       'workflow_dispatch' || github.event_name == 'push') }}
     needs: build
-    runs-on: ubuntu-20.04
+    runs-on: ${{ env.os }}
 
     env:
       package-path: ./spectacular-docs/
@@ -170,7 +172,7 @@ jobs:
           folder: ${{ env.package-path }}
 
   e2e:
-    runs-on: ubuntu-20.04
+    runs-on: ${{ env.os }}
 
     steps:
       - if: github.event_name == 'push'
@@ -184,10 +186,10 @@ jobs:
       - if: github.event_name == 'pull_request'
         run: git fetch --no-tags --depth=1 origin $BASE_BRANCH
 
-      - name: Use Node.js
+      - name: Use Node.js ${{ env.node-version }}
         uses: actions/setup-node@v2
         with:
-          node-version: 12.x
+          node-version: ${{ env.node-version }}
 
       - run: npm install --global pnpm
       - run: pnpm config set store-dir $PNPM_STORE_PATH
