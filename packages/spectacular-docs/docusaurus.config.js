@@ -7,6 +7,15 @@ module.exports = {
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
   organizationName: 'facebook', // Usually your GitHub org/user name.
+  plugins: [
+    [
+      'docusaurus-plugin-typedoc',
+      {
+        entryPoints: ['./packages/spectacular/src/index.ts'],
+        tsconfig: './packages/spectacular/tsconfig.lib.prod.json',
+      },
+    ],
+  ],
   projectName: 'docusaurus', // Usually your repo name.
   themeConfig: {
     navbar: {
