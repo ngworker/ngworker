@@ -146,9 +146,9 @@ jobs:
 
   deploy-docs:
     name: Deploy docs to GitHub Pages
-    if: >
-      ${{ github.ref == 'refs/heads/main' && (github.event_name ==
-      'workflow_dispatch' || github.event_name == 'push') }}
+    if:
+      github.ref == 'refs/heads/main' && (github.event_name ==
+      'workflow_dispatch' || github.event_name == 'push')
     needs: build
     runs-on: ubuntu-latest
 
@@ -158,6 +158,8 @@ jobs:
     steps:
       # necessary for JamesIves/github-pages-deploy-action
       - uses: actions/checkout@v2
+
+      - run: echo ${{ github.ref }}
 
       - uses: actions/download-artifact@v2
         with:
