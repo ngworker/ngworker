@@ -1,12 +1,12 @@
 module.exports = {
   title: 'My Site',
   tagline: 'The tagline of my site',
-  url: 'https://your-docusaurus-test-site.com',
-  baseUrl: '/',
+  url: 'https://ngworker.github.io',
+  baseUrl: '/ngworker/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
-  organizationName: 'facebook', // Usually your GitHub org/user name.
+  organizationName: 'ngworker',
   plugins: [
     [
       'docusaurus-plugin-typedoc',
@@ -16,7 +16,7 @@ module.exports = {
       },
     ],
   ],
-  projectName: 'docusaurus', // Usually your repo name.
+  projectName: 'ngworker',
   themeConfig: {
     navbar: {
       title: 'My Site',
