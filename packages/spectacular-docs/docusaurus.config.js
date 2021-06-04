@@ -3,7 +3,7 @@ module.exports = {
   tagline: 'The tagline of my site',
   url: 'https://ngworker.github.io',
   baseUrl: '/ngworker/',
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'error',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
   organizationName: 'ngworker',
