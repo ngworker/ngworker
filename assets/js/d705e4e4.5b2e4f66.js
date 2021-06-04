@@ -1,0 +1,1 @@
+(self.webpackChunkngworker=self.webpackChunkngworker||[]).push([[859],{3969:e=>{"use strict";e.exports=JSON.parse('{"allTagsPath":"/ngworker/blog/tags","slug":"hello","name":"hello","count":2,"permalink":"/ngworker/blog/tags/hello"}')}}]);

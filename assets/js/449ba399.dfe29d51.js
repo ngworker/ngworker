@@ -1,0 +1,1 @@
+(self.webpackChunkngworker=self.webpackChunkngworker||[]).push([[589],{864:e=>{"use strict";e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"Welcome","permalink":"/ngworker/blog/welcome"},{"title":"Hello","permalink":"/ngworker/blog/hello-world"},{"title":"Hola","permalink":"/ngworker/blog/hola"}]}')}}]);
