@@ -146,7 +146,7 @@ jobs:
 
   deploy-docs:
     name: Deploy docs to GitHub Pages
-    if:
+    if: >
       github.ref == 'refs/heads/main' && (github.event_name ==
       'workflow_dispatch' || github.event_name == 'push')
     needs: build
