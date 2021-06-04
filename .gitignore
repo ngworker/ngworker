@@ -41,3 +41,4 @@ Thumbs.db
 # Generated Docusaurus files
 .docusaurus/
 .cache-loader/
+/packages/**/docs/api
