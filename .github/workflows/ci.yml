@@ -4,6 +4,7 @@ env:
   BASE_BRANCH: ${{ github.event.pull_request.base.ref }}
   NODE_OPTIONS: --max_old_space_size=6144
   NX_BRANCH: ${{ github.event.number }}
+  NX_MAX_PARALLEL: 2
   NX_RUN_GROUP: ${{ github.run_id }}
   PNPM_STORE_PATH: ~/.pnpm-store
   node-version: 12.x
@@ -48,9 +49,11 @@ jobs:
       - run: pnpm store prune
 
       - if: github.event_name == 'push'
-        run: pnpm lint
+        run: pnpm lint --max-parallel=$NX_MAX_PARALLEL
       - if: github.event_name == 'pull_request'
-        run: pnpm affected:lint -- --base=origin/$BASE_BRANCH
+        run:
+          pnpm affected:lint -- --base=origin/$BASE_BRANCH
+          --max-parallel=$NX_MAX_PARALLEL
 
   test:
     runs-on: ubuntu-latest
@@ -87,9 +90,11 @@ jobs:
       - run: pnpm store prune
 
       - if: github.event_name == 'push'
-        run: pnpm test
+        run: pnpm test --max-parallel=$NX_MAX_PARALLEL
       - if: github.event_name == 'pull_request'
-        run: pnpm affected:test -- --base=origin/$BASE_BRANCH
+        run:
+          pnpm affected:test -- --base=origin/$BASE_BRANCH
+          --max-parallel=$NX_MAX_PARALLEL
 
   build:
     runs-on: ubuntu-latest
@@ -204,4 +209,4 @@ jobs:
       - run: pnpm install --verify-store-integrity false
       - run: pnpm store prune
 
-      - run: pnpm e2e
+      - run: pnpm e2e --max-parallel=$NX_MAX_PARALLEL
