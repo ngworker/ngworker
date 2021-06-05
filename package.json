@@ -14,7 +14,7 @@
     "affected:apps": "nx affected:apps",
     "affected:libs": "nx affected:libs",
     "affected:build": "nx affected:build --configuration=production --with-deps",
-    "affected:e2e": "nx affected:e2e",
+    "affected:e2e": "nx affected:e2e --parallel",
     "affected:test": "nx affected:test --parallel",
     "affected:lint": "nx workspace-lint && nx affected:lint --parallel",
     "affected:dep-graph": "nx affected:dep-graph",
