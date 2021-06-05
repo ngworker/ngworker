@@ -1,12 +1,14 @@
+const shadesOfPurpleTheme = require('prism-react-renderer/themes/shadesOfPurple');
+
+const organizationName = 'ngworker';
+const projectName = 'ngworker';
+
 module.exports = {
-  title: 'My Site',
-  tagline: 'The tagline of my site',
-  url: 'https://ngworker.github.io',
   baseUrl: '/ngworker/',
+  favicon: 'img/favicon.ico',
   onBrokenLinks: 'error',
   onBrokenMarkdownLinks: 'warn',
-  favicon: 'img/favicon.ico',
-  organizationName: 'ngworker',
+  organizationName,
   plugins: [
     [
       'docusaurus-plugin-typedoc',
@@ -16,79 +18,6 @@ module.exports = {
       },
     ],
   ],
-  projectName: 'ngworker',
-  themeConfig: {
-    navbar: {
-      title: 'My Site',
-      logo: {
-        alt: 'My Site Logo',
-        src: 'img/logo.svg',
-      },
-      items: [
-        {
-          to: 'docs/',
-          activeBasePath: 'docs',
-          label: 'Docs',
-          position: 'left',
-        },
-        { to: 'blog', label: 'Blog', position: 'left' },
-        {
-          href: 'https://github.com/facebook/docusaurus',
-          label: 'GitHub',
-          position: 'right',
-        },
-      ],
-    },
-    footer: {
-      style: 'dark',
-      links: [
-        {
-          title: 'Docs',
-          items: [
-            {
-              label: 'Style Guide',
-              to: 'docs/',
-            },
-            {
-              label: 'Second Doc',
-              to: 'docs/doc2/',
-            },
-          ],
-        },
-        {
-          title: 'Community',
-          items: [
-            {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-            },
-            {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
-            },
-            {
-              label: 'Twitter',
-              href: 'https://twitter.com/docusaurus',
-            },
-          ],
-        },
-        {
-          title: 'More',
-          items: [
-            {
-              label: 'Blog',
-              to: 'blog',
-            },
-            {
-              label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
-            },
-          ],
-        },
-      ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
-    },
-  },
   presets: [
     [
       '@docusaurus/preset-classic',
@@ -111,4 +40,86 @@ module.exports = {
       },
     ],
   ],
+  projectName,
+  tagline: 'Spectacular Angular integration testing.',
+  title: 'Spectacular',
+  themeConfig: {
+    colorMode: {
+      respectPrefersColorScheme: true,
+    },
+    image: 'img/logo.png',
+    footer: {
+      copyright: `Copyright © ${new Date().getFullYear()} ngworkers.`,
+      links: [
+        {
+          title: 'Docs',
+          items: [
+            {
+              label: 'Style Guide',
+              to: 'docs/',
+            },
+            {
+              label: 'Second Doc',
+              to: 'docs/doc2/',
+            },
+            {
+              label: 'API',
+              to: 'docs/api/',
+            },
+          ],
+        },
+        {
+          title: 'Community',
+          items: [
+            {
+              label: 'Stack Overflow',
+              href: 'https://stackoverflow.com/questions/tagged/spectacular',
+            },
+            {
+              label: 'YouTube',
+              href:
+                'https://www.youtube.com/results?search_query=spectacular+ngworker',
+            },
+          ],
+        },
+      ],
+      logo: {
+        alt: 'Spectacular logo',
+        href: '/',
+        src: 'img/logo.png',
+      },
+      style: 'dark',
+    },
+    navbar: {
+      items: [
+        {
+          activeBasePath: 'docs',
+          label: 'Docs',
+          position: 'left',
+          to: 'docs/',
+        },
+        {
+          label: 'Blog',
+          position: 'left',
+          to: 'blog',
+        },
+        {
+          href: `https://github.com/${organizationName}/${projectName}`,
+          label: 'GitHub',
+          position: 'right',
+        },
+      ],
+      logo: {
+        alt: 'Spectacular logo',
+        src: 'img/logo.svg',
+      },
+      title: 'Spectacular',
+    },
+    prism: {
+      darkTheme: shadesOfPurpleTheme,
+      defaultLanguage: 'typescript',
+      theme: shadesOfPurpleTheme,
+    },
+  },
+  url: 'https://ngworker.github.io',
 };
