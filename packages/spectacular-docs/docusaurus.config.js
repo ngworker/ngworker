@@ -111,7 +111,7 @@ module.exports = {
       ],
       logo: {
         alt: 'Spectacular logo',
-        src: 'img/logo.svg',
+        src: 'img/logo.png',
       },
       title: 'Spectacular',
     },
