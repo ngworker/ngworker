@@ -52,18 +52,26 @@ module.exports = {
       copyright: `© ${new Date().getFullYear()} ngworkers. Logo by Felipe Zambrano. Art by vectorjuice.`,
       links: [
         {
-          title: 'Docs',
+          title: 'Documentation',
           items: [
             {
-              label: 'Style Guide',
+              label: 'Spectacular',
               to: 'docs/',
             },
             {
-              label: 'Second Doc',
-              to: 'docs/doc2/',
+              label: 'Application Testing API',
+              to: 'docs/application-testing/',
             },
             {
-              label: 'API',
+              label: 'Feature Testing API',
+              to: 'docs/feature-testing/',
+            },
+            {
+              label: 'Pipe Testing API',
+              to: 'docs/pipe-testing/',
+            },
+            {
+              label: 'API reference',
               to: 'docs/api/',
             },
           ],
