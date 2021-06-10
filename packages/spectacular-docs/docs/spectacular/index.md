@@ -1,6 +1,6 @@
 ---
 id: index
-slug: /spectacular
+slug: /
 sidebar_label: Introduction
 title: Spectacular
 ---
