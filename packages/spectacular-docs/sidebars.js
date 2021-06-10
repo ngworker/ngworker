@@ -1,6 +1,5 @@
 module.exports = {
   someSidebar: {
-    Docusaurus: ['doc1', 'doc2', 'doc3', 'mdx'],
     Spectacular: ['spectacular/index', 'spectacular/getting-started'],
     'Application Testing API': ['application-testing/index'],
     'Feature Testing API': ['feature-testing/index'],
