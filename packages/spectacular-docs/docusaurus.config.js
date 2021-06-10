@@ -82,6 +82,19 @@ module.exports = {
             },
           ],
         },
+        {
+          title: 'Package',
+          items: [
+            {
+              href: `https://github.com/${organizationName}/${projectName}`,
+              label: 'GitHub',
+            },
+            {
+              href: 'https://npmjs.com/package/@ngworker/spectacular',
+              label: 'NPM',
+            },
+          ],
+        },
       ],
       logo: {
         alt: 'Spectacular logo',
@@ -102,16 +115,6 @@ module.exports = {
           label: 'Blog',
           position: 'left',
           to: 'blog',
-        },
-        {
-          href: 'https://npmjs.com/package/@ngworker/spectacular',
-          label: 'NPM',
-          position: 'right',
-        },
-        {
-          href: `https://github.com/${organizationName}/${projectName}`,
-          label: 'GitHub',
-          position: 'right',
         },
       ],
       logo: {
