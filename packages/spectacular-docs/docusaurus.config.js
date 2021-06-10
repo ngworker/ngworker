@@ -49,7 +49,7 @@ module.exports = {
     },
     image: 'img/logo.png',
     footer: {
-      copyright: `Copyright © ${new Date().getFullYear()} ngworkers.`,
+      copyright: `© ${new Date().getFullYear()} ngworkers.`,
       links: [
         {
           title: 'Docs',
