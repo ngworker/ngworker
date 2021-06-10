@@ -104,6 +104,11 @@ module.exports = {
           to: 'blog',
         },
         {
+          href: 'https://npmjs.com/package/@ngworker/spectacular',
+          label: 'NPM',
+          position: 'right',
+        },
+        {
           href: `https://github.com/${organizationName}/${projectName}`,
           label: 'GitHub',
           position: 'right',
