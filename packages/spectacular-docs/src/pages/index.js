@@ -1,39 +1,45 @@
-import React from 'react';
-import clsx from 'clsx';
-import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import useBaseUrl from '@docusaurus/useBaseUrl';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import Layout from '@theme/Layout';
+import clsx from 'clsx';
+import React from 'react';
+
 import styles from './styles.module.css';
 
 const features = [
   {
-    title: 'Easy to Use',
-    imageUrl: 'img/undraw_docusaurus_mountain.svg',
+    title: 'Flexible when you need it',
+    imageUrl: 'img/vectorjuice-flexible.jpg',
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        Spectacular's test harnesses runs your Angular feature in an environment
+        as as reasonably close to a real Angular application as possible. You
+        can easily add custom Angular module imports and providers to replace
+        dependencies when needed.
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
-    imageUrl: 'img/undraw_docusaurus_tree.svg',
+    title: 'Specialized test harnesses',
+    imageUrl: 'img/vectorjuice-specialized.png',
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        Spectacular reduces boilerplate by taking care of setup and
+        configuration of the Angular testing module. Every test harness focuses
+        on testing a specific part of Angular applications and libraries.
       </>
     ),
   },
   {
-    title: 'Powered by React',
-    imageUrl: 'img/undraw_docusaurus_react.svg',
+    title: 'Faster than end-to-end tests',
+    imageUrl: 'img/vectorjuice-fast.jpg',
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        Test parts of your Angular project without spinning up an entire
+        application. Spectacular uses Angular's testbed under the hood which is
+        continuously getting faster as new versions are released. Compiled
+        classes are cached by Angular between test cases.
       </>
     ),
   },
