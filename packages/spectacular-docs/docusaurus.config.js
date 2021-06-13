@@ -49,7 +49,7 @@ module.exports = {
     },
     image: 'img/logo.png',
     footer: {
-      copyright: `© ${new Date().getFullYear()} ngworkers. Logo by Felipe Zambrano. Art by vectorjuice.`,
+      copyright: `© ${new Date().getFullYear()} ngworkers. Logo by Felipe Zambrano. Artwork by vectorjuice.`,
       links: [
         {
           title: 'Documentation',
