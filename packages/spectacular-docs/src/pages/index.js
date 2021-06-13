@@ -65,8 +65,8 @@ function Home() {
   const { siteConfig = {} } = context;
   return (
     <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />"
+      title={'Spectacular by ngworkers'}
+      description="Spectacular Angular integration testing. Flexible when you need it. Specialized test harnesses. Faster than end-to-end tests."
     >
       <header className={clsx('hero hero--primary', styles.heroBanner)}>
         <div className="container">
