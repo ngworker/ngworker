@@ -2,7 +2,7 @@
 id: index
 slug: /feature-testing
 sidebar_label: Introduction
-title: Feature Testing API
+title: Feature testing
 ---
 
 Spectacular's feature testing API configures the Angular testing module and sets

@@ -2,7 +2,7 @@
 id: index
 slug: /application-testing
 sidebar_label: Introduction
-title: Application Testing API
+title: Application testing
 ---
 
 Spectacular's Application Testing API configures the Angular testing module and
