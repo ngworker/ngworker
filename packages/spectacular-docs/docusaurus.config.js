@@ -57,15 +57,15 @@ module.exports = {
               to: 'docs/',
             },
             {
-              label: 'Application Testing API',
+              label: 'Application testing',
               to: 'docs/application-testing/',
             },
             {
-              label: 'Feature Testing API',
+              label: 'Feature testing',
               to: 'docs/feature-testing/',
             },
             {
-              label: 'Pipe Testing API',
+              label: 'Pipe testing',
               to: 'docs/pipe-testing/',
             },
             {
