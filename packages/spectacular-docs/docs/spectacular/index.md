@@ -73,7 +73,7 @@ it('raises the base to the specified power', () => {
 What would that look like in a component template? Do you feel confident about
 this test? Are we in control of how this is formatted in the DOM?
 
-## Integrated Angular pipe tests
+## Integrated pipe tests
 
 To achieve a higher level of confidence, we could create a test host component
 with a template, configure the Angular testing module by declaring the test host
