@@ -11,19 +11,29 @@ explore in this page.
 ## Installing Spectacular
 
 Using your package manager of choice, install the `@ngworker/spectacular`
-package as a development dependency as seen in the following terminal commands:
+package as a development dependency as seen in the following terminal commands.
 
-```powershell
-# CNPM
+### CNPM
+
+```bash
 cnpm install --save-dev @ngworker/spectacular
+```
 
-# NPM
+### NPM
+
+```bash
 npm install --save-dev @ngworker/spectacular
+```
 
-# PNPM
+### PNPM
+
+```bash
 pnpm add --save-dev @ngworker/spectacular
+```
 
-# Yarn
+### Yarn
+
+```bash
 yarn add --dev @ngworker/spectacular
 ```
 
