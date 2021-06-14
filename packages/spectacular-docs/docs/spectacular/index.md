@@ -2,7 +2,7 @@
 id: index
 slug: /
 sidebar_label: Introduction
-title: Spectacular
+title: Spectacular introduction
 ---
 
 Spectacular is an integration testing library for Angular applications and
