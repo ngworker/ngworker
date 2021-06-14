@@ -8,6 +8,25 @@ Spectacular contains several specialized test harnesses. While their value lies
 in what is unique about each of them, they have a few traits in common which we
 explore in this page.
 
+## Installing Spectacular
+
+Using your package manager of choice, install the `@ngworker/spectacular`
+package as a development dependency as seen in the following terminal commands:
+
+```powershell
+# CNPM
+cnpm install --save-dev @ngworker/spectacular
+
+# NPM
+npm install --save-dev @ngworker/spectacular
+
+# PNPM
+pnpm add --save-dev @ngworker/spectacular
+
+# Yarn
+yarn add --dev @ngworker/spectacular
+```
+
 ## Importing from Spectacular
 
 All Spectacular's software artifacts are exposed from a single package
