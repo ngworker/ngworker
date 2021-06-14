@@ -13,7 +13,7 @@ const features = [
     imageUrl: 'img/vectorjuice-flexible.jpg',
     description: (
       <>
-        Spectacular's test harnesses runs your Angular feature in an environment
+        Spectacular's test harnesses run your Angular feature in an environment
         as as reasonably close to a real Angular application as possible. You
         can easily add custom Angular module imports and providers to replace
         dependencies when needed.
