@@ -82,7 +82,7 @@ Additional Angular module imports and providers can be passed as `imports` and
 const harness = createFeatureHarness({
   featurePath: 'dashboard',
   featureModule: DashboardModule,
-  imports: [AppLocalizationModule],
+  imports: [HttpClientTestingModule],
   providers: [
     {
       provide: StorageService,
@@ -102,7 +102,7 @@ example:
 const harness = createFeatureHarness({
   featurePath: 'dashboard',
   featureModule: DashboardModule,
-  imports: [AppLocalizationModule],
+  imports: [HttpClientTestingModule],
   providers: [
     {
       provide: StorageService,
