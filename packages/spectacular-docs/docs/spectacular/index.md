@@ -161,7 +161,7 @@ it('raises the base to the specified power', () => {
 Now, let's compare this to using Spectacular's pipe test harness. First, we set
 up the pipe harness by calling a test harness factory:
 
-```ts {10-14}
+```ts {10-13}
 import {
   createPipeHarness,
   SpectacularPipeHarness,
@@ -173,7 +173,6 @@ describe(PowPipe.name, () => {
   beforeEach(() => {
     harness = createPipeHarness({
       pipe: PowPipe,
-      pipeName: 'pow',
       value: 2,
     });
   });
