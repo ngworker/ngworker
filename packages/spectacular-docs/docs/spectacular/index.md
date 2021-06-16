@@ -31,7 +31,7 @@ export class PowPipe implements PipeTransform {
 We could unit test it in isolation by exercising its `transform` method as seen
 in the following example:
 
-```ts {15}
+```ts {18}
 import { TestBed } from '@angular/core/testing';
 
 import { PowPipe } from './pow.pipe';
