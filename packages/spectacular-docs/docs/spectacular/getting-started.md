@@ -113,3 +113,37 @@ const harness = createFeatureHarness({
 
 const fakeStorage = harness.inject(StorageService);
 ```
+
+## Automatic change detection
+
+Angular's testbed supports
+[automatic change detection](https://angular.io/guide/testing-components-scenarios#automatic-change-detection).
+So does Spectacular.
+
+Add the following provider to enable automatic change detection:
+
+```ts
+{ provide: ComponentFixtureAutoDetect, useValue: true }
+```
+
+where `ComponentFixtureAutoDetect` is imported from `@angular/core/testing`.
+
+For example, we can pass the provider when creating a feature test harness as
+seen in the following snippet:
+
+```ts {9}
+import { ComponentFixtureAutoDetect } from '@angular/core/testing';
+import { DashboardModule, dashboardPath } from '@enterprise/feature-dashboard';
+
+describe('Dashboard feature', () => {
+  beforeEach(async () => {
+    harness = await createFeatureHarness({
+      featureModule: DashboardModule,
+      featurePath: dashboardPath,
+      providers: [{ provide: ComponentFixtureAutoDetect, useValue: true }],
+    });
+  });
+
+  let harness: SpectacularFeatureHarness;
+});
+```
