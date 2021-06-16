@@ -3,10 +3,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { createPipeHarness } from './pipe-harness/create-pipe-harness';
 import { SpectacularPipeHarness } from './pipe-harness/spectacular-pipe-harness';
 
-const capitalizePipeName = 'capitalize';
-
 @Pipe({
-  name: capitalizePipeName,
+  name: 'capitalize',
 })
 export class CapitalizePipe implements PipeTransform {
   transform(value: string): string {
@@ -21,7 +19,6 @@ describe(CapitalizePipe.name, () => {
   beforeEach(() => {
     harness = createPipeHarness({
       pipe: CapitalizePipe,
-      pipeName: capitalizePipeName,
       value: 'mr. potato head',
     });
   });
