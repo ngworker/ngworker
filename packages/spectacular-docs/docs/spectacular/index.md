@@ -76,8 +76,8 @@ this test? Are we in control of how this is formatted in the DOM?
 ## Integrated pipe tests
 
 To achieve a higher level of confidence, we could create a test host component
-with a template, configure the Angular testing module by declaring the test host
-component and the pipe as seen in the following example:
+with a template and configure the Angular testing module by declaring the test
+host component and the pipe as seen in the following example:
 
 ```ts {6-12,17}
 import { Component, Input } from '@angular/core';
