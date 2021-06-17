@@ -1,18 +1,12 @@
-import { PipeResolver } from '@angular/compiler';
-import {
-  PipeTransform,
-  Type,
-  ɵReflectionCapabilities as ReflectionCapabilities,
-} from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
+import { getPipeAnnotation } from '../metadata/get-pipe-annotation';
 import { SpectacularPipeComponent } from '../pipe-component/spectacular-pipe.component';
 import { CreatePipeHarnessOptions } from './create-pipe-harness-options';
 import { SpectacularPipeHarness } from './spectacular-pipe-harness';
 
 import type { Observable } from 'rxjs';
-
 function createPipeComponentTemplate(innerTemplate: string): string {
   return `<span id="${textId}">${innerTemplate}</span>`;
 }
@@ -29,17 +23,6 @@ function createPipeFixture<TValue>(
   return pipeFixture;
 }
 
-function getPipeName(pipeType: Type<PipeTransform>): string {
-  // `PipeResolver` is using the `annotations` method only
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const pipeResolver = new PipeResolver(new ReflectionCapabilities() as any);
-  const pipeAnnotation = pipeResolver.resolve(pipeType, true);
-
-  // `PipeResolver` throws if a pipe annotation cannot be resolved
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  return pipeAnnotation!.name;
-}
-
 /**
  * Set up a host component for the Angular pipe under test.
  *
@@ -50,7 +33,7 @@ export function createPipeHarness<TValue>({
   imports = [],
   pipe,
   providers = [],
-  template = `{{ value | ${getPipeName(pipe)} }}`,
+  template = `{{ value | ${getPipeAnnotation(pipe).name} }}`,
   value,
 }: CreatePipeHarnessOptions<TValue>): SpectacularPipeHarness<TValue> {
   function configureTestbed(template: string): void | never {
