@@ -82,7 +82,7 @@ describe('Application initializers', () => {
   };
   let initialized: boolean;
 
-  it('registers and runs the specified initializer', () => {
+  it('registers and runs the specified synchronous initializer', () => {
     TestBed.configureTestingModule({
       providers: [applicationInitializer],
     });
@@ -125,7 +125,7 @@ describe('Application initializers', () => {
   };
   let initialized: boolean;
 
-  it('registers and runs the specified initializer', () => {
+  it('registers and runs the specified synchronous initializer', () => {
     TestBed.configureTestingModule({
       declarations: [TestAppComponent],
       providers: [applicationInitializer],
@@ -164,7 +164,7 @@ describe('Application initializers', () => {
   };
   let initialized: boolean;
 
-  it('registers and runs the specified initializer', () => {
+  it('registers and runs the specified synchronous initializer', () => {
     TestBed.configureTestingModule({
       declarations: [TestAppComponent],
       providers: [applicationInitializer],
@@ -238,7 +238,7 @@ describe('Application initializers', () => {
   };
   let initialized: boolean;
 
-  it('registers and runs the specified initializer', () => {
+  it('registers and runs the specified asynchronous initializer', () => {
     TestBed.configureTestingModule({
       declarations: [TestAppComponent],
       providers: [asyncApplicationInitializer],
@@ -283,7 +283,7 @@ describe('Application initializers', () => {
   };
   let initialized: boolean;
 
-  it('registers and runs the specified initializer', async () => {
+  it('registers and runs the specified asynchronous initializer', async () => {
     TestBed.configureTestingModule({
       declarations: [TestAppComponent],
       providers: [asyncApplicationInitializer],
@@ -308,3 +308,268 @@ have to wait for its component test fixture to become stable before
 Let's apply this technique to bootstrap listeners next.
 
 ## Testing a bootstrap listener with the Angular testbed
+
+We apply the test setup from the previous section to a bootstrap listener.
+
+We replace the shared `initialized` variable with a `bootstrapped` variable that
+is reset to `false` before each test case. We provide a bootstrap listener that
+sets `bootstrapped` to `true` when triggered. Bootstrap listeners are passed a
+`ComponentRef` of the bootstrapped root component as seen in the following
+example:
+
+```ts {19-25}
+import {
+  APP_BOOTSTRAP_LISTENER,
+  Component,
+  ComponentRef,
+  FactoryProvider,
+  Type,
+} from '@angular/core';
+
+@Component({
+  selector: 'test-app',
+  template: '',
+})
+class TestAppComponent {}
+
+describe('Bootstrap listeners', () => {
+  beforeEach(() => {
+    bootstrapped = false;
+  });
+
+  const bootstrapListener: FactoryProvider = {
+    multi: true,
+    provide: APP_BOOTSTRAP_LISTENER,
+    useFactory: () => (component: ComponentRef<Type<unknown>>): void => {
+      bootstrapped = true;
+    },
+  };
+  let bootstrapped: boolean;
+});
+```
+
+For our simple bootstrap listener, we're not using the component reference
+although we have listed it in the example above.
+
+Next, we add a test case with the setup we applied to asynchronous application
+initializers:
+
+```ts {29-38}
+import {
+  APP_BOOTSTRAP_LISTENER,
+  Component,
+  ComponentRef,
+  FactoryProvider,
+  Type,
+} from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+
+@Component({
+  selector: 'test-app',
+  template: '',
+})
+class TestAppComponent {}
+
+describe('Bootstrap listeners', () => {
+  beforeEach(() => {
+    bootstrapped = false;
+  });
+
+  const bootstrapListener: FactoryProvider = {
+    multi: true,
+    provide: APP_BOOTSTRAP_LISTENER,
+    useFactory: () => (component: ComponentRef<Type<unknown>>): void => {
+      bootstrapped = true;
+    },
+  };
+  let bootstrapped: boolean;
+
+  it('registers and runs the specified bootstrap listener', async () => {
+    TestBed.configureTestingModule({
+      declarations: [TestAppComponent],
+      providers: [bootstrapListener],
+    });
+    const rootFixture = TestBed.createComponent(TestAppComponent);
+    await rootFixture.whenStable();
+
+    expect(bootstrapped).toBe(true); // Expected: true Received: false
+  });
+});
+```
+
+Heavens, no! The bootstrap listener has not been called at the time of our
+assertion. We could make the test case wait for seconds or minutes and it
+wouldn't make a difference. As mentioned in the beginning of this page,
+Angular's testbed has no way of bootstrapping an Angular module and that's the
+point in time that bootstrap listeners are triggered.
+
+There's is no easy way to make this test work. It's safe to say that
+Spectacular's application testing API is a good choice.
+
+For the finale, we'll show how we can test application initializers and
+bootstrap listeners with a Spectacular application test harness.
+
+## Testing application-level hooks with Spectacular
+
+Let's start by testing a synchronous application intitializer:
+
+```ts {18-24}
+import { APP_INITIALIZER, FactoryProvider } from '@angular/core';
+import { createApplicationHarness } from '@ngworker/spectacular';
+
+describe('Application initializers', () => {
+  beforeEach(() => {
+    initialized = false;
+  });
+
+  const applicationInitializer: FactoryProvider = {
+    multi: true,
+    provide: APP_INITIALIZER,
+    useFactory: () => (): void => {
+      initialized = true;
+    },
+  };
+  let initialized: boolean;
+
+  it('registers and runs the specified synchronous initializer', async () => {
+    await createApplicationHarness({
+      providers: [applicationInitializer],
+    });
+
+    expect(initialized).toBe(true);
+  });
+});
+```
+
+That's the whole test suite. No need to create, declare or bootstrap a blank
+test root component. No need to manually configure the Angular testing module.
+No need to wait for the root component fixture to stabilize.
+
+Spectacular takes care of all of this behind the scenes. All we have to do is
+pass the application initializer we want to test and verify expectations and
+assertions on its side effects.
+
+A thing worth noticing is that the application harness factory returns a promise
+which resolves a Spectacular application harness. Although we're not using the
+harness in this case and our application initializer is synchronous, we're
+sticking with async-await for consistency with the use cases that are
+demonstrated next.
+
+Testing an asynchronous application initializer works in exactly the same way
+with a Spectacular application harness:
+
+```ts {19-25}
+import { APP_INITIALIZER, FactoryProvider } from '@angular/core';
+import { createApplicationHarness } from '@ngworker/spectacular';
+
+describe('Application initializers', () => {
+  beforeEach(() => {
+    initialized = false;
+  });
+
+  const asyncApplicationInitializer: FactoryProvider = {
+    multi: true,
+    provide: APP_INITIALIZER,
+    useFactory: () => async (): Promise<void> => {
+      await Promise.resolve();
+      initialized = true;
+    },
+  };
+  let initialized: boolean;
+
+  it('registers and runs the specified asynchronous initializer', async () => {
+    await createApplicationHarness({
+      providers: [asyncApplicationInitializer],
+    });
+
+    expect(initialized).toBe(true);
+  });
+});
+```
+
+For asynchronous application initializers we also only need to pass the
+applicaiton initializer to exercise its side effects before we can verify them.
+
+Finally, let's see how we can test a boostrap listener with Spectacular's
+application testing API.
+
+First, we declare the bootstrap listener and manage the shared `boostrapped`
+variable:
+
+```ts {9-20}
+import {
+  APP_BOOTSTRAP_LISTENER,
+  ComponentRef,
+  FactoryProvider,
+  Type,
+} from '@angular/core';
+
+describe('Bootstrap listeners', () => {
+  beforeEach(() => {
+    bootstrapped = false;
+  });
+
+  const bootstrapListener: FactoryProvider = {
+    multi: true,
+    provide: APP_BOOTSTRAP_LISTENER,
+    useFactory: () => (component: ComponentRef<Type<unknown>>): void => {
+      bootstrapped = true;
+    },
+  };
+  let bootstrapped: boolean;
+});
+```
+
+Finally, we add a test case using exactly the same technique as we did for the
+application initializers:
+
+```ts {23-29}
+import {
+  APP_BOOTSTRAP_LISTENER,
+  ComponentRef,
+  FactoryProvider,
+  Type,
+} from '@angular/core';
+import { createApplicationHarness } from '@ngworker/spectacular';
+
+describe('Bootstrap listeners', () => {
+  beforeEach(() => {
+    bootstrapped = false;
+  });
+
+  const bootstrapListener: FactoryProvider = {
+    multi: true,
+    provide: APP_BOOTSTRAP_LISTENER,
+    useFactory: () => (component: ComponentRef<Type<unknown>>): void => {
+      bootstrapped = true;
+    },
+  };
+  let bootstrapped: boolean;
+
+  it('registers and runs the specified bootstrap listener', async () => {
+    await createApplicationHarness({
+      providers: [bootstrapListener],
+    });
+
+    expect(bootstrapped).toBe(true);
+  });
+});
+```
+
+Way to go! All test cases are passing as this point.
+
+## Spectacular benefits
+
+While we tested the most simple application hooks possible in this page, this is
+enough to demonstrate that:
+
+- Unlike Angular's testbed, Spectacular supports testing bootstrap listeners
+- A Spectacular application harness takes care of declaring and bootstrapping a
+  root component
+- The Spectacular application harnesses factory waits for application
+  initializers and bootstrap listeners to finish before resolving an application
+  harness
+
+Visit the other pages in this section to learn about other use cases supported
+by Spectacular's application testing API as well as learn about the use cases
+covered in this page, in more detail.
