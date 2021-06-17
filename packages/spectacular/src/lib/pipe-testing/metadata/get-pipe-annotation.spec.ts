@@ -38,7 +38,9 @@ describe(getPipeAnnotation.name, () => {
     class DepsPipe implements PipeTransform {
       // Just here for testing dependencies
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      constructor(bananas: Bananas, veggies: Veggies) {}
+      constructor(bananas: Bananas, veggies: Veggies) {
+        // No-op
+      }
 
       transform() {
         // No-op
