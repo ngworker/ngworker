@@ -566,9 +566,8 @@ enough to demonstrate that:
 - Unlike Angular's testbed, Spectacular supports testing bootstrap listeners
 - A Spectacular application harness takes care of declaring and bootstrapping a
   root component
-- The Spectacular application harnesses factory waits for application
-  initializers and bootstrap listeners to finish before resolving an application
-  harness
+- The Spectacular application harness factory waits for application initializers
+  and bootstrap listeners to finish before resolving an application harness
 
 Visit the other pages in this section to learn about other use cases supported
 by Spectacular's application testing API as well as learn about the use cases
