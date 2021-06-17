@@ -58,7 +58,7 @@ describe(getPipeAnnotation.name, () => {
     class NoopDirective {}
 
     expect(() => {
-      // @ts-expect-error
+      // @ts-expect-error Only pipes are allowed
       getPipeAnnotation(NoopDirective);
     }).toThrowError('No Pipe decorator');
   });
