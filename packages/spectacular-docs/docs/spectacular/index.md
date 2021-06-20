@@ -243,6 +243,10 @@ the framework and testbed boilerplate. Spectacular's test harnesses run our
 Angular-specific software artifacts in an environment as as reasonably close to
 a real Angular application as possible.
 
+It's worth mentioning that Spectacular is testing framework-agnostic. It works
+with all test runners and test frameworks as long as they support the Angular
+testbed.
+
 In this page, we saw traditional Angular test suites for testing an Angular pipe
 and compared them to Spectacular's lightweight setup. Spectacular offers the
 following testing APIs:
