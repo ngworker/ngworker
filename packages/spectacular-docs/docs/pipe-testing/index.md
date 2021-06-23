@@ -237,11 +237,14 @@ component without the trouble of setting up a test host component ourselves.
 
 ## Spectacular benefits
 
+In this page, we saw traditional Angular test suites for testing an Angular pipe
+and compared them to Spectacular's lightweight setup.
+
 With the benefits of a proper integration test, Spectacular offers:
 
-- Testing a pipe in a template
-- Testing a multi-parameter pipe
-- Testing a pipe composed with other pipes
+- Testing an Angular pipe in a template
+- Testing a multi-parameter Angular pipe
+- Testing an Angular pipe composed with other pipes
 - Easily change the host component template
 - Easily change the test value
 
