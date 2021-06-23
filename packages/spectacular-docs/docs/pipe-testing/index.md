@@ -29,7 +29,7 @@ export class PowPipe implements PipeTransform {
 }
 ```
 
-## Isolated pipe tests
+## Testing an Angular pipe in isolation with the Angular testbed
 
 We could unit test it in isolation by exercising its `transform` method as seen
 in the following example:
@@ -76,7 +76,7 @@ it('raises the base to the specified power', () => {
 What would that look like in a component template? Do you feel confident about
 this test? Are we in control of how this is formatted in the DOM?
 
-## Integrated pipe tests
+## Integration testing an Angular pipe with the Angular testbed
 
 To achieve a higher level of confidence, we could create a test host component
 with a template and configure the Angular testing module by declaring the test
@@ -159,7 +159,7 @@ it('raises the base to the specified power', () => {
 });
 ```
 
-## Spectacular pipe harness
+## Testing an Angular pipe with Spectacular
 
 Now, let's compare this to using Spectacular's pipe test harness. First, we set
 up the pipe harness by calling a test harness factory:
