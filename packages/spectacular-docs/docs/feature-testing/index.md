@@ -38,13 +38,15 @@ A feature test uses real routing services and data structures such as:
 - `RouterStateSnapshot`
 - `UrlTree`
 
-In a single test case, it is possible to navigate around the entire Angular
+In a single test case, it's possible to navigate around the entire Angular
 feature. We can perform full user flows if it makes sense or we can assert one
 step at a time without having to worry about setting up complex test doubles for
 routing and navigation.
 
 The feature testing harness provides convenience wrappers for the `Location` and
-`Router` services, namely the `FeatureLocation` and `FeatureRouter` services,
+`Router` services, namely the
+[`SpectacularFeatureLocation`](api/classes/spectacularfeaturelocation) and
+[`SpectacularFeatureRouter`](api/classes/spectacularfeaturerouter) services,
 respectively. They allow to navigate relatively to the root feature route and
 query for the activated route path relative to the root feature route. The tilde
 (`~`) character denotes a feature-relative route path.
