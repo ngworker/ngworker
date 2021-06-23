@@ -234,3 +234,16 @@ it('raises the base to the specified power', () => {
 
 Using the pipe test harness, we call the pipe through the template of a
 component without the trouble of setting up a test host component ourselves.
+
+## Spectacular benefits
+
+With the benefits of a proper integration test, Spectacular offers:
+
+- Testing a pipe in a template
+- Testing a multi-parameter pipe
+- Testing a pipe composed with other pipes
+- Easily change the host component template
+- Easily change the test value
+
+Visit the other pages in this section to learn about other use cases supported
+by Spectacular's pipe testing API.
