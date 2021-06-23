@@ -24,9 +24,9 @@ Angular's testing APIs such as debug elements for this. Alternatively, we
 combine Spectacular with Angular Testing Library or Angular component harnesses.
 
 The scope of a feature test is a routed Angular module. It can contain multiple
-routed components, multiple routing components, route guards, and multiple
-services in addition to the components and the directives, components, and pipes
-used by their component template.
+routed components, multiple routing components, route guards, route resolvers,
+and multiple services in addition to the components and the directives,
+components, and pipes used by their component template.
 
 A feature test uses real routing services and data structures such as:
 
