@@ -1,9 +1,6 @@
 import { Injectable, NgModule, Pipe, PipeTransform } from '@angular/core';
 
-import {
-  PassthroughPipe,
-  passthroughPipeName,
-} from '../test-util/passthrough.pipe';
+import { PassthroughPipe } from '../test-util/passthrough.pipe';
 import { createPipeHarness } from './create-pipe-harness';
 
 describe(createPipeHarness.name, () => {
@@ -20,7 +17,6 @@ describe(createPipeHarness.name, () => {
       const harness = createPipeHarness({
         imports: [PipeServiceModule],
         pipe: PassthroughPipe,
-        pipeName: passthroughPipeName,
         value: null,
       });
 
@@ -32,7 +28,6 @@ describe(createPipeHarness.name, () => {
       const harness = createPipeHarness({
         providers: [PipeService],
         pipe: PassthroughPipe,
-        pipeName: passthroughPipeName,
         value: null,
       });
 
@@ -53,8 +48,7 @@ describe(createPipeHarness.name, () => {
       const harness = createPipeHarness({
         declarations: [RepeatPipe],
         pipe: PassthroughPipe,
-        pipeName: passthroughPipeName,
-        template: `{{ value | ${passthroughPipeName} | testRepeat:4 }}`,
+        template: `{{ value | testPassthrough | testRepeat:4 }}`,
         value: 'Boom',
       });
 
