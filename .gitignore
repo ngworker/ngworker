@@ -30,6 +30,7 @@
 /coverage
 /libpeerconnection.log
 npm-debug.log
+.pnpm-debug.log
 yarn-error.log
 testem.log
 /typings
@@ -37,3 +38,8 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Generated Docusaurus files
+.docusaurus/
+.cache-loader/
+/packages/**/docs/api
