@@ -19,6 +19,7 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 // - https://angular.io/api/common/DatePipe
 import en from '@angular/common/locales/de';
 import { registerLocaleData } from '@angular/common';
+
 registerLocaleData(en);
 
 // @todo:
@@ -27,23 +28,16 @@ registerLocaleData(en);
 type MatInputDate = MatDatepickerInputEvent<Date | string>;
 
 @Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'mat-spreadsheet-datepicker',
-  styles: [
-    `
-      .mat-spreadsheet-datepicker {
-        width: 100%;
-      }
-    `,
-  ],
   template: `
-    <ng-container *ngIf="(_active$ | async) === false; else template">
-      <div class="cdk-default-field">{{ _date | date: format:timezone:locale }}</div>
-    </ng-container>
-    <ng-template #template>
+    <ng-container *ngIf="(_active$ | async) === true && !disable; else defaultTemplate">
       <mat-form-field appearance="outline">
+        <!-- @todo: try to add type="date" -->
         <input
           matInput
-          (dateInput)="_dateChange($event)"
+          #input
+          (dateChange)="_dateChange($event)"
           [matDatepicker]="picker"
           [value]="_date"
           [autocomplete]="autocomplete"
@@ -51,6 +45,12 @@ type MatInputDate = MatDatepickerInputEvent<Date | string>;
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker (closed)="connectCell.setActiveFocus()" #picker></mat-datepicker>
       </mat-form-field>
+    </ng-container>
+    <ng-template #defaultTemplate>
+      <div class="cdk-default-field cdk-default-date-field">
+        <span>{{ _date | date: format:timezone:locale }}</span>
+        <mat-icon class="cdk-date-icon">today</mat-icon>
+      </div>
     </ng-template>
   `,
   encapsulation: ViewEncapsulation.None,
@@ -60,9 +60,9 @@ export class MatSpreadsheetDatepickerComponent implements OnInit, OnDestroy {
   @HostBinding('class.mat-spreadsheet-datepicker') hostClass = true;
 
   @Input() connectCell!: CdkCellAble;
-  @Input() autocomplete = 'off';
-  @Input() disabled = false;
+  @Input() disable = false;
 
+  @Input() autocomplete = 'off';
   @Input() format = 'short';
   @Input() timezone = '';
   @Input() locale = 'en-US';

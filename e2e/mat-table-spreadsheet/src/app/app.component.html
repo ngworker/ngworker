@@ -16,9 +16,10 @@
     </mat-toolbar>
 
     <mat-table
-      class="mat-fields-table input-density-sm hiddenOutline hideDivider rowHover"
+      class="mat-table-gap-2 input-density-xs row-hover collapsed-rows row-grouping"
       mat-table
       matSpreadsheet
+      [disableKeyboard]="true"
       [dataSource]="dataSource"
       [trackBy]="trackBy"
     >

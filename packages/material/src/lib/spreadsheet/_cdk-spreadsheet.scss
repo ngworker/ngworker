@@ -1,38 +1,113 @@
-.cdk-spreadsheet, .mat-spreadsheet {
-  .cdk-cell:focus, .mat-cell:focus {
+$gaps: (
+  1: 0.25rem,
+  2: 0.5rem,
+  3: 0.75rem,
+  4: 1rem,
+  5: 1.25rem,
+  6: 1.5rem,
+  7: 1.75rem,
+  8: 2rem,
+  9: 2.25rem,
+  10: 2.5rem,
+  11: 2.75rem,
+  12: 3rem,
+);
+
+.cdk-spreadsheet,
+.mat-spreadsheet {
+  // bugfix for focus ring
+  .cdk-cell:focus,
+  .mat-cell:focus {
     outline: none;
   }
 
-  .cdk-cell-edit-active, .mat-cell-edit-active {
-    //box-shadow: inset 0 0 0 1px #4296ff;
+  // bugfix for focus-visible ring
+  .cdk-cell:focus-visible,
+  .mat-cell:focus-visible {
+    outline: none;
   }
 }
-// padding for each cell
 
-.mat-header-cell,
-.mat-cell,
-tr th:not(:last-child),
-tr td:not(:last-child) {
-  padding-right: 8px;
+.cdk-spreadsheet,
+.mat-spreadsheet {
+  .mat-spreadsheet-combobox,
+  .mat-spreadsheet-datepicker,
+  .mat-spreadsheet-input,
+  .mat-spreadsheet-select {
+    width: 100%;
+  }
 }
 
-//general styles for mat-fields-table
-.mat-fields-table {
+.cdk-spreadsheet,
+.mat-spreadsheet {
+  .add-item-icon {
+    transform: translateY(0.125rem);
+  }
+
+  .cdk-date-icon {
+    color: #4a4a4a;
+    font-size: 1rem;
+    text-align: center;
+    line-height: 1.4rem;
+  }
+}
+
+.cdk-spreadsheet,
+.mat-spreadsheet {
+  .cdk-default-date-field {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+}
+
+.cdk-spreadsheet,
+.mat-spreadsheet {
+  // outline on hovered cell
+  .cdk-default-field {
+    padding: 6px 10.5px;
+    border-radius: 4px;
+    height: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  .cdk-default-field:not(.disabled) {
+    cursor: pointer;
+    box-shadow: inset 0 0 0 0 transparent;
+  }
+
+  .cdk-default-field:not(.disabled):hover {
+    box-shadow: inset 0 0 0 1px #b0b0b0;
+  }
+}
+
+// general styles for mat-fields-table
+.cdk-spreadsheet,
+.mat-spreadsheet {
+  // show ... when text is cut-off
   .cdk-default-field {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
 
+  .cdk-spreadsheet-cell-hidden {
+    display: none;
+  }
+
   // remove height from rows
-  .mat-row {
-    height: auto;
+  mat-row,
+  mat-footer-row {
+    min-height: 38px;
   }
 
   .mat-form-field {
     width: 100%;
   }
 
+  // remove min-width of 180px from inputs
   .mat-form-field-infix {
     width: auto;
   }
@@ -40,33 +115,69 @@ tr td:not(:last-child) {
   // remove padding below form-fields
   .mat-form-field-appearance-outline .mat-form-field-wrapper {
     padding-bottom: 0;
-    //margin: 0; // do this when no outline left
-  }
-
-  // when density applied: fix for mat-select arrow icon
-  .mat-form-field-appearance-outline .mat-select-arrow-wrapper {
-    transform: translateY(0);
-  }
-
-  // default centering when do density applied
-  .mat-form-field-appearance-outline .mat-form-field-infix {
-    padding: 10px 0 18px 0;
-    border-top-width: 11.5px;
   }
 }
 
-// faked density-helpers for table inputs
-.mat-fields-table {
+// add bg to row:hover
+.cdk-spreadsheet,
+.mat-spreadsheet {
+  &.row-hover .mat-row:hover {
+    background-color: gray;
+  }
+}
+
+// add bg to row:active
+.cdk-spreadsheet,
+.mat-spreadsheet {
+  &.rows-active .row-active {
+    background-color: gray;
+  }
+}
+
+// padding for each cell
+@each $name, $gap in $gaps {
+  .cdk-spreadsheet,
+  .mat-spreadsheet {
+    &.mat-table-gap-#{$name} {
+      // example: mat-table-gap-2
+      .mat-header-cell,
+      .mat-cell,
+      tr th:not(:last-child),
+      tr td:not(:last-child) {
+        padding-right: $gap;
+      }
+    }
+  }
+}
+
+// when density applied: fix for mat-select triangle-icon
+.cdk-spreadsheet,
+.mat-spreadsheet {
+  &.input-density-xs,
+  .input-density-sm,
+  .input-density-md,
+  .input-density-lg {
+    .mat-form-field-appearance-outline .mat-select-arrow-wrapper {
+      transform: translateY(0);
+    }
+  }
+}
+
+// all densities
+.cdk-spreadsheet,
+.mat-spreadsheet {
   &.input-density-xs {
     .mat-form-field-appearance-outline .mat-form-field-infix {
-      padding: 4px 0 6px 0;
+      padding: 1px 0 6px 0;
       border-top-width: 6px;
     }
+
     .mat-form-field:not(.mat-form-field-appearance-legacy) {
       .mat-form-field-prefix .mat-icon-button,
       .mat-form-field-suffix .mat-icon-button {
         width: 1.5rem !important;
         height: 1.5rem !important;
+
         svg {
           width: 1rem;
           height: 1rem;
@@ -77,9 +188,15 @@ tr td:not(:last-child) {
 
   &.input-density-sm {
     .mat-form-field-appearance-outline .mat-form-field-infix {
-      padding: 6px 0 10px 0;
+      padding: 8px 0;
       border-top-width: 8px;
+      transform: translateY(-3px);
     }
+
+    .mat-form-field-appearance-outline .mat-form-field-outline {
+      bottom: -1px;
+    }
+
     .mat-form-field-appearance-outline .mat-form-field-prefix,
     .mat-form-field-appearance-outline .mat-form-field-suffix {
       top: 0.35rem;
@@ -91,6 +208,7 @@ tr td:not(:last-child) {
       padding: 8px 0 14px 0;
       border-top-width: 9.25px;
     }
+
     .mat-form-field-appearance-outline .mat-form-field-prefix,
     .mat-form-field-appearance-outline .mat-form-field-suffix {
       top: 0.4rem;
@@ -102,6 +220,7 @@ tr td:not(:last-child) {
       padding: 10px 0 18px 0;
       border-top-width: 11.5px;
     }
+
     .mat-form-field-appearance-outline .mat-form-field-prefix,
     .mat-form-field-appearance-outline .mat-form-field-suffix {
       top: 0.4rem;
@@ -109,48 +228,74 @@ tr td:not(:last-child) {
   }
 }
 
-//
-// zebra mode
-//
-// mat-dark-blue-palette: 50
-$zebra-color: hsla(206, 100%, 93%, 0.65);
+// remove unnecessary spaces in each row
+.cdk-spreadsheet,
+.mat-spreadsheet {
+  &.collapsed-rows {
+    .mat-form-field {
+      line-height: inherit;
+    }
 
-// mat-row hover
-.rowHover .mat-row:hover {
-  background-color: $zebra-color;
+    .mat-form-field-appearance-outline .mat-form-field-wrapper {
+      margin: 0 !important;
+    }
+
+    .mat-form-field-appearance-outline .mat-form-field-flex {
+      margin-top: 0 !important;
+    }
+
+    .mat-form-field-appearance-outline .mat-form-field-outline {
+      top: 0;
+    }
+  }
 }
 
-// add bg to active row
-.activeRows .rowActive {
-  background-color: $zebra-color;
+// remove divider between rows
+.cdk-spreadsheet,
+.mat-spreadsheet {
+  &.hide-divider {
+    mat-row,
+    mat-footer-row,
+    td.mat-cell,
+    td.mat-footer-cell {
+      border-bottom: 0;
+    }
+  }
 }
 
-// hidden border
-.hiddenOutline {
+// remove initial border on inputs
+.cdk-spreadsheet,
+.mat-spreadsheet {
   .mat-form-field-appearance-outline .mat-form-field-outline {
     opacity: 0;
   }
+}
 
-  .mat-header-cell,
-  .mat-cell,
-  tr th:not(:last-child),
-  tr td:not(:last-child) {
-    padding-right: 0;
+// parent rows have grey bg
+.cdk-spreadsheet,
+.mat-spreadsheet {
+  .mat-row[parent='true'] {
+    background: blue;
   }
 }
 
-// row distance
-.collapsedRows .mat-form-field-appearance-outline .mat-form-field-wrapper {
-  margin: 0 !important;
-}
-
-// remove border between rows
-.hideDivider {
-  mat-row,
-  mat-footer-row,
-  td.mat-cell,
-  td.mat-footer-cell {
-    border-bottom: 0;
+// padding for icon
+.cdk-spreadsheet,
+.mat-spreadsheet {
+  &.row-grouping {
+    .mat-row .mat-cell:first-child {
+      padding-left: 2rem;
+    }
   }
 }
 
+// collapse icon
+.cdk-spreadsheet,
+.mat-spreadsheet {
+  .cdk-spreadsheet-collapse-icon {
+    position: absolute;
+    top: 0.125rem;
+    left: -1.75rem;
+    cursor: pointer;
+  }
+}

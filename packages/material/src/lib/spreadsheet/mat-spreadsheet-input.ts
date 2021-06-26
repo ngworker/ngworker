@@ -16,31 +16,29 @@ import {
 } from '@angular/core';
 
 @Component({
+  // @todo: find a cleaner way
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'mat-spreadsheet-input',
   exportAs: 'matSpreadsheetInput',
-  styles: [
-    `
-      .mat-spreadsheet-input {
-        width: 100%;
-      }
-    `,
-  ],
   template: `
-    <ng-container *ngIf="(_active$ | async) === false; else template">
-      <div class="cdk-default-field">{{ value }}</div>
-    </ng-container>
-    <ng-template #template>
+    <ng-container *ngIf="(_active$ | async) === true && !disable; else defaultTemplate">
       <mat-form-field appearance="outline">
         <input
           #input
           matInput
           [(ngModel)]="value"
-          (ngModelChange)="_inputChange(input.value)"
+          (keyup.enter)="_inputChange(input.value)"
           [value]="value"
           [type]="type"
           [autocomplete]="autocomplete"
         />
       </mat-form-field>
+    </ng-container>
+    <ng-template #defaultTemplate>
+      <!-- this is okay -->
+      <div class="cdk-default-field" [ngClass]="disable ? 'disabled' : ''">
+        <span>{{ value }}</span>
+      </div>
     </ng-template>
   `,
   encapsulation: ViewEncapsulation.None,
@@ -53,10 +51,10 @@ export class MatSpreadsheetInputComponent implements OnInit, OnDestroy {
   @Output() inputChange = new EventEmitter<string>();
 
   @Input() connectCell!: CdkCellAble;
-  @Input() autocomplete = 'off';
-  @Input() value: unknown = '';
-  @Input() disabled = false;
+  @Input() disable = false;
 
+  @Input() autocomplete = 'off';
+  @Input() value = '';
   @Input() type = 'text';
 
   private readonly _unsub$ = new Subject();

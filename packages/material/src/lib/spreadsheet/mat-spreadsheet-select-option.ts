@@ -15,19 +15,11 @@ import { MatSelectChange } from '@angular/material/select';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
+  // @todo: find a cleaner way
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'mat-spreadsheet-select',
-  styles: [
-    `
-      .mat-spreadsheet-select {
-        width: 100%;
-      }
-    `,
-  ],
   template: `
-    <ng-container *ngIf="(_active$ | async) === false; else template">
-      <div class="cdk-default-field">{{ _renderDefault }}</div>
-    </ng-container>
-    <ng-template #template>
+    <ng-container *ngIf="(_active$ | async) === true && !disable; else defaultTemplate">
       <mat-form-field appearance="outline">
         <mat-select
           (closed)="connectCell.setActiveFocus()"
@@ -43,19 +35,25 @@ import { takeUntil } from 'rxjs/operators';
           </mat-option>
         </mat-select>
       </mat-form-field>
+    </ng-container>
+    <ng-template #defaultTemplate>
+      <div class="cdk-default-field">
+        <span>{{ _renderDefault }}</span>
+      </div>
     </ng-template>
   `,
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MatSpreadsheetSelectOptionComponent<Item extends unknown = unknown>
-  implements OnInit, OnDestroy {
+  implements OnInit, OnDestroy
+{
   @HostBinding('class.mat-spreadsheet-select') hostClass = true;
 
   @Output() selectionChange = new EventEmitter<MatSelectChange>();
 
   @Input() connectCell!: CdkCellAble;
-  @Input() disabled = false;
+  @Input() disable = false;
 
   @Input() options!: Item[];
   @Input() optionRender!: keyof Item;
@@ -77,11 +75,8 @@ export class MatSpreadsheetSelectOptionComponent<Item extends unknown = unknown>
 
   /** @internal */
   get _renderDefault() {
-    return this._selectChange
-      ? this._selectChange[this.optionRender]
-        ? this._selectChange[this.optionRender]
-        : this._selectChange
-      : this.optionRenderDefault;
+    const render = this._selectChange?.[this.optionRender];
+    return render ? render : this.optionRenderDefault;
   }
 
   ngOnInit() {

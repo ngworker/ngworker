@@ -5,40 +5,29 @@ import {
   EventEmitter,
   HostBinding,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
   Output,
+  SimpleChanges,
   ViewEncapsulation,
 } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { TooltipPosition } from '@angular/material/tooltip/tooltip';
+import { ThemePalette } from '@angular/material/core/common-behaviors/color';
 
 @Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'mat-spreadsheet-combobox',
-  styles: [
-    `
-      .mat-spreadsheet-combobox {
-        width: 100%;
-      }
-
-      .mat-spreadsheet-combobox .add-icon {
-        cursor: pointer;
-      }
-    `,
-  ],
   template: `
-    <ng-container *ngIf="(_active$ | async) === false; else template">
-      <div [title]="_renderDefault" class="cdk-default-field">{{ _renderDefault }}</div>
-    </ng-container>
-    <ng-template #template>
-      <!-- @todo: create combobox component in libs/components -->
+    <ng-container *ngIf="(_active$ | async) === true && !disable; else defaultTemplate">
       <mat-form-field
         [appearance]="'outline'"
         [matTooltip]="tooltip"
         [matTooltipPosition]="tooltipPosition"
-        [matTooltipDisabled]="!tooltip.length"
+        [matTooltipDisabled]="tooltipDisabled"
       >
         <input
           matInput
@@ -51,19 +40,23 @@ import { TooltipPosition } from '@angular/material/tooltip/tooltip';
           [autocomplete]="autocomplete"
           [type]="type"
         />
-        <mat-icon
-          class="add-icon"
-          *ngIf="selectionAdd"
-          (click)="_addSelection(input.value); input.value = ''"
-          [color]="selectionAddIconColor"
+
+        <button
           matSuffix
+          mat-icon-button
+          aria-label="add item button"
+          class="add-item-icon"
+          *ngIf="selectionAdd && _readonly === 'false'"
+          (click)="input.value && _addSelection(input.value); input.value = ''"
+          [color]="selectionAddIconColor"
         >
-          {{ selectionAddIcon }}
-        </mat-icon>
+          <mat-icon>{{ selectionAddIcon }}</mat-icon>
+        </button>
 
         <mat-autocomplete
           #auto="matAutocomplete"
           (closed)="connectCell.setActiveFocus()"
+          [panelWidth]="'auto'"
           [displayWith]="_displayWith.bind(this)"
           (optionSelected)="_selectionChange($event)"
         >
@@ -72,24 +65,30 @@ import { TooltipPosition } from '@angular/material/tooltip/tooltip';
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
+    </ng-container>
+    <ng-template #defaultTemplate>
+      <div [title]="_renderDefault" class="cdk-default-field">
+        <span>{{ _renderDefault }}</span>
+      </div>
     </ng-template>
   `,
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MatSpreadsheetComboboxComponent<Item extends unknown = unknown>
-  implements OnInit, OnDestroy
+  implements OnInit, OnChanges, OnDestroy
 {
-  @HostBinding('class.mat-spreadsheet-combobox') hostClass = true;
+  @HostBinding('class.mat-spreadsheet-combobox.h-full') hostClass = true;
 
   @Output() selectionChange = new EventEmitter<MatAutocompleteSelectedEvent>();
   @Output() selectionAdded = new EventEmitter<string>();
 
   @Input() connectCell!: CdkCellAble;
+  @Input() disable = false;
 
   @Input() selectionAdd = false;
   @Input() selectionAddIcon = 'add';
-  @Input() selectionAddIconColor = 'primary';
+  @Input() selectionAddIconColor: ThemePalette = 'primary';
   @Input() filter: unknown;
 
   @Input() options!: Item[];
@@ -135,6 +134,11 @@ export class MatSpreadsheetComboboxComponent<Item extends unknown = unknown>
   get _renderDefault() {
     const render = this._selectChange?.[this.optionRender];
     return render ? render : this.optionRenderDefault;
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    const optionRenderDefault = changes?.optionRenderDefault;
+    if (this._selectChange && optionRenderDefault) this._selectChange = undefined as Item;
   }
 
   ngOnInit() {

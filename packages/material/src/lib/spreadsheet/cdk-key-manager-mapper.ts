@@ -18,7 +18,7 @@ export class CdkKeyManagerMapper<T extends CdkCellAble> {
   private _currTableAxis: Axis = { x: -1, y: -1 };
 
   constructor(
-    private readonly _tableState: Table,
+    private _tableState: Table,
     private readonly _keyManager: ActiveDescendantKeyManager<T>,
   ) {
     this._init();
@@ -32,6 +32,11 @@ export class CdkKeyManagerMapper<T extends CdkCellAble> {
   private _createMatrix(cellCount: number, columnCount: number) {
     this._matrixY = matrixUtils.createByAxis('y', cellCount, columnCount);
     this._matrixX = matrixUtils.createByAxis('x', cellCount, columnCount);
+  }
+
+  initTableState(table: Table) {
+    this._tableState = table;
+    this._init();
   }
 
   setActiveItem(value: unknown) {

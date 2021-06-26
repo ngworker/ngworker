@@ -17,22 +17,28 @@ import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSpreadsheetInputComponent } from './mat-spreadsheet-input';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSpreadsheetCollapseComponent } from './mat-spreadsheet-collapse';
+import { CdkSpreadsheetCollapseComponent } from './cdk-spreadsheet-collapse';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'de-DE' }],
   declarations: [
     CdkCellDirective,
     CdkSpreadsheetDirective,
+    CdkSpreadsheetCollapseComponent,
     MatSpreadsheetDirective,
     MatCellDirective,
     MatSpreadsheetSelectOptionComponent,
     MatSpreadsheetComboboxComponent,
     MatSpreadsheetDatepickerComponent,
     MatSpreadsheetInputComponent,
+    MatSpreadsheetCollapseComponent,
   ],
   exports: [
     CdkCellDirective,
     CdkSpreadsheetDirective,
+    CdkSpreadsheetCollapseComponent,
     MatSpreadsheetDirective,
     MatCellDirective,
     MatTableModule,
@@ -40,6 +46,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatSpreadsheetComboboxComponent,
     MatSpreadsheetDatepickerComponent,
     MatSpreadsheetInputComponent,
+    MatSpreadsheetCollapseComponent,
   ],
   imports: [
     CommonModule,
@@ -51,6 +58,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatDatepickerModule,
     MatNativeDateModule,
     MatTooltipModule,
+    MatButtonModule,
+    MatIconModule,
   ],
 })
 export class CdkSpreadsheetModule {}

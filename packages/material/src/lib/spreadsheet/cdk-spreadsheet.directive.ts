@@ -5,6 +5,7 @@ import {
   HostBinding,
   HostListener,
   Inject,
+  Input,
   QueryList,
 } from '@angular/core';
 import { CdkSpreadsheetKeyManager } from './cdk-spreadsheet-key-manager';
@@ -26,11 +27,12 @@ import {
  * - scrollDispatcher not working due to preventDefault (maybe stopPropagation better)
  * - when selected e.g. in combobox, input, etc it jumps to the next mat-cell but further
  *   arrow down/up/left/right/ usage is not working
- * - material mat-form-field around e.g. mat-select, matInput, etc. not working
  * - add custom directive *ngLoop="list; 'date'"...
  */
 
 @Directive({
+  // @todo: find a cleaner way
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'cdk-table[cdkSpreadsheet], [cdkSpreadsheet][cdk-table]',
   exportAs: 'cdkSpreadsheet',
   providers: CDK_SPREADSHEET_MANAGER_PROVIDERS,
@@ -45,6 +47,8 @@ export class CdkSpreadsheetDirective<CellEdit extends CdkCellAble = CdkCellAble>
     private readonly _spreadsheetFactory: CdkSpreadsheetFactory<CellEdit>,
   ) {}
 
+  @Input() disableKeyboard = false;
+
   @HostBinding('class.cdk-spreadsheet') hostClass = true;
 
   @ContentChildren(CdkCellDirective) cellQueryList!: QueryList<CellEdit>;
@@ -54,28 +58,28 @@ export class CdkSpreadsheetDirective<CellEdit extends CdkCellAble = CdkCellAble>
   }
 
   @HostListener('keyup.esc', ['$event']) esc(e: KeyboardEvent) {
-    this.spreadsheetManager.resetActiveItem(e);
+    !this.disableKeyboard && this.spreadsheetManager.resetActiveItem(e);
   }
 
   @HostListener('keydown', ['$event']) arrowKey(e: KeyboardEvent) {
-    this.spreadsheetManager.onKeydownArrow(e);
+    !this.disableKeyboard && this.spreadsheetManager.onKeydownArrow(e);
   }
 
   @HostListener('keydown.enter', ['$event']) enter(e: KeyboardEvent) {
-    this.spreadsheetManager.setArrowDownItemActive(e);
+    !this.disableKeyboard && this.spreadsheetManager.onEnter(e);
   }
 
   // prettier-ignore
   @HostListener('keydown.shift.enter', ['$event']) shiftEnter(e: KeyboardEvent) {
-    this.spreadsheetManager.setArrowUpItemActive(e);
+    !this.disableKeyboard && this.spreadsheetManager.setArrowUpItemActive(e);
   }
 
   @HostListener('keydown.tab', ['$event']) tab(e: KeyboardEvent) {
-    this.spreadsheetManager.setArrowRightItemActive(e);
+    !this.disableKeyboard && this.spreadsheetManager.setArrowRightItemActive(e);
   }
 
   @HostListener('keydown.shift.tab', ['$event']) shiftTab(e: KeyboardEvent) {
-    this.spreadsheetManager.setArrowLeftItemActive(e);
+    !this.disableKeyboard && this.spreadsheetManager.setArrowLeftItemActive(e);
   }
 
   ngAfterContentInit() {

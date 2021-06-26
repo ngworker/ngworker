@@ -5,6 +5,8 @@ import { CdkCellAble } from './cdk-spreadsheet.types';
 import { MatCellDirective } from './mat-cell.directive';
 
 @Directive({
+  // @todo: find a cleaner way
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'mat-table[matSpreadsheet], [matSpreadsheet][mat-table]',
   exportAs: 'matSpreadsheet',
   providers: CDK_SPREADSHEET_MANAGER_PROVIDERS,

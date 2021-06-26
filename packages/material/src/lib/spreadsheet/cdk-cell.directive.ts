@@ -3,6 +3,8 @@ import { CdkColumnDef } from '@angular/cdk/table';
 import { CdkCellAble, CellChange } from './cdk-spreadsheet.types';
 
 @Directive({
+  // @todo: find a cleaner way
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'cdk-cell, td[cdk-cell]',
   exportAs: 'cdkCellSheet',
 })

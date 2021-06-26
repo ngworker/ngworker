@@ -55,6 +55,10 @@ export class CdkSpreadsheetKeyManager<CellEdit extends CdkCellAble> {
     this._preventDefault(event);
   }
 
+  onEnter(event: Event) {
+    this.resetActiveItem(event);
+  }
+
   resetActiveItem(event: Event) {
     this.setActiveItem(event);
   }
