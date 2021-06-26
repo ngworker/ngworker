@@ -1,14 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
+import { getPipeAnnotation } from '../metadata/get-pipe-annotation';
 import { SpectacularPipeComponent } from '../pipe-component/spectacular-pipe.component';
 import { CreatePipeHarnessOptions } from './create-pipe-harness-options';
 import { SpectacularPipeHarness } from './spectacular-pipe-harness';
 
 import type { Observable } from 'rxjs';
-
-const textId = '__SPECTACULAR_PIPE_COMPONENT_TEXT__';
-
 function createPipeComponentTemplate(innerTemplate: string): string {
   return `<span id="${textId}">${innerTemplate}</span>`;
 }
@@ -34,9 +32,8 @@ export function createPipeHarness<TValue>({
   declarations = [],
   imports = [],
   pipe,
-  pipeName,
   providers = [],
-  template = `{{ value | ${pipeName} }}`,
+  template = `{{ value | ${getPipeAnnotation(pipe).name} }}`,
   value,
 }: CreatePipeHarnessOptions<TValue>): SpectacularPipeHarness<TValue> {
   function configureTestbed(template: string): void | never {
@@ -81,3 +78,5 @@ export function createPipeHarness<TValue>({
     },
   };
 }
+
+const textId = '__SPECTACULAR_PIPE_COMPONENT_TEXT__';

@@ -8,10 +8,6 @@ import type { Observable } from 'rxjs';
 export interface CreatePipeHarnessOptions<TValue>
   extends Pick<NgModule, 'declarations' | 'imports' | 'providers'> {
   /**
-   * The name of the Angular pipe-under-test, for example `camelize`.
-   */
-  readonly pipeName: string;
-  /**
    * The type of the Angular pipe-under-test, for example `CamelizePipe`.
    */
   readonly pipe: Type<PipeTransform>;

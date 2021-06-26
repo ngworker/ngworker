@@ -1,9 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-export const passthroughPipeName = 'testPassthrough';
-
 @Pipe({
-  name: passthroughPipeName,
+  name: 'testPassthrough',
 })
 export class PassthroughPipe<TValue> implements PipeTransform {
   transform(value: TValue | null): TValue | null {
