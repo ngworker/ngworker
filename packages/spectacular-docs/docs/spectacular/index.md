@@ -17,11 +17,11 @@ software artifacts.
 
 Spectacular offers the speed and the flexibility of the Angular testbed without
 the framework and testbed boilerplate. Spectacular's test harnesses run our
-Angular-specific software artifacts in an environment as as reasonably close to
-a real Angular application as possible.
+Angular-specific software artifacts in an environment as reasonably close to a
+real Angular application as possible.
 
 It's worth mentioning that Spectacular is testing framework-agnostic. It works
-with all test runners and test frameworks as long as they support the Angular
+with all test runners and testing frameworks as long as they support the Angular
 testbed.
 
 Spectacular offers the following testing APIs:
