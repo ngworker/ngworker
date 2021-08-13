@@ -116,9 +116,9 @@ describe(PowPipe.name, () => {
 That's a lot of setup for testing a pure pipe without any dependencies, don't
 you think?
 
-With that out of the way, let us add a basic test case. In the following
-example, we are exercising the pipe in a template and asserting how it's
-formatted for the DOM:
+With that out of the way, let's add a basic test case. In the following example,
+we are exercising the pipe in a template and asserting how it's formatted for
+the DOM:
 
 ```ts {2,7}
 it('raises the base to the power of 1 by default', () => {
