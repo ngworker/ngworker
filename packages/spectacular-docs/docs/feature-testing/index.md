@@ -136,10 +136,10 @@ Our feature tests are going to focus on the crisis detail form. Notice the route
 guard and route resolver added to the crisis detail route in the highlighted
 lines. These are going to be activated as part of our test cases.
 
-## Integration testing an Angular feature with the Angular testbed
+## Setting up an Angular feature integration test with the Angular testbed
 
-Let's first explore how we can perform a multi-step feature test using the
-Angular testbed.
+Let's first explore how we can set up a feature test by using the Angular
+testbed.
 
 ### Declaring a test root component
 
@@ -325,7 +325,7 @@ feature route which happens to activate the following components:
 
 as seen in the routes registered by `CrisisCenterRoutingModule`.
 
-### A complete test setup for a feature with the Angular testbed
+### Reviewing a complete feature test setup using the Angular testbed
 
 With all of the above, we now have the following test setup for our feature
 tests:
@@ -338,6 +338,380 @@ import {
   ComponentFixtureAutoDetect,
   TestBed,
 } from '@angular/core/testing';
+import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import {
+  CrisisCenterModule,
+  crisisCenterPath,
+  CrisisService,
+} from '@tour-of-heroes/crisis-center';
+
+@Component({
+  selector: 'test-app',
+  template: '<router-outlet><router-outlet>',
+})
+class TestAppComponent {}
+
+describe('Tour of Heroes: Crisis center integration tests', () => {
+  beforeEach(async () => {
+    TestBed.configureTestingModule({
+      declarations: [TestAppComponent], // [1]
+      imports: [
+        RouterTestingModule /* [2] */.withRoutes([
+          { path: crisisCenterPath, loadChildren: () => CrisisCenterModule }, // [3]
+        ]),
+      ],
+      providers: [{ provide: ComponentFixtureAutoDetect, useValue: true }], // [4]
+    });
+
+    rootFixture = TestBed.createComponent(TestAppComponent); // [5]
+    location = TestBed.inject(Location); // [6]
+    router = TestBed.inject(Router); // [6]
+    crisisService = TestBed.inject(CrisisService); // [6]
+    await rootFixture.ngZone?.run(() => router.navigate([crisisCenterPath])); // [7]
+  });
+
+  let crisisService: CrisisService;
+  let location: Location;
+  let rootFixture: ComponentFixture<TestAppComponent>;
+  let router: Router;
+});
+```
+
+We have managed to:
+
+1. Declare a test root component
+2. Isolate Angular's routing services from the browser APIs
+3. Register the routed feature module
+4. Enable automatic change detection
+5. Bootstrap the test root component
+6. Resolve navigation and data services
+7. Initialize feature navigation
+
+That's quite an impressive setup. However, we need all of these setup steps for
+every Angular feature test, not only when testing the crisis center feature.
+
+Now that we have a working setup, let's compare that to setting up a test for
+the same feature using Spectacular.
+
+## Setting up an Angular feature integration test with Spectacular
+
+Spectacular's feature testing API takes care of tedious and error-prone test
+setup. Notice in the following code snippet how we pass the routed feature
+module under test as well as the route path used to load it in our application:
+
+```ts {14-15}
+import {
+  createFeatureHarness,
+  SpectacularFeatureHarness,
+} from '@ngworker/spectacular';
+import {
+  CrisisCenterModule,
+  crisisCenterPath,
+  CrisisService,
+} from '@tour-of-heroes/crisis-center';
+
+describe('Tour of Heroes: Crisis center integration tests', () => {
+  beforeEach(() => {
+    harness = createFeatureHarness({
+      featureModule: CrisisCenterModule,
+      featurePath: crisisCenterPath,
+    });
+
+    crisisService = harness.inject(CrisisService);
+  });
+
+  let crisisService: CrisisService;
+  let harness: SpectacularFeatureHarness;
+});
+```
+
+The `createFeatureHarness` function takes care of all the test setup steps we
+reviewed in the previous section to the point that there's no need to import
+from any Angular package.
+
+Spectacular is straight to the point: We tell it the scope of what we're
+testing, in this case the crisis center feature. Spectacular takes care of the
+test setup behind the scenes so that we can focus on writing tests.
+
+## Testing a complete user flow with the Angular testbed
+
+Our test is going to cover editing a crisis. Once the changed crisis name is
+saved, our application navigates to the crisis center home with the crisis
+selected.
+
+The first thing we need to do is to navigate to the crisis edit form for the
+crisis we want to edit:
+
+```ts {3,5}
+describe('Editing a crisis', () => {
+  it('navigates to the crisis center home with the crisis selected when the change is saved', async () => {
+    const [aCrisis] = crisisService.getCrises().value;
+    await rootFixture.ngZone?.run(() =>
+      router.navigate([crisisCenterPath, aCrisis.id])
+    );
+  });
+});
+```
+
+We get a crisis ID from the crisis service which we use to navigate to the
+crisis edit form.
+
+Next, we're going to enter a new crisis name into the crisis name text box:
+
+```ts {11,13-14}
+import { By } from '@angular/platform-browser';
+
+// (...)
+
+describe('Editing a crisis', () => {
+  it('navigates to the crisis center home with the crisis selected when the change is saved', async () => {
+    // (...)
+    const inputElement: HTMLInputElement = rootFixture.debugElement.query(
+      By.css('input')
+    ).nativeElement;
+    const newCrisisName = 'Global climate crisis';
+
+    inputElement.value = newCrisisName;
+    inputElement.dispatchEvent(new Event('input'));
+  });
+});
+```
+
+Now, let's save the change:
+
+```ts {15-16}
+describe('Editing a crisis', () => {
+  it('navigates to the crisis center home with the crisis selected when the change is saved', async () => {
+    // (...)
+    const saveButtonElement: HTMLButtonElement = rootFixture.debugElement
+      .queryAll(By.css('button'))
+      .map(button => button.nativeElement)
+      .find(
+        (buttonElement: HTMLButtonElement) =>
+          buttonElement.textContent?.trim() === 'Save'
+      );
+    const newCrisisName = 'Global climate crisis';
+
+    inputElement.value = newCrisisName;
+    inputElement.dispatchEvent(new Event('input'));
+    saveButtonElement.click();
+    await rootFixture.whenStable();
+  });
+});
+```
+
+We wait for the component fixture to stabilize because of multiple side effects
+being triggered, including navigation.
+
+As our next step, we verify that we are at the crisis center home route:
+
+```ts {9}
+describe('Editing a crisis', () => {
+  it('navigates to the crisis center home with the crisis selected when the change is saved', async () => {
+    // (...)
+    saveButtonElement.click();
+    await rootFixture.whenStable();
+
+    const welcomeText: HTMLElement = rootFixture.debugElement.query(By.css('p'))
+      .nativeElement;
+    expect(welcomeText.textContent).toBe('Welcome to the Crisis Center');
+  });
+});
+```
+
+Our second assertion verified that the crisis we just updated is selected in the
+crisis list:
+
+```ts {8-10}
+describe('Editing a crisis', () => {
+  it('navigates to the crisis center home with the crisis selected when the change is saved', async () => {
+    // (...)
+    const selectedCrisis: HTMLElement = rootFixture.debugElement.query(
+      By.css('.selected')
+    ).nativeElement;
+    expect(welcomeText.textContent).toBe('Welcome to the Crisis Center');
+    expect(selectedCrisis.textContent?.trim()).toBe(
+      `${aCrisis.id}${newCrisisName}`
+    );
+  });
+});
+```
+
+Finally, we verify that we are on the crisis center home with some route matrix
+parameters added to the URL:
+
+```ts {8-10}
+describe('Editing a crisis', () => {
+  it('navigates to the crisis center home with the crisis selected when the change is saved', async () => {
+    // (...)
+    expect(welcomeText.textContent).toBe('Welcome to the Crisis Center');
+    expect(selectedCrisis.textContent?.trim()).toBe(
+      `${aCrisis.id}${newCrisisName}`
+    );
+    expect(location.path()).toBe(
+      `/${crisisCenterPath};id=${aCrisis.id};foo=foo`
+    );
+  });
+});
+```
+
+That completes our multi-step feature test which exercises and verifies an
+entire user flow.
+
+Next, let's review the test and focus in on a few details.
+
+### Reviewing a feature test using the Angular testbed
+
+Spectacular doesn't offer an API for interacting with or inspecting the DOM. To
+make this easier, combine Spectacular with Angular Testing Library or Angular
+component harnesses.
+
+Reviewing the full feature test, there are a few points worth noticing:
+
+```ts
+describe('Editing a crisis', () => {
+  it('navigates to the crisis center home with the crisis selected when the change is saved', async () => {
+    const [aCrisis] = crisisService.getCrises().value;
+    await rootFixture.ngZone?./* [1] */ run(
+      () => router.navigate([crisisCenterPath, aCrisis.id]) // [2]
+    );
+    const inputElement: HTMLInputElement = rootFixture.debugElement.query(
+      By.css('input')
+    ).nativeElement;
+    const saveButtonElement: HTMLButtonElement = rootFixture.debugElement
+      .queryAll(By.css('button'))
+      .map(button => button.nativeElement)
+      .find(
+        (buttonElement: HTMLButtonElement) =>
+          buttonElement.textContent?.trim() === 'Save'
+      );
+    const newCrisisName = 'Global climate crisis';
+
+    inputElement.value = newCrisisName;
+    inputElement.dispatchEvent(new Event('input'));
+    saveButtonElement.click();
+    await rootFixture.whenStable();
+
+    const welcomeText: HTMLElement = rootFixture.debugElement.query(By.css('p'))
+      .nativeElement;
+    const selectedCrisis: HTMLElement = rootFixture.debugElement.query(
+      By.css('.selected')
+    ).nativeElement;
+    expect(welcomeText.textContent).toBe('Welcome to the Crisis Center');
+    expect(selectedCrisis.textContent?.trim()).toBe(
+      `${aCrisis.id}${newCrisisName}`
+    );
+    expect(location.path()).toBe(
+      `/${crisisCenterPath};id=${aCrisis.id};foo=foo` // [3]
+    );
+  });
+});
+```
+
+1. We have to wrap navigation in the Angular testing module's NgZone instance.
+2. We repeat the feature path when navigating to routes registered by the
+   feature.
+3. We repeat the feature path when inspecting the application path.
+
+These are examples of boilerplate that Spectacular takes care of. Let's see how
+in the next section.
+
+## Testing a complete user flow with Spectacular
+
+As mentioned in the previous section, Spectacular does not offer APIs for
+interacting with or inspecting the DOM. However, it takes care of certain
+boilerplate code that shows up in common scenarios.
+
+When reviewing the feature test converted to using Spectacular, we notice a few
+convenince APIs in use:
+
+```ts
+describe('Editing a crisis', () => {
+  it('navigates to the crisis center home with the crisis selected when the change is saved', async () => {
+    const [aCrisis] = crisisService.getCrises().value;
+    await harness.router.navigate(['~', aCrisis.id]); // [1] [2]
+    const inputElement: HTMLInputElement = harness.rootFixture.debugElement.query(
+      By.css('input')
+    ).nativeElement;
+    const saveButtonElement: HTMLButtonElement = harness.rootFixture.debugElement
+      .queryAll(By.css('button'))
+      .map(button => button.nativeElement)
+      .find(
+        (buttonElement: HTMLButtonElement) =>
+          buttonElement.textContent?.trim() === 'Save'
+      );
+    const newCrisisName = 'Global climate crisis';
+
+    inputElement.value = newCrisisName;
+    inputElement.dispatchEvent(new Event('input'));
+    saveButtonElement.click();
+    await harness.rootFixture.whenStable();
+
+    const welcomeText: HTMLElement = harness.rootFixture.debugElement.query(
+      By.css('p')
+    ).nativeElement;
+    const selectedCrisis: HTMLElement = harness.rootFixture.debugElement.query(
+      By.css('.selected')
+    ).nativeElement;
+    expect(welcomeText.textContent).toBe('Welcome to the Crisis Center');
+    expect(selectedCrisis.textContent?.trim()).toBe(
+      `${aCrisis.id}${newCrisisName}`
+    );
+    expect(harness.location.path()).toBe(`~/;id=${aCrisis.id};foo=foo`); // [3]
+  });
+});
+```
+
+1. We don't have to navigate in the context of an NgZone.
+2. When navigating, we use the feature-relative route symbol (`~`) instead of
+   repeating the feature route path.
+3. When inspecting the application path, we use the feature-relative route
+   symbol (`~`) instead of repeating the feature route path.
+
+A feature harness offers feature-aware router and location services in its
+`router` and `location` properties. They are synchronized with Angular's
+corresponding services which they wrap.
+
+## Spectacular benefits
+
+In this page, we saw how to set up a testing root component, register a routed
+feature module with the Angular testing module, initialize feature navigation,
+navigate to a feature route, interact with the DOM, and inspect the application
+path.
+
+We first explored the intricate setup needed for a feature test when using the
+Angular testbed. Afterwards, we compared that to the lightweight setup offered
+by Spectacular's feature testing API.
+
+Finally, we saw how Spectalar adds convenience APIs to remove common boilerplate
+from feature tests.
+
+Spectacular offers:
+
+- Lightweight, reusable test setup for tests scoped to a routed feature module
+- Performing multi-step feature tests involving multiple routed components
+- Feature-aware location and router services reducing feature test boilerplate
+- Tests exercising an entire Angular feature without needing a host application
+- Feature tests that are faster than end-to-end tests
+- The flexibility to access or replace Angular services as needed
+
+<!--
+Visit the other pages in this section to learn about other use cases supported
+by Spectacular's feature testing API.
+-->
+
+## Appendix A: Feature test suite using the Angular testbed
+
+```ts
+import { Location } from '@angular/common';
+import { Component } from '@angular/core';
+import {
+  ComponentFixture,
+  ComponentFixtureAutoDetect,
+  TestBed,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
@@ -375,18 +749,108 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
   let location: Location;
   let rootFixture: ComponentFixture<TestAppComponent>;
   let router: Router;
+
+  describe('Editing a crisis', () => {
+    it('navigates to the crisis center home with the crisis selected when the change is saved', async () => {
+      const [aCrisis] = crisisService.getCrises().value;
+      await rootFixture.ngZone?.run(() =>
+        router.navigate([crisisCenterPath, aCrisis.id])
+      );
+      const inputElement: HTMLInputElement = rootFixture.debugElement.query(
+        By.css('input')
+      ).nativeElement;
+      const saveButtonElement: HTMLButtonElement = rootFixture.debugElement
+        .queryAll(By.css('button'))
+        .map(button => button.nativeElement)
+        .find(
+          (buttonElement: HTMLButtonElement) =>
+            buttonElement.textContent?.trim() === 'Save'
+        );
+      const newCrisisName = 'Global climate crisis';
+
+      inputElement.value = newCrisisName;
+      inputElement.dispatchEvent(new Event('input'));
+      saveButtonElement.click();
+      await rootFixture.whenStable();
+
+      const welcomeText: HTMLElement = rootFixture.debugElement.query(
+        By.css('p')
+      ).nativeElement;
+      const selectedCrisis: HTMLElement = rootFixture.debugElement.query(
+        By.css('.selected')
+      ).nativeElement;
+      expect(welcomeText.textContent).toBe('Welcome to the Crisis Center');
+      expect(selectedCrisis.textContent?.trim()).toBe(
+        `${aCrisis.id}${newCrisisName}`
+      );
+      expect(location.path()).toBe(
+        `/${crisisCenterPath};id=${aCrisis.id};foo=foo`
+      );
+    });
+  });
 });
 ```
 
-We have managed to:
+## Appendix B: Feature test suite using Spectacular
 
-1. Declare a test root component
-1. Isolate Angular's routing services from the browser APIs
-1. Register the routed feature module
-1. Enable automatic change detection
-1. Bootstrap the test root component
-1. Resolve navigation and data services
-1. Initialize feature navigation
+```ts
+import { By } from '@angular/platform-browser';
+import {
+  createFeatureHarness,
+  SpectacularFeatureHarness,
+} from '@ngworker/spectacular';
+import {
+  CrisisCenterModule,
+  crisisCenterPath,
+  CrisisService,
+} from '@tour-of-heroes/crisis-center';
 
-That's quite an impressive setup. However, we need all of these setup steps for
-every Angular feature test, not only when testing the crisis center feature.
+describe('Tour of Heroes: Crisis center integration tests', () => {
+  beforeEach(() => {
+    harness = createFeatureHarness({
+      featureModule: CrisisCenterModule,
+      featurePath: crisisCenterPath,
+    });
+
+    crisisService = harness.inject(CrisisService);
+  });
+
+  let crisisService: CrisisService;
+  let harness: SpectacularFeatureHarness;
+
+  describe('Editing a crisis', () => {
+    it('navigates to the crisis center home with the crisis selected when the change is saved', async () => {
+      const [aCrisis] = crisisService.getCrises().value;
+      await harness.router.navigate(['~', aCrisis.id]);
+      const inputElement: HTMLInputElement = harness.rootFixture.debugElement.query(
+        By.css('input')
+      ).nativeElement;
+      const saveButtonElement: HTMLButtonElement = harness.rootFixture.debugElement
+        .queryAll(By.css('button'))
+        .map(button => button.nativeElement)
+        .find(
+          (buttonElement: HTMLButtonElement) =>
+            buttonElement.textContent?.trim() === 'Save'
+        );
+      const newCrisisName = 'Global climate crisis';
+
+      inputElement.value = newCrisisName;
+      inputElement.dispatchEvent(new Event('input'));
+      saveButtonElement.click();
+      await harness.rootFixture.whenStable();
+
+      const welcomeText: HTMLElement = harness.rootFixture.debugElement.query(
+        By.css('p')
+      ).nativeElement;
+      const selectedCrisis: HTMLElement = harness.rootFixture.debugElement.query(
+        By.css('.selected')
+      ).nativeElement;
+      expect(welcomeText.textContent).toBe('Welcome to the Crisis Center');
+      expect(selectedCrisis.textContent?.trim()).toBe(
+        `${aCrisis.id}${newCrisisName}`
+      );
+      expect(harness.location.path()).toBe(`~/;id=${aCrisis.id};foo=foo`);
+    });
+  });
+});
+```
