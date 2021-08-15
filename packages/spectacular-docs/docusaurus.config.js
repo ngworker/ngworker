@@ -117,11 +117,6 @@ module.exports = {
           position: 'left',
           to: 'docs/',
         },
-        {
-          label: 'Blog',
-          position: 'left',
-          to: 'blog',
-        },
       ],
       logo: {
         alt: 'Spectacular logo',
