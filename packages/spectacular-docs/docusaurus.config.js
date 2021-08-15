@@ -14,6 +14,8 @@ module.exports = {
       'docusaurus-plugin-typedoc',
       {
         entryPoints: ['./packages/spectacular/src/index.ts'],
+        excludeInternal: true,
+        excludePrivate: true,
         tsconfig: './packages/spectacular/tsconfig.lib.prod.json',
       },
     ],
