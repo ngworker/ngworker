@@ -90,7 +90,7 @@ jobs:
       - run: pnpm store prune
 
       - if: github.event_name == 'push'
-        run: pnpm test --max-parallel=$NX_MAX_PARALLEL
+        run: pnpm test -- --max-parallel=$NX_MAX_PARALLEL
       - if: github.event_name == 'pull_request'
         run:
           pnpm affected:test -- --base=origin/$BASE_BRANCH
