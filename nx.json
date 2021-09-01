@@ -19,7 +19,8 @@
       "options": {
         "accessToken": "ZTViM2YyNGQtNjk2My00YmFjLWJlYmQtZjIwMzJhMmIxNGMwfHJlYWQtd3JpdGU=",
         "cacheableOperations": ["build", "e2e", "lint", "test"],
-        "canTrackAnalytics": false,
+        "canTrackAnalytics": true,
+        "maxParallel": 6,
         "showUsageWarnings": true
       }
     }
@@ -37,6 +38,10 @@
     },
     "spectacular": {
       "tags": ["type:package"]
+    },
+    "spectacular-docs": {
+      "implicitDependencies": ["spectacular"],
+      "tags": ["type:docs"]
     },
     "workspace-tools": {
       "tags": ["type:tool"]
