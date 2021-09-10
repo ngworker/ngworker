@@ -696,10 +696,14 @@ Spectacular offers:
 - Feature tests that are faster than end-to-end tests
 - The flexibility to access or replace Angular services as needed
 
-<!--
+You might have noticed that Spectacular doesn't have APIs for interacting with
+or inspecting our application's DOM. However, Spectacular's feature testing API
+was built with compatibility in mind. Spectacular can be integrated with Angular
+component test harnesses or
+[Angular Testing Library](feature-testing/angular-testing-library).
+
 Visit the other pages in this section to learn about other use cases supported
 by Spectacular's feature testing API.
--->
 
 ## Appendix A: Feature test suite using the Angular testbed
 
