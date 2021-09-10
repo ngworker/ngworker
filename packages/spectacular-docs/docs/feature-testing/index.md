@@ -624,7 +624,7 @@ interacting with or inspecting the DOM. However, it takes care of certain
 boilerplate code that shows up in common scenarios.
 
 When reviewing the feature test converted to using Spectacular, we notice a few
-convenince APIs in use:
+convenience APIs in use:
 
 ```ts
 describe('Editing a crisis', () => {
