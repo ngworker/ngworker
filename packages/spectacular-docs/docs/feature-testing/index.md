@@ -1,7 +1,7 @@
 ---
-id: index
 slug: /feature-testing
 sidebar_label: Introduction
+sidebar_position: 1
 title: Feature testing
 ---
 
