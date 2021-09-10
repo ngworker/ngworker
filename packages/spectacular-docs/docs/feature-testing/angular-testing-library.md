@@ -5,9 +5,9 @@ sidebar_position: 2
 title: Integrating Spectacular with Angular Testing Library
 ---
 
-Spectacular doesn't contain an API for inspecting or interacting with our
-application's DOM. Instead, we rely on Angular's verbose testing APIs.
-Alternatively, we can use the expressive and convenient APIs of
+Spectacular doesn't contain an API for interacting with or inspecting our
+application's DOM and its URL path. Instead, we rely on Angular's verbose
+testing APIs. Alternatively, we can use the expressive and convenient APIs of
 [Angular Testing Library](https://testing-library.com/docs/angular-testing-library/intro/).
 
 In this page, we learn how to integrate Spectacular with Angular Testing Library
@@ -392,7 +392,12 @@ import {
   SpectacularAppComponent,
   SpectacularFeatureTestingModule,
 } from '@ngworker/spectacular';
-import { fireEvent, render, RenderResult } from '@testing-library/angular';
+import {
+  fireEvent,
+  render,
+  RenderResult,
+  screen,
+} from '@testing-library/angular';
 import {
   Crisis,
   CrisisCenterModule,
@@ -439,7 +444,12 @@ import {
   SpectacularFeatureLocation,
   SpectacularFeatureTestingModule,
 } from '@ngworker/spectacular';
-import { fireEvent, render, RenderResult } from '@testing-library/angular';
+import {
+  fireEvent,
+  render,
+  RenderResult,
+  screen,
+} from '@testing-library/angular';
 import {
   Crisis,
   CrisisCenterModule,
@@ -478,3 +488,88 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
   });
 });
 ```
+
+## Testing a complete user flow with Spectacular and Angular Testing Library
+
+The following is an example of testing a complete user flow with Spectacular and
+[Angular Testing Library](https://testing-library.com/docs/angular-testing-library/intro/):
+
+```ts {46-64}
+import {
+  SpectacularAppComponent,
+  SpectacularFeatureLocation,
+  SpectacularFeatureRouter,
+  SpectacularFeatureTestingModule,
+} from '@ngworker/spectacular';
+import {
+  fireEvent,
+  render,
+  RenderResult,
+  screen,
+} from '@testing-library/angular';
+import {
+  CrisisCenterModule,
+  crisisCenterPath,
+  CrisisService,
+} from '@tour-of-heroes/crisis-center';
+
+describe('Tour of Heroes: Crisis center integration tests', () => {
+  beforeEach(async () => {
+    result = await render(SpectacularAppComponent, {
+      excludeComponentDeclaration: true,
+      imports: [
+        SpectacularFeatureTestingModule.withFeature({
+          featureModule: CrisisCenterModule,
+          featurePath: crisisCenterPath,
+        }),
+      ],
+    });
+    result.fixture.autoDetectChanges(true);
+    crisisService = result.fixture.debugElement.injector.get(CrisisService);
+    featureLocation = result.fixture.debugElement.injector.get(
+      SpectacularFeatureLocation
+    );
+    featureRouter = result.fixture.debugElement.injector.get(
+      SpectacularFeatureRouter
+    );
+  });
+
+  let crisisService: CrisisService;
+  let featureLocation: SpectacularFeatureLocation;
+  let featureRouter: SpectacularFeatureRouter;
+  let result: RenderResult<SpectacularAppComponent, SpectacularAppComponent>;
+
+  describe('Editing a crisis', () => {
+    it('navigates to the crisis center home with the crisis selected when the change is saved', async () => {
+      const [aCrisis] = crisisService.getCrises().value;
+      await featureRouter.navigate(['~', aCrisis.id]);
+      const newCrisisName = 'Global climate crisis';
+
+      fireEvent.input(screen.getByRole('textbox'), {
+        target: { value: newCrisisName },
+      });
+      fireEvent.click(screen.getByRole('button', { name: 'Save' }));
+      await result.fixture.whenStable();
+
+      expect(screen.queryByText('Welcome to the Crisis Center')).not.toBeNull();
+      expect(
+        screen.queryByText(new RegExp(aCrisis.name), {
+          selector: '.selected a',
+        })
+      ).not.toBeNull();
+      expect(featureLocation.path()).toBe(`~/;id=${aCrisis.id};foo=foo`);
+    });
+  });
+});
+```
+
+Compare this to
+[Feature testing: Appendix B](./#appendix-b-feature-test-suite-using-spectacular)
+and we see that the preceding test case contains about half the lines of code as
+the one using Spectacular without
+[Angular Testing Library](https://testing-library.com/docs/angular-testing-library/intro/).
+
+Compare this to
+[Feature testing: Appendix A](./#appendix-a-feature-test-suite-using-the-angular-testbed)
+and we come to appreciate how much less noise is in our test setup and our code
+which interacts and inspects the DOM as well as the URL path.
