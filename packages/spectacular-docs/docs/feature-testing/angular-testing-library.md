@@ -10,7 +10,7 @@ application's DOM and its URL path. Instead, we rely on Angular's verbose
 testing APIs. Alternatively, we can use the expressive and convenient APIs of
 [Angular Testing Library](https://testing-library.com/docs/angular-testing-library/intro/).
 
-In this page, we learn how to integrate Spectacular with Angular Testing Library
+On this page, we learn how to integrate Spectacular with Angular Testing Library
 by configuring
 [`render`](https://testing-library.com/docs/angular-testing-library/api#render)
 and using Spectacular's feature-aware services for an excellent testing
@@ -86,7 +86,7 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
 ```
 
 [`SpectacularAppComponent`](../api/classes/spectacularappcomponent) is a simple
-component with a router outlet which will host all our feature's routes.
+component with a router outlet that will host all our feature's routes.
 
 Notice that we resolve the render result and store it in a variable of type
 [`RenderResult<SpectacularAppComponent, SpectacularAppComponent>`](https://testing-library.com/docs/angular-testing-library/api#renderresult):
