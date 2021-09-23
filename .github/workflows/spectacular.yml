@@ -120,7 +120,7 @@ jobs:
           --verify-store-integrity false
       - run: pnpm store prune
 
-      - run: pnpx nx test $project-name --with-deps --parallel
+      - run: pnpx nx test ${{ env.project-name }} --with-deps --parallel
 
   build:
     runs-on: ubuntu-latest
@@ -149,4 +149,4 @@ jobs:
           --verify-store-integrity false
       - run: pnpm store prune
 
-      - run: pnpx nx build $project-name --configuration=production
+      - run: pnpx nx build ${{ env.project-name }} --configuration=production
