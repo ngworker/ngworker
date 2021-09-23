@@ -1,9 +1,12 @@
 ---
-id: index
 slug: /feature-testing
 sidebar_label: Introduction
+sidebar_position: 1
 title: Feature testing
 ---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 Spectacular's feature testing API configures the Angular testing module and sets
 up a test harness for a routed Angular feature module. It contains a few
@@ -624,7 +627,7 @@ interacting with or inspecting the DOM. However, it takes care of certain
 boilerplate code that shows up in common scenarios.
 
 When reviewing the feature test converted to using Spectacular, we notice a few
-convenince APIs in use:
+convenience APIs in use:
 
 ```ts
 describe('Editing a crisis', () => {
@@ -696,14 +699,94 @@ Spectacular offers:
 - Feature tests that are faster than end-to-end tests
 - The flexibility to access or replace Angular services as needed
 
-<!--
+You might have noticed that Spectacular doesn't have APIs for interacting with
+or inspecting our application's DOM. However, Spectacular's feature testing API
+was built with compatibility in mind. Spectacular can be integrated with Angular
+component test harnesses or
+[Angular Testing Library](feature-testing/angular-testing-library).
+
 Visit the other pages in this section to learn about other use cases supported
 by Spectacular's feature testing API.
--->
 
-## Appendix A: Feature test suite using the Angular testbed
+## Appendix A: Complete feature test suites
 
-```ts
+The following shows complete feature test suites:
+
+<Tabs
+  defaultValue="spectacular"
+  values={[
+    { label: 'Spectacular + Angular testbed', value: 'spectacular', },
+    { label: 'Angular testbed', value: 'testbed', },
+  ]}>
+  <TabItem value="spectacular">
+
+```ts {14-17,28,56}
+import { By } from '@angular/platform-browser';
+import {
+  createFeatureHarness,
+  SpectacularFeatureHarness,
+} from '@ngworker/spectacular';
+import {
+  CrisisCenterModule,
+  crisisCenterPath,
+  CrisisService,
+} from '@tour-of-heroes/crisis-center';
+
+describe('Tour of Heroes: Crisis center integration tests', () => {
+  beforeEach(() => {
+    harness = createFeatureHarness({
+      featureModule: CrisisCenterModule,
+      featurePath: crisisCenterPath,
+    });
+
+    crisisService = harness.inject(CrisisService);
+  });
+
+  let crisisService: CrisisService;
+  let harness: SpectacularFeatureHarness;
+
+  describe('Editing a crisis', () => {
+    it('navigates to the crisis center home with the crisis selected when the change is saved', async () => {
+      const [aCrisis] = crisisService.getCrises().value;
+      await harness.router.navigate(['~', aCrisis.id]);
+      const inputElement: HTMLInputElement = harness.rootFixture.debugElement.query(
+        By.css('input')
+      ).nativeElement;
+      const saveButtonElement: HTMLButtonElement = harness.rootFixture.debugElement
+        .queryAll(By.css('button'))
+        .map(button => button.nativeElement)
+        .find(
+          (buttonElement: HTMLButtonElement) =>
+            buttonElement.textContent?.trim() === 'Save'
+        );
+      const newCrisisName = 'Global climate crisis';
+
+      inputElement.value = newCrisisName;
+      inputElement.dispatchEvent(new Event('input'));
+      saveButtonElement.click();
+      await harness.rootFixture.whenStable();
+
+      const welcomeText: HTMLElement = harness.rootFixture.debugElement.query(
+        By.css('p')
+      ).nativeElement;
+      const selectedCrisis: HTMLElement = harness.rootFixture.debugElement.query(
+        By.css('.selected')
+      ).nativeElement;
+      expect(welcomeText.textContent).toBe('Welcome to the Crisis Center');
+      expect(selectedCrisis.textContent?.trim()).toBe(
+        `${aCrisis.id}${newCrisisName}`
+      );
+      expect(harness.location.path()).toBe(`~/;id=${aCrisis.id};foo=foo`);
+    });
+  });
+});
+```
+
+  </TabItem>
+
+  <TabItem value="testbed">
+
+```ts {17-21,26,27-31,39,50-52,80-82}
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import {
@@ -791,66 +874,8 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
 });
 ```
 
-## Appendix B: Feature test suite using Spectacular
+  </TabItem>
+</Tabs>
 
-```ts
-import { By } from '@angular/platform-browser';
-import {
-  createFeatureHarness,
-  SpectacularFeatureHarness,
-} from '@ngworker/spectacular';
-import {
-  CrisisCenterModule,
-  crisisCenterPath,
-  CrisisService,
-} from '@tour-of-heroes/crisis-center';
-
-describe('Tour of Heroes: Crisis center integration tests', () => {
-  beforeEach(() => {
-    harness = createFeatureHarness({
-      featureModule: CrisisCenterModule,
-      featurePath: crisisCenterPath,
-    });
-
-    crisisService = harness.inject(CrisisService);
-  });
-
-  let crisisService: CrisisService;
-  let harness: SpectacularFeatureHarness;
-
-  describe('Editing a crisis', () => {
-    it('navigates to the crisis center home with the crisis selected when the change is saved', async () => {
-      const [aCrisis] = crisisService.getCrises().value;
-      await harness.router.navigate(['~', aCrisis.id]);
-      const inputElement: HTMLInputElement = harness.rootFixture.debugElement.query(
-        By.css('input')
-      ).nativeElement;
-      const saveButtonElement: HTMLButtonElement = harness.rootFixture.debugElement
-        .queryAll(By.css('button'))
-        .map(button => button.nativeElement)
-        .find(
-          (buttonElement: HTMLButtonElement) =>
-            buttonElement.textContent?.trim() === 'Save'
-        );
-      const newCrisisName = 'Global climate crisis';
-
-      inputElement.value = newCrisisName;
-      inputElement.dispatchEvent(new Event('input'));
-      saveButtonElement.click();
-      await harness.rootFixture.whenStable();
-
-      const welcomeText: HTMLElement = harness.rootFixture.debugElement.query(
-        By.css('p')
-      ).nativeElement;
-      const selectedCrisis: HTMLElement = harness.rootFixture.debugElement.query(
-        By.css('.selected')
-      ).nativeElement;
-      expect(welcomeText.textContent).toBe('Welcome to the Crisis Center');
-      expect(selectedCrisis.textContent?.trim()).toBe(
-        `${aCrisis.id}${newCrisisName}`
-      );
-      expect(harness.location.path()).toBe(`~/;id=${aCrisis.id};foo=foo`);
-    });
-  });
-});
-```
+Significant differences between using Spectacular with the Angular testbed
+compared to just using the Angular testbed are highlighted.
