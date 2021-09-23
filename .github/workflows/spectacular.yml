@@ -9,7 +9,7 @@ env:
   NX_BRANCH: ${{ github.event.number }}
   NX_RUN_GROUP: ${{ github.run_id }}
   PNPM_STORE_PATH: ~/.pnpm-store
-  PROJECT_NAME: spectacular
+  project-name: spectacular
 
 on:
   push:
@@ -62,7 +62,7 @@ jobs:
       - id: affected
         uses: ./.github/actions/affected
         with:
-          project: ${{ env.PROJECT_NAME }}
+          project: ${{ env.project-name }}
 
   lint:
     runs-on: ubuntu-latest
@@ -91,7 +91,7 @@ jobs:
           --verify-store-integrity false
       - run: pnpm store prune
 
-      - run: pnpx nx lint $PROJECT_NAME --with-deps --parallel
+      - run: pnpx nx lint ${{ env.project-name }} --with-deps --parallel
 
   test:
     runs-on: ubuntu-latest
@@ -120,7 +120,7 @@ jobs:
           --verify-store-integrity false
       - run: pnpm store prune
 
-      - run: pnpx nx test $PROJECT_NAME --with-deps --parallel
+      - run: pnpx nx test $project-name --with-deps --parallel
 
   build:
     runs-on: ubuntu-latest
@@ -149,4 +149,4 @@ jobs:
           --verify-store-integrity false
       - run: pnpm store prune
 
-      - run: pnpx nx build $PROJECT_NAME --configuration=production
+      - run: pnpx nx build $project-name --configuration=production
