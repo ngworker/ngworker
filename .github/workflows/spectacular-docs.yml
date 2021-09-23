@@ -103,7 +103,7 @@ jobs:
 
   deploy:
     name: Deploy
-    if: ${{ env.is-main-branch == 'true' }}
+    if: ${{ github.ref == 'refs/heads/main' }}
     needs: build
     runs-on: ubuntu-latest
 
