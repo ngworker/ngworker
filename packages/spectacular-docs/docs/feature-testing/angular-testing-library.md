@@ -572,3 +572,30 @@ Compare this to
 [Feature testing: Appendix A](./#appendix-a-feature-test-suite-using-the-angular-testbed)
 and we come to appreciate how much less noise is in our test setup and our code
 which interacts and inspects the DOM as well as the URL path.
+
+## Sharing an Angular Testing Library configuration
+
+Consider sharing common Angular Testing Library configuration by using the
+[`configure`](https://testing-library.com/docs/dom-testing-library/api-configuration)
+function. Angular Testing Library's `configure` options support the following
+Angular-specific options:
+
+- `defaultImports`, an array of shared Angular module imports
+- `excludeComponentDeclaration`, a Boolean value that enables an imported module
+  to declare the testing root component when set to `true`
+
+As an example, we could add the following shared configuration to our main test
+file:
+
+```ts
+import { configure } from '@testing-library/angular';
+
+configure({
+  excludeComponentDeclaration: true,
+});
+```
+
+In this case, we can leave out the `excludeComponentDeclaration` setting from
+Spectacular test suite setups in the relevant project. Keep in mind that this
+will affect all test suites using Angular Testing Library in the project using
+this main test file.
