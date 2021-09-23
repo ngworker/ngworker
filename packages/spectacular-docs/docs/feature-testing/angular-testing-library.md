@@ -1,5 +1,4 @@
 ---
-# slug: /angular-testing-library
 sidebar_label: Angular Testing Library
 sidebar_position: 2
 title: Integrating Spectacular with Angular Testing Library
