@@ -102,7 +102,7 @@ jobs:
           if-no-files-found: error
 
   deploy:
-    name: Deploy
+    name: 'Merge: Deploy'
     if: ${{ github.ref == 'refs/heads/main' }}
     needs: build
     runs-on: ubuntu-latest
