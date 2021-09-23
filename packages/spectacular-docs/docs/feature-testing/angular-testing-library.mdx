@@ -388,18 +388,14 @@ When using Angular Testing Library, you can use Angular's
 [`Location#path`](https://angular.io/api/common/Location#path) service method to
 assert navigation to feature routes:
 
-```ts {1,24,27,39}
+```ts {1,25,28,40}
 import { Location } from '@angular/common';
 import {
   SpectacularAppComponent,
   SpectacularFeatureTestingModule,
 } from '@ngworker/spectacular';
-import {
-  fireEvent,
-  render,
-  RenderResult,
-  screen,
-} from '@testing-library/angular';
+import { render, RenderResult, screen } from '@testing-library/angular';
+import userEvent from '@testing-library/user-event';
 import {
   Crisis,
   CrisisCenterModule,
@@ -430,7 +426,7 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
     };
     await result.navigate(crisisCenterPath);
 
-    fireEvent.click(screen.getByText(crisis.name));
+    userEvent.click(screen.getByText(crisis.name));
 
     expect(appLocation.path()).toBe(crisisCenterPath + '/' + crisis.id);
   });
@@ -440,18 +436,14 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
 Alternatively, you can use Spectacular's feature-aware location service,
 [`SpectacularFeatureLocation`](../api/classes/spectacularfeaturelocation):
 
-```ts {3,24-26,29,41}
+```ts {3,25-27,30,42}
 import {
   SpectacularAppComponent,
   SpectacularFeatureLocation,
   SpectacularFeatureTestingModule,
 } from '@ngworker/spectacular';
-import {
-  fireEvent,
-  render,
-  RenderResult,
-  screen,
-} from '@testing-library/angular';
+import { render, RenderResult, screen } from '@testing-library/angular';
+import userEvent from '@testing-library/user-event';
 import {
   Crisis,
   CrisisCenterModule,
@@ -484,7 +476,7 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
     };
     await result.navigate(crisisCenterPath);
 
-    fireEvent.click(screen.getByText(crisis.name));
+    userEvent.click(screen.getByText(crisis.name));
 
     expect(featureLocation.path()).toBe('~/' + crisis.id);
   });
@@ -505,19 +497,15 @@ The following is an example of testing a complete user flow with Spectacular and
   ]}>
   <TabItem value="atl">
 
-```ts {46-64}
+```ts {42-58}
 import {
   SpectacularAppComponent,
   SpectacularFeatureLocation,
   SpectacularFeatureRouter,
   SpectacularFeatureTestingModule,
 } from '@ngworker/spectacular';
-import {
-  fireEvent,
-  render,
-  RenderResult,
-  screen,
-} from '@testing-library/angular';
+import { render, RenderResult, screen } from '@testing-library/angular';
+import userEvent from '@testing-library/user-event';
 import {
   CrisisCenterModule,
   crisisCenterPath,
@@ -556,10 +544,8 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
       await featureRouter.navigate(['~', aCrisis.id]);
       const newCrisisName = 'Global climate crisis';
 
-      fireEvent.input(screen.getByRole('textbox'), {
-        target: { value: newCrisisName },
-      });
-      fireEvent.click(screen.getByRole('button', { name: 'Save' }));
+      userEvent.type(screen.getByRole('textbox'), newCrisisName);
+      userEvent.click(screen.getByRole('button', { name: 'Save' }));
       await result.fixture.whenStable();
 
       expect(screen.queryByText('Welcome to the Crisis Center')).not.toBeNull();
