@@ -4,6 +4,9 @@ sidebar_position: 2
 title: Integrating Spectacular with Angular Testing Library
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 Spectacular doesn't contain an API for interacting with or inspecting our
 application's DOM and its URL path. Instead, we rely on Angular's verbose
 testing APIs. Alternatively, we can use the expressive and convenient APIs of
@@ -493,6 +496,15 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
 The following is an example of testing a complete user flow with Spectacular and
 [Angular Testing Library](https://testing-library.com/docs/angular-testing-library/intro/):
 
+<Tabs
+  defaultValue="atl"
+  values={[
+    { label: 'Spectacular + Angular Testing Library', value: 'atl', },
+    { label: 'Spectacular + Angular testbed', value: 'spectacular', },
+    { label: 'Angular testbed', value: 'testbed', },
+  ]}>
+  <TabItem value="atl">
+
 ```ts {46-64}
 import {
   SpectacularAppComponent,
@@ -562,16 +574,175 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
 });
 ```
 
-Compare this to
-[Feature testing: Appendix B](./#appendix-b-feature-test-suite-using-spectacular)
+  </TabItem>
+
+  <TabItem value="spectacular">
+
+```ts {26-57}
+import { By } from '@angular/platform-browser';
+import {
+  createFeatureHarness,
+  SpectacularFeatureHarness,
+} from '@ngworker/spectacular';
+import {
+  CrisisCenterModule,
+  crisisCenterPath,
+  CrisisService,
+} from '@tour-of-heroes/crisis-center';
+
+describe('Tour of Heroes: Crisis center integration tests', () => {
+  beforeEach(() => {
+    harness = createFeatureHarness({
+      featureModule: CrisisCenterModule,
+      featurePath: crisisCenterPath,
+    });
+
+    crisisService = harness.inject(CrisisService);
+  });
+
+  let crisisService: CrisisService;
+  let harness: SpectacularFeatureHarness;
+
+  describe('Editing a crisis', () => {
+    it('navigates to the crisis center home with the crisis selected when the change is saved', async () => {
+      const [aCrisis] = crisisService.getCrises().value;
+      await harness.router.navigate(['~', aCrisis.id]);
+      const inputElement: HTMLInputElement = harness.rootFixture.debugElement.query(
+        By.css('input')
+      ).nativeElement;
+      const saveButtonElement: HTMLButtonElement = harness.rootFixture.debugElement
+        .queryAll(By.css('button'))
+        .map(button => button.nativeElement)
+        .find(
+          (buttonElement: HTMLButtonElement) =>
+            buttonElement.textContent?.trim() === 'Save'
+        );
+      const newCrisisName = 'Global climate crisis';
+
+      inputElement.value = newCrisisName;
+      inputElement.dispatchEvent(new Event('input'));
+      saveButtonElement.click();
+      await harness.rootFixture.whenStable();
+
+      const welcomeText: HTMLElement = harness.rootFixture.debugElement.query(
+        By.css('p')
+      ).nativeElement;
+      const selectedCrisis: HTMLElement = harness.rootFixture.debugElement.query(
+        By.css('.selected')
+      ).nativeElement;
+      expect(welcomeText.textContent).toBe('Welcome to the Crisis Center');
+      expect(selectedCrisis.textContent?.trim()).toBe(
+        `${aCrisis.id}${newCrisisName}`
+      );
+      expect(harness.location.path()).toBe(`~/;id=${aCrisis.id};foo=foo`);
+    });
+  });
+});
+```
+
+  </TabItem>
+
+  <TabItem value="testbed">
+
+```ts {48-83}
+import { Location } from '@angular/common';
+import { Component } from '@angular/core';
+import {
+  ComponentFixture,
+  ComponentFixtureAutoDetect,
+  TestBed,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import {
+  CrisisCenterModule,
+  crisisCenterPath,
+  CrisisService,
+} from '@tour-of-heroes/crisis-center';
+
+@Component({
+  selector: 'test-app',
+  template: '<router-outlet><router-outlet>',
+})
+class TestAppComponent {}
+
+describe('Tour of Heroes: Crisis center integration tests', () => {
+  beforeEach(async () => {
+    TestBed.configureTestingModule({
+      declarations: [TestAppComponent],
+      imports: [
+        RouterTestingModule.withRoutes([
+          { path: crisisCenterPath, loadChildren: () => CrisisCenterModule },
+        ]),
+      ],
+      providers: [{ provide: ComponentFixtureAutoDetect, useValue: true }],
+    });
+
+    rootFixture = TestBed.createComponent(TestAppComponent);
+    location = TestBed.inject(Location);
+    router = TestBed.inject(Router);
+    crisisService = TestBed.inject(CrisisService);
+    await rootFixture.ngZone?.run(() => router.navigate([crisisCenterPath]));
+  });
+
+  let crisisService: CrisisService;
+  let location: Location;
+  let rootFixture: ComponentFixture<TestAppComponent>;
+  let router: Router;
+
+  describe('Editing a crisis', () => {
+    it('navigates to the crisis center home with the crisis selected when the change is saved', async () => {
+      const [aCrisis] = crisisService.getCrises().value;
+      await rootFixture.ngZone?.run(() =>
+        router.navigate([crisisCenterPath, aCrisis.id])
+      );
+      const inputElement: HTMLInputElement = rootFixture.debugElement.query(
+        By.css('input')
+      ).nativeElement;
+      const saveButtonElement: HTMLButtonElement = rootFixture.debugElement
+        .queryAll(By.css('button'))
+        .map(button => button.nativeElement)
+        .find(
+          (buttonElement: HTMLButtonElement) =>
+            buttonElement.textContent?.trim() === 'Save'
+        );
+      const newCrisisName = 'Global climate crisis';
+
+      inputElement.value = newCrisisName;
+      inputElement.dispatchEvent(new Event('input'));
+      saveButtonElement.click();
+      await rootFixture.whenStable();
+
+      const welcomeText: HTMLElement = rootFixture.debugElement.query(
+        By.css('p')
+      ).nativeElement;
+      const selectedCrisis: HTMLElement = rootFixture.debugElement.query(
+        By.css('.selected')
+      ).nativeElement;
+      expect(welcomeText.textContent).toBe('Welcome to the Crisis Center');
+      expect(selectedCrisis.textContent?.trim()).toBe(
+        `${aCrisis.id}${newCrisisName}`
+      );
+      expect(location.path()).toBe(
+        `/${crisisCenterPath};id=${aCrisis.id};foo=foo`
+      );
+    });
+  });
+});
+```
+
+  </TabItem>
+</Tabs>
+
+Compare this to a feature test suite using Spectacular with the Angular testbed
 and we see that the preceding test case contains about half the lines of code as
 the one using Spectacular without
 [Angular Testing Library](https://testing-library.com/docs/angular-testing-library/intro/).
 
-Compare this to
-[Feature testing: Appendix A](./#appendix-a-feature-test-suite-using-the-angular-testbed)
-and we come to appreciate how much less noise is in our test setup and our code
-which interacts and inspects the DOM as well as the URL path.
+Compare this to a feature test suite using only the Angular testbed and we come
+to appreciate how much less noise is in our test setup and our code which
+interacts and inspects the DOM as well as the URL path.
 
 ## Sharing an Angular Testing Library configuration
 
@@ -588,14 +759,24 @@ As an example, we could add the following shared configuration to our main test
 file:
 
 ```ts
+import { ComponentFixtureAutoDetect } from '@angular/core/testing';
 import { configure } from '@testing-library/angular';
 
+@NgModule({
+  providers: [{ provide: ComponentFixtureAutoDetect, useValue: true }],
+})
+class AutoDetectChangesModule {}
+
 configure({
+  defaultImports: [AutoDetectChangesModule],
   excludeComponentDeclaration: true,
 });
 ```
 
 In this case, we can leave out the `excludeComponentDeclaration` setting from
-Spectacular test suite setups in the relevant project. Keep in mind that this
-will affect all test suites using Angular Testing Library in the project using
-this main test file.
+Spectacular test suite setups in the relevant project. Additionally, we don't
+have to call `RenderResult#fixture#autoDetectChanges` after calling
+[`render`](https://testing-library.com/docs/angular-testing-library/api#render).
+
+Keep in mind that this affects all test suites using Angular Testing Library in
+the project using this main test file.
