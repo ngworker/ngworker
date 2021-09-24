@@ -1,17 +1,21 @@
-name: 'Affected'
-description: 'Check whether an Nx workspace project is affected by changes.'
+name: Affected
+description: Check whether an Nx workspace project is affected by changes.
 
 inputs:
+  base-branch:
+    description: The name of the base branch to compare affected projects to.
+    required: false
+    default: main
   project:
-    description: 'The name of the project to check.'
+    description: The name of the project to check.
     required: true
 outputs:
   is-affected:
-    description: 'Whether or not the project is affected by changes.'
+    description: Whether or not the project is affected by changes.
     value: ${{ steps.affected.outputs.is-affected }}
 
 runs:
-  using: 'composite'
+  using: composite
   steps:
     - run: mkdir tmp
       shell: bash
@@ -20,8 +24,8 @@ runs:
     # we store the result in a temporary file to allow the Node.js process to
     # fail the calling job
     - run:
-        node ${{github.action_path}}/affected.mjs ${{ inputs.project }} >>
-        ./tmp/IS_AFFECTED
+        node ${{ github.action_path }}/affected.mjs ${{ inputs.project }} ${{
+        inputs.base-branch }} >> ./tmp/IS_AFFECTED
       shell: bash
     # if we inline the Node.js execution here, the calling job will not fail in
     # case of process errors
