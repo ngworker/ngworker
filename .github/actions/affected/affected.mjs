@@ -3,33 +3,25 @@ import { readFileSync } from 'fs';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
 
-function readAffectedApps(baseBranch) {
-  const affected = execSync(
-    `pnpx nx affected:apps --plain --base=origin/${baseBranch}`,
-    {
-      encoding: 'utf-8',
-      stdio: 'pipe',
-    }
-  );
+function readAffectedApps(base) {
+  const affected = execSync(`pnpx nx affected:apps --plain --base=${base}`, {
+    encoding: 'utf-8',
+  });
 
   return sanitizeAffectedOutput(affected);
 }
 
-function readAffectedLibs(baseBranch) {
-  const affected = execSync(
-    `pnpx nx affected:libs --plain --base=origin/${baseBranch}`,
-    {
-      encoding: 'utf-8',
-      stdio: 'pipe',
-    }
-  );
+function readAffectedLibs(base) {
+  const affected = execSync(`pnpx nx affected:libs --plain --base=${base}`, {
+    encoding: 'utf-8',
+  });
 
   return sanitizeAffectedOutput(affected);
 }
 
-function readAffectedProjects(baseBranch) {
-  const affectedApps = readAffectedApps(baseBranch);
-  const affectedLibs = readAffectedLibs(baseBranch);
+function readAffectedProjects(base) {
+  const affectedApps = readAffectedApps(base);
+  const affectedLibs = readAffectedLibs(base);
 
   return affectedApps.concat(affectedLibs);
 }
@@ -63,12 +55,11 @@ function validateProjectParameter(projectName) {
 
 // Not available in an ES Module as of Node.js 12.x
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const project = process.argv[2];
-const baseBranch = process.argv[3];
+const [, , project, base] = process.argv[2];
 
 validateProjectParameter(project);
 
-const affectedProjects = readAffectedProjects(baseBranch);
+const affectedProjects = readAffectedProjects(base);
 const isAffected = affectedProjects.includes(project);
 
 console.log(isAffected);
