@@ -21,6 +21,7 @@ on:
 jobs:
   affected:
     name: Is affected?
+    if: ${{ github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
 
     outputs:
@@ -70,7 +71,9 @@ jobs:
 
   build:
     name: Build
-    if: ${{ needs.affected.outputs.is-affected == 'true' }}
+    if:
+      ${{ github.ref == 'refs/head/main' && needs.affected.outputs.is-affected
+      == 'true' }}
     needs: affected
     runs-on: ubuntu-latest
 
