@@ -247,6 +247,7 @@ With the benefits of a proper integration test, Spectacular offers:
 - Testing an Angular pipe composed with other pipes
 - Easily change the host component template
 - Easily change the test value
+- Usually no need to worry about change detection
 
 <!--
 Visit the other pages in this section to learn about other use cases supported
