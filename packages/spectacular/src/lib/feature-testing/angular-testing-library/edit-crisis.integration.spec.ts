@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/angular';
+import { Matcher } from '@testing-library/dom';
 import user from '@testing-library/user-event';
 import { CrisisCenterModule, crisisCenterPath } from '@tour-of-heroes/crisis-center';
 
@@ -24,13 +25,17 @@ async function setup() {
 
   return {
     findNameControl: () => screen.findByPlaceholderText(/name/i),
+    findSelectedCrisis: (name: Matcher) =>
+      screen.findByText(name, {
+        selector: '.selected a',
+      }),
     location: injector.get(SpectacularFeatureLocation),
     router: injector.get(SpectacularFeatureRouter),
   };
 }
 
 test('Edit a crisis from crisis center home', async () => {
-  const { findNameControl, router } = await setup();
+  const { findNameControl, findSelectedCrisis, router } = await setup();
   await router.navigateByUrl('~/');
 
   user.click(
@@ -47,14 +52,17 @@ test('Edit a crisis from crisis center home', async () => {
     await screen.findByText(/welcome to the crisis center/i)
   ).toBeInTheDocument();
   expect(
-    await screen.findByText(/coral reefs are dying/i, {
-      selector: '.selected a',
-    })
+    await findSelectedCrisis(/coral reefs are dying/i)
   ).toBeInTheDocument();
 });
 
 test('Edit name from crisis detail', async () => {
-  const { findNameControl, location, router } = await setup();
+  const {
+    findNameControl,
+    findSelectedCrisis,
+    location,
+    router,
+  } = await setup();
   const crisisId = 2;
   await router.navigate(['~', crisisId]);
 
@@ -63,9 +71,7 @@ test('Edit name from crisis detail', async () => {
   user.click(await screen.findByRole('button', { name: /save/i }));
 
   expect(
-    await screen.findByText(/the global temperature is rising/i, {
-      selector: '.selected a',
-    })
+    await findSelectedCrisis(/the global temperature is rising/i)
   ).toBeInTheDocument();
   expect(location.path()).toBe(`~/;id=${crisisId};foo=foo`);
 });
