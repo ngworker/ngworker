@@ -24,7 +24,6 @@ async function setup() {
   });
 
   return {
-    findNameControl: () => screen.findByPlaceholderText(/name/i),
     findSelectedCrisis: (name: Matcher) =>
       screen.findByText(name, {
         selector: '.selected a',
@@ -35,7 +34,7 @@ async function setup() {
 }
 
 test('Edit a crisis from crisis center home', async () => {
-  const { findNameControl, findSelectedCrisis, router } = await setup();
+  const { findSelectedCrisis, router } = await setup();
   await router.navigateByUrl('~/');
 
   user.click(
@@ -44,8 +43,11 @@ test('Edit a crisis from crisis center home', async () => {
     })
   );
 
-  user.clear(await findNameControl());
-  user.type(await findNameControl(), 'Coral reefs are dying');
+  user.clear(await screen.findByPlaceholderText(/name/i));
+  user.type(
+    await screen.findByPlaceholderText(/name/i),
+    'Coral reefs are dying'
+  );
   user.click(await screen.findByRole('button', { name: /save/i }));
 
   expect(
@@ -57,17 +59,15 @@ test('Edit a crisis from crisis center home', async () => {
 });
 
 test('Edit name from crisis detail', async () => {
-  const {
-    findNameControl,
-    findSelectedCrisis,
-    location,
-    router,
-  } = await setup();
+  const { findSelectedCrisis, location, router } = await setup();
   const crisisId = 2;
   await router.navigate(['~', crisisId]);
 
-  user.clear(await findNameControl());
-  user.type(await findNameControl(), 'The global temperature is rising');
+  user.clear(await screen.findByPlaceholderText(/name/i));
+  user.type(
+    await screen.findByPlaceholderText(/name/i),
+    'The global temperature is rising'
+  );
   user.click(await screen.findByRole('button', { name: /save/i }));
 
   expect(
