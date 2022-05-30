@@ -10,6 +10,8 @@ Spectacular offers test harnesses for Angular applications and libraries.
  <img width="300" height="300" src="https://cdn.jsdelivr.net/gh/ngworker/ngworker@main/packages/spectacular/src/assets/logo.png" />
 </p>
 
+[Visit documentation](https://ngworker.github.io/ngworker/)
+
 ## Application testing
 
 Spectacular's application testing API configures the Angular testing module and
