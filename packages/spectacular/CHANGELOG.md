@@ -1,5 +1,19 @@
 # Spectacular changelog
 
+# 0.3.0 (2022-05-31)
+
+## Features
+
+- Remove `pipeName` option from `createPipeHarness`
+  ([#26](https://github.com/ngworker/ngworker/pull/26))
+
+## **BREAKING CHANGES**
+
+The `pipeName` option for `createPipeHarness` is removed. Instead, the pipe name
+is resolved through reflection.
+
+Migration: Remove `pipeName` option arguments for `createPipeHarness`.
+
 # 0.2.0 (2021-03-04)
 
 ## **BREAKING CHANGES**
