@@ -1,6 +1,6 @@
 {
   "name": "@ngworker/spectacular",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Spectacular Angular integration testing. Test harnesses for Angular applications and libraries.",
   "license": "MIT",
   "peerDependencies": {
@@ -41,7 +41,7 @@
   "bugs": {
     "url": "https://github.com/ngworker/ngworker/issue"
   },
-  "homepage": "https://github.com/ngworker/ngworker/tree/main/packages/spectacular#readme",
+  "homepage": "https://ngworker.github.io/ngworker/",
   "repository": {
     "type": "git",
     "url": "https://github.com/ngworker/ngworker"

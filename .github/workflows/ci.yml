@@ -8,6 +8,7 @@ env:
   NX_RUN_GROUP: ${{ github.run_id }}
   PNPM_STORE_PATH: ~/.pnpm-store
   node-version: 12.x
+  pnpm-version: 6.x
   spectacular-docs-package-name: spectacular-docs
 
 on:
@@ -36,7 +37,7 @@ jobs:
         with:
           node-version: ${{ env.node-version }}
 
-      - run: npm install --global pnpm
+      - run: npm install --global pnpm@${{ env.pnpm-version }}
       - run: pnpm config set store-dir $PNPM_STORE_PATH
       - name: Cache PNPM store
         uses: actions/cache@v2
@@ -75,7 +76,7 @@ jobs:
         with:
           node-version: ${{ env.node-version }}
 
-      - run: npm install --global pnpm
+      - run: npm install --global pnpm@${{ env.pnpm-version }}
       - run: pnpm config set store-dir $PNPM_STORE_PATH
       - name: Cache PNPM store
         uses: actions/cache@v2
@@ -116,7 +117,7 @@ jobs:
         with:
           node-version: ${{ env.node-version }}
 
-      - run: npm install --global pnpm
+      - run: npm install --global pnpm@${{ env.pnpm-version }}
       - run: pnpm config set store-dir $PNPM_STORE_PATH
       - name: Cache PNPM store
         uses: actions/cache@v2
@@ -197,7 +198,7 @@ jobs:
         with:
           node-version: ${{ env.node-version }}
 
-      - run: npm install --global pnpm
+      - run: npm install --global pnpm@${{ env.pnpm-version }}
       - run: pnpm config set store-dir $PNPM_STORE_PATH
       - name: Cache PNPM store
         uses: actions/cache@v2
