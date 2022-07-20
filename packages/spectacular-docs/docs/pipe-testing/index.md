@@ -176,6 +176,7 @@ describe(PowPipe.name, () => {
   beforeEach(() => {
     harness = createPipeHarness({
       pipe: PowPipe,
+      pipeName: 'pow',
       value: 2,
     });
   });
