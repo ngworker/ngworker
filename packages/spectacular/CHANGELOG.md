@@ -1,5 +1,40 @@
 # Spectacular changelog
 
+# 0.4.0 (2022-07-20)
+
+## Features
+
+- Add back `pipeName` option to `createPipeHarness`
+  ([#39](https://github.com/ngworker/ngworker/pull/39))
+
+## **BREAKING CHANGES**
+
+Add back the required pipeName option as `PipeResolver` is removed in Angular
+13.1 and was internally used by Spectacular's Pipe Testing API.
+
+### Migration
+
+Add `pipeName` option argument for `createPipeHarness`.
+
+Before:
+
+```typescript
+const harness = createPipeHarness({
+  pipe: PowPipe,
+  value: 2,
+});
+```
+
+After:
+
+```typescript
+const harness = createPipeHarness({
+  pipe: PowPipe,
+  pipeName: 'pow',
+  value: 2,
+});
+```
+
 # 0.3.0 (2022-05-31)
 
 ## Features
