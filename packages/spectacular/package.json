@@ -1,6 +1,6 @@
 {
   "name": "@ngworker/spectacular",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Spectacular Angular integration testing. Test harnesses for Angular applications and libraries.",
   "license": "MIT",
   "peerDependencies": {
