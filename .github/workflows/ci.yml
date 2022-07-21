@@ -99,17 +99,17 @@ jobs:
         run: yarn build
       - if: github.event_name == 'pull_request'
         run: yarn affected:build --base=origin/$BASE_BRANCH
-      - name: 'Spectacular: Remove @angular/forms dependency'
+      - name: '[Spectacular] Remove @angular/forms dependency'
         run:
           npx json -I -f dist/packages/spectacular/package.json -e "delete
           this.dependencies['@angular/forms'];" || true
-      - name: 'Spectacular: Upload package build artifact'
+      - name: '[Spectacular] Upload package build artifact'
         uses: actions/upload-artifact@v3
         with:
           name: spectacular-package
           path: dist/packages/spectacular
           if-no-files-found: warn
-      - name: 'Spectacular: Upload docs build artifact'
+      - name: '[Spectacular] Upload docs build artifact'
         uses: actions/upload-artifact@v3
         with:
           name: ${{ env.spectacular-docs-package-name }}
