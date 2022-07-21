@@ -64,7 +64,7 @@
     "@nrwl/eslint-plugin-nx": "11.6.3",
     "@nrwl/jest": "11.6.3",
     "@nrwl/node": "11.6.3",
-    "@nrwl/nx-cloud": "14.2.0",
+    "@nrwl/nx-cloud": "11.2.0",
     "@nrwl/tao": "11.2.10",
     "@nrwl/workspace": "11.6.3",
     "@nx-plus/docusaurus": "11.0.1",
