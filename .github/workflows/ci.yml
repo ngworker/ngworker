@@ -40,9 +40,9 @@ jobs:
       - if: github.event_name == 'push' && github.ref_name == 'main'
         run: yarn lint --max-parallel=$NX_MAX_PARALLEL
       - if: github.event_name == 'pull_request'
-        run: >-
+        run:
           yarn affected:lint --base=origin/$BASE_BRANCH
-            --max-parallel=$NX_MAX_PARALLEL
+          --max-parallel=$NX_MAX_PARALLEL
 
   test:
     runs-on: ubuntu-latest
@@ -69,9 +69,9 @@ jobs:
       - if: github.event_name == 'push' && github.ref_name == 'main'
         run: yarn test --max-parallel=$NX_MAX_PARALLEL
       - if: github.event_name == 'pull_request'
-        run: >-
+        run:
           yarn affected:test --base=origin/$BASE_BRANCH
-            --max-parallel=$NX_MAX_PARALLEL
+          --max-parallel=$NX_MAX_PARALLEL
 
   build:
     runs-on: ubuntu-latest
@@ -100,10 +100,9 @@ jobs:
       - if: github.event_name == 'pull_request'
         run: yarn affected:build --base=origin/$BASE_BRANCH
       - name: 'Spectacular: Remove @angular/forms dependency'
-        run: >-
-          npx json -I -f dist/packages/spectacular/package.json
-            -e "delete this.dependencies['@angular/forms'];"
-            || true
+        run:
+          npx json -I -f dist/packages/spectacular/package.json -e "delete
+          this.dependencies['@angular/forms'];" || true
       - name: 'Spectacular: Upload package build artifact'
         uses: actions/upload-artifact@v3
         with:
@@ -166,6 +165,6 @@ jobs:
       - if: github.event_name == 'push' && github.ref_name == 'main'
         run: yarn e2e --max-parallel=$NX_MAX_PARALLEL
       - if: github.event_name == 'pull_request'
-        run: >-
+        run:
           yarn affected:e2e --base=origin/$BASE_BRANCH
-            --max-parallel=$NX_MAX_PARALLEL
+          --max-parallel=$NX_MAX_PARALLEL
