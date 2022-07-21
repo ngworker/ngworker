@@ -110,9 +110,11 @@ jobs:
       - run: yarn install --frozen-lockfile --non-interactive --ignore-engines
 
       - if: github.event_name == 'push' && github.ref_name == 'main'
-        run: yarn build
+        run: yarn build --exclude=spectacular-docs
       - if: github.event_name == 'pull_request'
-        run: yarn affected:build --base=origin/$BASE_BRANCH
+        run:
+          yarn affected:build --exclude=spectacular-docs
+          --base=origin/$BASE_BRANCH
       - name: '[Spectacular] Remove @angular/forms dependency'
         run:
           npx json -I -f dist/packages/spectacular/package.json -e "delete
@@ -123,36 +125,31 @@ jobs:
           name: spectacular-package
           path: dist/packages/spectacular
           if-no-files-found: warn
-      - name: '[Spectacular] Upload docs build artifact'
-        uses: actions/upload-artifact@v3
-        with:
-          name: ${{ env.spectacular-docs-package-name }}
-          path: dist/packages/spectacular-docs
-          if-no-files-found: warn
 
-  deploy-docs:
-    name: '[Merge] Deploy docs to GitHub Pages'
-    if: github.event_name == 'push' && github.ref_name == 'main'
-    needs: build
+  docs:
     runs-on: ubuntu-latest
 
     env:
-      package-path: ./spectacular-docs/
+      node-version: 16.x
 
     steps:
-      # necessary for JamesIves/github-pages-deploy-action
       - uses: actions/checkout@v3
 
-      - uses: actions/download-artifact@v3
+      - name: Use Node.js ${{ env.node-version }}
+        uses: actions/setup-node@v3
         with:
-          name: ${{ env.spectacular-docs-package-name }}
-          path: ${{ env.package-path }}
+          node-version: ${{ env.node-version }}
+          cache: yarn
+      - run: yarn install --frozen-lockfile --non-interactive --ignore-engines
 
-      - name: Deploy docs to GitHub Pages
+      - run: yarn nx build spectacular-docs --max-parallel=$NX_MAX_PARALLEL
+
+      - name: '[Merge] Deploy docs to GitHub Pages'
+        if: github.event_name == 'push' && github.ref_name == 'main'
         uses: JamesIves/github-pages-deploy-action@4.1.3
         with:
           branch: gh-pages
-          folder: ${{ env.package-path }}
+          folder: dist/packages/spectacular-docs
 
   e2e:
     runs-on: ubuntu-latest
