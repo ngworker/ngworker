@@ -40,11 +40,19 @@
       "tags": ["type:package"]
     },
     "spectacular-docs": {
-      "implicitDependencies": ["spectacular"],
-      "tags": ["type:docs"]
+      "tags": ["type:docs"],
+      "implicitDependencies": ["spectacular"]
     },
     "workspace-tools": {
       "tags": ["type:tool"]
     }
+  },
+  "targetDependencies": {
+    "build": [
+      {
+        "target": "build",
+        "projects": "dependencies"
+      }
+    ]
   }
 }

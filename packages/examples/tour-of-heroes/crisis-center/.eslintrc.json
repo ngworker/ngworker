@@ -16,11 +16,19 @@
       "rules": {
         "@angular-eslint/directive-selector": [
           "error",
-          { "type": "attribute", "prefix": "app-crisis", "style": "camelCase" }
+          {
+            "type": "attribute",
+            "prefix": "app-crisis",
+            "style": "camelCase"
+          }
         ],
         "@angular-eslint/component-selector": [
           "error",
-          { "type": "element", "prefix": "app-crisis", "style": "kebab-case" }
+          {
+            "type": "element",
+            "prefix": "app-crisis",
+            "style": "kebab-case"
+          }
         ]
       }
     },
