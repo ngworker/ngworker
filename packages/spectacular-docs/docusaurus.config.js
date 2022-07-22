@@ -6,7 +6,7 @@ const projectName = 'ngworker';
 module.exports = {
   baseUrl: '/ngworker/',
   favicon: 'img/favicon.ico',
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
   organizationName,
   plugins: [
