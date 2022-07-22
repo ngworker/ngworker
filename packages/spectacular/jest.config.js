@@ -5,7 +5,6 @@ module.exports = {
   globals: {
     'ts-jest': {
       stringifyContentPathRegex: '\\.(html|svg)$',
-
       tsconfig: '<rootDir>/tsconfig.spec.json',
     },
   },
