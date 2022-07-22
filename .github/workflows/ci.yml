@@ -2,212 +2,179 @@ name: '@ngworker CI pipeline'
 
 env:
   BASE_BRANCH: ${{ github.event.pull_request.base.ref }}
-  NODE_OPTIONS: --max_old_space_size=6144
+  NODE_OPTIONS: --max-old-space-size=6144
   NX_BRANCH: ${{ github.event.number }}
   NX_MAX_PARALLEL: 2
   NX_RUN_GROUP: ${{ github.run_id }}
-  PNPM_STORE_PATH: ~/.pnpm-store
-  node-version: 12.x
-  pnpm-version: 6.x
-  spectacular-docs-package-name: spectacular-docs
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   pull_request:
+
+concurrency:
+  # Group concurrency on workflow, then:
+  # - Is merge run? Group on branch name (`refs/heads/main`)
+  # - Is pull request? Group on pull request branch name, for example `feat/add-awesome-feature`
+  group: >-
+    ${{ github.workflow }}-${{
+      github.event_name == 'push'
+        && github.ref
+        || github.head_ref
+    }}
+  # Run merge workflows in sequence to prevent parallel deployments and releases
+  # Cancel stale pull request runs in progress for the same branch
+  cancel-in-progress: ${{ github.event_name != 'push' }}
 
 jobs:
   lint:
     runs-on: ubuntu-latest
 
     steps:
-      - if: github.event_name == 'push'
-        uses: actions/checkout@v2
+      - if: github.event_name == 'push' && github.ref_name == 'main'
+        uses: actions/checkout@v3
       # needed for nx affected command
       - if: github.event_name == 'pull_request'
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
       # needed for nx affected command
       - if: github.event_name == 'pull_request'
         run: git fetch --no-tags --depth=1 origin $BASE_BRANCH
 
-      - name: Use Node.js ${{ env.node-version }}
-        uses: actions/setup-node@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: ${{ env.node-version }}
+          node-version-file: .nvmrc
+          cache: yarn
+      - run: yarn install --frozen-lockfile --non-interactive --ignore-engines
 
-      - run: npm install --global pnpm@${{ env.pnpm-version }}
-      - run: pnpm config set store-dir $PNPM_STORE_PATH
-      - name: Cache PNPM store
-        uses: actions/cache@v2
-        with:
-          path: ${{ env.PNPM_STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-
-      - run: pnpm install --verify-store-integrity false
-      - run: pnpm store prune
-
-      - if: github.event_name == 'push'
-        run: pnpm lint --max-parallel=$NX_MAX_PARALLEL
+      - if: github.event_name == 'push' && github.ref_name == 'main'
+        run: yarn lint --max-parallel=$NX_MAX_PARALLEL
       - if: github.event_name == 'pull_request'
         run:
-          pnpm affected:lint -- --base=origin/$BASE_BRANCH
+          yarn affected:lint --base=origin/$BASE_BRANCH
           --max-parallel=$NX_MAX_PARALLEL
 
   test:
     runs-on: ubuntu-latest
 
     steps:
-      - if: github.event_name == 'push'
-        uses: actions/checkout@v2
+      - if: github.event_name == 'push' && github.ref_name == 'main'
+        uses: actions/checkout@v3
       # needed for nx affected command
       - if: github.event_name == 'pull_request'
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
       # needed for nx affected command
       - if: github.event_name == 'pull_request'
         run: git fetch --no-tags --depth=1 origin $BASE_BRANCH
 
-      - name: Use Node.js ${{ env.node-version }}
-        uses: actions/setup-node@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: ${{ env.node-version }}
+          node-version-file: .nvmrc
+          cache: yarn
+      - run: yarn install --frozen-lockfile --non-interactive --ignore-engines
 
-      - run: npm install --global pnpm@${{ env.pnpm-version }}
-      - run: pnpm config set store-dir $PNPM_STORE_PATH
-      - name: Cache PNPM store
-        uses: actions/cache@v2
-        with:
-          path: ${{ env.PNPM_STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-
-      - run:
-          pnpm install --reporter silent --frozen-lockfile false
-          --verify-store-integrity false
-      - run: pnpm store prune
-
-      - if: github.event_name == 'push'
-        run: pnpm test -- --max-parallel=$NX_MAX_PARALLEL
+      - if: github.event_name == 'push' && github.ref_name == 'main'
+        run: yarn test --max-parallel=$NX_MAX_PARALLEL
       - if: github.event_name == 'pull_request'
         run:
-          pnpm affected:test -- --base=origin/$BASE_BRANCH
+          yarn affected:test --base=origin/$BASE_BRANCH
           --max-parallel=$NX_MAX_PARALLEL
 
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - if: github.event_name == 'push'
-        uses: actions/checkout@v2
+      - if: github.event_name == 'push' && github.ref_name == 'main'
+        uses: actions/checkout@v3
       # needed for nx affected command
       - if: github.event_name == 'pull_request'
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
       # needed for nx affected command
       - if: github.event_name == 'pull_request'
         run: git fetch --no-tags --depth=1 origin $BASE_BRANCH
 
-      - name: Use Node.js ${{ env.node-version }}
-        uses: actions/setup-node@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: ${{ env.node-version }}
+          node-version-file: .nvmrc
+          cache: yarn
+      - run: yarn install --frozen-lockfile --non-interactive --ignore-engines
 
-      - run: npm install --global pnpm@${{ env.pnpm-version }}
-      - run: pnpm config set store-dir $PNPM_STORE_PATH
-      - name: Cache PNPM store
-        uses: actions/cache@v2
-        with:
-          path: ${{ env.PNPM_STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-
-      - run: pnpm install --verify-store-integrity false
-      - run: pnpm store prune
-
-      - if: github.event_name == 'push'
-        run: pnpm build
+      - if: github.event_name == 'push' && github.ref_name == 'main'
+        run: yarn build --exclude=spectacular-docs
       - if: github.event_name == 'pull_request'
-        run: pnpm affected:build -- --base=origin/$BASE_BRANCH
-      - name: 'Spectacular: Remove @angular/forms dependency'
         run:
-          pnpx json -I -f dist/packages/spectacular/package.json -e "delete
+          yarn affected:build --exclude=spectacular-docs
+          --base=origin/$BASE_BRANCH
+      - name: '[Spectacular] Remove @angular/forms dependency'
+        run:
+          npx json -I -f dist/packages/spectacular/package.json -e "delete
           this.dependencies['@angular/forms'];" || true
-      - name: 'Spectacular: Upload package build artifact'
-        uses: actions/upload-artifact@v2
+      - name: '[Spectacular] Upload package build artifact'
+        uses: actions/upload-artifact@v3
         with:
           name: spectacular-package
           path: dist/packages/spectacular
           if-no-files-found: warn
-      - name: 'Spectacular: Upload docs build artifact'
-        uses: actions/upload-artifact@v2
-        with:
-          name: ${{ env.spectacular-docs-package-name }}
-          path: dist/packages/spectacular-docs
-          if-no-files-found: warn
 
-  deploy-docs:
-    name: Deploy docs to GitHub Pages
-    if: >
-      github.ref == 'refs/heads/main' && (github.event_name ==
-      'workflow_dispatch' || github.event_name == 'push')
-    needs: build
+  docs:
     runs-on: ubuntu-latest
 
     env:
-      package-path: ./spectacular-docs/
+      node-version: 16.x
 
     steps:
-      # necessary for JamesIves/github-pages-deploy-action
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
-      - run: echo ${{ github.ref }}
-
-      - uses: actions/download-artifact@v2
+      - name: Use Node.js ${{ env.node-version }}
+        uses: actions/setup-node@v3
         with:
-          name: ${{ env.spectacular-docs-package-name }}
-          path: ${{ env.package-path }}
+          node-version: ${{ env.node-version }}
+          cache: yarn
+      - run: yarn install --frozen-lockfile --non-interactive
 
-      - name: Deploy docs to GitHub Pages
+      - run: yarn nx build spectacular-docs --max-parallel=$NX_MAX_PARALLEL
+
+      - name: '[Merge] Deploy docs to GitHub Pages'
+        if: github.event_name == 'push' && github.ref_name == 'main'
         uses: JamesIves/github-pages-deploy-action@4.1.3
         with:
           branch: gh-pages
-          folder: ${{ env.package-path }}
+          folder: dist/packages/spectacular-docs
 
   e2e:
     runs-on: ubuntu-latest
 
     steps:
-      - if: github.event_name == 'push'
-        uses: actions/checkout@v2
+      - if: github.event_name == 'push' && github.ref_name == 'main'
+        uses: actions/checkout@v3
       # needed for nx affected command
       - if: github.event_name == 'pull_request'
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
       # needed for nx affected command
       - if: github.event_name == 'pull_request'
         run: git fetch --no-tags --depth=1 origin $BASE_BRANCH
 
-      - name: Use Node.js ${{ env.node-version }}
-        uses: actions/setup-node@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: ${{ env.node-version }}
+          node-version-file: .nvmrc
+          cache: yarn
+      - run: yarn install --frozen-lockfile --non-interactive --ignore-engines
 
-      - run: npm install --global pnpm@${{ env.pnpm-version }}
-      - run: pnpm config set store-dir $PNPM_STORE_PATH
-      - name: Cache PNPM store
-        uses: actions/cache@v2
-        with:
-          path: ${{ env.PNPM_STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-
-      - run: pnpm install --verify-store-integrity false
-      - run: pnpm store prune
-
-      - run: pnpm e2e --max-parallel=$NX_MAX_PARALLEL
+      - if: github.event_name == 'push' && github.ref_name == 'main'
+        run: yarn e2e --max-parallel=$NX_MAX_PARALLEL
+      - if: github.event_name == 'pull_request'
+        run:
+          yarn affected:e2e --base=origin/$BASE_BRANCH
+          --max-parallel=$NX_MAX_PARALLEL
