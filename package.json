@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "preinstall": "(yarn remove codelyzer --silent || echo ✅ Codelyzer is already removed.) && (yarn remove tslint --silent || echo ✅ TSLint is already removed.)",
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points",
     "nx": "nx",
     "start": "nx serve",
@@ -20,14 +19,13 @@
     "affected:dep-graph": "nx affected:dep-graph",
     "affected": "nx affected",
     "contributors:add": "all-contributors add",
-    "format": "yarn sort-projects && nx format:write",
+    "format": "nx format:write",
     "format:write": "nx format:write",
     "format:check": "nx format:check",
     "update": "nx migrate latest",
     "workspace-generator": "nx workspace-generator",
     "dep-graph": "nx dep-graph",
     "help": "nx help",
-    "sort-projects": "json -I -f workspace.json -e \"this.projects = Object.fromEntries(Object.entries(this.projects).sort(([a], [b]) => a.localeCompare(b)));\" && json -I -f nx.json -e \"this.projects = Object.fromEntries(Object.entries(this.projects).sort(([a], [b]) => a.localeCompare(b)));\"",
     "ci": "yarn lint && yarn test && yarn build && yarn e2e",
     "affected:ci": "yarn affected:lint && yarn affected:test && yarn affected:build && yarn affected:e2e"
   },
