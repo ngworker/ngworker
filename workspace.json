@@ -38,14 +38,17 @@
         "build": {
           "executor": "@nrwl/angular:ng-packagr-lite",
           "options": {
-            "tsConfig": "packages/examples/tour-of-heroes/crisis-center/tsconfig.lib.json",
             "project": "packages/examples/tour-of-heroes/crisis-center/ng-package.json"
           },
           "configurations": {
+            "development": {
+              "tsConfig": "packages/examples/tour-of-heroes/crisis-center/tsconfig.lib.json"
+            },
             "production": {
               "tsConfig": "packages/examples/tour-of-heroes/crisis-center/tsconfig.lib.prod.json"
             }
-          }
+          },
+          "defaultConfiguration": "production"
         },
         "lint": {
           "executor": "@nrwl/linter:eslint",
@@ -77,14 +80,17 @@
         "build": {
           "executor": "@nrwl/angular:ng-packagr-lite",
           "options": {
-            "tsConfig": "packages/internal/test-util/tsconfig.lib.json",
             "project": "packages/internal/test-util/ng-package.json"
           },
           "configurations": {
+            "development": {
+              "tsConfig": "packages/internal/test-util/tsconfig.lib.json"
+            },
             "production": {
               "tsConfig": "packages/internal/test-util/tsconfig.lib.prod.json"
             }
-          }
+          },
+          "defaultConfiguration": "production"
         },
         "lint": {
           "executor": "@nrwl/linter:eslint",
