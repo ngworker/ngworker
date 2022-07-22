@@ -6,7 +6,6 @@ env:
   NX_BRANCH: ${{ github.event.number }}
   NX_MAX_PARALLEL: 2
   NX_RUN_GROUP: ${{ github.run_id }}
-  spectacular-docs-package-name: spectacular-docs
 
 on:
   push:
