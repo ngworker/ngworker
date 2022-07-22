@@ -139,7 +139,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ env.node-version }}
-          # cache: yarn
+          cache: yarn
       - run: yarn install --frozen-lockfile --non-interactive
 
       - run: yarn nx build spectacular-docs --max-parallel=$NX_MAX_PARALLEL
