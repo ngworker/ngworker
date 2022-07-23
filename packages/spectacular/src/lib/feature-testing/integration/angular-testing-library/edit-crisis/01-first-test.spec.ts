@@ -1,11 +1,13 @@
 import { render, screen } from '@testing-library/angular';
 import user from '@testing-library/user-event';
-import { CrisisCenterModule, crisisCenterPath } from '@tour-of-heroes/crisis-center';
-
-import { SpectacularAppComponent } from '../../../shared/app-component/spectacular-app.component';
-import { SpectacularFeatureTestingModule } from '../../feature-testing-module/spectacular-feature-testing.module';
-import { SpectacularFeatureLocation } from '../../navigation/spectacular-feature-location';
-import { SpectacularFeatureRouter } from '../../navigation/spectacular-feature-router';
+import {
+  CrisisCenterModule,
+  crisisCenterPath,
+} from '@tour-of-heroes/crisis-center';
+import { SpectacularAppComponent } from '../../../../shared/app-component/spectacular-app.component';
+import { SpectacularFeatureTestingModule } from '../../../feature-testing-module/spectacular-feature-testing.module';
+import { SpectacularFeatureLocation } from '../../../navigation/spectacular-feature-location';
+import { SpectacularFeatureRouter } from '../../../navigation/spectacular-feature-router';
 
 it('Edit crisis name from crisis detail', async () => {
   const {

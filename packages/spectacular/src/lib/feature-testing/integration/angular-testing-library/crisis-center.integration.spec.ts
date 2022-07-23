@@ -1,5 +1,10 @@
 import { TestBed } from '@angular/core/testing';
-import { fireEvent, render, RenderResult, screen } from '@testing-library/angular';
+import {
+  fireEvent,
+  render,
+  RenderResult,
+  screen,
+} from '@testing-library/angular';
 import {
   Crisis,
   CrisisCenterModule,
@@ -8,10 +13,9 @@ import {
   DialogService,
   FakeDialogService,
 } from '@tour-of-heroes/crisis-center';
-
-import { SpectacularAppComponent } from '../../shared/app-component/spectacular-app.component';
-import { SpectacularFeatureTestingModule } from '../feature-testing-module/spectacular-feature-testing.module';
-import { SpectacularFeatureLocation } from '../navigation/spectacular-feature-location';
+import { SpectacularAppComponent } from '../../../shared/app-component/spectacular-app.component';
+import { SpectacularFeatureTestingModule } from '../../feature-testing-module/spectacular-feature-testing.module';
+import { SpectacularFeatureLocation } from '../../navigation/spectacular-feature-location';
 
 describe('Tour of Heroes: Crisis center integration tests (Angular Testing Library)', () => {
   function expectCrisisToBeSelected(crisis: Crisis) {

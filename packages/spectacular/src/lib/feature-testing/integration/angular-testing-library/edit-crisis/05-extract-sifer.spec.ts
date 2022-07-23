@@ -5,10 +5,10 @@ import {
   CrisisCenterModule,
   crisisCenterPath,
 } from '@tour-of-heroes/crisis-center';
-import { SpectacularAppComponent } from '../../../shared/app-component/spectacular-app.component';
-import { SpectacularFeatureTestingModule } from '../../feature-testing-module/spectacular-feature-testing.module';
-import { SpectacularFeatureLocation } from '../../navigation/spectacular-feature-location';
-import { SpectacularFeatureRouter } from '../../navigation/spectacular-feature-router';
+import { SpectacularAppComponent } from '../../../../shared/app-component/spectacular-app.component';
+import { SpectacularFeatureTestingModule } from '../../../feature-testing-module/spectacular-feature-testing.module';
+import { SpectacularFeatureLocation } from '../../../navigation/spectacular-feature-location';
+import { SpectacularFeatureRouter } from '../../../navigation/spectacular-feature-router';
 
 const findCrisisCenterHomeGreeting = () =>
   screen.findByText(/welcome to the crisis center/i);
