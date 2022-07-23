@@ -571,7 +571,7 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
 
   <TabItem value="spectacular">
 
-```ts {26-57}
+```ts {26-58}
 import { By } from '@angular/platform-browser';
 import {
   createFeatureHarness,
@@ -600,16 +600,16 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
     it('navigates to the crisis center home with the crisis selected when the change is saved', async () => {
       const [aCrisis] = crisisService.getCrises().value;
       await harness.router.navigate(['~', aCrisis.id]);
-      const inputElement: HTMLInputElement = harness.rootFixture.debugElement.query(
-        By.css('input')
-      ).nativeElement;
-      const saveButtonElement: HTMLButtonElement = harness.rootFixture.debugElement
-        .queryAll(By.css('button'))
-        .map(button => button.nativeElement)
-        .find(
-          (buttonElement: HTMLButtonElement) =>
-            buttonElement.textContent?.trim() === 'Save'
-        );
+      const inputElement: HTMLInputElement =
+        harness.rootFixture.debugElement.query(By.css('input')).nativeElement;
+      const saveButtonElement: HTMLButtonElement =
+        harness.rootFixture.debugElement
+          .queryAll(By.css('button'))
+          .map(button => button.nativeElement)
+          .find(
+            (buttonElement: HTMLButtonElement) =>
+              buttonElement.textContent?.trim() === 'Save'
+          );
       const newCrisisName = 'Global climate crisis';
 
       inputElement.value = newCrisisName;
@@ -620,9 +620,10 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
       const welcomeText: HTMLElement = harness.rootFixture.debugElement.query(
         By.css('p')
       ).nativeElement;
-      const selectedCrisis: HTMLElement = harness.rootFixture.debugElement.query(
-        By.css('.selected')
-      ).nativeElement;
+      const selectedCrisis: HTMLElement =
+        harness.rootFixture.debugElement.query(
+          By.css('.selected')
+        ).nativeElement;
       expect(welcomeText.textContent).toBe('Welcome to the Crisis Center');
       expect(selectedCrisis.textContent?.trim()).toBe(
         `${aCrisis.id}${newCrisisName}`
