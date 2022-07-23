@@ -1,10 +1,18 @@
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
-import { ComponentFixture, ComponentFixtureAutoDetect, TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  ComponentFixtureAutoDetect,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { CrisisCenterModule, crisisCenterPath, CrisisService } from '@tour-of-heroes/crisis-center';
+import {
+  CrisisCenterModule,
+  crisisCenterPath,
+  CrisisService,
+} from '@tour-of-heroes/crisis-center';
 
 @Component({
   selector: 'spectacular-test-app',
@@ -12,7 +20,7 @@ import { CrisisCenterModule, crisisCenterPath, CrisisService } from '@tour-of-he
 })
 class TestAppComponent {}
 
-describe('Tour of Heroes: Crisis center integration tests (testbed)', () => {
+describe('[TestBed] Tour of Heroes: Crisis center', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       declarations: [TestAppComponent],

@@ -11,7 +11,7 @@ import { SpectacularFeatureTestingModule } from '../../feature-testing-module/sp
 import { SpectacularFeatureLocation } from '../../navigation/spectacular-feature-location';
 import { SpectacularFeatureRouter } from '../../navigation/spectacular-feature-router';
 
-describe('Tour of Heroes: Crisis center integration tests', () => {
+describe('[Angular Testing Library] Tour of Heroes: Crisis center', () => {
   beforeEach(async () => {
     user = userEvent.setup();
     const {
