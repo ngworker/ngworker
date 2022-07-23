@@ -17,7 +17,7 @@ import { SpectacularAppComponent } from '../../../shared/app-component/spectacul
 import { SpectacularFeatureTestingModule } from '../../feature-testing-module/spectacular-feature-testing.module';
 import { SpectacularFeatureLocation } from '../../navigation/spectacular-feature-location';
 
-describe('Tour of Heroes: Crisis center integration tests (Angular Testing Library)', () => {
+describe('[Angular Testing Library] Tour of Heroes: Crisis center, nested tests', () => {
   function expectCrisisToBeSelected(crisis: Crisis) {
     expect(
       screen.queryByText(new RegExp(crisis.name), {
