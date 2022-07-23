@@ -1761,7 +1761,7 @@
     "@docsearch/css" "3.1.1"
     algoliasearch "^4.0.0"
 
-"@docusaurus/core@2.0.0-rc.1", "@docusaurus/core@^2.0.0-rc.1":
+"@docusaurus/core@2.0.0-rc.1":
   version "2.0.0-rc.1"
   resolved "https://registry.yarnpkg.com/@docusaurus/core/-/core-2.0.0-rc.1.tgz#828d93d241171565d8947a9ab404091e04759141"
   integrity sha512-b9FX0Z+EddfQ6wAiNh+Wx4fysKfcvEcWJrZ5USROn3C+EVU5P4luaa8mwWK//O+hTwD9ur7/A44IZ/tWCTAoLQ==
@@ -1879,7 +1879,7 @@
     url-loader "^4.1.1"
     webpack "^5.73.0"
 
-"@docusaurus/module-type-aliases@2.0.0-rc.1", "@docusaurus/module-type-aliases@^2.0.0-rc.1":
+"@docusaurus/module-type-aliases@2.0.0-rc.1":
   version "2.0.0-rc.1"
   resolved "https://registry.yarnpkg.com/@docusaurus/module-type-aliases/-/module-type-aliases-2.0.0-rc.1.tgz#c7839ac15b7712a8d86353a3253918f63ffbea09"
   integrity sha512-la7D8ggFP8I5nOp/Epl6NqTeDWcbofPVMOaVisRxQbx5iuF9Al+AITbaDgm4CXpFLJACsqhsXD5W4BnKX8ZxfA==
@@ -1998,7 +1998,7 @@
     sitemap "^7.1.1"
     tslib "^2.4.0"
 
-"@docusaurus/preset-classic@^2.0.0-rc.1":
+"@docusaurus/preset-classic@2.0.0-rc.1":
   version "2.0.0-rc.1"
   resolved "https://registry.yarnpkg.com/@docusaurus/preset-classic/-/preset-classic-2.0.0-rc.1.tgz#5e5b1cf80b3dd4e2c3f824c78a111f105858d853"
   integrity sha512-5jjTVZkhArjyoNHwCI9x4PSG0zPmBJILjZLVrxPcHpm/K0ltkYcp6J3GxYpf5EbMuOh5+yCWM63cSshGcNOo3Q==
@@ -2055,7 +2055,7 @@
     tslib "^2.4.0"
     utility-types "^3.10.0"
 
-"@docusaurus/theme-common@2.0.0-rc.1", "@docusaurus/theme-common@^2.0.0-rc.1":
+"@docusaurus/theme-common@2.0.0-rc.1":
   version "2.0.0-rc.1"
   resolved "https://registry.yarnpkg.com/@docusaurus/theme-common/-/theme-common-2.0.0-rc.1.tgz#ea5d9732a16b03b488555e50107161bfa2abad98"
   integrity sha512-1r9ZLKD9SeoCYVzWzcdR79Dia4ANlrlRjNl6uzETOEybjK6FF7yEa9Yra8EJcOCbi3coyYz5xFh/r1YHFTFHug==
@@ -3075,7 +3075,7 @@
   resolved "https://registry.yarnpkg.com/@trysound/sax/-/sax-0.2.0.tgz#cccaab758af56761eb7bf37af6f03f326dd798ad"
   integrity sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==
 
-"@tsconfig/docusaurus@^1.0.2":
+"@tsconfig/docusaurus@1.0.6":
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/@tsconfig/docusaurus/-/docusaurus-1.0.6.tgz#7305a7fa590decc0d5968500234e95fd68788978"
   integrity sha512-1QxDaP54hpzM6bq9E+yFEo4F9WbWHhsDe4vktZXF/iDlc9FqGr9qlg+3X/nuKQXx8QxHV7ue8NXFazzajsxFBA==
@@ -5130,9 +5130,9 @@ caniuse-api@^3.0.0:
     lodash.uniq "^4.5.0"
 
 caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000981, caniuse-lite@^1.0.30001032, caniuse-lite@^1.0.30001109, caniuse-lite@^1.0.30001335, caniuse-lite@^1.0.30001366:
-  version "1.0.30001368"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001368.tgz#c5c06381c6051cd863c45021475434e81936f713"
-  integrity sha512-wgfRYa9DenEomLG/SdWgQxpIyvdtH3NW8Vq+tB6AwR9e56iOIcu1im5F/wNdDf04XlKHXqIx4N8Jo0PemeBenQ==
+  version "1.0.30001369"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001369.tgz#58ca6974acf839a72a02003258a005cbb0cb340d"
+  integrity sha512-OY1SBHaodJc4wflDIKnlkdqWzJZd1Ls/2zbVJHBSv3AT7vgOJ58yAhd2CN4d57l2kPJrgMb7P9+N1Mhy4tNSQA==
 
 canonical-path@1.0.0:
   version "1.0.0"
@@ -5425,7 +5425,7 @@ clone@^1.0.2:
   resolved "https://registry.yarnpkg.com/clone/-/clone-1.0.4.tgz#da309cc263df15994c688ca902179ca3c7cd7c7e"
   integrity sha512-JQHZ2QMW6l3aH/j6xCqQThY/9OH4D/9ls34cgkUBiEeocRTU04tHfKPBsUK1PqZCUQM7GiA0IIXJSuXHI64Kbg==
 
-clsx@^1.1.1, clsx@^1.2.1:
+clsx@1.2.1, clsx@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/clsx/-/clsx-1.2.1.tgz#0ddc4a20a549b59c93a4116bb26f5294ca17dc12"
   integrity sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==
@@ -5496,11 +5496,6 @@ colorette@^2.0.10, colorette@^2.0.16:
   version "2.0.19"
   resolved "https://registry.yarnpkg.com/colorette/-/colorette-2.0.19.tgz#cdf044f47ad41a0f4b56b3a0d5b4e6e1a2d5a798"
   integrity sha512-3tlv/dIP7FWvj3BsbHrGLJ6l/oKh1O3TcgBqMn+yyCagOxc23fyzDS6HypQbgxWbkpDnf52p1LuR4eWDQ/K9WQ==
-
-colors@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/colors/-/colors-1.4.0.tgz#c50491479d4c1bdaed2c9ced32cf7c7dc2360f78"
-  integrity sha512-a+UqTh4kgZg/SlGvfbzDHpgRu7AAQOmmqRHJnxhRZICKFUT91brVhNNt58CMWU9PsBbv3PDCZUHbVxuDiH2mtA==
 
 combine-promises@^1.1.0:
   version "1.1.0"
@@ -6560,10 +6555,10 @@ doctrine@^3.0.0:
   dependencies:
     esutils "^2.0.2"
 
-docusaurus-plugin-typedoc@~0.14.2:
-  version "0.14.2"
-  resolved "https://registry.yarnpkg.com/docusaurus-plugin-typedoc/-/docusaurus-plugin-typedoc-0.14.2.tgz#404bc0d909230e612998c65ee2cced05a3b316c9"
-  integrity sha512-D5uyIT1aNdBJwOmh9Clr1CKRGe/nKEkepnvULKhFGA5NJmZu9pIosziftRJ2mr/NTP2WdrDPwlUV4UiFRANNFA==
+docusaurus-plugin-typedoc@0.15.3:
+  version "0.15.3"
+  resolved "https://registry.yarnpkg.com/docusaurus-plugin-typedoc/-/docusaurus-plugin-typedoc-0.15.3.tgz#5076624915e241b3a208f754c8b13368aa57a1f0"
+  integrity sha512-iS3pWa1whGujrQqhXf/0UnG010n6N43LA/g7bM6b9OQosSB59KJIvNP98dbC+ihIGI3mjEnkVbvre8JEBy5yXg==
 
 dom-converter@^0.2.0:
   version "0.2.0"
@@ -6705,9 +6700,9 @@ ejs@^3.1.5:
     jake "^10.8.5"
 
 electron-to-chromium@^1.4.188:
-  version "1.4.198"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.198.tgz#36a8e7871046f7f94c01dc0133912fd5cf226c6a"
-  integrity sha512-jwqQPdKGeAslcq8L+1SZZgL6uDiIDmTe9Gq4brsdWAH27y7MJ2g9Ue6MyST3ogmSM49EAQP7bype1V5hsuNrmQ==
+  version "1.4.199"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.199.tgz#e0384fde79fdda89880e8be58196a9153e04db3b"
+  integrity sha512-WIGME0Cs7oob3mxsJwHbeWkH0tYkIE/sjkJ8ML2BYmuRcjhRl/q5kVDXG7W9LOOKwzPU5M0LBlXRq9rlSgnNlg==
 
 elliptic@^6.5.3:
   version "6.5.4"
@@ -8089,7 +8084,7 @@ glob@7.1.7:
     once "^1.3.0"
     path-is-absolute "^1.0.0"
 
-glob@^7.0.0, glob@^7.0.3, glob@^7.1.1, glob@^7.1.2, glob@^7.1.3, glob@^7.1.4, glob@^7.1.6:
+glob@^7.0.0, glob@^7.0.3, glob@^7.1.1, glob@^7.1.2, glob@^7.1.3, glob@^7.1.4, glob@^7.1.6, glob@^7.1.7:
   version "7.2.3"
   resolved "https://registry.yarnpkg.com/glob/-/glob-7.2.3.tgz#b8df0fb802bbfa8e89bd1d938b4e16578ed44f2b"
   integrity sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==
@@ -10568,10 +10563,10 @@ markdown-escapes@^1.0.0:
   resolved "https://registry.yarnpkg.com/markdown-escapes/-/markdown-escapes-1.0.4.tgz#c95415ef451499d7602b91095f3c8e8975f78535"
   integrity sha512-8z4efJYk43E0upd0NbVXwgSTQs6cT3T06etieCMEg7dRbzCbxUCK/GHlX8mhHRDcp+OLlHkPKsvqQTCvsRl2cg==
 
-marked@~2.0.3:
-  version "2.0.7"
-  resolved "https://registry.yarnpkg.com/marked/-/marked-2.0.7.tgz#bc5b857a09071b48ce82a1f7304913a993d4b7d1"
-  integrity sha512-BJXxkuIfJchcXOJWTT2DOL+yFWifFv2yGYOUzvXg8Qz610QKw+sHCvTMYwA+qWGhlA2uivBezChZ/pBy1tWdkQ==
+marked@^3.0.2:
+  version "3.0.8"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-3.0.8.tgz#2785f0dc79cbdc6034be4bb4f0f0a396bd3f8aeb"
+  integrity sha512-0gVrAjo5m0VZSJb4rpL59K1unJAMb/hm8HRXqasD8VeC8m91ytDPMritgFSlKonfdt+rRYYpP/JfLxgIX8yoSw==
 
 md5.js@^1.3.4:
   version "1.3.5"
@@ -13759,9 +13754,9 @@ sass@1.36.0:
     chokidar ">=3.0.0 <4.0.0"
 
 sass@^1.32.8:
-  version "1.53.0"
-  resolved "https://registry.yarnpkg.com/sass/-/sass-1.53.0.tgz#eab73a7baac045cc57ddc1d1ff501ad2659952eb"
-  integrity sha512-zb/oMirbKhUgRQ0/GFz8TSAwRq2IlR29vOUJZOx0l8sV+CkHUfHa4u5nqrG+1VceZp7Jfj59SVW9ogdhTvJDcQ==
+  version "1.54.0"
+  resolved "https://registry.yarnpkg.com/sass/-/sass-1.54.0.tgz#24873673265e2a4fe3d3a997f714971db2fba1f4"
+  integrity sha512-C4zp79GCXZfK0yoHZg+GxF818/aclhp9F48XBu/+bm9vXEVAYov9iU3FBVRMq3Hx3OA4jfKL+p2K9180mEh0xQ==
   dependencies:
     chokidar ">=3.0.0 <4.0.0"
     immutable "^4.0.0"
@@ -14059,7 +14054,7 @@ shell-quote@^1.6.1, shell-quote@^1.7.3:
   resolved "https://registry.yarnpkg.com/shell-quote/-/shell-quote-1.7.3.tgz#aa40edac170445b9a431e17bb62c0b881b9c4123"
   integrity sha512-Vpfqwm4EnqGdlsBFNmHhxhElJYrdfcxPThu+ryKS5J8L/fhAwLazFZtq+S+TWZ9ANj2piSQLGj6NQg+lKPmxrw==
 
-shelljs@^0.8.4, shelljs@^0.8.5:
+shelljs@^0.8.5:
   version "0.8.5"
   resolved "https://registry.yarnpkg.com/shelljs/-/shelljs-0.8.5.tgz#de055408d8361bed66c669d2f000538ced8ee20c"
   integrity sha512-TiwcRcrkhHvbrZbnRcFYMLl30Dfov3HKqzp5tO5b4pt6G/SezKcYhmDg15zXVBswHmctSAQKznqNW2LO5tTDow==
@@ -14068,7 +14063,7 @@ shelljs@^0.8.4, shelljs@^0.8.5:
     interpret "^1.0.0"
     rechoir "^0.6.2"
 
-shiki@^0.9.3:
+shiki@^0.9.8:
   version "0.9.15"
   resolved "https://registry.yarnpkg.com/shiki/-/shiki-0.9.15.tgz#2481b46155364f236651319d2c18e329ead6fa44"
   integrity sha512-/Y0z9IzhJ8nD9nbceORCqu6NgT9X6I8Fk8c3SICHI5NbZRLdZYFaB233gwct9sU0vvSypyaL/qaKvzyQGJBZSw==
@@ -15213,28 +15208,25 @@ typedoc-default-themes@^0.12.10:
   resolved "https://registry.yarnpkg.com/typedoc-default-themes/-/typedoc-default-themes-0.12.10.tgz#614c4222fe642657f37693ea62cad4dafeddf843"
   integrity sha512-fIS001cAYHkyQPidWXmHuhs8usjP5XVJjWB8oZGqkTowZaz3v7g3KDZeeqE82FBrmkAnIBOY3jgy7lnPnqATbA==
 
-typedoc-plugin-markdown@~3.9.0:
-  version "3.9.0"
-  resolved "https://registry.yarnpkg.com/typedoc-plugin-markdown/-/typedoc-plugin-markdown-3.9.0.tgz#d9c0390b8ddeeda56fdbf01264521ef04b3c19c7"
-  integrity sha512-s445YeUe8bH7me15T+hsHZgNmAvvF7QIpX02vFgseLGtghAwmtdZYVOqPneWoKqRv/JNpPSuyZb3CeblML9jOg==
+typedoc-plugin-markdown@3.10.4:
+  version "3.10.4"
+  resolved "https://registry.yarnpkg.com/typedoc-plugin-markdown/-/typedoc-plugin-markdown-3.10.4.tgz#4e0e9c584a1e421beafa4c3666896615f069da6b"
+  integrity sha512-if9w7S9fXLg73AYi/EoRSEhTOZlg3I8mIP8YEmvzSE33VrNXC9/hA0nVcLEwFVJeQY7ay6z67I6kW0KIv7LjeA==
   dependencies:
     handlebars "^4.7.7"
 
-typedoc@~0.20.36:
-  version "0.20.37"
-  resolved "https://registry.yarnpkg.com/typedoc/-/typedoc-0.20.37.tgz#9b9417149cb815e3d569fc300b5d2c6e4e6c5d93"
-  integrity sha512-9+qDhdc4X00qTNOtii6QX2z7ndAeWVOso7w3MPSoSJdXlVhpwPfm1yEp4ooKuWA9fiQILR8FKkyjmeqa13hBbw==
+typedoc@0.21.9:
+  version "0.21.9"
+  resolved "https://registry.yarnpkg.com/typedoc/-/typedoc-0.21.9.tgz#6fbdc7152024a00f03af53a0ca40f44e91f0f129"
+  integrity sha512-VRo7aII4bnYaBBM1lhw4bQFmUcDQV8m8tqgjtc7oXl87jc1Slbhfw2X5MccfcR2YnEClHDWgsiQGgNB8KJXocA==
   dependencies:
-    colors "^1.4.0"
-    fs-extra "^9.1.0"
+    glob "^7.1.7"
     handlebars "^4.7.7"
-    lodash "^4.17.21"
     lunr "^2.3.9"
-    marked "~2.0.3"
+    marked "^3.0.2"
     minimatch "^3.0.0"
     progress "^2.0.3"
-    shelljs "^0.8.4"
-    shiki "^0.9.3"
+    shiki "^0.9.8"
     typedoc-default-themes "^0.12.10"
 
 typescript@4.3.5:
