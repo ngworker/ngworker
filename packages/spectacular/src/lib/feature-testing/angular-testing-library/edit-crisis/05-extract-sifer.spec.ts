@@ -1,8 +1,10 @@
 import { render, screen } from '@testing-library/angular';
 import { Matcher } from '@testing-library/dom';
 import user from '@testing-library/user-event';
-import { CrisisCenterModule, crisisCenterPath } from '@tour-of-heroes/crisis-center';
-
+import {
+  CrisisCenterModule,
+  crisisCenterPath,
+} from '@tour-of-heroes/crisis-center';
 import { SpectacularAppComponent } from '../../../shared/app-component/spectacular-app.component';
 import { SpectacularFeatureTestingModule } from '../../feature-testing-module/spectacular-feature-testing.module';
 import { SpectacularFeatureLocation } from '../../navigation/spectacular-feature-location';
@@ -10,7 +12,7 @@ import { SpectacularFeatureRouter } from '../../navigation/spectacular-feature-r
 
 const findCrisisCenterHomeGreeting = () =>
   screen.findByText(/welcome to the crisis center/i);
-const findCrisisLink = (name: Matcher) =>
+const findCrisisLink = (name: Exclude<Matcher, number>) =>
   screen.findByRole('link', {
     name,
   });
