@@ -1,4 +1,3 @@
-import { TestBed } from '@angular/core/testing';
 import { render, RenderResult, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { UserEvent } from '@testing-library/user-event/dist/types/setup';
@@ -14,7 +13,7 @@ import { SpectacularAppComponent } from '../../../shared/app-component/spectacul
 import { SpectacularFeatureTestingModule } from '../../feature-testing-module/spectacular-feature-testing.module';
 import { SpectacularFeatureLocation } from '../../navigation/spectacular-feature-location';
 
-describe('[Angular Testing Library] Tour of Heroes: Crisis center, nested tests', () => {
+describe('[Angular Testing Library] Tour of Heroes: Crisis center', () => {
   async function expectCrisisToBeSelected(crisis: Crisis) {
     expect(
       await screen.findByText(new RegExp(crisis.name), {
@@ -38,7 +37,12 @@ describe('[Angular Testing Library] Tour of Heroes: Crisis center, nested tests'
 
   beforeEach(async () => {
     user = userEvent.setup();
-    result = await render(SpectacularAppComponent, {
+    const {
+      fixture: {
+        debugElement: { injector },
+      },
+      navigate: _navigate,
+    } = await render(SpectacularAppComponent, {
       excludeComponentDeclaration: true,
       imports: [
         SpectacularFeatureTestingModule.withFeature({
@@ -48,18 +52,21 @@ describe('[Angular Testing Library] Tour of Heroes: Crisis center, nested tests'
       ],
       providers: [{ provide: DialogService, useClass: FakeDialogService }],
     });
-    result.fixture.autoDetectChanges(true);
-    fakeDialog = TestBed.inject(DialogService) as FakeDialogService;
-    featureLocation = TestBed.inject(SpectacularFeatureLocation);
-    const crisisService = TestBed.inject(CrisisService);
+    navigate = _navigate;
+    fakeDialog = injector.get(DialogService) as FakeDialogService;
+    featureLocation = injector.get(SpectacularFeatureLocation);
+    const crisisService = injector.get(CrisisService);
     [aCrisis] = crisisService.getCrises().value;
   });
 
   let aCrisis: Crisis;
   let fakeDialog: FakeDialogService;
   let featureLocation: SpectacularFeatureLocation;
+  let navigate: RenderResult<
+    SpectacularAppComponent,
+    SpectacularAppComponent
+  >['navigate'];
   const newCrisisName = 'Coral reefs are dying';
-  let result: RenderResult<SpectacularAppComponent, SpectacularAppComponent>;
   const unknownCrisis: Crisis = {
     id: Number.MAX_SAFE_INTEGER,
     name: 'Unknown crisis',
@@ -67,20 +74,20 @@ describe('[Angular Testing Library] Tour of Heroes: Crisis center, nested tests'
   let user: UserEvent;
 
   it('starts at the crisis center home', async () => {
-    await result.navigate(crisisCenterPath);
+    await navigate(crisisCenterPath);
 
     await expectToBeAtTheCrisisCenterHome();
   });
 
   describe('Crisis detail', () => {
     it('shows crisis detail when a valid ID is in the URL', async () => {
-      await result.navigate(crisisCenterPath + '/' + aCrisis.id);
+      await navigate(crisisCenterPath + '/' + aCrisis.id);
 
       await expectToBeEditing(aCrisis);
     });
 
     it('navigates to the crisis center home when an invalid ID is in the URL', async () => {
-      const didNavigationSucceed = await result.navigate(
+      const didNavigationSucceed = await navigate(
         crisisCenterPath + '/' + unknownCrisis.id
       );
 
@@ -90,7 +97,7 @@ describe('[Angular Testing Library] Tour of Heroes: Crisis center, nested tests'
 
     describe('Editing crisis name', () => {
       beforeEach(async () => {
-        await result.navigate(crisisCenterPath + '/' + aCrisis.id);
+        await navigate(crisisCenterPath + '/' + aCrisis.id);
 
         await user.type(await screen.findByRole('textbox'), newCrisisName);
       });
