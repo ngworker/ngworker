@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/angular';
 import { Matcher } from '@testing-library/dom';
-import user from '@testing-library/user-event';
+import userEvent from '@testing-library/user-event';
+import { UserEvent } from '@testing-library/user-event/dist/types/setup';
 import {
   CrisisCenterModule,
   crisisCenterPath,
@@ -12,6 +13,7 @@ import { SpectacularFeatureRouter } from '../../../navigation/spectacular-featur
 
 describe('Edit crisis name', () => {
   beforeEach(async () => {
+    user = userEvent.setup();
     const {
       fixture: {
         debugElement: { injector },
@@ -43,14 +45,18 @@ describe('Edit crisis name', () => {
     });
   let location: SpectacularFeatureLocation;
   let router: SpectacularFeatureRouter;
+  let user: UserEvent;
 
   it('from crisis detail', async () => {
     const crisisId = 2;
     await router.navigate(['~', crisisId]);
 
-    user.clear(await findNameControl());
-    user.type(await findNameControl(), 'The global temperature is rising');
-    user.click(await findSaveButton());
+    await user.clear(await findNameControl());
+    await user.type(
+      await findNameControl(),
+      'The global temperature is rising'
+    );
+    await user.click(await findSaveButton());
 
     expect(
       await findSelectedCrisis(/the global temperature is rising/i)
@@ -61,11 +67,13 @@ describe('Edit crisis name', () => {
   it('from crisis center home', async () => {
     await router.navigateByUrl('~/');
 
-    user.click(await findCrisisLink(/procrastinators meeting delayed again/i));
+    await user.click(
+      await findCrisisLink(/procrastinators meeting delayed again/i)
+    );
 
-    user.clear(await findNameControl());
-    user.type(await findNameControl(), 'Coral reefs are dying');
-    user.click(await findSaveButton());
+    await user.clear(await findNameControl());
+    await user.type(await findNameControl(), 'Coral reefs are dying');
+    await user.click(await findSaveButton());
 
     expect(await findCrisisCenterHomeGreeting()).toBeInTheDocument();
     expect(

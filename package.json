@@ -68,7 +68,7 @@
     "@nx-plus/docusaurus": "12.2.0",
     "@testing-library/angular": "10.11.1",
     "@testing-library/jest-dom": "5.16.4",
-    "@testing-library/user-event": "13.5.0",
+    "@testing-library/user-event": "14.3.0",
     "@tsconfig/docusaurus": "1.0.6",
     "@types/jest": "27.0.2",
     "@types/node": "14.14.33",

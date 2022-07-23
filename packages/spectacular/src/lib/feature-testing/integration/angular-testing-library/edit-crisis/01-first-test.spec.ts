@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/angular';
-import user from '@testing-library/user-event';
+import userEvent from '@testing-library/user-event';
 import {
   CrisisCenterModule,
   crisisCenterPath,
@@ -10,6 +10,7 @@ import { SpectacularFeatureLocation } from '../../../navigation/spectacular-feat
 import { SpectacularFeatureRouter } from '../../../navigation/spectacular-feature-router';
 
 it('Edit crisis name from crisis detail', async () => {
+  const user = userEvent.setup();
   const {
     fixture: {
       debugElement: { injector },
@@ -28,12 +29,12 @@ it('Edit crisis name from crisis detail', async () => {
   const crisisId = 2;
   await router.navigate(['~', crisisId]);
 
-  user.clear(await screen.findByPlaceholderText(/name/i));
-  user.type(
+  await user.clear(await screen.findByPlaceholderText(/name/i));
+  await user.type(
     await screen.findByPlaceholderText(/name/i),
     'The global temperature is rising'
   );
-  user.click(await screen.findByRole('button', { name: /save/i }));
+  await user.click(await screen.findByRole('button', { name: /save/i }));
 
   expect(
     await screen.findByText(/the global temperature is rising/i, {

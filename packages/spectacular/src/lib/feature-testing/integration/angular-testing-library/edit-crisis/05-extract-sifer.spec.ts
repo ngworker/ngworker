@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/angular';
 import { Matcher } from '@testing-library/dom';
-import user from '@testing-library/user-event';
+import userEvent from '@testing-library/user-event';
 import {
   CrisisCenterModule,
   crisisCenterPath,
@@ -23,6 +23,7 @@ const findSelectedCrisis = (name: Matcher) =>
     selector: '.selected a',
   });
 const setup = async () => {
+  const user = userEvent.setup();
   const {
     fixture: {
       debugElement: { injector },
@@ -40,17 +41,18 @@ const setup = async () => {
   return {
     location: injector.get(SpectacularFeatureLocation),
     router: injector.get(SpectacularFeatureRouter),
+    user,
   };
 };
 
 it('from crisis detail', async () => {
-  const { location, router } = await setup();
+  const { location, router, user } = await setup();
   const crisisId = 2;
   await router.navigate(['~', crisisId]);
 
-  user.clear(await findNameControl());
-  user.type(await findNameControl(), 'The global temperature is rising');
-  user.click(await findSaveButton());
+  await user.clear(await findNameControl());
+  await user.type(await findNameControl(), 'The global temperature is rising');
+  await user.click(await findSaveButton());
 
   expect(
     await findSelectedCrisis(/the global temperature is rising/i)
@@ -59,14 +61,16 @@ it('from crisis detail', async () => {
 });
 
 it('from crisis center home', async () => {
-  const { router } = await setup();
+  const { router, user } = await setup();
   await router.navigateByUrl('~/');
 
-  user.click(await findCrisisLink(/procrastinators meeting delayed again/i));
+  await user.click(
+    await findCrisisLink(/procrastinators meeting delayed again/i)
+  );
 
-  user.clear(await findNameControl());
-  user.type(await findNameControl(), 'Coral reefs are dying');
-  user.click(await findSaveButton());
+  await user.clear(await findNameControl());
+  await user.type(await findNameControl(), 'Coral reefs are dying');
+  await user.click(await findSaveButton());
 
   expect(await findCrisisCenterHomeGreeting()).toBeInTheDocument();
   expect(

@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/angular';
-import user from '@testing-library/user-event';
+import userEvent from '@testing-library/user-event';
+import { UserEvent } from '@testing-library/user-event/dist/types/setup';
 import {
   CrisisCenterModule,
   crisisCenterPath,
@@ -11,6 +12,7 @@ import { SpectacularFeatureRouter } from '../../../navigation/spectacular-featur
 
 describe('Edit crisis name', () => {
   beforeEach(async () => {
+    user = userEvent.setup();
     const {
       fixture: {
         debugElement: { injector },
@@ -30,17 +32,18 @@ describe('Edit crisis name', () => {
 
   let location: SpectacularFeatureLocation;
   let router: SpectacularFeatureRouter;
+  let user: UserEvent;
 
   it('from crisis detail', async () => {
     const crisisId = 2;
     await router.navigate(['~', crisisId]);
 
-    user.clear(await screen.findByPlaceholderText(/name/i));
-    user.type(
+    await user.clear(await screen.findByPlaceholderText(/name/i));
+    await user.type(
       await screen.findByPlaceholderText(/name/i),
       'The global temperature is rising'
     );
-    user.click(await screen.findByRole('button', { name: /save/i }));
+    await user.click(await screen.findByRole('button', { name: /save/i }));
 
     expect(
       await screen.findByText(/the global temperature is rising/i, {
@@ -53,18 +56,18 @@ describe('Edit crisis name', () => {
   it('from crisis center home', async () => {
     await router.navigateByUrl('~/');
 
-    user.click(
+    await user.click(
       await screen.findByRole('link', {
         name: /procrastinators meeting delayed again/i,
       })
     );
 
-    user.clear(await screen.findByPlaceholderText(/name/i));
-    user.type(
+    await user.clear(await screen.findByPlaceholderText(/name/i));
+    await user.type(
       await screen.findByPlaceholderText(/name/i),
       'Coral reefs are dying'
     );
-    user.click(await screen.findByRole('button', { name: /save/i }));
+    await user.click(await screen.findByRole('button', { name: /save/i }));
 
     expect(
       await screen.findByText(/welcome to the crisis center/i)
