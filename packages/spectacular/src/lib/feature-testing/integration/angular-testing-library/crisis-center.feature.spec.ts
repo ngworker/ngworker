@@ -1,6 +1,6 @@
 import { render, RenderResult, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
-import { UserEvent } from '@testing-library/user-event/dist/types/setup';
+import type { UserEvent } from '@testing-library/user-event/dist/types/setup';
 import {
   Crisis,
   CrisisCenterModule,
