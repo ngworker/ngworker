@@ -1,10 +1,7 @@
 import { TestBed } from '@angular/core/testing';
-import {
-  fireEvent,
-  render,
-  RenderResult,
-  screen,
-} from '@testing-library/angular';
+import { render, RenderResult, screen } from '@testing-library/angular';
+import userEvent from '@testing-library/user-event';
+import { UserEvent } from '@testing-library/user-event/dist/types/setup';
 import {
   Crisis,
   CrisisCenterModule,
@@ -18,26 +15,29 @@ import { SpectacularFeatureTestingModule } from '../../feature-testing-module/sp
 import { SpectacularFeatureLocation } from '../../navigation/spectacular-feature-location';
 
 describe('[Angular Testing Library] Tour of Heroes: Crisis center, nested tests', () => {
-  function expectCrisisToBeSelected(crisis: Crisis) {
+  async function expectCrisisToBeSelected(crisis: Crisis) {
     expect(
-      screen.queryByText(new RegExp(crisis.name), {
+      await screen.findByText(new RegExp(crisis.name), {
         selector: '.selected a',
       })
     ).not.toBeNull();
   }
 
-  function expectToBeAtTheCrisisCenterHome() {
-    expect(screen.queryByText('Welcome to the Crisis Center')).not.toBeNull();
+  async function expectToBeAtTheCrisisCenterHome() {
+    expect(
+      await screen.findByText('Welcome to the Crisis Center')
+    ).not.toBeNull();
   }
 
-  function expectToBeEditing(crisis: Crisis): void {
+  async function expectToBeEditing(crisis: Crisis) {
     expect(featureLocation.path()).toBe(`~/${crisis.id}`);
     expect(
-      screen.queryByRole('heading', { name: new RegExp(crisis.name) })
+      await screen.findByRole('heading', { name: new RegExp(crisis.name) })
     ).not.toBeNull();
   }
 
   beforeEach(async () => {
+    user = userEvent.setup();
     result = await render(SpectacularAppComponent, {
       excludeComponentDeclaration: true,
       imports: [
@@ -64,18 +64,19 @@ describe('[Angular Testing Library] Tour of Heroes: Crisis center, nested tests'
     id: Number.MAX_SAFE_INTEGER,
     name: 'Unknown crisis',
   };
+  let user: UserEvent;
 
   it('starts at the crisis center home', async () => {
     await result.navigate(crisisCenterPath);
 
-    expectToBeAtTheCrisisCenterHome();
+    await expectToBeAtTheCrisisCenterHome();
   });
 
   describe('Crisis detail', () => {
     it('shows crisis detail when a valid ID is in the URL', async () => {
       await result.navigate(crisisCenterPath + '/' + aCrisis.id);
 
-      expectToBeEditing(aCrisis);
+      await expectToBeEditing(aCrisis);
     });
 
     it('navigates to the crisis center home when an invalid ID is in the URL', async () => {
@@ -84,21 +85,21 @@ describe('[Angular Testing Library] Tour of Heroes: Crisis center, nested tests'
       );
 
       expect(didNavigationSucceed).toBe(false);
-      expectToBeAtTheCrisisCenterHome();
+      await expectToBeAtTheCrisisCenterHome();
     });
 
     describe('Editing crisis name', () => {
       beforeEach(async () => {
         await result.navigate(crisisCenterPath + '/' + aCrisis.id);
 
-        fireEvent.input(screen.getByRole('textbox'), {
-          target: { value: newCrisisName },
-        });
+        await user.type(await screen.findByRole('textbox'), newCrisisName);
       });
 
       describe('Canceling change', () => {
-        beforeEach(() => {
-          fireEvent.click(screen.getByRole('button', { name: 'Cancel' }));
+        beforeEach(async () => {
+          await user.click(
+            await screen.findByRole('button', { name: 'Cancel' })
+          );
         });
 
         describe('When discarding unsaved changes is confirmed', () => {
@@ -106,9 +107,9 @@ describe('[Angular Testing Library] Tour of Heroes: Crisis center, nested tests'
             fakeDialog.clickOk();
           });
 
-          it('navigates to the crisis center home with the crisis selected ', () => {
-            expectToBeAtTheCrisisCenterHome();
-            expectCrisisToBeSelected(aCrisis);
+          it('navigates to the crisis center home with the crisis selected ', async () => {
+            await expectToBeAtTheCrisisCenterHome();
+            await expectCrisisToBeSelected(aCrisis);
           });
 
           it('adds matrix parameters', () => {
