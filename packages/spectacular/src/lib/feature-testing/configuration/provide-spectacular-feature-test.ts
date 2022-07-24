@@ -12,6 +12,9 @@ export interface ProvideSpectacularFeatureTestOptions {
   readonly featurePath: string;
 }
 
+/**
+ * Provide dependencies needed by the Spectacular Feature testing API.
+ */
 export function provideSpectacularFeatureTest({
   featurePath,
 }: ProvideSpectacularFeatureTestOptions): Provider[] {
