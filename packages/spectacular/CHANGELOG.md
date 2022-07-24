@@ -1,5 +1,17 @@
 # Spectacular changelog
 
+# 0.5.0 (2022-07-24)
+
+## Features
+
+- Add `provideSpectacularFeatureTest`
+  ([#47](https://github.com/ngworker/ngworker/pull/47))
+
+## **BREAKING CHANGES**
+
+- Requires Angular 12
+- Partially Ivy-compiled
+
 # 0.4.0 (2022-07-20)
 
 ## Features
