@@ -73,8 +73,6 @@
     "@types/jest": "27.0.2",
     "@types/node": "14.14.33",
     "@types/react": "17.0.47",
-    "@types/react-helmet": "6.1.5",
-    "@types/react-router-dom": "5.3.3",
     "@typescript-eslint/eslint-plugin": "~4.31.1",
     "@typescript-eslint/parser": "~4.31.1",
     "all-contributors-cli": "^6.19.0",
