@@ -8,11 +8,10 @@ import {
   DialogService,
   FakeDialogService,
 } from '@tour-of-heroes/crisis-center';
-
 import { createFeatureHarness } from './feature-harness/create-feature-harness';
 import { SpectacularFeatureHarness } from './feature-harness/spectacular-feature-harness';
 
-describe('Tour of Heroes: Crisis center integration tests', () => {
+describe('[Spectacular] Tour of Heroes: Crisis center', () => {
   function expectCrisisToBeSelected(crisis: Crisis) {
     expect(ui.getText('.selected')).toBe(`${crisis.id}${crisis.name}`);
   }

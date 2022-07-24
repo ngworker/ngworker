@@ -509,15 +509,16 @@ being triggered, including navigation.
 
 As our next step, we verify that we are at the crisis center home route:
 
-```ts {9}
+```ts {10}
 describe('Editing a crisis', () => {
   it('navigates to the crisis center home with the crisis selected when the change is saved', async () => {
     // (...)
     saveButtonElement.click();
     await rootFixture.whenStable();
 
-    const welcomeText: HTMLElement = rootFixture.debugElement.query(By.css('p'))
-      .nativeElement;
+    const welcomeText: HTMLElement = rootFixture.debugElement.query(
+      By.css('p')
+    ).nativeElement;
     expect(welcomeText.textContent).toBe('Welcome to the Crisis Center');
   });
 });
@@ -596,8 +597,9 @@ describe('Editing a crisis', () => {
     saveButtonElement.click();
     await rootFixture.whenStable();
 
-    const welcomeText: HTMLElement = rootFixture.debugElement.query(By.css('p'))
-      .nativeElement;
+    const welcomeText: HTMLElement = rootFixture.debugElement.query(
+      By.css('p')
+    ).nativeElement;
     const selectedCrisis: HTMLElement = rootFixture.debugElement.query(
       By.css('.selected')
     ).nativeElement;
@@ -634,16 +636,16 @@ describe('Editing a crisis', () => {
   it('navigates to the crisis center home with the crisis selected when the change is saved', async () => {
     const [aCrisis] = crisisService.getCrises().value;
     await harness.router.navigate(['~', aCrisis.id]); // [1] [2]
-    const inputElement: HTMLInputElement = harness.rootFixture.debugElement.query(
-      By.css('input')
-    ).nativeElement;
-    const saveButtonElement: HTMLButtonElement = harness.rootFixture.debugElement
-      .queryAll(By.css('button'))
-      .map(button => button.nativeElement)
-      .find(
-        (buttonElement: HTMLButtonElement) =>
-          buttonElement.textContent?.trim() === 'Save'
-      );
+    const inputElement: HTMLInputElement =
+      harness.rootFixture.debugElement.query(By.css('input')).nativeElement;
+    const saveButtonElement: HTMLButtonElement =
+      harness.rootFixture.debugElement
+        .queryAll(By.css('button'))
+        .map(button => button.nativeElement)
+        .find(
+          (buttonElement: HTMLButtonElement) =>
+            buttonElement.textContent?.trim() === 'Save'
+        );
     const newCrisisName = 'Global climate crisis';
 
     inputElement.value = newCrisisName;
@@ -720,7 +722,7 @@ The following shows complete feature test suites:
   ]}>
   <TabItem value="spectacular">
 
-```ts {14-17,28,56}
+```ts {14-17,28,57}
 import { By } from '@angular/platform-browser';
 import {
   createFeatureHarness,
@@ -749,16 +751,16 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
     it('navigates to the crisis center home with the crisis selected when the change is saved', async () => {
       const [aCrisis] = crisisService.getCrises().value;
       await harness.router.navigate(['~', aCrisis.id]);
-      const inputElement: HTMLInputElement = harness.rootFixture.debugElement.query(
-        By.css('input')
-      ).nativeElement;
-      const saveButtonElement: HTMLButtonElement = harness.rootFixture.debugElement
-        .queryAll(By.css('button'))
-        .map(button => button.nativeElement)
-        .find(
-          (buttonElement: HTMLButtonElement) =>
-            buttonElement.textContent?.trim() === 'Save'
-        );
+      const inputElement: HTMLInputElement =
+        harness.rootFixture.debugElement.query(By.css('input')).nativeElement;
+      const saveButtonElement: HTMLButtonElement =
+        harness.rootFixture.debugElement
+          .queryAll(By.css('button'))
+          .map(button => button.nativeElement)
+          .find(
+            (buttonElement: HTMLButtonElement) =>
+              buttonElement.textContent?.trim() === 'Save'
+          );
       const newCrisisName = 'Global climate crisis';
 
       inputElement.value = newCrisisName;
@@ -769,9 +771,10 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
       const welcomeText: HTMLElement = harness.rootFixture.debugElement.query(
         By.css('p')
       ).nativeElement;
-      const selectedCrisis: HTMLElement = harness.rootFixture.debugElement.query(
-        By.css('.selected')
-      ).nativeElement;
+      const selectedCrisis: HTMLElement =
+        harness.rootFixture.debugElement.query(
+          By.css('.selected')
+        ).nativeElement;
       expect(welcomeText.textContent).toBe('Welcome to the Crisis Center');
       expect(selectedCrisis.textContent?.trim()).toBe(
         `${aCrisis.id}${newCrisisName}`
