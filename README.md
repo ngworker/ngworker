@@ -50,16 +50,6 @@ developers.
 
 Visit [Nx Cloud](https://nx.app/) to learn more.
 
-### Systemate 🇩🇰
-
-Ngworker is produced in collaboration with
-[Systemate A/S](https://www.systemate.dk/?utm_source=github.com/ngworker/nxgorker&utm_medium=link&utm_campaign=lars)
-in Denmark.
-
-> Better Software Faster®.
->
-> –[Systemate](https://www.systemate.dk/?utm_source=github.com/ngworker/ngworker&utm_medium=link&utm_campaign=lars)
-
 ## Contributors
 
 Thanks goes to these wonderful people:
