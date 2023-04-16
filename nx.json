@@ -29,24 +29,6 @@
     "appsDir": "e2e",
     "libsDir": "packages"
   },
-  "projects": {
-    "examples-tour-of-heroes-crisis-center": {
-      "tags": ["scope:internal", "type:feature"]
-    },
-    "internal-test-util": {
-      "tags": ["scope:internal", "type:test-util"]
-    },
-    "spectacular": {
-      "tags": ["type:package"]
-    },
-    "spectacular-docs": {
-      "tags": ["type:docs"],
-      "implicitDependencies": ["spectacular"]
-    },
-    "workspace-tools": {
-      "tags": ["type:tool"]
-    }
-  },
   "targetDependencies": {
     "build": [
       {
@@ -54,5 +36,33 @@
         "projects": "dependencies"
       }
     ]
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular",
+    "packageManager": "pnpm"
+  },
+  "generators": {
+    "@nrwl/angular:application": {
+      "e2eTestRunner": "cypress",
+      "linter": "eslint",
+      "routing": false,
+      "strict": true,
+      "style": "scss",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "displayBlock": true,
+      "skipTests": true,
+      "style": "scss"
+    },
+    "@nrwl/angular:library": {
+      "linter": "eslint",
+      "strict": true,
+      "style": "scss",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:storybook-configuration": {
+      "linter": "eslint"
+    }
   }
 }
