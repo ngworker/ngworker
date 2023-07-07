@@ -97,7 +97,8 @@
           "executor": "@nrwl/angular:package",
           "outputs": ["dist/packages/spectacular"],
           "options": {
-            "project": "packages/spectacular/ng-package.json"
+            "project": "packages/spectacular/ng-package.json",
+            "updateBuildableProjectDepsInPackageJson": false
           },
           "configurations": {
             "development": {
