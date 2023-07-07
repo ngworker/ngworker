@@ -9,6 +9,7 @@
       "targets": {
         "build": {
           "executor": "@nrwl/angular:ng-packagr-lite",
+          "outputs": ["dist/packages/examples/tour-of-heroes/crisis-center"],
           "options": {
             "project": "packages/examples/tour-of-heroes/crisis-center/ng-package.json"
           },
@@ -52,6 +53,7 @@
       "targets": {
         "build": {
           "executor": "@nrwl/angular:ng-packagr-lite",
+          "outputs": ["dist/packages/internal/test-util"],
           "options": {
             "project": "packages/internal/test-util/ng-package.json"
           },
@@ -93,6 +95,7 @@
       "targets": {
         "build": {
           "executor": "@nrwl/angular:package",
+          "outputs": ["dist/packages/spectacular"],
           "options": {
             "project": "packages/spectacular/ng-package.json"
           },
@@ -133,6 +136,7 @@
       "targets": {
         "build": {
           "executor": "@nx-plus/docusaurus:browser",
+          "outputs": ["dist/packages/spectacular-docs"],
           "options": {
             "outputPath": "dist/packages/spectacular-docs"
           }
@@ -146,28 +150,6 @@
       },
       "tags": ["type:docs"],
       "implicitDependencies": ["spectacular"]
-    },
-    "workspace-tools": {
-      "projectType": "application",
-      "root": "tools",
-      "sourceRoot": "tools",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["tools/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/tools"],
-          "options": {
-            "jestConfig": "tools/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      },
-      "tags": ["type:tool"]
     }
   }
 }
