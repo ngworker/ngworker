@@ -17,7 +17,7 @@
         "accessToken": "ZTViM2YyNGQtNjk2My00YmFjLWJlYmQtZjIwMzJhMmIxNGMwfHJlYWQtd3JpdGU=",
         "cacheableOperations": ["build", "e2e", "lint", "test"],
         "canTrackAnalytics": true,
-        "maxParallel": 6,
+        "parallel": 6,
         "showUsageWarnings": true
       }
     }
@@ -55,7 +55,6 @@
     "@nrwl/angular:library": {
       "linter": "eslint",
       "strict": true,
-      "style": "scss",
       "unitTestRunner": "jest"
     },
     "@nrwl/angular:storybook-configuration": {

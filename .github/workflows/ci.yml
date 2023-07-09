@@ -51,11 +51,11 @@ jobs:
       - run: yarn install --frozen-lockfile --non-interactive
 
       - if: github.event_name == 'push' && github.ref_name == 'main'
-        run: yarn lint --max-parallel=$NX_MAX_PARALLEL
+        run: yarn lint --parallel=$NX_MAX_PARALLEL
       - if: github.event_name == 'pull_request'
         run:
           yarn affected:lint --base=origin/$BASE_BRANCH
-          --max-parallel=$NX_MAX_PARALLEL
+          --parallel=$NX_MAX_PARALLEL
 
   test:
     runs-on: ubuntu-latest
@@ -80,11 +80,11 @@ jobs:
       - run: yarn install --frozen-lockfile --non-interactive
 
       - if: github.event_name == 'push' && github.ref_name == 'main'
-        run: yarn test --max-parallel=$NX_MAX_PARALLEL
+        run: yarn test --parallel=$NX_MAX_PARALLEL
       - if: github.event_name == 'pull_request'
         run:
           yarn affected:test --base=origin/$BASE_BRANCH
-          --max-parallel=$NX_MAX_PARALLEL
+          --parallel=$NX_MAX_PARALLEL
 
   build:
     runs-on: ubuntu-latest
@@ -138,7 +138,7 @@ jobs:
           cache: yarn
       - run: yarn install --frozen-lockfile --non-interactive
 
-      - run: yarn nx build spectacular-docs --max-parallel=$NX_MAX_PARALLEL
+      - run: yarn nx build spectacular-docs --parallel=$NX_MAX_PARALLEL
 
       - name: '[Merge] Deploy docs to GitHub Pages'
         if: github.event_name == 'push' && github.ref_name == 'main'
@@ -170,8 +170,8 @@ jobs:
       - run: yarn install --frozen-lockfile --non-interactive
 
       - if: github.event_name == 'push' && github.ref_name == 'main'
-        run: yarn e2e --max-parallel=$NX_MAX_PARALLEL
+        run: yarn e2e --parallel=$NX_MAX_PARALLEL
       - if: github.event_name == 'pull_request'
         run:
           yarn affected:e2e --base=origin/$BASE_BRANCH
-          --max-parallel=$NX_MAX_PARALLEL
+          --parallel=$NX_MAX_PARALLEL
