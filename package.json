@@ -65,7 +65,7 @@
     "@nrwl/node": "13.10.6",
     "@nrwl/nx-cloud": "~14.0.0",
     "@nrwl/workspace": "13.10.6",
-    "@nx-plus/docusaurus": "12.2.0",
+    "@nx-plus/docusaurus": "13.0.2",
     "@testing-library/angular": "11.0.4",
     "@testing-library/dom": "9.3.1",
     "@testing-library/jest-dom": "5.16.5",
