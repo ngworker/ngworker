@@ -48,7 +48,7 @@ jobs:
         with:
           node-version-file: .nvmrc
           cache: yarn
-      - run: yarn install --frozen-lockfile --non-interactive --ignore-engines
+      - run: yarn install --frozen-lockfile --non-interactive
 
       - if: github.event_name == 'push' && github.ref_name == 'main'
         run: yarn lint --max-parallel=$NX_MAX_PARALLEL
@@ -77,7 +77,7 @@ jobs:
         with:
           node-version-file: .nvmrc
           cache: yarn
-      - run: yarn install --frozen-lockfile --non-interactive --ignore-engines
+      - run: yarn install --frozen-lockfile --non-interactive
 
       - if: github.event_name == 'push' && github.ref_name == 'main'
         run: yarn test --max-parallel=$NX_MAX_PARALLEL
@@ -106,7 +106,7 @@ jobs:
         with:
           node-version-file: .nvmrc
           cache: yarn
-      - run: yarn install --frozen-lockfile --non-interactive --ignore-engines
+      - run: yarn install --frozen-lockfile --non-interactive
 
       - if: github.event_name == 'push' && github.ref_name == 'main'
         run: yarn build --exclude=spectacular-docs
@@ -128,16 +128,13 @@ jobs:
   docs:
     runs-on: ubuntu-latest
 
-    env:
-      node-version: 16.x
-
     steps:
       - uses: actions/checkout@v3
 
-      - name: Use Node.js ${{ env.node-version }}
+      - name: Use Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ env.node-version }}
+          node-version-file: .nvmrc
           cache: yarn
       - run: yarn install --frozen-lockfile --non-interactive
 
@@ -170,7 +167,7 @@ jobs:
         with:
           node-version-file: .nvmrc
           cache: yarn
-      - run: yarn install --frozen-lockfile --non-interactive --ignore-engines
+      - run: yarn install --frozen-lockfile --non-interactive
 
       - if: github.event_name == 'push' && github.ref_name == 'main'
         run: yarn e2e --max-parallel=$NX_MAX_PARALLEL
