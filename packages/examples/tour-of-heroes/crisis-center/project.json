@@ -1,0 +1,42 @@
+{
+  "projectType": "library",
+  "root": "packages/examples/tour-of-heroes/crisis-center",
+  "sourceRoot": "packages/examples/tour-of-heroes/crisis-center/src",
+  "prefix": "app-crisis",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:ng-packagr-lite",
+      "outputs": ["dist/packages/examples/tour-of-heroes/crisis-center"],
+      "options": {
+        "project": "packages/examples/tour-of-heroes/crisis-center/ng-package.json"
+      },
+      "configurations": {
+        "development": {
+          "tsConfig": "packages/examples/tour-of-heroes/crisis-center/tsconfig.lib.json"
+        },
+        "production": {
+          "tsConfig": "packages/examples/tour-of-heroes/crisis-center/tsconfig.lib.prod.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "packages/examples/tour-of-heroes/crisis-center/src/**/*.ts",
+          "packages/examples/tour-of-heroes/crisis-center/src/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/packages/examples/tour-of-heroes/crisis-center"],
+      "options": {
+        "jestConfig": "packages/examples/tour-of-heroes/crisis-center/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["scope:internal", "type:feature"]
+}
