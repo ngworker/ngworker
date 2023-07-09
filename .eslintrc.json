@@ -10,6 +10,7 @@
           "error",
           {
             "allowCircularSelfDependency": false,
+            "banTransitiveDependencies": true,
             "enforceBuildableLibDependency": true,
             "allow": [],
             "depConstraints": [
