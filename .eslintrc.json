@@ -9,6 +9,7 @@
         "@nrwl/nx/enforce-module-boundaries": [
           "error",
           {
+            "allowCircularSelfDependency": false,
             "enforceBuildableLibDependency": true,
             "allow": [],
             "depConstraints": [
