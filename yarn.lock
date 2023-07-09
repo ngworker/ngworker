@@ -10443,11 +10443,6 @@ json5@^2.2.2:
   resolved "https://registry.yarnpkg.com/json5/-/json5-2.2.3.tgz#78cd6f1a19bdc12b73db5ad0c61efd66c1e29283"
   integrity sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==
 
-json@^10.0.0:
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/json/-/json-10.0.0.tgz#c49a939d4abc7067cc225419d5dd17ab7bf2f66c"
-  integrity sha512-iK7tAZtpoghibjdB1ncCWykeBMmke3JThUe+rnkD4qkZaglOIQ70Pw7r5UJ4lyUT+7gnw7ehmmLUHDuhqzQD+g==
-
 jsonc-parser@3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/jsonc-parser/-/jsonc-parser-3.0.0.tgz#abdd785701c7e7eaca8a9ec8cf070ca51a745a22"

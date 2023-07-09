@@ -114,10 +114,6 @@ jobs:
         run:
           yarn affected:build --exclude=spectacular-docs
           --base=origin/$BASE_BRANCH
-      - name: '[Spectacular] Remove @angular/forms dependency'
-        run:
-          npx json -I -f dist/packages/spectacular/package.json -e "delete
-          this.dependencies['@angular/forms'];" || true
       - name: '[Spectacular] Upload package build artifact'
         uses: actions/upload-artifact@v3
         with:
