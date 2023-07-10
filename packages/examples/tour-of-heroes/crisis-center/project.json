@@ -1,6 +1,5 @@
 {
   "projectType": "library",
-  "root": "packages/examples/tour-of-heroes/crisis-center",
   "sourceRoot": "packages/examples/tour-of-heroes/crisis-center/src",
   "prefix": "app-crisis",
   "targets": {

@@ -1,6 +1,5 @@
 {
   "projectType": "library",
-  "root": "packages/spectacular",
   "sourceRoot": "packages/spectacular/src",
   "prefix": "spectacular",
   "targets": {
