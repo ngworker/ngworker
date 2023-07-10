@@ -2,12 +2,10 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../../dist/out-tsc",
-    "target": "es2015",
     "declaration": true,
     "declarationMap": true,
     "inlineSources": true,
-    "types": ["jest", "node"],
-    "lib": ["dom", "es2018"]
+    "types": ["jest", "node"]
   },
   "exclude": [
     "src/test-setup.ts",
