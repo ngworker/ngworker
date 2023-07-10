@@ -32,7 +32,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/packages/examples/tour-of-heroes/crisis-center"],
       "options": {
-        "jestConfig": "packages/examples/tour-of-heroes/crisis-center/jest.config.js",
+        "jestConfig": "packages/examples/tour-of-heroes/crisis-center/jest.config.ts",
         "passWithNoTests": true
       }
     }

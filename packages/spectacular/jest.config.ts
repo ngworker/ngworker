@@ -1,3 +1,4 @@
+/* eslint-disable */
 module.exports = {
   displayName: 'spectacular',
   preset: '../../jest.preset.js',
