@@ -1,6 +1,5 @@
 import { Inject, Injectable, NgZone } from '@angular/core';
 import { NavigationExtras, Router, UrlSegment, UrlTree } from '@angular/router';
-
 import { featurePathToken } from '../configuration/feature-path.token';
 import { ensureLeadingCharacter } from '../util-text/ensure-leading-character';
 import { relativeFeatureUrlPrefix } from './relative-feature-url-prefix';
@@ -71,12 +70,12 @@ export class SpectacularFeatureRouter {
       // url is UrlTree
 
       const isRelativeFeatureUrlTree =
-        url.root.children.primary?.segments[0].path === '~';
+        url.root.children['primary']?.segments[0].path === '~';
 
       if (isRelativeFeatureUrlTree) {
-        const [, ...tail] = url.root.children.primary.segments;
+        const [, ...tail] = url.root.children['primary'].segments;
         const featureSegment = new UrlSegment(this.featurePath, {});
-        url.root.children.primary.segments = [featureSegment, ...tail];
+        url.root.children['primary'].segments = [featureSegment, ...tail];
       }
 
       url = this.router.serializeUrl(url);

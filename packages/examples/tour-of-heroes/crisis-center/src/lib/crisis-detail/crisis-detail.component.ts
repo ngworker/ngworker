@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-
 import { Crisis } from '../crisis';
 import { DialogService } from '../dialog.service';
 
@@ -25,7 +24,7 @@ export class CrisisDetailComponent implements OnInit {
 
   ngOnInit() {
     this.route.data.subscribe(data => {
-      const crisis: Crisis = data.crisis;
+      const crisis: Crisis = data['crisis'];
       this.editName = crisis.name;
       this.crisis = crisis;
     });
