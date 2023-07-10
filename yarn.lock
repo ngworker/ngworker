@@ -3308,15 +3308,14 @@
     semver "7.3.4"
     tslib "^2.3.0"
 
-"@nrwl/devkit@^13.9.3":
-  version "13.10.6"
-  resolved "https://registry.yarnpkg.com/@nrwl/devkit/-/devkit-13.10.6.tgz#2ea2bf7531e7e7a08457ac3e7f2e8745065afc85"
-  integrity sha512-oxL+r9pGguFwl//iuIyPih8mxFwYjYmPY7K8coPoucLCIwKWAnp1B8T5LEMlZh58VaYEQFaGUnuILdVrK1s4pA==
+"@nrwl/devkit@^14.3.6":
+  version "14.8.8"
+  resolved "https://registry.yarnpkg.com/@nrwl/devkit/-/devkit-14.8.8.tgz#5c6b7e0571c84ca63e85691e143aab8b896f1536"
+  integrity sha512-NLgLRfGyv9aMHxGi+rrVRPLYbuqYoGcRVVr0bo3PP1cVSry1THBoLivvPzqf/tniM1S4EzJdrOSau7dfPVGNFA==
   dependencies:
-    ejs "^3.1.5"
+    "@phenomnomnominal/tsquery" "4.1.1"
+    ejs "^3.1.7"
     ignore "^5.0.4"
-    rxjs "^6.5.4"
-    semver "7.3.4"
     tslib "^2.3.0"
 
 "@nrwl/eslint-plugin-nx@14.1.9":
@@ -3472,12 +3471,12 @@
     yargs "^17.4.0"
     yargs-parser "21.0.1"
 
-"@nx-plus/docusaurus@13.0.2":
-  version "13.0.2"
-  resolved "https://registry.yarnpkg.com/@nx-plus/docusaurus/-/docusaurus-13.0.2.tgz#48b49f37ebb4815efab0c8c0bdc47ef54eaed93d"
-  integrity sha512-ltkB0bEa7ZCfU2xYOT7el41jHJKXlsmL9ZtUNCJmeIomV7hPTLa0HR2amYa7MiajH8vfxT8SB9S8OJjfW82+RA==
+"@nx-plus/docusaurus@14.1.0":
+  version "14.1.0"
+  resolved "https://registry.yarnpkg.com/@nx-plus/docusaurus/-/docusaurus-14.1.0.tgz#0d919aada8cd94b986fc74e8dc604ba06491dbdc"
+  integrity sha512-EjzaOm8GCpyADKn4G19AgZk/l8F5eyNCVN1oFki7KUPaig9N9IjRCEmUQtHuomGbCQRqHtpovEPJldCLRz4glw==
   dependencies:
-    "@nrwl/devkit" "^13.9.3"
+    "@nrwl/devkit" "^14.3.6"
 
 "@parcel/watcher@2.0.4":
   version "2.0.4"
@@ -6669,13 +6668,6 @@ ee-first@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
   integrity sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==
-
-ejs@^3.1.5:
-  version "3.1.8"
-  resolved "https://registry.yarnpkg.com/ejs/-/ejs-3.1.8.tgz#758d32910c78047585c7ef1f92f9ee041c1c190b"
-  integrity sha512-/sXZeMlhS0ArkfX2Aw780gJzXSMPnKjtspYZv+f3NiKLlubezAHDU5+9xz6gd3/NhG3txQCo6xlglmTS+oTGEQ==
-  dependencies:
-    jake "^10.8.5"
 
 ejs@^3.1.7:
   version "3.1.9"
