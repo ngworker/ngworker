@@ -1,0 +1,22 @@
+{
+  "projectType": "application",
+  "root": "packages/spectacular-docs",
+  "sourceRoot": "packages/spectacular-docs/src",
+  "targets": {
+    "build": {
+      "executor": "@nx-plus/docusaurus:browser",
+      "outputs": ["dist/packages/spectacular-docs"],
+      "options": {
+        "outputPath": "dist/packages/spectacular-docs"
+      }
+    },
+    "serve": {
+      "executor": "@nx-plus/docusaurus:dev-server",
+      "options": {
+        "port": 3000
+      }
+    }
+  },
+  "tags": ["type:docs"],
+  "implicitDependencies": ["spectacular"]
+}

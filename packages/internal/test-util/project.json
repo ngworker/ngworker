@@ -1,0 +1,42 @@
+{
+  "projectType": "library",
+  "root": "packages/internal/test-util",
+  "sourceRoot": "packages/internal/test-util/src",
+  "prefix": "ngworker",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:ng-packagr-lite",
+      "outputs": ["dist/packages/internal/test-util"],
+      "options": {
+        "project": "packages/internal/test-util/ng-package.json"
+      },
+      "configurations": {
+        "development": {
+          "tsConfig": "packages/internal/test-util/tsconfig.lib.json"
+        },
+        "production": {
+          "tsConfig": "packages/internal/test-util/tsconfig.lib.prod.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "packages/internal/test-util/src/**/*.ts",
+          "packages/internal/test-util/src/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/packages/internal/test-util"],
+      "options": {
+        "jestConfig": "packages/internal/test-util/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["scope:internal", "type:test-util"]
+}

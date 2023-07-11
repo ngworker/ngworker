@@ -1,0 +1,43 @@
+{
+  "projectType": "library",
+  "root": "packages/spectacular",
+  "sourceRoot": "packages/spectacular/src",
+  "prefix": "spectacular",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "outputs": ["dist/packages/spectacular"],
+      "options": {
+        "project": "packages/spectacular/ng-package.json",
+        "updateBuildableProjectDepsInPackageJson": false
+      },
+      "configurations": {
+        "development": {
+          "tsConfig": "packages/spectacular/tsconfig.lib.json"
+        },
+        "production": {
+          "tsConfig": "packages/spectacular/tsconfig.lib.prod.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "packages/spectacular/src/**/*.ts",
+          "packages/spectacular/src/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/packages/spectacular"],
+      "options": {
+        "jestConfig": "packages/spectacular/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["type:package"]
+}

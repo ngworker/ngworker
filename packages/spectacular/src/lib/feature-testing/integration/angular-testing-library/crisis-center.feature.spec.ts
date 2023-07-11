@@ -1,6 +1,5 @@
 import { render, RenderResult, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
-import type { UserEvent } from '@testing-library/user-event/dist/types/setup';
 import {
   Crisis,
   CrisisCenterModule,
@@ -71,7 +70,7 @@ describe('[Angular Testing Library] Tour of Heroes: Crisis center', () => {
     id: Number.MAX_SAFE_INTEGER,
     name: 'Unknown crisis',
   };
-  let user: UserEvent;
+  let user: ReturnType<typeof userEvent['setup']>;
 
   it('starts at the crisis center home', async () => {
     await navigate(crisisCenterPath);
