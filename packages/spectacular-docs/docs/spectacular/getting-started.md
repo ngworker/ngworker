@@ -55,7 +55,7 @@ function and pass it the options it requires as seen in the following example:
 ```ts {2-3}
 const harness = createFeatureHarness({
   featurePath: 'dashboard',
-  featureModule: DashboardModule,
+  routes: [{ path: 'dashboard', loadChildren: () => DashboardModule }],
 });
 ```
 
@@ -81,7 +81,6 @@ Additional Angular module imports and providers can be passed as `imports` and
 ```ts {4-10}
 const harness = createFeatureHarness({
   featurePath: 'dashboard',
-  featureModule: DashboardModule,
   imports: [HttpClientTestingModule],
   providers: [
     {
@@ -89,6 +88,7 @@ const harness = createFeatureHarness({
       useClass: FakeStorageService,
     },
   ],
+  routes: [{ path: 'dashboard', loadChildren: () => DashboardModule }],
 });
 ```
 
@@ -101,7 +101,6 @@ example:
 ```ts {13}
 const harness = createFeatureHarness({
   featurePath: 'dashboard',
-  featureModule: DashboardModule,
   imports: [HttpClientTestingModule],
   providers: [
     {
@@ -109,6 +108,7 @@ const harness = createFeatureHarness({
       useClass: FakeStorageService,
     },
   ],
+  routes: [{ path: 'dashboard', loadChildren: () => DashboardModule }],
 });
 
 const fakeStorage = harness.inject(StorageService);
@@ -138,9 +138,9 @@ import { DashboardModule, dashboardPath } from '@enterprise/feature-dashboard';
 describe('Dashboard feature', () => {
   beforeEach(async () => {
     harness = await createFeatureHarness({
-      featureModule: DashboardModule,
       featurePath: dashboardPath,
       providers: [{ provide: ComponentFixtureAutoDetect, useValue: true }],
+      routes: [{ path: dashboardPath, loadChildren: () => DashboardModule }],
     });
   });
 

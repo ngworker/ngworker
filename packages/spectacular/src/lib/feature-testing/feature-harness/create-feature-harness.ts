@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-
 import { SpectacularAppComponent } from '../../shared/app-component/spectacular-app.component';
 import { SpectacularFeatureTestingModule } from '../feature-testing-module/spectacular-feature-testing.module';
 import { initialFeatureNavigationInitializer } from '../navigation/initial-feature-navigation.initializer';
@@ -12,20 +11,20 @@ import { SpectacularFeatureHarness } from './spectacular-feature-harness';
  * Configure `SpectacularFeatureTestingModule`, bootstrap `SpectacularAppComponent`
  * and navigate to the default feature route.
  */
-export function createFeatureHarness<TFeatureModule>({
-  featureModule,
+export function createFeatureHarness({
   featurePath,
   imports = [],
   providers = [],
   routerOptions = {},
-}: CreateFeatureHarnessOptions<TFeatureModule>): SpectacularFeatureHarness {
+  routes,
+}: CreateFeatureHarnessOptions): SpectacularFeatureHarness {
   TestBed.configureTestingModule({
     imports: [
       ...imports,
       SpectacularFeatureTestingModule.withFeature({
-        featureModule,
         featurePath,
         routerOptions,
+        routes,
       }),
     ],
     providers: [...providers, initialFeatureNavigationInitializer],

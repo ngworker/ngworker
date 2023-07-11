@@ -417,8 +417,10 @@ import {
 describe('Tour of Heroes: Crisis center integration tests', () => {
   beforeEach(() => {
     harness = createFeatureHarness({
-      featureModule: CrisisCenterModule,
       featurePath: crisisCenterPath,
+      routes: [
+        { path: crisisCenterPath, loadChildren: () => CrisisCenterModule },
+      ],
     });
 
     crisisService = harness.inject(CrisisService);
@@ -722,7 +724,7 @@ The following shows complete feature test suites:
   ]}>
   <TabItem value="spectacular">
 
-```ts {14-17,28,57}
+```ts {14-19,30,59}
 import { By } from '@angular/platform-browser';
 import {
   createFeatureHarness,
@@ -737,8 +739,10 @@ import {
 describe('Tour of Heroes: Crisis center integration tests', () => {
   beforeEach(() => {
     harness = createFeatureHarness({
-      featureModule: CrisisCenterModule,
       featurePath: crisisCenterPath,
+      routes: [
+        { path: crisisCenterPath, loadChildren: () => CrisisCenterModule },
+      ],
     });
 
     crisisService = harness.inject(CrisisService);
