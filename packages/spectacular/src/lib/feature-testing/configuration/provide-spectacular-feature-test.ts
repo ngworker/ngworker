@@ -1,4 +1,6 @@
 import { Provider } from '@angular/core';
+import { SpectacularFeatureLocation } from '../navigation/spectacular-feature-location';
+import { SpectacularFeatureRouter } from '../navigation/spectacular-feature-router';
 import { provideFeaturePath } from './feature-path.token';
 
 /**
@@ -20,5 +22,9 @@ export function provideSpectacularFeatureTest(
 ): Provider[] {
   const { featurePath } = options;
 
-  return [provideFeaturePath(featurePath)];
+  return [
+    provideFeaturePath(featurePath),
+    SpectacularFeatureLocation,
+    SpectacularFeatureRouter,
+  ];
 }

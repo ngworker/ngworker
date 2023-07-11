@@ -1,12 +1,11 @@
-import { Injectable, ValueProvider } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ignoreDevelopmentModeLog } from '@internal/test-util';
-
 import { createApplicationHarness } from '../../application-testing/application-harness/create-application-harness';
 import { SpectacularAppComponent } from '../../shared/app-component/spectacular-app.component';
 import { SpectacularAppScam } from '../../shared/app-component/spectacular-app.scam';
-import { featurePathToken } from '../configuration/feature-path.token';
+import { provideSpectacularFeatureTest } from '../configuration/provide-spectacular-feature-test';
 import { initialFeatureNavigationInitializer } from './initial-feature-navigation.initializer';
 import { SpectacularFeatureLocation } from './spectacular-feature-location';
 
@@ -16,10 +15,6 @@ describe('initialFeatureNavigationInitializer', () => {
   });
 
   const featurePath = 'admin';
-  const featurePathProvider: ValueProvider = {
-    provide: featurePathToken,
-    useValue: featurePath,
-  };
 
   it('navigates to the default feature route when the specified feature route is registered', async () => {
     const harness = await createApplicationHarness({
@@ -32,7 +27,12 @@ describe('initialFeatureNavigationInitializer', () => {
         ]),
         SpectacularAppScam,
       ],
-      providers: [featurePathProvider, initialFeatureNavigationInitializer],
+      providers: [
+        provideSpectacularFeatureTest({
+          featurePath: 'admin',
+        }),
+        initialFeatureNavigationInitializer,
+      ],
     });
 
     const location = harness.inject(SpectacularFeatureLocation);
@@ -51,7 +51,12 @@ describe('initialFeatureNavigationInitializer', () => {
           ]),
           SpectacularAppScam,
         ],
-        providers: [featurePathProvider, initialFeatureNavigationInitializer],
+        providers: [
+          provideSpectacularFeatureTest({
+            featurePath: 'admin',
+          }),
+          initialFeatureNavigationInitializer,
+        ],
       });
 
     expect(act).rejects.toThrowError('Cannot match any routes');
@@ -80,7 +85,12 @@ describe('initialFeatureNavigationInitializer', () => {
           ]),
           SpectacularAppScam,
         ],
-        providers: [featurePathProvider, initialFeatureNavigationInitializer],
+        providers: [
+          provideSpectacularFeatureTest({
+            featurePath: 'admin',
+          }),
+          initialFeatureNavigationInitializer,
+        ],
       });
 
     expect(act).rejects.toThrowError(errorMessage);

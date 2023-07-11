@@ -1,6 +1,5 @@
 import { Location } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
-
 import { featurePathToken } from '../configuration/feature-path.token';
 import { ensureLeadingCharacter } from '../util-text/ensure-leading-character';
 import { trimLeadingText } from '../util-text/trim-leading-text';
@@ -10,9 +9,7 @@ import { relativeFeatureUrlPrefix } from './relative-feature-url-prefix';
  * A subset of Angular's `Location` service adjusted to the Angular feature
  * module under test.
  */
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class SpectacularFeatureLocation {
   constructor(
     @Inject(featurePathToken) private readonly featurePath: string,

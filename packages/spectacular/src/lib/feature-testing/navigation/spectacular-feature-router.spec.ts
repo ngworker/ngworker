@@ -1,12 +1,11 @@
 import { NgZone } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import type { NavigationExtras } from '@angular/router';
 import { Router, UrlTree } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-
-import { featurePathToken } from '../configuration/feature-path.token';
+import { provideSpectacularFeatureTest } from '../configuration/provide-spectacular-feature-test';
 import { SpectacularFeatureRouter } from './spectacular-feature-router';
 
-import type { NavigationExtras } from '@angular/router';
 describe(SpectacularFeatureRouter.name, () => {
   const featurePath = 'crisis-center';
 
@@ -14,10 +13,9 @@ describe(SpectacularFeatureRouter.name, () => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule],
       providers: [
-        {
-          provide: featurePathToken,
-          useValue: featurePath,
-        },
+        provideSpectacularFeatureTest({
+          featurePath,
+        }),
       ],
     });
     const angularRouter = TestBed.inject(Router);
