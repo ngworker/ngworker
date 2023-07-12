@@ -36,7 +36,6 @@
     ]
   },
   "cli": {
-    "defaultCollection": "@nrwl/angular",
     "packageManager": "yarn"
   },
   "generators": {
