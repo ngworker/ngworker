@@ -164,14 +164,6 @@
     "@jridgewell/gen-mapping" "^0.3.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
-"@angular-devkit/architect@0.1401.3":
-  version "0.1401.3"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/architect/-/architect-0.1401.3.tgz#ce1eb086c25051021a12fdf5a6c8351ca8f29443"
-  integrity sha512-DQvKfl8Q9c02jpGqZX1nOL4mAnRBU6BSqPlhi1q17ZrB8sQpYtDBb8Epn2DDq48l7SQVFnRg6Zgje9L1LObURg==
-  dependencies:
-    "@angular-devkit/core" "14.1.3"
-    rxjs "6.6.7"
-
 "@angular-devkit/architect@0.1402.12":
   version "0.1402.12"
   resolved "https://registry.yarnpkg.com/@angular-devkit/architect/-/architect-0.1402.12.tgz#10f3982c35ebe4b8baf86e6060c3a24addfeeeb9"
@@ -258,17 +250,6 @@
     "@angular-devkit/architect" "0.1402.12"
     rxjs "6.6.7"
 
-"@angular-devkit/core@14.1.3":
-  version "14.1.3"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-14.1.3.tgz#5dc9a7917bed82a02efc20a4847f5eb6a55b699b"
-  integrity sha512-YBxhRl7hKgirjcKeurfejVrIgmw31GcfKKCyQiIudoLCYjonnSMdDEx2y8BNMANvxe5YmuZsIYJtgVlqp3mMDg==
-  dependencies:
-    ajv "8.11.0"
-    ajv-formats "2.1.1"
-    jsonc-parser "3.1.0"
-    rxjs "6.6.7"
-    source-map "0.7.4"
-
 "@angular-devkit/core@14.2.12":
   version "14.2.12"
   resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-14.2.12.tgz#7716cb8c3aa8436ba8d1189110b8f2ac30c25631"
@@ -279,17 +260,6 @@
     jsonc-parser "3.1.0"
     rxjs "6.6.7"
     source-map "0.7.4"
-
-"@angular-devkit/schematics@14.1.3":
-  version "14.1.3"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/schematics/-/schematics-14.1.3.tgz#07f28e7d0915461b44afa34986bbff436b5efe3c"
-  integrity sha512-i1vuuClGvBzmgQi3qAUWTwLdnGJZ/C8xVeFMHXmgVNZhck9/8xGGusi500SYsGcVzEfetGSJt5hOfUHmVrcpbg==
-  dependencies:
-    "@angular-devkit/core" "14.1.3"
-    jsonc-parser "3.1.0"
-    magic-string "0.26.2"
-    ora "5.4.1"
-    rxjs "6.6.7"
 
 "@angular-devkit/schematics@14.2.12", "@angular-devkit/schematics@~14.2.0":
   version "14.2.12"
@@ -349,15 +319,15 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/cli@~14.1.0":
-  version "14.1.3"
-  resolved "https://registry.yarnpkg.com/@angular/cli/-/cli-14.1.3.tgz#44908568acd4ae1333b17f37eaa8408d1822c9c5"
-  integrity sha512-JAvxOXXGf4VCJUQLe3g0pDNnOnE5E7tJfhqsn77+TGrhFpYPMmZ8z747ohiFXrTqbSe0dWTwOfqwpAA41R1CeA==
+"@angular/cli@~14.2.0":
+  version "14.2.12"
+  resolved "https://registry.yarnpkg.com/@angular/cli/-/cli-14.2.12.tgz#aed2ca21ebf4763e584f0aaa2b57521c0f7609e7"
+  integrity sha512-G/785b6jIIX7J+zS8RHaCT1OYzqANw5hJlnLf8tLgmaadLMVNQvIrvHTYtmD86pbqCYyVDLoMxefxRIwMHJuqw==
   dependencies:
-    "@angular-devkit/architect" "0.1401.3"
-    "@angular-devkit/core" "14.1.3"
-    "@angular-devkit/schematics" "14.1.3"
-    "@schematics/angular" "14.1.3"
+    "@angular-devkit/architect" "0.1402.12"
+    "@angular-devkit/core" "14.2.12"
+    "@angular-devkit/schematics" "14.2.12"
+    "@schematics/angular" "14.2.12"
     "@yarnpkg/lockfile" "1.1.0"
     ansi-colors "4.1.3"
     debug "4.3.4"
@@ -368,9 +338,9 @@
     npm-pick-manifest "7.0.1"
     open "8.4.0"
     ora "5.4.1"
-    pacote "13.6.1"
+    pacote "13.6.2"
     resolve "1.22.1"
-    semver "7.3.7"
+    semver "7.5.3"
     symbol-observable "4.0.0"
     uuid "8.3.2"
     yargs "17.5.1"
@@ -3397,16 +3367,7 @@
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
 
-"@schematics/angular@14.1.3":
-  version "14.1.3"
-  resolved "https://registry.yarnpkg.com/@schematics/angular/-/angular-14.1.3.tgz#8ffeba77cc81bb81f0263768f0fdb2dab4f92950"
-  integrity sha512-hhH4MGfBD1oxrd9PFZwgaqXAT9dYTK/6AtoIcr40OwEbnS5ZoZwzrgb0OOT2NW3bmL0dg3YeJei3Sf89hlI5eg==
-  dependencies:
-    "@angular-devkit/core" "14.1.3"
-    "@angular-devkit/schematics" "14.1.3"
-    jsonc-parser "3.1.0"
-
-"@schematics/angular@~14.2.0":
+"@schematics/angular@14.2.12", "@schematics/angular@~14.2.0":
   version "14.2.12"
   resolved "https://registry.yarnpkg.com/@schematics/angular/-/angular-14.2.12.tgz#b3ea12b5fd402fadf619d388f16c312eb2c61c3a"
   integrity sha512-nCxoFzH/uh5vqhaAjAfQIBgGuCdV3RMjdSwD0VQ+GFiFvTe8rqFyDl+qpNCgETz4LwmGHb5HNjDH9+VyVLgfZQ==
@@ -10969,10 +10930,10 @@ package-json@^6.3.0:
     registry-url "^5.0.0"
     semver "^6.2.0"
 
-pacote@13.6.1:
-  version "13.6.1"
-  resolved "https://registry.yarnpkg.com/pacote/-/pacote-13.6.1.tgz#ac6cbd9032b4c16e5c1e0c60138dfe44e4cc589d"
-  integrity sha512-L+2BI1ougAPsFjXRyBhcKmfT016NscRFLv6Pz5EiNf1CCFJFU0pSKKQwsZTyAQB+sTuUL4TyFyp6J1Ork3dOqw==
+pacote@13.6.2:
+  version "13.6.2"
+  resolved "https://registry.yarnpkg.com/pacote/-/pacote-13.6.2.tgz#0d444ba3618ab3e5cd330b451c22967bbd0ca48a"
+  integrity sha512-Gu8fU3GsvOPkak2CkbojR7vjs3k3P9cA6uazKTHdsdV0gpCEQq2opelnEv30KRQWgVzP5Vd/5umjcedma3MKtg==
   dependencies:
     "@npmcli/git" "^3.0.0"
     "@npmcli/installed-package-contents" "^1.0.7"
@@ -12933,13 +12894,6 @@ semver@7.3.4:
   version "7.3.4"
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.3.4.tgz#27aaa7d2e4ca76452f98d3add093a72c943edc97"
   integrity sha512-tCfb2WLjqFAtXn4KEdxIhalnRtoKFN7nAwj0B3ZXCbQloV2tq5eDbcTmT68JJD3nRJq24/XgxtQKFIpQdtvmVw==
-  dependencies:
-    lru-cache "^6.0.0"
-
-semver@7.3.7:
-  version "7.3.7"
-  resolved "https://registry.yarnpkg.com/semver/-/semver-7.3.7.tgz#12c5b649afdbf9049707796e22a4028814ce523f"
-  integrity sha512-QlYTucUYOews+WeEujDoEGziz4K6c47V/Bd+LjSSYcA94p+DmINdf7ncaUinThfvZyu13lN9OY1XDxt8C0Tw0g==
   dependencies:
     lru-cache "^6.0.0"
 
