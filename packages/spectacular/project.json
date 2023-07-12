@@ -7,7 +7,7 @@
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["{workspaceRoot}/dist/packages/spectacular"],
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "options": {
         "project": "packages/spectacular/ng-package.json",
         "updateBuildableProjectDepsInPackageJson": false
@@ -33,7 +33,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/packages/spectacular"],
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "packages/spectacular/jest.config.ts",
         "passWithNoTests": true
