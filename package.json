@@ -65,7 +65,7 @@
     "@nrwl/nx-cloud": "16.1.0",
     "@nrwl/workspace": "15.1.1",
     "@nx-plus/docusaurus": "14.1.0",
-    "@testing-library/angular": "11.0.4",
+    "@testing-library/angular": "12.3.0",
     "@testing-library/dom": "9.3.1",
     "@testing-library/jest-dom": "5.16.5",
     "@testing-library/user-event": "14.4.3",
