@@ -16,7 +16,8 @@
     "noImplicitOverride": true,
     "noImplicitReturns": true,
     "noPropertyAccessFromIndexSignature": true,
-    "strict": true
+    "strict": true,
+    "target": "es2020"
   },
   "angularCompilerOptions": {
     "strictInjectionParameters": true,
