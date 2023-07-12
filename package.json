@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main",
+    "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2020 browser module main",
     "nx": "nx",
     "start": "nx serve",
     "build": "nx run-many --target=build --configuration=production --all",
