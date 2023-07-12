@@ -49,16 +49,7 @@
       "parserOptions": {
         "project": "./tsconfig.*?.json"
       },
-      "rules": {
-        "quotes": [
-          "warn",
-          "single",
-          {
-            "avoidEscape": true,
-            "allowTemplateLiterals": true
-          }
-        ]
-      }
+      "rules": {}
     },
     {
       "files": ["*.js", "*.jsx"],

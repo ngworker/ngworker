@@ -1,6 +1,7 @@
-module.exports = {
-  displayName: 'internal-test-util',
-  preset: '../../../jest.preset.js',
+/* eslint-disable */
+export default {
+  displayName: 'examples-tour-of-heroes-crisis-center',
+  preset: '../../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {
@@ -8,7 +9,8 @@ module.exports = {
       tsconfig: '<rootDir>/tsconfig.spec.json',
     },
   },
-  coverageDirectory: '../../../coverage/packages/internal/test-util',
+  coverageDirectory:
+    '../../../../coverage/packages/examples/tour-of-heroes/crisis-center',
   snapshotSerializers: [
     'jest-preset-angular/build/serializers/no-ng-attributes',
     'jest-preset-angular/build/serializers/ng-snapshot',

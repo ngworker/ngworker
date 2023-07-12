@@ -1,6 +1,5 @@
 {
   "projectType": "application",
-  "root": "packages/spectacular-docs",
   "sourceRoot": "packages/spectacular-docs/src",
   "targets": {
     "build": {

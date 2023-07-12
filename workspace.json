@@ -1,9 +1,0 @@
-{
-  "version": 2,
-  "projects": {
-    "examples-tour-of-heroes-crisis-center": "packages/examples/tour-of-heroes/crisis-center",
-    "internal-test-util": "packages/internal/test-util",
-    "spectacular": "packages/spectacular",
-    "spectacular-docs": "packages/spectacular-docs"
-  }
-}

@@ -1,6 +1,5 @@
 {
   "projectType": "library",
-  "root": "packages/spectacular",
   "sourceRoot": "packages/spectacular/src",
   "prefix": "spectacular",
   "targets": {
@@ -34,7 +33,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/packages/spectacular"],
       "options": {
-        "jestConfig": "packages/spectacular/jest.config.js",
+        "jestConfig": "packages/spectacular/jest.config.ts",
         "passWithNoTests": true
       }
     }

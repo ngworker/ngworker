@@ -1,6 +1,7 @@
-module.exports = {
-  displayName: 'spectacular',
-  preset: '../../jest.preset.js',
+/* eslint-disable */
+export default {
+  displayName: 'internal-test-util',
+  preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {
@@ -8,7 +9,7 @@ module.exports = {
       tsconfig: '<rootDir>/tsconfig.spec.json',
     },
   },
-  coverageDirectory: '../../coverage/packages/spectacular',
+  coverageDirectory: '../../../coverage/packages/internal/test-util',
   snapshotSerializers: [
     'jest-preset-angular/build/serializers/no-ng-attributes',
     'jest-preset-angular/build/serializers/ng-snapshot',
