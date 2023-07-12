@@ -62,7 +62,7 @@
     "@nrwl/jest": "15.1.1",
     "@nrwl/linter": "15.1.1",
     "@nrwl/node": "15.1.1",
-    "@nrwl/nx-cloud": "16.1.0",
+    "@nrwl/nx-cloud": "15.3.5",
     "@nrwl/workspace": "15.1.1",
     "@nx-plus/docusaurus": "14.1.0",
     "@testing-library/angular": "12.3.0",
