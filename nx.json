@@ -27,14 +27,6 @@
     "appsDir": "e2e",
     "libsDir": "packages"
   },
-  "targetDependencies": {
-    "build": [
-      {
-        "target": "build",
-        "projects": "dependencies"
-      }
-    ]
-  },
   "cli": {
     "packageManager": "yarn"
   },
@@ -59,6 +51,11 @@
     },
     "@nrwl/angular:storybook-configuration": {
       "linter": "eslint"
+    }
+  },
+  "targetDefaults": {
+    "build": {
+      "dependsOn": ["^build"]
     }
   }
 }
