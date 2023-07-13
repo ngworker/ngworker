@@ -1,5 +1,6 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
-import { ExtraOptions, Routes } from '@angular/router';
+import type { ModuleWithProviders } from '@angular/core';
+import { NgModule } from '@angular/core';
+import type { ExtraOptions, Routes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { provideSpectacularFeatureTest } from '../configuration/provide-spectacular-feature-test';
 import { SpectacularFeatureTestingRootModule } from './spectacular-feature-testing-root.module';

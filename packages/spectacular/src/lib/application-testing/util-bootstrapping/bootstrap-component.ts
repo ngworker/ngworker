@@ -1,9 +1,5 @@
-import {
-  ApplicationInitStatus,
-  ApplicationRef,
-  NgZone,
-  Type,
-} from '@angular/core';
+import type { NgZone, Type } from '@angular/core';
+import { ApplicationInitStatus, ApplicationRef } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ensureFreshRootElement } from '../util-dom/ensure-fresh-root-element';
 

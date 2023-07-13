@@ -1,12 +1,12 @@
-import { NgModule } from '@angular/core';
+import type { NgModule } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { ExtraOptions, Routes } from '@angular/router';
+import type { ExtraOptions, Routes } from '@angular/router';
 import { SpectacularAppComponent } from '../../shared/app-component/spectacular-app.component';
 import { SpectacularFeatureTestingModule } from '../feature-testing-module/spectacular-feature-testing.module';
 import { initialFeatureNavigationInitializer } from '../navigation/initial-feature-navigation.initializer';
 import { SpectacularFeatureLocation } from '../navigation/spectacular-feature-location';
 import { SpectacularFeatureRouter } from '../navigation/spectacular-feature-router';
-import { SpectacularFeatureHarness } from './spectacular-feature-harness';
+import type { SpectacularFeatureHarness } from './spectacular-feature-harness';
 
 /**
  * Feature harness options.

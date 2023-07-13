@@ -1,6 +1,6 @@
 import type { Observable } from 'rxjs';
 import { createPipeHarness } from '../pipe-harness/create-pipe-harness';
-import { SpectacularPipeHarness } from '../pipe-harness/spectacular-pipe-harness';
+import type { SpectacularPipeHarness } from '../pipe-harness/spectacular-pipe-harness';
 import { PassthroughPipe, passthroughPipeName } from './passthrough.pipe';
 
 export interface CreateCommonPipeHarnessOptions<TValue> {

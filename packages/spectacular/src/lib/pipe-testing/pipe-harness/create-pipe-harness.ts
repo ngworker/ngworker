@@ -1,9 +1,10 @@
 import type { NgModule, PipeTransform, Type } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import type { ComponentFixture } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import type { Observable } from 'rxjs';
 import { SpectacularPipeComponent } from '../pipe-component/spectacular-pipe.component';
-import { SpectacularPipeHarness } from './spectacular-pipe-harness';
+import type { SpectacularPipeHarness } from './spectacular-pipe-harness';
 
 /**
  * Angular pipe harness options.

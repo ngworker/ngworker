@@ -1,5 +1,6 @@
 import { Inject, Injectable, NgZone } from '@angular/core';
-import { NavigationExtras, Router, UrlSegment, UrlTree } from '@angular/router';
+import type { NavigationExtras, UrlTree } from '@angular/router';
+import { Router, UrlSegment } from '@angular/router';
 import { featurePathToken } from '../configuration/feature-path.token';
 import { ensureLeadingCharacter } from '../util-text/ensure-leading-character';
 import { relativeFeatureUrlPrefix } from './relative-feature-url-prefix';

@@ -1,4 +1,5 @@
-import { NgModule, NgZone } from '@angular/core';
+import type { NgModule } from '@angular/core';
+import { NgZone } from '@angular/core';
 import { ComponentFixtureAutoDetect, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import {

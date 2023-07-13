@@ -1,6 +1,6 @@
-import { APP_INITIALIZER, FactoryProvider } from '@angular/core';
+import type { FactoryProvider } from '@angular/core';
+import { APP_INITIALIZER } from '@angular/core';
 import { fakeAsync, tick } from '@angular/core/testing';
-
 import { featurePathToken } from '../configuration/feature-path.token';
 import { SpectacularFeatureRouter } from './spectacular-feature-router';
 
