@@ -11,18 +11,18 @@ import { relativeFeatureUrlPrefix } from './relative-feature-url-prefix';
  */
 @Injectable()
 export class SpectacularFeatureRouter {
-  private readonly featurePath: string;
-  private readonly router: Router;
-  private readonly ngZone: NgZone;
+  readonly #featurePath: string;
+  readonly #router: Router;
+  readonly #ngZone: NgZone;
 
   constructor(
     @Inject(featurePathToken) featurePath: string,
     router: Router,
     ngZone: NgZone
   ) {
-    this.featurePath = featurePath;
-    this.router = router;
-    this.ngZone = ngZone;
+    this.#featurePath = featurePath;
+    this.#router = router;
+    this.#ngZone = ngZone;
   }
 
   /**
@@ -49,10 +49,10 @@ export class SpectacularFeatureRouter {
     const [head, ...tail] = commands;
 
     if (head === relativeFeatureUrlPrefix) {
-      commands = [this.featurePath, ...tail];
+      commands = [this.#featurePath, ...tail];
     }
 
-    return this.ngZone.run(() => this.router.navigate(commands, extras));
+    return this.#ngZone.run(() => this.#router.navigate(commands, extras));
   }
 
   /**
@@ -81,26 +81,26 @@ export class SpectacularFeatureRouter {
 
       if (isRelativeFeatureUrlTree) {
         const [, ...tail] = url.root.children['primary'].segments;
-        const featureSegment = new UrlSegment(this.featurePath, {});
+        const featureSegment = new UrlSegment(this.#featurePath, {});
         url.root.children['primary'].segments = [featureSegment, ...tail];
       }
 
-      url = this.router.serializeUrl(url);
+      url = this.#router.serializeUrl(url);
     }
 
     const needle = relativeFeatureUrlPrefix + '/';
 
     if (url.startsWith(needle)) {
       url = url.substr(needle.length);
-      url = this.prependFeaturePath(url);
+      url = this.#prependFeaturePath(url);
     }
 
-    return this.ngZone.run(() => this.router.navigateByUrl(url, extras));
+    return this.#ngZone.run(() => this.#router.navigateByUrl(url, extras));
   }
 
-  private prependFeaturePath(url: string): string {
+  #prependFeaturePath(url: string): string {
     return (
-      this.router.serializeUrl(this.router.parseUrl(this.featurePath)) +
+      this.#router.serializeUrl(this.#router.parseUrl(this.#featurePath)) +
       ensureLeadingCharacter('/', url)
     );
   }
