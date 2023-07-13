@@ -23,10 +23,11 @@ export type CreateApplicationHarnessOptions = Pick<
  * configuration Angular modules, bootstrap listeners, and application
  * initializers.
  */
-export async function createApplicationHarness({
-  imports = [],
-  providers = [],
-}: CreateApplicationHarnessOptions = {}): Promise<SpectacularApplicationHarness> {
+export async function createApplicationHarness(
+  options: CreateApplicationHarnessOptions = {}
+): Promise<SpectacularApplicationHarness> {
+  const { imports = [], providers = [] } = options;
+
   TestBed.configureTestingModule({
     imports: [RouterTestingModule, ...imports, SpectacularAppModule],
     providers: [...providers],

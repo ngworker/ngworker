@@ -40,13 +40,17 @@ export interface CreateFeatureHarnessOptions
  * Configure `SpectacularFeatureTestingModule`, bootstrap `SpectacularAppComponent`
  * and navigate to the default feature route.
  */
-export function createFeatureHarness({
-  featurePath,
-  imports = [],
-  providers = [],
-  routerOptions = {},
-  routes,
-}: CreateFeatureHarnessOptions): SpectacularFeatureHarness {
+export function createFeatureHarness(
+  options: CreateFeatureHarnessOptions
+): SpectacularFeatureHarness {
+  const {
+    featurePath,
+    imports = [],
+    providers = [],
+    routerOptions = {},
+    routes,
+  } = options;
+
   TestBed.configureTestingModule({
     imports: [
       ...imports,

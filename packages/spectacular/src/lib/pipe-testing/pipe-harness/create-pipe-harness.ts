@@ -53,15 +53,9 @@ function createPipeFixture<TValue>(
  *
  * Test it by updating the value and reading the rendered text.
  */
-export function createPipeHarness<TValue>({
-  declarations = [],
-  imports = [],
-  pipe,
-  pipeName,
-  providers = [],
-  template = `{{ value | ${pipeName} }}`,
-  value,
-}: CreatePipeHarnessOptions<TValue>): SpectacularPipeHarness<TValue> {
+export function createPipeHarness<TValue>(
+  options: CreatePipeHarnessOptions<TValue>
+): SpectacularPipeHarness<TValue> {
   function configureTestbed(template: string): void | never {
     TestBed.configureTestingModule({
       declarations: [pipe, ...declarations, SpectacularPipeComponent],
@@ -73,6 +67,16 @@ export function createPipeHarness<TValue>({
       createPipeComponentTemplate(template)
     );
   }
+
+  const {
+    declarations = [],
+    imports = [],
+    pipe,
+    pipeName,
+    providers = [],
+    template = `{{ value | ${pipeName} }}`,
+    value,
+  } = options;
 
   configureTestbed(template);
   TestBed.compileComponents();
