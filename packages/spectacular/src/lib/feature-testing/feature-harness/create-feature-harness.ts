@@ -1,11 +1,40 @@
+import { NgModule } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { ExtraOptions, Routes } from '@angular/router';
 import { SpectacularAppComponent } from '../../shared/app-component/spectacular-app.component';
 import { SpectacularFeatureTestingModule } from '../feature-testing-module/spectacular-feature-testing.module';
 import { initialFeatureNavigationInitializer } from '../navigation/initial-feature-navigation.initializer';
 import { SpectacularFeatureLocation } from '../navigation/spectacular-feature-location';
 import { SpectacularFeatureRouter } from '../navigation/spectacular-feature-router';
-import { CreateFeatureHarnessOptions } from './create-feature-harness-options';
 import { SpectacularFeatureHarness } from './spectacular-feature-harness';
+
+/**
+ * Feature harness options.
+ */
+export interface CreateFeatureHarnessOptions
+  extends Pick<NgModule, 'imports' | 'providers'> {
+  /**
+   * The route path used to load the routes of the specified Angular feature
+   * module, for example `'heroes'`.
+   */
+  readonly featurePath: string;
+  /**
+   * Optional Angular `Router` options.
+   */
+  readonly routerOptions?: ExtraOptions;
+  /**
+   * One or more feature routes to load.
+   *
+   * NOTE! It is unnecessary to lazy-load feature modules in tests, so we can
+   * statically return an Angular module from the `loadChildren` callback.
+   *
+   * @example
+   * ```typescript
+   * [{ path: 'heroes', loadChildren: () => HeroesModule }]
+   * ```
+   */
+  readonly routes: Routes;
+}
 
 /**
  * Configure `SpectacularFeatureTestingModule`, bootstrap `SpectacularAppComponent`

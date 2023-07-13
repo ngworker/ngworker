@@ -1,15 +1,21 @@
-import { NgZone } from '@angular/core';
+import { NgModule, NgZone } from '@angular/core';
 import { ComponentFixtureAutoDetect, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-
 import {
   SpectacularAppComponent,
   spectacularAppTag,
 } from '../../shared/app-component/spectacular-app.component';
 import { SpectacularAppModule } from '../../shared/app-component/spectacular-app.module';
 import { bootstrapComponent } from '../util-bootstrapping/bootstrap-component';
-import { CreateApplicationHarnessOptions } from './create-application-harness-options';
 import { SpectacularApplicationHarness } from './spectacular-application-harness';
+
+/**
+ * Application harness options.
+ */
+export type CreateApplicationHarnessOptions = Pick<
+  NgModule,
+  'imports' | 'providers'
+>;
 
 /**
  * Bootstrap a test application with the specified metadata. Useful to test
