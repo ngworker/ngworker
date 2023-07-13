@@ -11,10 +11,16 @@ import { relativeFeatureUrlPrefix } from './relative-feature-url-prefix';
  */
 @Injectable()
 export class SpectacularFeatureLocation {
+  private readonly featurePath: string;
+  private readonly location: Location;
+
   constructor(
-    @Inject(featurePathToken) private readonly featurePath: string,
-    private readonly location: Location
-  ) {}
+    @Inject(featurePathToken) featurePath: string,
+    location: Location
+  ) {
+    this.featurePath = featurePath;
+    this.location = location;
+  }
 
   /**
    * Normalizes the URL path for this location. URLs within the Angular feature

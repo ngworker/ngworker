@@ -11,11 +11,19 @@ import { relativeFeatureUrlPrefix } from './relative-feature-url-prefix';
  */
 @Injectable()
 export class SpectacularFeatureRouter {
+  private readonly featurePath: string;
+  private readonly router: Router;
+  private readonly ngZone: NgZone;
+
   constructor(
-    @Inject(featurePathToken) private readonly featurePath: string,
-    private readonly router: Router,
-    private readonly ngZone: NgZone
-  ) {}
+    @Inject(featurePathToken) featurePath: string,
+    router: Router,
+    ngZone: NgZone
+  ) {
+    this.featurePath = featurePath;
+    this.router = router;
+    this.ngZone = ngZone;
+  }
 
   /**
    * Navigate based on the provided array of commands and a starting point. If
