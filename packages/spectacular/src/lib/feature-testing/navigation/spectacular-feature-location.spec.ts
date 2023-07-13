@@ -1,8 +1,7 @@
 import { Location } from '@angular/common';
 import { SpyLocation } from '@angular/common/testing';
 import { TestBed } from '@angular/core/testing';
-
-import { featurePathToken } from '../configuration/feature-path.token';
+import { provideSpectacularFeatureTest } from '../configuration/provide-spectacular-feature-test';
 import { SpectacularFeatureLocation } from './spectacular-feature-location';
 
 const featurePath = 'villains-job-board';
@@ -19,7 +18,9 @@ describe(SpectacularFeatureLocation.name, () => {
       TestBed.configureTestingModule({
         providers: [
           { provide: Location, useClass: SpyLocation },
-          { provide: featurePathToken, useValue: featurePath },
+          provideSpectacularFeatureTest({
+            featurePath,
+          }),
         ],
       });
       locationStub = TestBed.inject(Location) as SpyLocation;

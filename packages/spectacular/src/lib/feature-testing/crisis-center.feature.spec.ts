@@ -27,9 +27,14 @@ describe('[Spectacular] Tour of Heroes: Crisis center', () => {
 
   beforeEach(() => {
     harness = createFeatureHarness({
-      featureModule: CrisisCenterModule,
       featurePath: crisisCenterPath,
       providers: [{ provide: DialogService, useClass: FakeDialogService }],
+      routerOptions: {
+        onSameUrlNavigation: 'reload',
+      },
+      routes: [
+        { path: crisisCenterPath, loadChildren: () => CrisisCenterModule },
+      ],
     });
     fakeDialog = harness.inject(DialogService) as FakeDialogService;
     ui = createUserInteractions(harness.rootFixture);

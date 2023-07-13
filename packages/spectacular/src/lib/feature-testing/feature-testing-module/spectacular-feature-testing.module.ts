@@ -19,16 +19,13 @@ export class SpectacularFeatureTestingModule {
    * Configures the `RouterTestingModule` and provides Spectactular
    * services for testing feature modules
    */
-  static withFeature<TFeatureModule>({
-    featureModule,
+  static withFeature({
     featurePath,
     routerOptions = {},
-  }: SpectacularFeatureTestingModuleOptions<TFeatureModule>): ModuleWithProviders<SpectacularFeatureTestingRootModule> {
+    routes,
+  }: SpectacularFeatureTestingModuleOptions): ModuleWithProviders<SpectacularFeatureTestingRootModule> {
     const { providers: routerTestingProviders = [] } =
-      RouterTestingModule.withRoutes(
-        [{ path: featurePath, loadChildren: () => featureModule }],
-        routerOptions
-      );
+      RouterTestingModule.withRoutes(routes, routerOptions);
 
     return {
       ngModule: SpectacularFeatureTestingRootModule,

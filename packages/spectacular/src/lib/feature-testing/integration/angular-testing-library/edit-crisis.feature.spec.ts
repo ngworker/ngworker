@@ -32,8 +32,10 @@ const setup = async () => {
     excludeComponentDeclaration: true,
     imports: [
       SpectacularFeatureTestingModule.withFeature({
-        featureModule: CrisisCenterModule,
         featurePath: crisisCenterPath,
+        routes: [
+          { path: crisisCenterPath, loadChildren: () => CrisisCenterModule },
+        ],
       }),
     ],
   });

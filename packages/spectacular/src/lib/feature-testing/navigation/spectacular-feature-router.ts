@@ -8,9 +8,7 @@ import { relativeFeatureUrlPrefix } from './relative-feature-url-prefix';
  * A subset of Angular's `Router` server adjusted to the Angular feature module
  * under test.
  */
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class SpectacularFeatureRouter {
   constructor(
     @Inject(featurePathToken) private readonly featurePath: string,

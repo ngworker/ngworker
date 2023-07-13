@@ -45,8 +45,10 @@ describe('[Angular Testing Library] Tour of Heroes: Crisis center', () => {
       excludeComponentDeclaration: true,
       imports: [
         SpectacularFeatureTestingModule.withFeature({
-          featureModule: CrisisCenterModule,
           featurePath: crisisCenterPath,
+          routes: [
+            { path: crisisCenterPath, loadChildren: () => CrisisCenterModule },
+          ],
         }),
       ],
       providers: [{ provide: DialogService, useClass: FakeDialogService }],

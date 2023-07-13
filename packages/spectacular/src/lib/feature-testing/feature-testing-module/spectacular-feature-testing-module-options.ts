@@ -1,14 +1,9 @@
-import { Type } from '@angular/core';
-import { ExtraOptions } from '@angular/router';
+import { ExtraOptions, Routes } from '@angular/router';
 
 /**
  * Feature testing options for `SpectacularFeatureTestingModule.withFeature`.
  */
-export interface SpectacularFeatureTestingModuleOptions<TFeatureModule> {
-  /**
-   * The Angular feature module under test, for example `HeroesModule`.
-   */
-  readonly featureModule: Type<TFeatureModule>;
+export interface SpectacularFeatureTestingModuleOptions {
   /**
    * The path prefix used to load the routes of the specified Angular feature
    * module, for example `'heroes'`.
@@ -18,4 +13,16 @@ export interface SpectacularFeatureTestingModuleOptions<TFeatureModule> {
    * Optional Angular `Router` options.
    */
   readonly routerOptions?: ExtraOptions;
+  /**
+   * One or more feature routes to load.
+   *
+   * NOTE! It is unnecessary to lazy-load feature modules in tests, so we can
+   * statically return an Angular module from the `loadChildren` callback.
+   *
+   * @example
+   * ```typescript
+   * [{ path: 'heroes', loadChildren: () => HeroesModule }]
+   * ```
+   */
+  readonly routes: Routes;
 }

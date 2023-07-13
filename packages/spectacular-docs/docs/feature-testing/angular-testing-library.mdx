@@ -40,8 +40,10 @@ describe('Tour of Heroes: Crisis center', () => {
       excludeComponentDeclaration: true,
       imports: [
         SpectacularFeatureTestingModule.withFeature({
-          featureModule: CrisisCenterModule,
           featurePath: crisisCenterPath,
+          routes: [
+            { path: crisisCenterPath, loadChildren: () => CrisisCenterModule },
+          ],
         }),
       ],
     });
@@ -74,8 +76,10 @@ describe('Tour of Heroes: Crisis center', () => {
       excludeComponentDeclaration: true,
       imports: [
         SpectacularFeatureTestingModule.withFeature({
-          featureModule: CrisisCenterModule,
           featurePath: crisisCenterPath,
+          routes: [
+            { path: crisisCenterPath, loadChildren: () => CrisisCenterModule },
+          ],
         }),
       ],
     });
@@ -90,7 +94,7 @@ Next, we register our feature by calling
 [`SpectacularFeatureTestingModule.withFeature`](..//api/classes/spectacularfeaturetestingmodule#withfeature)
 and adding the result to the `imports` option:
 
-```ts {16-19}
+```ts {16-21}
 import {
   SpectacularAppComponent,
   SpectacularFeatureTestingModule,
@@ -107,8 +111,10 @@ describe('Tour of Heroes: Crisis center', () => {
       excludeComponentDeclaration: true,
       imports: [
         SpectacularFeatureTestingModule.withFeature({
-          featureModule: CrisisCenterModule,
           featurePath: crisisCenterPath,
+          routes: [
+            { path: crisisCenterPath, loadChildren: () => CrisisCenterModule },
+          ],
         }),
       ],
     });
@@ -150,8 +156,10 @@ describe('Tour of Heroes: Crisis center', () => {
       excludeComponentDeclaration: true,
       imports: [
         SpectacularFeatureTestingModule.withFeature({
-          featureModule: CrisisCenterModule,
           featurePath: crisisCenterPath,
+          routes: [
+            { path: crisisCenterPath, loadChildren: () => CrisisCenterModule },
+          ],
         }),
       ],
     });
@@ -176,7 +184,7 @@ Because of this, we don't get a reference to a
 To access Spectacular's feature-aware services, we resolve them using the
 injector of `RenderResult#fixture.debugElement`:
 
-```ts {3,27,30}
+```ts {3,29,32}
 import {
   SpectacularAppComponent,
   SpectacularFeatureRouter,
@@ -198,8 +206,10 @@ describe('Tour of Heroes: Crisis center', () => {
       excludeComponentDeclaration: true,
       imports: [
         SpectacularFeatureTestingModule.withFeature({
-          featureModule: CrisisCenterModule,
           featurePath: crisisCenterPath,
+          routes: [
+            { path: crisisCenterPath, loadChildren: () => CrisisCenterModule },
+          ],
         }),
       ],
     });
@@ -214,7 +224,7 @@ Alternatively, we use
 [`TestBed.inject`](https://angular.io/api/core/testing/TestBed#inject) to
 resolve Spectacular's feature-aware services:
 
-```ts {1,4,24,27}
+```ts {1,4,26,29}
 import { TestBed } from '@angular/core/testing';
 import {
   SpectacularAppComponent,
@@ -233,8 +243,10 @@ describe('Tour of Heroes: Crisis center', () => {
       excludeComponentDeclaration: true,
       imports: [
         SpectacularFeatureTestingModule.withFeature({
-          featureModule: CrisisCenterModule,
           featurePath: crisisCenterPath,
+          routes: [
+            { path: crisisCenterPath, loadChildren: () => CrisisCenterModule },
+          ],
         }),
       ],
     });
@@ -255,7 +267,7 @@ When using Angular Testing Library, you can keep using
 [`RenderResult#navigate`](https://testing-library.com/docs/angular-testing-library/api#navigate)
 and your tests will behave as you're used to:
 
-```ts {37}
+```ts {39}
 import {
   SpectacularAppComponent,
   SpectacularFeatureTestingModule,
@@ -273,8 +285,10 @@ describe('Tour of Heroes: Crisis center', () => {
       excludeComponentDeclaration: true,
       imports: [
         SpectacularFeatureTestingModule.withFeature({
-          featureModule: CrisisCenterModule,
           featurePath: crisisCenterPath,
+          routes: [
+            { path: crisisCenterPath, loadChildren: () => CrisisCenterModule },
+          ],
         }),
       ],
     });
@@ -304,7 +318,7 @@ describe('Tour of Heroes: Crisis center', () => {
 Alternatively, you can use Spectacular's feature-aware router,
 [`SpectacularFeatureRouter`](../api/classes/spectacularfeaturerouter):
 
-```ts {3,28,31,39}
+```ts {3,30,33,41}
 import {
   SpectacularAppComponent,
   SpectacularFeatureRouter,
@@ -327,8 +341,10 @@ describe('Tour of Heroes: Crisis center', () => {
       excludeComponentDeclaration: true,
       imports: [
         SpectacularFeatureTestingModule.withFeature({
-          featureModule: CrisisCenterModule,
           featurePath: crisisCenterPath,
+          routes: [
+            { path: crisisCenterPath, loadChildren: () => CrisisCenterModule },
+          ],
         }),
       ],
     });
@@ -362,7 +378,7 @@ When using Angular Testing Library, you can use Angular's
 [`Location#path`](https://angular.io/api/common/Location#path) service method to
 assert navigation to feature routes:
 
-```ts {1,33,36,52}
+```ts {1,35,38,54}
 import { Location } from '@angular/common';
 import {
   SpectacularAppComponent,
@@ -389,8 +405,10 @@ describe('Tour of Heroes: Crisis center', () => {
       excludeComponentDeclaration: true,
       imports: [
         SpectacularFeatureTestingModule.withFeature({
-          featureModule: CrisisCenterModule,
           featurePath: crisisCenterPath,
+          routes: [
+            { path: crisisCenterPath, loadChildren: () => CrisisCenterModule },
+          ],
         }),
       ],
     });
@@ -422,7 +440,7 @@ describe('Tour of Heroes: Crisis center', () => {
 Alternatively, you can use Spectacular's feature-aware location service,
 [`SpectacularFeatureLocation`](../api/classes/spectacularfeaturelocation):
 
-```ts {3,33,36,52}
+```ts {3,35,38,54}
 import {
   SpectacularAppComponent,
   SpectacularFeatureLocation,
@@ -449,8 +467,10 @@ describe('Tour of Heroes: Crisis center', () => {
       excludeComponentDeclaration: true,
       imports: [
         SpectacularFeatureTestingModule.withFeature({
-          featureModule: CrisisCenterModule,
           featurePath: crisisCenterPath,
+          routes: [
+            { path: crisisCenterPath, loadChildren: () => CrisisCenterModule },
+          ],
         }),
       ],
     });
@@ -496,7 +516,7 @@ The following is an example of testing a complete user flow with Spectacular and
   ]}>
   <TabItem value="atl">
 
-```ts {44-61}
+```ts {45-62}
 import {
   SpectacularAppComponent,
   SpectacularFeatureLocation,
@@ -523,8 +543,10 @@ describe('Tour of Heroes: Crisis center', () => {
       excludeComponentDeclaration: true,
       imports: [
         SpectacularFeatureTestingModule.withFeature({
-          featureModule: CrisisCenterModule,
           featurePath: crisisCenterPath,
+          routes: [
+            { path: crisisCenterPath, loadChildren: () => CrisisCenterModule },
+          ],
         }),
       ],
     });
@@ -565,7 +587,7 @@ describe('Tour of Heroes: Crisis center', () => {
 
   <TabItem value="spectacular">
 
-```ts {26-58}
+```ts {28-60}
 import { By } from '@angular/platform-browser';
 import {
   createFeatureHarness,
@@ -580,8 +602,10 @@ import {
 describe('Tour of Heroes: Crisis center', () => {
   beforeEach(() => {
     harness = createFeatureHarness({
-      featureModule: CrisisCenterModule,
       featurePath: crisisCenterPath,
+      routes: [
+        { path: crisisCenterPath, loadChildren: () => CrisisCenterModule },
+      ],
     });
 
     crisisService = harness.inject(CrisisService);

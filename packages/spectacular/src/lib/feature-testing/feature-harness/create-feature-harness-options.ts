@@ -1,15 +1,11 @@
-import { NgModule, Type } from '@angular/core';
-import { ExtraOptions } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { ExtraOptions, Routes } from '@angular/router';
 
 /**
  * Feature harness options.
  */
-export interface CreateFeatureHarnessOptions<TFeatureModule>
+export interface CreateFeatureHarnessOptions
   extends Pick<NgModule, 'imports' | 'providers'> {
-  /**
-   * The Angular feature module under test, for example `HeroesModule`.
-   */
-  readonly featureModule: Type<TFeatureModule>;
   /**
    * The route path used to load the routes of the specified Angular feature
    * module, for example `'heroes'`.
@@ -19,4 +15,16 @@ export interface CreateFeatureHarnessOptions<TFeatureModule>
    * Optional Angular `Router` options.
    */
   readonly routerOptions?: ExtraOptions;
+  /**
+   * One or more feature routes to load.
+   *
+   * NOTE! It is unnecessary to lazy-load feature modules in tests, so we can
+   * statically return an Angular module from the `loadChildren` callback.
+   *
+   * @example
+   * ```typescript
+   * [{ path: 'heroes', loadChildren: () => HeroesModule }]
+   * ```
+   */
+  readonly routes: Routes;
 }
