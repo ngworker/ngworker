@@ -1,9 +1,36 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import type { NgModule, PipeTransform, Type } from '@angular/core';
+import type { ComponentFixture } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import type { Observable } from 'rxjs';
 import { SpectacularPipeComponent } from '../pipe-component/spectacular-pipe.component';
-import { CreatePipeHarnessOptions } from './create-pipe-harness-options';
-import { SpectacularPipeHarness } from './spectacular-pipe-harness';
+import type { SpectacularPipeHarness } from './spectacular-pipe-harness';
+
+/**
+ * Angular pipe harness options.
+ */
+export interface CreatePipeHarnessOptions<TValue>
+  extends Pick<NgModule, 'declarations' | 'imports' | 'providers'> {
+  /**
+   * The type of the Angular pipe-under-test, for example `CamelizePipe`.
+   */
+  readonly pipe: Type<PipeTransform>;
+  /**
+   * The name of the Angular pipe-under-test, for example `camelize`.
+   */
+  readonly pipeName: string;
+  /**
+   * The template used to test the Angular pipe, for example
+   * `'{{ value | camelize }}'`.
+   *
+   * NOTE! The `value` property is in context of the template.
+   */
+  readonly template?: string;
+  /**
+   * The initial value passed through the Angular pipe.
+   */
+  readonly value: Observable<TValue> | TValue | null;
+}
 
 function createPipeComponentTemplate(innerTemplate: string): string {
   return `<span id="${textId}">${innerTemplate}</span>`;
@@ -26,15 +53,9 @@ function createPipeFixture<TValue>(
  *
  * Test it by updating the value and reading the rendered text.
  */
-export function createPipeHarness<TValue>({
-  declarations = [],
-  imports = [],
-  pipe,
-  pipeName,
-  providers = [],
-  template = `{{ value | ${pipeName} }}`,
-  value,
-}: CreatePipeHarnessOptions<TValue>): SpectacularPipeHarness<TValue> {
+export function createPipeHarness<TValue>(
+  options: CreatePipeHarnessOptions<TValue>
+): SpectacularPipeHarness<TValue> {
   function configureTestbed(template: string): void | never {
     TestBed.configureTestingModule({
       declarations: [pipe, ...declarations, SpectacularPipeComponent],
@@ -46,6 +67,16 @@ export function createPipeHarness<TValue>({
       createPipeComponentTemplate(template)
     );
   }
+
+  const {
+    declarations = [],
+    imports = [],
+    pipe,
+    pipeName,
+    providers = [],
+    template = `{{ value | ${pipeName} }}`,
+    value,
+  } = options;
 
   configureTestbed(template);
   TestBed.compileComponents();

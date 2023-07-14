@@ -1,5 +1,9 @@
-import { AbstractType, InjectFlags, InjectionToken, Type } from '@angular/core';
-
+import type {
+  AbstractType,
+  InjectFlags,
+  InjectionToken,
+  Type,
+} from '@angular/core';
 import type { Observable } from 'rxjs';
 
 /**

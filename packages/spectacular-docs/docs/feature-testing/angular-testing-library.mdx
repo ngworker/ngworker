@@ -123,8 +123,12 @@ describe('Tour of Heroes: Crisis center', () => {
 ```
 
 We pass our routed feature module to the
-[`featureModule`](../api/interfaces/spectacularfeaturetestingmoduleoptions#featuremodule)
-option, in our case `CrisisCenterModule`.
+[`routes`](../api/interfaces/spectacularfeaturetestingmoduleoptions#routes)
+option, in our case `CrisisCenterModule`, as part of a route that wraps it in a
+`loadChildren` callback.
+
+> 💡 **Tip** Lazy loading a feature module isn't a requirement in an integration
+> test.
 
 Additionally, we pass the route path that our feature module uses in our
 application to the

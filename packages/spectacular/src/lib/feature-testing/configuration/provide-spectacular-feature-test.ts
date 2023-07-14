@@ -1,4 +1,4 @@
-import { Provider } from '@angular/core';
+import type { Provider } from '@angular/core';
 import { SpectacularFeatureLocation } from '../navigation/spectacular-feature-location';
 import { SpectacularFeatureRouter } from '../navigation/spectacular-feature-router';
 import { provideFeaturePath } from './feature-path.token';

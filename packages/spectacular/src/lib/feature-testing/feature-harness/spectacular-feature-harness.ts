@@ -1,9 +1,13 @@
-import { AbstractType, InjectFlags, InjectionToken, Type } from '@angular/core';
-import { ComponentFixture } from '@angular/core/testing';
-
-import { SpectacularAppComponent } from '../../shared/app-component/spectacular-app.component';
-import { SpectacularFeatureLocation } from '../navigation/spectacular-feature-location';
-import { SpectacularFeatureRouter } from '../navigation/spectacular-feature-router';
+import type {
+  AbstractType,
+  InjectFlags,
+  InjectionToken,
+  Type,
+} from '@angular/core';
+import type { ComponentFixture } from '@angular/core/testing';
+import type { SpectacularAppComponent } from '../../shared/app-component/spectacular-app.component';
+import type { SpectacularFeatureLocation } from '../navigation/spectacular-feature-location';
+import type { SpectacularFeatureRouter } from '../navigation/spectacular-feature-router';
 
 /**
  * A harness for testing an Angular feature module.

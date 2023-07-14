@@ -1,7 +1,12 @@
+import type { Observable } from 'rxjs';
 import { createPipeHarness } from '../pipe-harness/create-pipe-harness';
-import { SpectacularPipeHarness } from '../pipe-harness/spectacular-pipe-harness';
-import { CreateCommonPipeHarnessOptions } from './create-common-pipe-harness-options';
+import type { SpectacularPipeHarness } from '../pipe-harness/spectacular-pipe-harness';
 import { PassthroughPipe, passthroughPipeName } from './passthrough.pipe';
+
+export interface CreateCommonPipeHarnessOptions<TValue> {
+  readonly template: string;
+  readonly value: Observable<TValue> | TValue | null;
+}
 
 /**
  * Wraps `createPipeHarness` and allows the consumer to test the built-in
