@@ -1,5 +1,89 @@
 # Spectacular changelog
 
+## 13.0.0 (2023-07-15)
+
+### Features
+
+- `CreateFeatureHarnessOptions#featureModule` is replaced by
+  `CreateFeatureHarnessOptions#routes`
+  ([#54](https://github.com/ngworker/ngworker/pull/54))
+- `SpectacularFeatureTestingModuleOptions#featureModule` is replaced by
+  `SpectacularFeatureTestingModuleOptions#routes`
+  ([#54](https://github.com/ngworker/ngworker/pull/54))
+- `SpectacularFeatureLocation` is provided through `createFeatureHarness`,
+  `provideSpectacularFeatureTest` or
+  `SpectacularFeatureTestingModule.withFeature`
+  ([#54](https://github.com/ngworker/ngworker/pull/54))
+- `SpectacularFeatureRouter` is provided through `createFeatureHarness`,
+  `provideSpectacularFeatureTest` or
+  `SpectacularFeatureTestingModule.withFeature`
+  ([#54](https://github.com/ngworker/ngworker/pull/54))
+
+### Performance optimizations
+
+- Type imports are used to optimize the bundle
+  ([#57](https://github.com/ngworker/ngworker/pull/57))
+
+### **BREAKING CHANGES**
+
+- Requires Angular 12
+- Requires RxJS >=6.5 <7.0 or >=7.4
+- The `featureModule` option is replaced by the `routes` option
+- Feature-aware navigation services are not provided by default
+
+##### Migration
+
+The feature-aware navigation services (`SpectacularFeatureLocation` and
+`SpectacularFeatureRouter`) must be provided through `createFeatureHarness`,
+`provideSpectacularFeatureTest` or
+`SpectacularFeatureTestingModule.withFeature`.
+
+###### createFeatureHarness
+
+Before:
+
+```typescript
+const harness = createFeatureHarness({
+  featureModule: CrisisCenterModule,
+  featurePath: crisisCenterPath,
+});
+```
+
+After:
+
+```typescript
+const harness = createFeatureHarness({
+  featurePath: crisisCenterPath,
+  routes: [{ path: crisisCenterPath, loadChildren: () => CrisisCenterModule }],
+});
+```
+
+###### SpectacularFeatureTestingModule
+
+Before:
+
+```typescript
+imports: [
+  SpectacularFeatureTestingModule.withFeature({
+    featureModule: CrisisCenterModule,
+    featurePath: crisisCenterPath,
+  }),
+],
+```
+
+After:
+
+```typescript
+imports: [
+  SpectacularFeatureTestingModule.withFeature({
+    featurePath: crisisCenterPath,
+    routes: [
+      { path: crisisCenterPath, loadChildren: () => CrisisCenterModule },
+    ],
+  }),
+],
+```
+
 ## 0.5.0 (2022-07-24)
 
 ### Features
