@@ -1,8 +1,10 @@
+// @ts-check
 const shadesOfPurpleTheme = require('prism-react-renderer/themes/shadesOfPurple');
 
 const organizationName = 'ngworker';
 const projectName = 'ngworker';
 
+/** @type {import('@docusaurus/types').Config} */
 module.exports = {
   baseUrl: '/ngworker/',
   favicon: 'img/favicon.ico',
@@ -85,8 +87,7 @@ module.exports = {
             },
             {
               label: 'YouTube',
-              href:
-                'https://www.youtube.com/results?search_query=spectacular+ngworker',
+              href: 'https://www.youtube.com/results?search_query=spectacular+ngworker',
             },
           ],
         },
