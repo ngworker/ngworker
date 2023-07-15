@@ -2940,7 +2940,7 @@
     semver "7.3.4"
     tslib "^2.3.0"
 
-"@nrwl/devkit@^14.1.4":
+"@nrwl/devkit@^14.3.6":
   version "14.8.8"
   resolved "https://registry.yarnpkg.com/@nrwl/devkit/-/devkit-14.8.8.tgz#5c6b7e0571c84ca63e85691e143aab8b896f1536"
   integrity sha512-NLgLRfGyv9aMHxGi+rrVRPLYbuqYoGcRVVr0bo3PP1cVSry1THBoLivvPzqf/tniM1S4EzJdrOSau7dfPVGNFA==
@@ -3197,12 +3197,12 @@
     yargs "^17.4.0"
     yargs-parser "21.0.1"
 
-"@nx-plus/docusaurus@14.0.0":
-  version "14.0.0"
-  resolved "https://registry.yarnpkg.com/@nx-plus/docusaurus/-/docusaurus-14.0.0.tgz#7715cee85924128ab8faf8c9993809acec60b28d"
-  integrity sha512-TTtP3jQyNryliN7lV9kpiSxUfcpcVoNuoiibda/Z8VIJ9xWhsWq09LbmKUIJdQiqNz9fUV8rXMhSAPwFM3CU7w==
+"@nx-plus/docusaurus@14.1.0":
+  version "14.1.0"
+  resolved "https://registry.yarnpkg.com/@nx-plus/docusaurus/-/docusaurus-14.1.0.tgz#0d919aada8cd94b986fc74e8dc604ba06491dbdc"
+  integrity sha512-EjzaOm8GCpyADKn4G19AgZk/l8F5eyNCVN1oFki7KUPaig9N9IjRCEmUQtHuomGbCQRqHtpovEPJldCLRz4glw==
   dependencies:
-    "@nrwl/devkit" "^14.1.4"
+    "@nrwl/devkit" "^14.3.6"
 
 "@parcel/watcher@2.0.4":
   version "2.0.4"
