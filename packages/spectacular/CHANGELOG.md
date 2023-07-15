@@ -1,30 +1,30 @@
 # Spectacular changelog
 
-# 0.5.0 (2022-07-24)
+## 0.5.0 (2022-07-24)
 
-## Features
+### Features
 
 - Add `provideSpectacularFeatureTest`
   ([#47](https://github.com/ngworker/ngworker/pull/47))
 
-## **BREAKING CHANGES**
+### **BREAKING CHANGES**
 
 - Requires Angular 12
 - Partially Ivy-compiled
 
-# 0.4.0 (2022-07-20)
+## 0.4.0 (2022-07-20)
 
-## Features
+### Features
 
 - Add back `pipeName` option to `createPipeHarness`
   ([#39](https://github.com/ngworker/ngworker/pull/39))
 
-## **BREAKING CHANGES**
+### **BREAKING CHANGES**
 
 Add back the required pipeName option as `PipeResolver` is removed in Angular
 13.1 and was internally used by Spectacular's Pipe Testing API.
 
-### Migration
+#### Migration
 
 Add `pipeName` option argument for `createPipeHarness`.
 
@@ -47,27 +47,27 @@ const harness = createPipeHarness({
 });
 ```
 
-# 0.3.0 (2022-05-31)
+## 0.3.0 (2022-05-31)
 
-## Features
+### Features
 
 - Remove `pipeName` option from `createPipeHarness`
   ([#26](https://github.com/ngworker/ngworker/pull/26))
 
-## **BREAKING CHANGES**
+### **BREAKING CHANGES**
 
 The `pipeName` option for `createPipeHarness` is removed. Instead, the pipe name
 is resolved through reflection.
 
 Migration: Remove `pipeName` option arguments for `createPipeHarness`.
 
-# 0.2.0 (2021-03-04)
+## 0.2.0 (2021-03-04)
 
-## **BREAKING CHANGES**
+### **BREAKING CHANGES**
 
 - `createApplicationHarness` returns `Promise<SpectacularApplicationHarness>`.
 
-## Bug fixes
+### Bug fixes
 
 - Fix NGCC error when using Nx + Yarn
   ([#20](https://github.com/ngworker/ngworker/pull/20))
@@ -76,16 +76,16 @@ Migration: Remove `pipeName` option arguments for `createPipeHarness`.
 - Fix support for combining asynchronous application initializer with bootstrap
   listener ([#19](https://github.com/ngworker/ngworker/issues/19))
 
-## Build changes
+### Build changes
 
 - Remove `@angular/forms` dependency
   ([#21](https://github.com/ngworker/ngworker/pull/21))
 - Mark `rxjs` as peer dependency
   ([#21](https://github.com/ngworker/ngworker/pull/21))
 
-# 0.1.0 (2021-02-24)
+## 0.1.0 (2021-02-24)
 
-## Features
+### Features
 
 - Application testing API
 - Feature testing API
