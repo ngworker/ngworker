@@ -26,7 +26,7 @@
 
 ### **BREAKING CHANGES**
 
-- Requires Angular 12
+- Requires Angular 13
 - Requires RxJS >=6.5 <7.0 or >=7.4
 - The `featureModule` option is replaced by the `routes` option
 - Feature-aware navigation services are not provided by default
