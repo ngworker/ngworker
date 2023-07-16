@@ -46,93 +46,95 @@ module.exports = {
   projectName,
   tagline: 'Spectacular Angular integration testing.',
   title: 'Spectacular',
-  themeConfig: {
-    colorMode: {
-      respectPrefersColorScheme: true,
-    },
-    image: 'img/logo.png',
-    footer: {
-      copyright: `© ${new Date().getFullYear()} ngworkers. Logo by Felipe Zambrano. Artwork by vectorjuice.`,
-      links: [
-        {
-          title: 'Documentation',
-          items: [
-            {
-              label: 'Spectacular',
-              to: 'docs/',
-            },
-            {
-              label: 'Application testing',
-              to: 'docs/application-testing/',
-            },
-            {
-              label: 'Feature testing',
-              to: 'docs/feature-testing/',
-            },
-            {
-              label: 'Pipe testing',
-              to: 'docs/pipe-testing/',
-            },
-            {
-              label: 'API reference',
-              to: 'docs/api/',
-            },
-          ],
-        },
-        {
-          title: 'Community',
-          items: [
-            {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/spectacular',
-            },
-            {
-              label: 'YouTube',
-              href: 'https://www.youtube.com/results?search_query=spectacular+ngworker',
-            },
-          ],
-        },
-        {
-          title: 'Package',
-          items: [
-            {
-              href: `https://github.com/${organizationName}/${projectName}`,
-              label: 'GitHub',
-            },
-            {
-              href: 'https://npmjs.com/package/@ngworker/spectacular',
-              label: 'NPM',
-            },
-          ],
-        },
-      ],
-      logo: {
-        alt: 'Spectacular logo',
-        href: '/',
-        src: 'img/logo.png',
+  themeConfig:
+    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
+    ({
+      colorMode: {
+        respectPrefersColorScheme: true,
       },
-      style: 'dark',
-    },
-    navbar: {
-      items: [
-        {
-          activeBasePath: 'docs',
-          label: 'Docs',
-          position: 'left',
-          to: 'docs/',
+      image: 'img/logo.png',
+      footer: {
+        copyright: `© ${new Date().getFullYear()} ngworkers. Logo by Felipe Zambrano. Artwork by vectorjuice.`,
+        links: [
+          {
+            title: 'Documentation',
+            items: [
+              {
+                label: 'Spectacular',
+                to: 'docs/',
+              },
+              {
+                label: 'Application testing',
+                to: 'docs/application-testing/',
+              },
+              {
+                label: 'Feature testing',
+                to: 'docs/feature-testing/',
+              },
+              {
+                label: 'Pipe testing',
+                to: 'docs/pipe-testing/',
+              },
+              {
+                label: 'API reference',
+                to: 'docs/api/',
+              },
+            ],
+          },
+          {
+            title: 'Community',
+            items: [
+              {
+                label: 'Stack Overflow',
+                href: 'https://stackoverflow.com/questions/tagged/spectacular',
+              },
+              {
+                label: 'YouTube',
+                href: 'https://www.youtube.com/results?search_query=spectacular+ngworker',
+              },
+            ],
+          },
+          {
+            title: 'Package',
+            items: [
+              {
+                href: `https://github.com/${organizationName}/${projectName}`,
+                label: 'GitHub',
+              },
+              {
+                href: 'https://npmjs.com/package/@ngworker/spectacular',
+                label: 'NPM',
+              },
+            ],
+          },
+        ],
+        logo: {
+          alt: 'Spectacular logo',
+          href: '/',
+          src: 'img/logo.png',
         },
-      ],
-      logo: {
-        alt: 'Spectacular logo',
-        src: 'img/logo.png',
+        style: 'dark',
       },
-      title: 'Spectacular',
-    },
-    prism: {
-      darkTheme: shadesOfPurpleTheme,
-      defaultLanguage: 'typescript',
-      theme: shadesOfPurpleTheme,
-    },
-  },
+      navbar: {
+        items: [
+          {
+            activeBasePath: 'docs',
+            label: 'Docs',
+            position: 'left',
+            to: 'docs/',
+          },
+        ],
+        logo: {
+          alt: 'Spectacular logo',
+          src: 'img/logo.png',
+        },
+        title: 'Spectacular',
+      },
+      prism: {
+        darkTheme: shadesOfPurpleTheme,
+        defaultLanguage: 'typescript',
+        theme: shadesOfPurpleTheme,
+      },
+    }),
   url: 'https://ngworker.github.io',
 };
