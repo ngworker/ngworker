@@ -63,31 +63,6 @@ module.exports = {
         copyright: `© ${new Date().getFullYear()} ngworkers. Licensed under the MIT lincense. Logo by Felipe Zambrano. Artwork by vectorjuice.`,
         links: [
           {
-            title: 'Documentation',
-            items: [
-              {
-                label: 'Spectacular',
-                to: 'docs/',
-              },
-              {
-                label: 'Application testing',
-                to: 'docs/application-testing/',
-              },
-              {
-                label: 'Feature testing',
-                to: 'docs/feature-testing/',
-              },
-              {
-                label: 'Pipe testing',
-                to: 'docs/pipe-testing/',
-              },
-              {
-                label: 'API reference',
-                to: 'docs/api/',
-              },
-            ],
-          },
-          {
             title: 'Community',
             items: [
               {
@@ -130,7 +105,31 @@ module.exports = {
           {
             type: 'docsVersion',
             label: 'Docs',
-            activeBasePath: 'docs',
+            activeBaseRegex: '/docs/$',
+            position: 'left',
+          },
+          {
+            type: 'doc',
+            label: 'Application',
+            docId: 'application-testing/index',
+            position: 'left',
+          },
+          {
+            type: 'doc',
+            label: 'Feature',
+            docId: 'feature-testing/index',
+            position: 'left',
+          },
+          {
+            type: 'doc',
+            label: 'Pipe',
+            docId: 'pipe-testing/index',
+            position: 'left',
+          },
+          {
+            type: 'doc',
+            label: 'API',
+            docId: 'api/index',
             position: 'left',
           },
           {
