@@ -138,7 +138,7 @@ jobs:
 
       - run: yarn nx build spectacular-docs --parallel=$NX_MAX_PARALLEL
       - name: '[Merge][Spectacular] Upload docs app'
-        if: github.event_name == 'push' && github.ref_name == 'main'
+        # if: github.event_name == 'push' && github.ref_name == 'main'
         uses: actions/upload-artifact@v3
         with:
           if-no-files-found: error
@@ -147,7 +147,7 @@ jobs:
 
   deploy-docs:
     needs: docs
-    if: github.event_name == 'push' && github.ref_name == 'main'
+    # if: github.event_name == 'push' && github.ref_name == 'main'
     runs-on: ubuntu-latest
     # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
     permissions:
