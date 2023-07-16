@@ -91,7 +91,7 @@ describe('Tour of Heroes: Crisis center', () => {
 component with a router outlet that will host all our feature's routes.
 
 Next, we register our feature by calling
-[`SpectacularFeatureTestingModule.withFeature`](..//api/classes/spectacularfeaturetestingmodule#withfeature)
+[`SpectacularFeatureTestingModule.withFeature`](../api/classes/spectacularfeaturetestingmodule#withfeature)
 and adding the result to the `imports` option:
 
 ```ts {16-21}
@@ -138,7 +138,7 @@ between our application and our feature test suite.
 
 The [`SpectacularAppComponent`](../api/classes/spectacularappcomponent) is
 declared by
-[`SpectacularFeatureTestingModule.withFeature`](..//api/classes/spectacularfeaturetestingmodule#withfeature)
+[`SpectacularFeatureTestingModule.withFeature`](../api/classes/spectacularfeaturetestingmodule#withfeature)
 so we set the
 [`excludeComponentDeclaration`](https://testing-library.com/docs/angular-testing-library/api#excludecomponentdeclaration)
 option to `true` to prevent it from being declared twice in our test suite:
@@ -179,7 +179,7 @@ routes configured by that Angular module.
 When we're using Angular Testing Library, we use
 [`render`](https://testing-library.com/docs/angular-testing-library/api#render)
 and
-[`SpectacularFeatureTestingModule.withFeature`](..//api/classes/spectacularfeaturetestingmodule#withfeature)
+[`SpectacularFeatureTestingModule.withFeature`](../api/classes/spectacularfeaturetestingmodule#withfeature)
 instead of [`createFeatureHarness`](../api/modules#createfeatureharness).
 
 Because of this, we don't get a reference to a
