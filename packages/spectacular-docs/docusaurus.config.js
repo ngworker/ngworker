@@ -85,6 +85,10 @@ module.exports = {
             title: 'Community',
             items: [
               {
+                label: 'Discord',
+                href: 'https://discord.gg/ucZWfa2Tyb',
+              },
+              {
                 label: 'Stack Overflow',
                 href: 'https://stackoverflow.com/questions/tagged/spectacular',
               },
