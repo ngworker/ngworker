@@ -1,10 +1,12 @@
 {
+  "name": "spectacular-docs",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "sourceRoot": "packages/spectacular-docs/src",
   "targets": {
     "build": {
       "executor": "@nx-plus/docusaurus:browser",
-      "outputs": ["dist/packages/spectacular-docs"],
+      "outputs": ["{workspaceRoot}/dist/packages/spectacular-docs"],
       "options": {
         "outputPath": "dist/packages/spectacular-docs"
       }

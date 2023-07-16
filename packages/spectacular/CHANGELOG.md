@@ -1,5 +1,11 @@
 # Spectacular changelog
 
+## 14.0.0 (2023-07-17)
+
+### **BREAKING CHANGES**
+
+- Requires Angular 14
+
 ## 13.0.0 (2023-07-15)
 
 ### Features

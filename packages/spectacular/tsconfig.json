@@ -20,9 +20,11 @@
     "noImplicitReturns": true,
     "noPropertyAccessFromIndexSignature": true,
     "strict": true,
+    "target": "es2020",
     "useDefineForClassFields": true
   },
   "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true

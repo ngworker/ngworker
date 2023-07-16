@@ -1,3 +1,6 @@
+// @ts-check
+
+/** @type {import('@docusaurus/plugin-content-docs').SidebarsConfig} */
 module.exports = {
   someSidebar: {
     Spectacular: ['spectacular/index', 'spectacular/getting-started'],

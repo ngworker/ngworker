@@ -1,11 +1,13 @@
 {
+  "name": "crisis-center",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "packages/examples/tour-of-heroes/crisis-center/src",
   "prefix": "app-crisis",
   "targets": {
     "build": {
       "executor": "@nrwl/angular:ng-packagr-lite",
-      "outputs": ["dist/packages/examples/tour-of-heroes/crisis-center"],
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "options": {
         "project": "packages/examples/tour-of-heroes/crisis-center/ng-package.json"
       },
@@ -30,7 +32,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/packages/examples/tour-of-heroes/crisis-center"],
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "packages/examples/tour-of-heroes/crisis-center/jest.config.ts",
         "passWithNoTests": true
