@@ -122,10 +122,10 @@ module.exports = {
       navbar: {
         items: [
           {
-            activeBasePath: 'docs',
+            type: 'docsVersion',
             label: 'Docs',
+            activeBasePath: 'docs',
             position: 'left',
-            to: 'docs/',
           },
           {
             type: 'docsVersionDropdown',
