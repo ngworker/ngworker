@@ -127,6 +127,10 @@ module.exports = {
             position: 'left',
             to: 'docs/',
           },
+          {
+            type: 'docsVersionDropdown',
+            position: 'right',
+          },
         ],
         logo: {
           alt: 'Spectacular logo',
