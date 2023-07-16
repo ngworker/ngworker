@@ -15,6 +15,7 @@
   --ifm-color-primary-lighter: hsl(213, 100%, 65%);
   --ifm-color-primary-lightest: hsl(213, 100%, 73%);
   --ifm-code-font-size: 95%;
+  --ifm-footer-logo-max-width: 128px;
 }
 
 .docusaurus-highlight-code-line {
