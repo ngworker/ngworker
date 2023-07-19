@@ -60,7 +60,7 @@ module.exports = {
       },
       image: 'img/logo.png',
       footer: {
-        copyright: `© ${new Date().getFullYear()} ngworkers. Licensed under the MIT lincense. Logo by Felipe Zambrano. Artwork by vectorjuice.`,
+        copyright: `© ${new Date().getFullYear()} ngworkers. Licensed under the MIT license. Logo by Felipe Zambrano. Artwork by vectorjuice.`,
         links: [
           {
             title: 'Community',
