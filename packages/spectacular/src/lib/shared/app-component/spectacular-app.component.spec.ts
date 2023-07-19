@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { SpectacularAppComponent } from './spectacular-app.component';
-import { SpectacularAppScam } from './spectacular-app.scam';
 
 @Component({
   template: '',
@@ -28,7 +27,6 @@ describe(SpectacularAppComponent.name, () => {
               component: TestPageComponent,
             },
           ]),
-          SpectacularAppScam,
         ],
       });
 

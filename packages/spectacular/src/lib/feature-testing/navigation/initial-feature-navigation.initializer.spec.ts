@@ -4,7 +4,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ignoreDevelopmentModeLog } from '@internal/test-util';
 import { createApplicationHarness } from '../../application-testing/application-harness/create-application-harness';
 import { SpectacularAppComponent } from '../../shared/app-component/spectacular-app.component';
-import { SpectacularAppScam } from '../../shared/app-component/spectacular-app.scam';
 import { provideSpectacularFeatureTest } from '../configuration/provide-spectacular-feature-test';
 import { initialFeatureNavigationInitializer } from './initial-feature-navigation.initializer';
 import { SpectacularFeatureLocation } from './spectacular-feature-location';
@@ -25,7 +24,6 @@ describe('initialFeatureNavigationInitializer', () => {
             component: SpectacularAppComponent,
           },
         ]),
-        SpectacularAppScam,
       ],
       providers: [
         provideSpectacularFeatureTest({
@@ -49,7 +47,6 @@ describe('initialFeatureNavigationInitializer', () => {
               component: SpectacularAppComponent,
             },
           ]),
-          SpectacularAppScam,
         ],
         providers: [
           provideSpectacularFeatureTest({
@@ -83,7 +80,6 @@ describe('initialFeatureNavigationInitializer', () => {
               },
             },
           ]),
-          SpectacularAppScam,
         ],
         providers: [
           provideSpectacularFeatureTest({

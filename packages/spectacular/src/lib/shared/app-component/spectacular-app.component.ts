@@ -10,7 +10,9 @@ export const spectacularAppTag = 'spectacular-app';
  * The root component which is bootstrapped for a Spectacular test.
  */
 @Component({
+  standalone: true,
   selector: spectacularAppTag,
+  imports: [RouterOutlet],
   template: '<router-outlet></router-outlet>',
 })
 export class SpectacularAppComponent {
