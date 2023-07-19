@@ -289,6 +289,17 @@
     ora "5.4.1"
     rxjs "6.6.7"
 
+"@angular-devkit/schematics@15.2.9":
+  version "15.2.9"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/schematics/-/schematics-15.2.9.tgz#bd0563762c2a522086869b433d42d41e29ef2328"
+  integrity sha512-o08nE8sTpfq/Fknrr1rzBsM8vY36BDox+8dOo9Zc/KqcVPwDy94YKRzHb+xxVaU9jy1VYeCjy63mkyELy7Z3zQ==
+  dependencies:
+    "@angular-devkit/core" "15.2.9"
+    jsonc-parser "3.2.0"
+    magic-string "0.29.0"
+    ora "5.4.1"
+    rxjs "6.6.7"
+
 "@angular-eslint/bundled-angular-compiler@15.0.0":
   version "15.0.0"
   resolved "https://registry.yarnpkg.com/@angular-eslint/bundled-angular-compiler/-/bundled-angular-compiler-15.0.0.tgz#814d625b84c3f71ab5cdc83a4f9191bb4e4f7ddf"
@@ -3507,6 +3518,15 @@
   dependencies:
     "@angular-devkit/core" "15.0.5"
     "@angular-devkit/schematics" "15.0.5"
+    jsonc-parser "3.2.0"
+
+"@schematics/angular@15.2.9":
+  version "15.2.9"
+  resolved "https://registry.yarnpkg.com/@schematics/angular/-/angular-15.2.9.tgz#6e338ed44841df8053d554077d19dd9ba1d7e9af"
+  integrity sha512-0Lit6TLNUwcAYiEkXgZp3vY9xAO1cnZCBXuUcp+6v+Ddnrt2w/YOiGe74p21cYe0StkTpTljsqsKBTiX7TMjQg==
+  dependencies:
+    "@angular-devkit/core" "15.2.9"
+    "@angular-devkit/schematics" "15.2.9"
     jsonc-parser "3.2.0"
 
 "@sideway/address@^4.1.3":
