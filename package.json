@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "postinstall": "ngcc --properties es2020 browser module main",
     "nx": "nx",
     "start": "nx serve",
     "build": "nx run-many --target=build --configuration=production --all",
