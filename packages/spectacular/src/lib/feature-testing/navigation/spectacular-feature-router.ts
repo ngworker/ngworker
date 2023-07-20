@@ -1,4 +1,4 @@
-import { Inject, Injectable, NgZone } from '@angular/core';
+import { inject, Injectable, NgZone } from '@angular/core';
 import type { NavigationExtras, UrlTree } from '@angular/router';
 import { Router, UrlSegment } from '@angular/router';
 import { featurePathToken } from '../configuration/feature-path.token';
@@ -11,19 +11,9 @@ import { relativeFeatureUrlPrefix } from './relative-feature-url-prefix';
  */
 @Injectable()
 export class SpectacularFeatureRouter {
-  readonly #featurePath: string;
-  readonly #router: Router;
-  readonly #ngZone: NgZone;
-
-  constructor(
-    @Inject(featurePathToken) featurePath: string,
-    router: Router,
-    ngZone: NgZone
-  ) {
-    this.#featurePath = featurePath;
-    this.#router = router;
-    this.#ngZone = ngZone;
-  }
+  readonly #featurePath = inject(featurePathToken);
+  readonly #router = inject(Router);
+  readonly #ngZone = inject(NgZone);
 
   /**
    * Navigate based on the provided array of commands and a starting point. If

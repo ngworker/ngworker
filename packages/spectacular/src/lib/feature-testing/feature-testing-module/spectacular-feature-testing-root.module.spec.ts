@@ -4,7 +4,6 @@ import { Component, NgModule, ViewChild } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-
 import { SpectacularAppComponent } from '../../shared/app-component/spectacular-app.component';
 import { SpectacularFeatureTestingRootModule } from './spectacular-feature-testing-root.module';
 
@@ -32,8 +31,6 @@ class TestRootComponent {
 })
 class TestRootModule {}
 
-const optionalAngularDependency = null;
-
 describe(SpectacularFeatureTestingRootModule.name, () => {
   describe('Routing', () => {
     it(`makes ${SpectacularAppComponent.name} routable`, async () => {
@@ -53,7 +50,8 @@ describe(SpectacularFeatureTestingRootModule.name, () => {
       await rootFixture.ngZone?.run(() => router.navigate([path]));
       rootFixture.detectChanges();
 
-      const activeComponent = rootFixture.componentInstance.getActiveComponent();
+      const activeComponent =
+        rootFixture.componentInstance.getActiveComponent();
       expect(activeComponent).toBeInstanceOf(SpectacularAppComponent);
     });
 
@@ -69,24 +67,35 @@ describe(SpectacularFeatureTestingRootModule.name, () => {
 
   describe('Dependency injection', () => {
     it('guards against being registered in multiple injectors', () => {
-      const rootInjectorInstance = new SpectacularFeatureTestingRootModule(
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        optionalAngularDependency as any
-      );
+      @NgModule({
+        imports: [SpectacularFeatureTestingRootModule],
+      })
+      class TestChildModule {}
 
-      expect(
-        () => new SpectacularFeatureTestingRootModule(rootInjectorInstance)
-      ).toThrowError(/multiple injectors/);
+      expect.assertions(1);
+      TestBed.configureTestingModule({
+        imports: [
+          SpectacularFeatureTestingRootModule,
+          RouterTestingModule.withRoutes([
+            { path: 'child', loadChildren: () => TestChildModule },
+          ]),
+        ],
+      });
+      const router = TestBed.inject(Router);
+
+      const act = () => router.navigateByUrl('/child');
+
+      expect(act).rejects.toThrowError(/multiple injectors/);
     });
 
     it('does not guard the first injector that registers it', () => {
-      expect(
-        () =>
-          new SpectacularFeatureTestingRootModule(
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            optionalAngularDependency as any
-          )
-      ).not.toThrow();
+      TestBed.configureTestingModule({
+        imports: [SpectacularFeatureTestingRootModule],
+      });
+
+      const act = () => TestBed.inject(SpectacularFeatureTestingRootModule);
+
+      expect(act).not.toThrow();
     });
   });
 });

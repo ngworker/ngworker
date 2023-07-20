@@ -1,6 +1,5 @@
-import { NgModule, Optional, SkipSelf } from '@angular/core';
+import { inject, InjectFlags, NgModule } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
-
 import { SpectacularAppScam } from '../../shared/app-component/spectacular-app.scam';
 
 /**
@@ -14,11 +13,12 @@ import { SpectacularAppScam } from '../../shared/app-component/spectacular-app.s
   imports: [RouterTestingModule, SpectacularAppScam],
 })
 export class SpectacularFeatureTestingRootModule {
-  constructor(
-    @Optional()
-    @SkipSelf()
-    maybeNgModuleFromParentInjector: SpectacularFeatureTestingRootModule
-  ) {
+  constructor() {
+    const maybeNgModuleFromParentInjector = inject(
+      SpectacularFeatureTestingRootModule,
+      InjectFlags.Optional | InjectFlags.SkipSelf
+    );
+
     if (maybeNgModuleFromParentInjector) {
       throw new Error(
         'SpectacularFeatureTestingModule.withFeature is registered in ' +
