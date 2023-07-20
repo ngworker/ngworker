@@ -1,4 +1,4 @@
-import { render, RenderResult, screen } from '@testing-library/angular';
+import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import {
   Crisis,
@@ -12,7 +12,7 @@ import { SpectacularAppComponent } from '../../../shared/app-component/spectacul
 import { SpectacularFeatureTestingModule } from '../../feature-testing-module/spectacular-feature-testing.module';
 import { SpectacularFeatureLocation } from '../../navigation/spectacular-feature-location';
 
-describe('[Angular Testing Library] Tour of Heroes: Crisis center', () => {
+async function setup() {
   async function expectCrisisToBeSelected(crisis: Crisis) {
     expect(
       await screen.findByText(new RegExp(crisis.name), {
@@ -34,47 +34,52 @@ describe('[Angular Testing Library] Tour of Heroes: Crisis center', () => {
     ).not.toBeNull();
   }
 
-  beforeEach(async () => {
-    user = userEvent.setup();
-    const {
-      fixture: {
-        debugElement: { injector },
-      },
-      navigate: _navigate,
-    } = await render(SpectacularAppComponent, {
-      excludeComponentDeclaration: true,
-      imports: [
-        SpectacularFeatureTestingModule.withFeature({
-          featurePath: crisisCenterPath,
-          routes: [
-            { path: crisisCenterPath, loadChildren: () => CrisisCenterModule },
-          ],
-        }),
-      ],
-      providers: [{ provide: DialogService, useClass: FakeDialogService }],
-    });
-    navigate = _navigate;
-    fakeDialog = injector.get(DialogService) as FakeDialogService;
-    featureLocation = injector.get(SpectacularFeatureLocation);
-    const crisisService = injector.get(CrisisService);
-    [aCrisis] = crisisService.getCrises().value;
+  const user = userEvent.setup();
+  const {
+    fixture: {
+      debugElement: { injector },
+    },
+    navigate,
+  } = await render(SpectacularAppComponent, {
+    excludeComponentDeclaration: true,
+    imports: [
+      SpectacularFeatureTestingModule.withFeature({
+        featurePath: crisisCenterPath,
+        routes: [
+          { path: crisisCenterPath, loadChildren: () => CrisisCenterModule },
+        ],
+      }),
+    ],
+    providers: [{ provide: DialogService, useClass: FakeDialogService }],
   });
-
-  let aCrisis: Crisis;
-  let fakeDialog: FakeDialogService;
-  let featureLocation: SpectacularFeatureLocation;
-  let navigate: RenderResult<
-    SpectacularAppComponent,
-    SpectacularAppComponent
-  >['navigate'];
+  const fakeDialog = injector.get(DialogService) as FakeDialogService;
+  const featureLocation = injector.get(SpectacularFeatureLocation);
+  const crisisService = injector.get(CrisisService);
+  const [aCrisis] = crisisService.getCrises().value;
   const newCrisisName = 'Coral reefs are dying';
   const unknownCrisis: Crisis = {
     id: Number.MAX_SAFE_INTEGER,
     name: 'Unknown crisis',
   };
-  let user: ReturnType<typeof userEvent['setup']>;
 
+  return {
+    aCrisis,
+    expectCrisisToBeSelected,
+    expectToBeAtTheCrisisCenterHome,
+    expectToBeEditing,
+    fakeDialog,
+    featureLocation,
+    navigate,
+    newCrisisName,
+    unknownCrisis,
+    user,
+  };
+}
+
+describe('[Angular Testing Library] Tour of Heroes: Crisis center', () => {
   it('starts at the crisis center home', async () => {
+    const { expectToBeAtTheCrisisCenterHome, navigate } = await setup();
+
     await navigate(crisisCenterPath);
 
     await expectToBeAtTheCrisisCenterHome();
@@ -82,12 +87,15 @@ describe('[Angular Testing Library] Tour of Heroes: Crisis center', () => {
 
   describe('Crisis detail', () => {
     it('shows crisis detail when a valid ID is in the URL', async () => {
+      const { aCrisis, expectToBeEditing, navigate } = await setup();
       await navigate(crisisCenterPath + '/' + aCrisis.id);
 
       await expectToBeEditing(aCrisis);
     });
 
     it('navigates to the crisis center home when an invalid ID is in the URL', async () => {
+      const { expectToBeAtTheCrisisCenterHome, navigate, unknownCrisis } =
+        await setup();
       const didNavigationSucceed = await navigate(
         crisisCenterPath + '/' + unknownCrisis.id
       );
@@ -97,30 +105,54 @@ describe('[Angular Testing Library] Tour of Heroes: Crisis center', () => {
     });
 
     describe('Editing crisis name', () => {
-      beforeEach(async () => {
+      async function editCrisisNameSetup() {
+        const testUtilities = await setup();
+        const { aCrisis, navigate, newCrisisName, user } = testUtilities;
+
         await navigate(crisisCenterPath + '/' + aCrisis.id);
 
         await user.type(await screen.findByRole('textbox'), newCrisisName);
-      });
+
+        return testUtilities;
+      }
 
       describe('Canceling change', () => {
-        beforeEach(async () => {
+        async function cancelChangeSetup() {
+          const testUtilities = await editCrisisNameSetup();
+          const { user } = testUtilities;
+
           await user.click(
             await screen.findByRole('button', { name: 'Cancel' })
           );
-        });
+
+          return testUtilities;
+        }
 
         describe('When discarding unsaved changes is confirmed', () => {
-          beforeEach(() => {
+          async function confirmDiscardingUnsavedChangesSetup() {
+            const testUtilities = await cancelChangeSetup();
+            const { fakeDialog } = testUtilities;
+
             fakeDialog.clickOk();
-          });
+
+            return testUtilities;
+          }
 
           it('navigates to the crisis center home with the crisis selected ', async () => {
+            const {
+              aCrisis,
+              expectCrisisToBeSelected,
+              expectToBeAtTheCrisisCenterHome,
+            } = await confirmDiscardingUnsavedChangesSetup();
+
             await expectToBeAtTheCrisisCenterHome();
             await expectCrisisToBeSelected(aCrisis);
           });
 
-          it('adds matrix parameters', () => {
+          it('adds matrix parameters', async () => {
+            const { aCrisis, featureLocation } =
+              await confirmDiscardingUnsavedChangesSetup();
+
             expect(featureLocation.path()).toBe(`~/;id=${aCrisis.id};foo=foo`);
           });
         });

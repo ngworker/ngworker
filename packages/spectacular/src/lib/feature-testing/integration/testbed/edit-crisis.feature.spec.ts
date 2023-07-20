@@ -1,10 +1,6 @@
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
-import {
-  ComponentFixture,
-  ComponentFixtureAutoDetect,
-  TestBed,
-} from '@angular/core/testing';
+import { ComponentFixtureAutoDetect, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -14,34 +10,7 @@ import {
   CrisisService,
 } from '@tour-of-heroes/crisis-center';
 
-@Component({
-  selector: 'spectacular-test-app',
-  template: '<router-outlet><router-outlet>',
-})
-class TestAppComponent {}
-
-describe('[TestBed] Tour of Heroes: Crisis center', () => {
-  beforeEach(async () => {
-    TestBed.configureTestingModule({
-      declarations: [TestAppComponent],
-      imports: [
-        RouterTestingModule.withRoutes([
-          { path: crisisCenterPath, loadChildren: () => CrisisCenterModule },
-        ]),
-      ],
-      providers: [{ provide: ComponentFixtureAutoDetect, useValue: true }],
-    });
-
-    rootFixture = TestBed.createComponent(TestAppComponent);
-    location = TestBed.inject(Location);
-    router = TestBed.inject(Router);
-    crisisService = TestBed.inject(CrisisService);
-    navigate = (commands, extras) =>
-      rootFixture.ngZone?.run(() => router.navigate(commands, extras)) ??
-      Promise.resolve(true);
-    await navigate([crisisCenterPath]);
-  });
-
+async function setup() {
   const findCrisisCenterHomeGreeting = () => {
     const greeting = rootFixture.debugElement
       .queryAll(By.css('p'))
@@ -86,13 +55,56 @@ describe('[TestBed] Tour of Heroes: Crisis center', () => {
     rootFixture.debugElement.query(By.css('.selected a'))
       .nativeElement as HTMLAnchorElement;
 
-  let crisisService: CrisisService;
-  let location: Location;
-  let navigate: Router['navigate'];
-  let rootFixture: ComponentFixture<TestAppComponent>;
-  let router: Router;
+  TestBed.configureTestingModule({
+    declarations: [TestAppComponent],
+    imports: [
+      RouterTestingModule.withRoutes([
+        { path: crisisCenterPath, loadChildren: () => CrisisCenterModule },
+      ]),
+    ],
+    providers: [{ provide: ComponentFixtureAutoDetect, useValue: true }],
+  });
 
+  const rootFixture = TestBed.createComponent(TestAppComponent);
+  const location = TestBed.inject(Location);
+  const router = TestBed.inject(Router);
+  const crisisService = TestBed.inject(CrisisService);
+  const navigate: Router['navigate'] = (commands, extras) =>
+    rootFixture.ngZone?.run(() => router.navigate(commands, extras)) ??
+    Promise.resolve(true);
+  await navigate([crisisCenterPath]);
+
+  return {
+    crisisService,
+    findCrisisCenterHomeGreeting,
+    findNameControl,
+    findSaveButton,
+    findSelectedCrisis,
+    navigate,
+    location,
+    rootFixture,
+    router,
+  };
+}
+
+@Component({
+  selector: 'spectacular-test-app',
+  template: '<router-outlet><router-outlet>',
+})
+class TestAppComponent {}
+
+describe('[TestBed] Tour of Heroes: Crisis center', () => {
   it('Edit crisis from crisis detail', async () => {
+    const {
+      crisisService,
+      findCrisisCenterHomeGreeting,
+      findNameControl,
+      findSaveButton,
+      findSelectedCrisis,
+      location,
+      navigate,
+      rootFixture,
+    } = await setup();
     const [aCrisis] = crisisService.getCrises().value;
     await navigate([crisisCenterPath, aCrisis.id]);
     const newCrisisName = 'Global climate crisis';

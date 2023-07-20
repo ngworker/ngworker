@@ -6,41 +6,43 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { provideSpectacularFeatureTest } from '../configuration/provide-spectacular-feature-test';
 import { SpectacularFeatureRouter } from './spectacular-feature-router';
 
-describe(SpectacularFeatureRouter.name, () => {
+function setup() {
   const featurePath = 'crisis-center';
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
-      providers: [
-        provideSpectacularFeatureTest({
-          featurePath,
-        }),
-      ],
-    });
-    const angularRouter = TestBed.inject(Router);
-    navigateSpy = jest.spyOn(angularRouter, 'navigate').mockResolvedValue(true);
-    navigateByUrlSpy = jest
-      .spyOn(angularRouter, 'navigateByUrl')
-      .mockResolvedValue(true);
-    service = TestBed.inject(SpectacularFeatureRouter);
+  TestBed.configureTestingModule({
+    imports: [RouterTestingModule],
+    providers: [
+      provideSpectacularFeatureTest({
+        featurePath,
+      }),
+    ],
   });
 
-  let navigateSpy: jest.SpyInstance<
-    Promise<boolean>,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    [commands: any[], extras?: NavigationExtras | undefined]
-  >;
-  let navigateByUrlSpy: jest.SpyInstance<
-    Promise<boolean>,
-    [url: string | UrlTree, extras?: NavigationExtras | undefined]
-  >;
-  let service: SpectacularFeatureRouter;
+  const angularRouter = TestBed.inject(Router);
+  const navigateSpy = jest
+    .spyOn(angularRouter, 'navigate')
+    .mockResolvedValue(true);
+  const navigateByUrlSpy = jest
+    .spyOn(angularRouter, 'navigateByUrl')
+    .mockResolvedValue(true);
+  const service = TestBed.inject(SpectacularFeatureRouter);
 
+  return {
+    angularRouter,
+    featurePath,
+    navigateSpy,
+    navigateByUrlSpy,
+    service,
+  };
+}
+
+describe(SpectacularFeatureRouter.name, () => {
   describe('navigate', () => {
     const crisesPath = 'crises';
 
     it('prepends the feature path and navigates', async () => {
+      const { featurePath, service, navigateSpy } = setup();
+
       await service.navigate(['~', crisesPath]);
 
       expect(navigateSpy).toHaveBeenCalledTimes(1);
@@ -52,6 +54,7 @@ describe(SpectacularFeatureRouter.name, () => {
     });
 
     it('forwards navigation options', async () => {
+      const { featurePath, service, navigateSpy } = setup();
       const navigationOptions: NavigationExtras = {
         preserveFragment: true,
       };
@@ -65,6 +68,7 @@ describe(SpectacularFeatureRouter.name, () => {
     });
 
     it('runs navigation in the NgZone', async () => {
+      const { service } = setup();
       const ngZone = TestBed.inject(NgZone);
       const ngZoneRunSpy = jest.spyOn(ngZone, 'run');
       expect(ngZoneRunSpy).not.toHaveBeenCalled();
@@ -79,6 +83,8 @@ describe(SpectacularFeatureRouter.name, () => {
     const dashboardPath = 'dashboard';
 
     it('prepends the feature path to the URL and navigates', async () => {
+      const { featurePath, service, navigateByUrlSpy } = setup();
+
       await service.navigateByUrl(`~/${dashboardPath}`);
 
       expect(navigateByUrlSpy).toHaveBeenCalledTimes(1);
@@ -90,6 +96,7 @@ describe(SpectacularFeatureRouter.name, () => {
     });
 
     it('forwards navigation options', async () => {
+      const { featurePath, service, navigateByUrlSpy } = setup();
       const navigationOptions: NavigationExtras = {
         preserveFragment: true,
       };
@@ -103,6 +110,7 @@ describe(SpectacularFeatureRouter.name, () => {
     });
 
     it('runs navigation in the NgZone', async () => {
+      const { service } = setup();
       const ngZone = TestBed.inject(NgZone);
       const ngZoneRunSpy = jest.spyOn(ngZone, 'run');
       expect(ngZoneRunSpy).not.toHaveBeenCalled();
@@ -113,6 +121,7 @@ describe(SpectacularFeatureRouter.name, () => {
     });
 
     it(`supports ${UrlTree.name}`, async () => {
+      const { featurePath, navigateByUrlSpy, service } = setup();
       const angularRouter = TestBed.inject(Router);
       const dashboardUrlTree = angularRouter.createUrlTree([
         '~',
