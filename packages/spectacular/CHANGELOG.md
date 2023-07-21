@@ -1,5 +1,12 @@
 # Spectacular changelog
 
+## 14.0.1 (2023-07-21)
+
+### Refactors
+
+- Replace constructor injection with `inject`
+  ([#69](https://github.com/ngworker/ngworker/pull/69))
+
 ## 14.0.0 (2023-07-17)
 
 ### **BREAKING CHANGES**
