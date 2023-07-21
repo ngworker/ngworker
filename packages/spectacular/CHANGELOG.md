@@ -1,5 +1,12 @@
 # Spectacular changelog
 
+## 14.1.0 (2023-07-21)
+
+### Features
+
+- Support standalone pipe testing
+  ([#71](https://github.com/ngworker/ngworker/pull/71))
+
 ## 14.0.1 (2023-07-21)
 
 ### Refactors
