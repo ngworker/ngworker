@@ -1,7 +1,10 @@
 import type { Observable } from 'rxjs';
 import { createPipeHarness } from '../pipe-harness/create-pipe-harness';
 import type { SpectacularPipeHarness } from '../pipe-harness/spectacular-pipe-harness';
-import { PassthroughPipe, passthroughPipeName } from './passthrough.pipe';
+import {
+  StandalonePassthroughPipe,
+  standalonePassthroughPipeName,
+} from './standalone-passthrough.pipe';
 
 export interface CreateCommonPipeHarnessOptions<TValue> {
   readonly template: string;
@@ -17,8 +20,8 @@ export function createCommonPipeHarness<TValue>({
   value,
 }: CreateCommonPipeHarnessOptions<TValue>): SpectacularPipeHarness<TValue> {
   return createPipeHarness({
-    pipe: PassthroughPipe,
-    pipeName: passthroughPipeName,
+    pipe: StandalonePassthroughPipe,
+    pipeName: standalonePassthroughPipeName,
     value,
     template,
   });
