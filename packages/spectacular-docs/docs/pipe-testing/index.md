@@ -21,7 +21,10 @@ snippet:
 // pow.pipe.ts
 import { Pipe, PipeTransform } from '@angular/core';
 
-@Pipe({ name: 'pow' })
+@Pipe({
+  standalone: true,
+  name: 'pow',
+})
 export class PowPipe implements PipeTransform {
   transform(base: number, exponent = 1): number {
     return Math.pow(base, exponent);
@@ -89,6 +92,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PowPipe } from './pow.pipe';
 
 @Component({
+  standalone: true,
+  imports: [PowPipe],
   template: '{{ base | pow }}',
 })
 class TestHostComponent {
@@ -98,9 +103,6 @@ class TestHostComponent {
 
 describe(PowPipe.name, () => {
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [PowPipe, TestHostComponent],
-    });
     hostFixture = TestBed.createComponent(TestHostComponent);
     hostFixture.autoDetectChanges(true);
     host = hostFixture.componentInstance;
@@ -136,6 +138,8 @@ test host component as seen in the following example:
 
 ```ts {2,7-8}
 @Component({
+  standalone: true,
+  imports: [PowPipe],
   template: '{{ base | pow:exponent }}',
 })
 class TestHostComponent {
