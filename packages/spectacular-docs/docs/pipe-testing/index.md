@@ -85,7 +85,7 @@ To achieve a higher level of confidence, we could create a test host component
 with a template and configure the Angular testing module by declaring the test
 host component and the pipe as seen in the following example:
 
-```ts {6-12,17}
+```ts {6-14,18}
 import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -136,7 +136,7 @@ it('raises the base to the power of 1 by default', () => {
 To add the `exponent` option, we have to add a second input parameter to our
 test host component as seen in the following example:
 
-```ts {2,7-8}
+```ts {4,9-10}
 @Component({
   standalone: true,
   imports: [PowPipe],
@@ -168,7 +168,7 @@ it('raises the base to the specified power', () => {
 Now, let's compare this to using Spectacular's pipe test harness. First, we set
 up the pipe harness by calling a test harness factory:
 
-```ts {10-13}
+```ts {10-14}
 import {
   createPipeHarness,
   SpectacularPipeHarness,
