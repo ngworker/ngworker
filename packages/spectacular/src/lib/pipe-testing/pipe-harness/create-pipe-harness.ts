@@ -1,8 +1,9 @@
-import { NgModule, PipeTransform, Type, ɵisStandalone } from '@angular/core';
+import { NgModule, PipeTransform, Type } from '@angular/core';
 import type { ComponentFixture } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import type { Observable } from 'rxjs';
+import { isStandalone } from '../../shared/is-standalone';
 import { SpectacularPipeComponent } from '../pipe-component/spectacular-pipe.component';
 import type { SpectacularPipeHarness } from './spectacular-pipe-harness';
 
@@ -57,7 +58,7 @@ export function createPipeHarness<TValue>(
   options: CreatePipeHarnessOptions<TValue>
 ): SpectacularPipeHarness<TValue> {
   function configureTestbed(template: string): void | never {
-    const isStandalonePipe = ɵisStandalone(pipe);
+    const isStandalonePipe = isStandalone(pipe);
 
     TestBed.configureTestingModule({
       declarations: [...declarations].concat(isStandalonePipe ? [] : [pipe]),

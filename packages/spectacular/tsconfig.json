@@ -20,8 +20,7 @@
     "noImplicitReturns": true,
     "noPropertyAccessFromIndexSignature": true,
     "strict": true,
-    "target": "es2020",
-    "useDefineForClassFields": true
+    "target": "es2022"
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

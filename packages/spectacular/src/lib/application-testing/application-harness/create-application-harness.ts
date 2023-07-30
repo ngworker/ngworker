@@ -6,7 +6,6 @@ import {
   SpectacularAppComponent,
   spectacularAppTag,
 } from '../../shared/app-component/spectacular-app.component';
-import { SpectacularAppModule } from '../../shared/app-component/spectacular-app.module';
 import { bootstrapComponent } from '../util-bootstrapping/bootstrap-component';
 import { SpectacularApplicationHarness } from './spectacular-application-harness';
 
@@ -29,7 +28,7 @@ export async function createApplicationHarness(
   const { imports = [], providers = [] } = options;
 
   TestBed.configureTestingModule({
-    imports: [RouterTestingModule, ...imports, SpectacularAppModule],
+    imports: [RouterTestingModule, ...imports],
     providers: [...providers],
   });
 

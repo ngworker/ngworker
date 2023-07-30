@@ -1,8 +1,19 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { createPipeHarness } from './pipe-harness/create-pipe-harness';
-import { SpectacularPipeHarness } from './pipe-harness/spectacular-pipe-harness';
 
 const capitalizePipeName = 'capitalize';
+
+function setup({ value }: { readonly value: string }) {
+  const harness = createPipeHarness({
+    pipe: CapitalizePipe,
+    pipeName: capitalizePipeName,
+    value,
+  });
+
+  return {
+    harness,
+  };
+}
 
 @Pipe({
   name: capitalizePipeName,
@@ -17,17 +28,9 @@ export class CapitalizePipe implements PipeTransform {
 }
 
 describe(CapitalizePipe.name, () => {
-  beforeEach(() => {
-    harness = createPipeHarness({
-      pipe: CapitalizePipe,
-      pipeName: capitalizePipeName,
-      value: 'mr. potato head',
-    });
-  });
-
-  let harness: SpectacularPipeHarness<string>;
-
   it('capitalizes every word of the text', () => {
+    const { harness } = setup({ value: 'mr. potato head' });
+
     expect(harness.text).toBe('Mr. Potato Head');
 
     harness.value = 'ms. potato head';

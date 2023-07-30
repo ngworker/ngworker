@@ -1,12 +1,34 @@
 import { Location } from '@angular/common';
 import { SpyLocation } from '@angular/common/testing';
 import { Component, NgModule } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { Router, RouterModule } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SpectacularAppComponent } from '../../shared/app-component/spectacular-app.component';
 import { featurePathToken } from '../configuration/feature-path.token';
 import { SpectacularFeatureTestingModule } from './spectacular-feature-testing.module';
+
+function routingSetup() {
+  const featurePath = 'test-feature';
+
+  TestBed.configureTestingModule({
+    imports: [
+      SpectacularFeatureTestingModule.withFeature({
+        featurePath,
+        routes: [{ path: featurePath, loadChildren: () => TestFeatureModule }],
+      }),
+    ],
+  }).compileComponents();
+
+  const rootFixture = TestBed.createComponent(SpectacularAppComponent);
+  const rootComponent = rootFixture.componentInstance;
+
+  return {
+    featurePath,
+    rootComponent,
+    rootFixture,
+  };
+}
 
 @Component({
   template: '',
@@ -43,41 +65,25 @@ describe(SpectacularFeatureTestingModule.name, () => {
   });
 
   describe('Routing', () => {
-    beforeEach(() => {
-      TestBed.configureTestingModule({
-        imports: [
-          SpectacularFeatureTestingModule.withFeature({
-            featurePath,
-            routes: [
-              { path: featurePath, loadChildren: () => TestFeatureModule },
-            ],
-          }),
-        ],
-      }).compileComponents();
-
-      rootFixture = TestBed.createComponent(SpectacularAppComponent);
-      rootComponent = rootFixture.componentInstance;
-    });
-
-    const featurePath = 'test-feature';
-    let rootComponent: SpectacularAppComponent;
-    let rootFixture: ComponentFixture<SpectacularAppComponent>;
-
     it(`imports the ${RouterTestingModule.name}`, () => {
+      routingSetup();
       const location = TestBed.inject(Location);
       expect(location).toBeInstanceOf(SpyLocation);
     });
 
     it('provides the specified feature path', () => {
+      const { featurePath } = routingSetup();
       const actualFeaturePath = TestBed.inject(featurePathToken);
       expect(actualFeaturePath).toBe(featurePath);
     });
 
     it(`makes ${SpectacularAppComponent.name} routable`, () => {
+      const { rootComponent } = routingSetup();
       expect(rootComponent).toBeInstanceOf(SpectacularAppComponent);
     });
 
     it('registers the routes of the specified feature module', async () => {
+      const { featurePath, rootComponent, rootFixture } = routingSetup();
       const router = TestBed.inject(Router);
 
       await rootFixture.ngZone?.run(() => router.navigate([featurePath]));

@@ -4,34 +4,40 @@ import { TestBed } from '@angular/core/testing';
 import { provideSpectacularFeatureTest } from '../configuration/provide-spectacular-feature-test';
 import { SpectacularFeatureLocation } from './spectacular-feature-location';
 
-const featurePath = 'villains-job-board';
+function setup() {
+  const setInitialFeatureRoute = (routePath: string): void => {
+    const initialPath = `/${featurePath}/${routePath}`;
+
+    locationStub.setInitialPath(initialPath);
+  };
+
+  const featurePath = 'villains-job-board';
+
+  TestBed.configureTestingModule({
+    providers: [
+      { provide: Location, useClass: SpyLocation },
+      provideSpectacularFeatureTest({
+        featurePath,
+      }),
+    ],
+  });
+
+  const locationStub = TestBed.inject(Location) as SpyLocation;
+  const service = TestBed.inject(SpectacularFeatureLocation);
+
+  return {
+    featurePath,
+    locationStub,
+    service,
+    setInitialFeatureRoute,
+  };
+}
 
 describe(SpectacularFeatureLocation.name, () => {
   describe('URLs', () => {
-    function setInitialFeatureRoute(routePath: string): void {
-      const initialPath = `/${featurePath}/${routePath}`;
-
-      locationStub.setInitialPath(initialPath);
-    }
-
-    beforeEach(() => {
-      TestBed.configureTestingModule({
-        providers: [
-          { provide: Location, useClass: SpyLocation },
-          provideSpectacularFeatureTest({
-            featurePath,
-          }),
-        ],
-      });
-      locationStub = TestBed.inject(Location) as SpyLocation;
-      service = TestBed.inject(SpectacularFeatureLocation);
-    });
-
-    let locationStub: SpyLocation;
-    let service: SpectacularFeatureLocation;
-
     describe('Routes in the feature under test', () => {
       it('returns tildes slash (~/) when navigated to the feature route with an empty path', () => {
+        const { service, setInitialFeatureRoute } = setup();
         const homePath = '';
         setInitialFeatureRoute(homePath);
 
@@ -41,6 +47,7 @@ describe(SpectacularFeatureLocation.name, () => {
       });
 
       it('prepends the feature path with a tilde (~) when navigated to a 1-layer feature route', () => {
+        const { service, setInitialFeatureRoute } = setup();
         const listingPath = 'listing';
         setInitialFeatureRoute(listingPath);
 
@@ -50,6 +57,7 @@ describe(SpectacularFeatureLocation.name, () => {
       });
 
       it('prepends the feature path with a tilde (~) when navigated to a 2-layer feature route', () => {
+        const { service, setInitialFeatureRoute } = setup();
         const contactPath = 'listing/contact';
         setInitialFeatureRoute(contactPath);
 
@@ -61,6 +69,7 @@ describe(SpectacularFeatureLocation.name, () => {
 
     describe('Routes outside of the feature under test', () => {
       it(`doesn't touch the location path when navigated to the root route`, () => {
+        const { locationStub, service } = setup();
         const rootPath = '/';
         locationStub.setInitialPath(rootPath);
 
@@ -70,6 +79,7 @@ describe(SpectacularFeatureLocation.name, () => {
       });
 
       it(`doesn't touch the location path when navigated to another feature`, () => {
+        const { locationStub, service } = setup();
         const otherFeaturePath = '/heroes/1';
         locationStub.setInitialPath(otherFeaturePath);
 
@@ -84,6 +94,7 @@ describe(SpectacularFeatureLocation.name, () => {
       const fragment = 'faq';
 
       it('forwards control to Location.path (includeHash=true)', () => {
+        const { featurePath, locationStub, service } = setup();
         const includeHash = true;
         jest
           .spyOn(locationStub, 'path')
@@ -95,6 +106,7 @@ describe(SpectacularFeatureLocation.name, () => {
       });
 
       it('forwards control to Location.path (includeHash=false)', () => {
+        const { featurePath, locationStub, service } = setup();
         const includeHash = false;
         jest
           .spyOn(locationStub, 'path')

@@ -1,6 +1,5 @@
 import { inject, InjectFlags, NgModule } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
-import { SpectacularAppScam } from '../../shared/app-component/spectacular-app.scam';
 
 /**
  * Static dependencies for feature testing.
@@ -10,7 +9,7 @@ import { SpectacularAppScam } from '../../shared/app-component/spectacular-app.s
  * NOTE! Only to be imported by `SpectacularFeatureTestingModule`.
  */
 @NgModule({
-  imports: [RouterTestingModule, SpectacularAppScam],
+  imports: [RouterTestingModule],
 })
 export class SpectacularFeatureTestingRootModule {
   constructor() {
