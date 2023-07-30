@@ -4,13 +4,14 @@ import {
   DecimalPipe,
   PercentPipe,
 } from '@angular/common';
-
-import { createCommonPipeHarness } from './test-util/create-common-pipe-harness';
+import { createPipeHarness } from './pipe-harness/create-pipe-harness';
 
 describe('Common pipes', () => {
   describe(DecimalPipe.name, () => {
     function decimalPipeSetup() {
-      const harness = createCommonPipeHarness({
+      const harness = createPipeHarness({
+        pipe: DecimalPipe,
+        pipeName: 'number',
         template: `{{ value | number:'1.1' }}`,
         value: 123456789,
       });
@@ -45,8 +46,9 @@ describe('Common pipes', () => {
 
   describe(CurrencyPipe.name, () => {
     function currencyPipeSetup() {
-      const harness = createCommonPipeHarness({
-        template: `{{ value | currency }}`,
+      const harness = createPipeHarness({
+        pipe: CurrencyPipe,
+        pipeName: 'currency',
         value: 1234.56,
       });
 
@@ -80,7 +82,9 @@ describe('Common pipes', () => {
 
   describe(PercentPipe.name, () => {
     function percentPipeSetup() {
-      const harness = createCommonPipeHarness({
+      const harness = createPipeHarness({
+        pipe: PercentPipe,
+        pipeName: 'percent',
         template: `{{ value | percent:'4.3-5' }}`,
         value: 1.3495,
       });
@@ -115,7 +119,9 @@ describe('Common pipes', () => {
 
   describe(DatePipe.name, () => {
     function datePipeSetup() {
-      const harness = createCommonPipeHarness({
+      const harness = createPipeHarness({
+        pipe: DatePipe,
+        pipeName: 'date',
         template: `{{ value | date:'medium':'UTC' }}`,
         value: new Date('2021-07-07T17:00:00Z'),
       });
