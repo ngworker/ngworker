@@ -41,7 +41,6 @@ async function setup() {
     },
     navigate,
   } = await render(SpectacularAppComponent, {
-    excludeComponentDeclaration: true,
     imports: [
       SpectacularFeatureTestingModule.withFeature({
         featurePath: crisisCenterPath,

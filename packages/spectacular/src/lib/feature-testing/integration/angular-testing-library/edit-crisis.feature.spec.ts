@@ -29,7 +29,6 @@ const setup = async () => {
       debugElement: { injector },
     },
   } = await render(SpectacularAppComponent, {
-    excludeComponentDeclaration: true,
     imports: [
       SpectacularFeatureTestingModule.withFeature({
         featurePath: crisisCenterPath,
