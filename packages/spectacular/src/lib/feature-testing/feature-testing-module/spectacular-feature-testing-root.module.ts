@@ -1,4 +1,4 @@
-import { inject, InjectFlags, NgModule } from '@angular/core';
+import { inject, NgModule } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 
 /**
@@ -15,7 +15,10 @@ export class SpectacularFeatureTestingRootModule {
   constructor() {
     const maybeNgModuleFromParentInjector = inject(
       SpectacularFeatureTestingRootModule,
-      InjectFlags.Optional | InjectFlags.SkipSelf
+      {
+        optional: true,
+        skipSelf: true,
+      }
     );
 
     if (maybeNgModuleFromParentInjector) {
