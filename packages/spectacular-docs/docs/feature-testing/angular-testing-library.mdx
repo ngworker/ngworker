@@ -23,7 +23,7 @@ experience.
 The following snippet shows the common configuration needed for integrating
 Spectacular with Angular Testing library:
 
-```ts {1-4,13-21}
+```ts {1-4,13-22}
 import {
   SpectacularAppComponent,
   SpectacularFeatureTestingModule,
@@ -37,7 +37,6 @@ import {
 describe('Tour of Heroes: Crisis center', () => {
   beforeEach(async () => {
     await render(SpectacularAppComponent, {
-      excludeComponentDeclaration: true,
       imports: [
         SpectacularFeatureTestingModule.withFeature({
           featurePath: crisisCenterPath,
@@ -73,7 +72,6 @@ import {
 describe('Tour of Heroes: Crisis center', () => {
   beforeEach(async () => {
     await render(SpectacularAppComponent, {
-      excludeComponentDeclaration: true,
       imports: [
         SpectacularFeatureTestingModule.withFeature({
           featurePath: crisisCenterPath,
@@ -94,7 +92,7 @@ Next, we register our feature by calling
 [`SpectacularFeatureTestingModule.withFeature`](../api/classes/spectacularfeaturetestingmodule#withfeature)
 and adding the result to the `imports` option:
 
-```ts {16-21}
+```ts {15-20}
 import {
   SpectacularAppComponent,
   SpectacularFeatureTestingModule,
@@ -108,7 +106,6 @@ import {
 describe('Tour of Heroes: Crisis center', () => {
   beforeEach(async () => {
     await render(SpectacularAppComponent, {
-      excludeComponentDeclaration: true,
       imports: [
         SpectacularFeatureTestingModule.withFeature({
           featurePath: crisisCenterPath,
@@ -136,41 +133,6 @@ application to the
 option, in our case the value of the `crisisCenterPath` variable which is used
 between our application and our feature test suite.
 
-The [`SpectacularAppComponent`](../api/classes/spectacularappcomponent) is
-declared by
-[`SpectacularFeatureTestingModule.withFeature`](../api/classes/spectacularfeaturetestingmodule#withfeature)
-so we set the
-[`excludeComponentDeclaration`](https://testing-library.com/docs/angular-testing-library/api#excludecomponentdeclaration)
-option to `true` to prevent it from being declared twice in our test suite:
-
-```ts {14}
-import {
-  SpectacularAppComponent,
-  SpectacularFeatureTestingModule,
-} from '@ngworker/spectacular';
-import { render } from '@testing-library/angular';
-import {
-  CrisisCenterModule,
-  crisisCenterPath,
-} from '@tour-of-heroes/crisis-center';
-
-describe('Tour of Heroes: Crisis center', () => {
-  beforeEach(async () => {
-    await render(SpectacularAppComponent, {
-      excludeComponentDeclaration: true,
-      imports: [
-        SpectacularFeatureTestingModule.withFeature({
-          featurePath: crisisCenterPath,
-          routes: [
-            { path: crisisCenterPath, loadChildren: () => CrisisCenterModule },
-          ],
-        }),
-      ],
-    });
-  });
-});
-```
-
 With our routed feature module registered, our feature tests have access to all
 routes configured by that Angular module.
 
@@ -188,7 +150,7 @@ Because of this, we don't get a reference to a
 To access Spectacular's feature-aware services, we resolve them using the
 injector of `RenderResult#fixture.debugElement`:
 
-```ts {3,29,32}
+```ts {3,28,31}
 import {
   SpectacularAppComponent,
   SpectacularFeatureRouter,
@@ -207,7 +169,6 @@ describe('Tour of Heroes: Crisis center', () => {
         debugElement: { injector },
       },
     } = await render(SpectacularAppComponent, {
-      excludeComponentDeclaration: true,
       imports: [
         SpectacularFeatureTestingModule.withFeature({
           featurePath: crisisCenterPath,
@@ -228,7 +189,7 @@ Alternatively, we use
 [`TestBed.inject`](https://angular.io/api/core/testing/TestBed#inject) to
 resolve Spectacular's feature-aware services:
 
-```ts {1,4,26,29}
+```ts {1,4,25,28}
 import { TestBed } from '@angular/core/testing';
 import {
   SpectacularAppComponent,
@@ -244,7 +205,6 @@ import {
 describe('Tour of Heroes: Crisis center', () => {
   beforeEach(async () => {
     await render(SpectacularAppComponent, {
-      excludeComponentDeclaration: true,
       imports: [
         SpectacularFeatureTestingModule.withFeature({
           featurePath: crisisCenterPath,
@@ -271,7 +231,7 @@ When using Angular Testing Library, you can keep using
 [`RenderResult#navigate`](https://testing-library.com/docs/angular-testing-library/api#navigate)
 and your tests will behave as you're used to:
 
-```ts {39}
+```ts {38}
 import {
   SpectacularAppComponent,
   SpectacularFeatureTestingModule,
@@ -286,7 +246,6 @@ import {
 describe('Tour of Heroes: Crisis center', () => {
   beforeEach(async () => {
     const { navigate:_ navigate } = await render(SpectacularAppComponent, {
-      excludeComponentDeclaration: true,
       imports: [
         SpectacularFeatureTestingModule.withFeature({
           featurePath: crisisCenterPath,
@@ -322,7 +281,7 @@ describe('Tour of Heroes: Crisis center', () => {
 Alternatively, you can use Spectacular's feature-aware router,
 [`SpectacularFeatureRouter`](../api/classes/spectacularfeaturerouter):
 
-```ts {3,30,33,41}
+```ts {3,29,32,40}
 import {
   SpectacularAppComponent,
   SpectacularFeatureRouter,
@@ -342,7 +301,6 @@ describe('Tour of Heroes: Crisis center', () => {
         debugElement: { injector },
       },
     } = await render(SpectacularAppComponent, {
-      excludeComponentDeclaration: true,
       imports: [
         SpectacularFeatureTestingModule.withFeature({
           featurePath: crisisCenterPath,
@@ -382,7 +340,7 @@ When using Angular Testing Library, you can use Angular's
 [`Location#path`](https://angular.io/api/common/Location#path) service method to
 assert navigation to feature routes:
 
-```ts {1,35,38,54}
+```ts {1,34,37,53}
 import { Location } from '@angular/common';
 import {
   SpectacularAppComponent,
@@ -406,7 +364,6 @@ describe('Tour of Heroes: Crisis center', () => {
       },
       navigate: _navigate,
     } = await render(SpectacularAppComponent, {
-      excludeComponentDeclaration: true,
       imports: [
         SpectacularFeatureTestingModule.withFeature({
           featurePath: crisisCenterPath,
@@ -444,7 +401,7 @@ describe('Tour of Heroes: Crisis center', () => {
 Alternatively, you can use Spectacular's feature-aware location service,
 [`SpectacularFeatureLocation`](../api/classes/spectacularfeaturelocation):
 
-```ts {3,35,38,54}
+```ts {3,34,37,53}
 import {
   SpectacularAppComponent,
   SpectacularFeatureLocation,
@@ -468,7 +425,6 @@ describe('Tour of Heroes: Crisis center', () => {
       },
       navigate: _navigate,
     } = await render(SpectacularAppComponent, {
-      excludeComponentDeclaration: true,
       imports: [
         SpectacularFeatureTestingModule.withFeature({
           featurePath: crisisCenterPath,
@@ -520,7 +476,7 @@ The following is an example of testing a complete user flow with Spectacular and
   ]}>
   <TabItem value="atl">
 
-```ts {45-62}
+```ts {44-61}
 import {
   SpectacularAppComponent,
   SpectacularFeatureLocation,
@@ -544,7 +500,6 @@ describe('Tour of Heroes: Crisis center', () => {
         debugElement: { injector },
       },
     } = await render(SpectacularAppComponent, {
-      excludeComponentDeclaration: true,
       imports: [
         SpectacularFeatureTestingModule.withFeature({
           featurePath: crisisCenterPath,
@@ -790,8 +745,9 @@ configure({
 ```
 
 In this case, we can leave out the `excludeComponentDeclaration` setting from
-Spectacular test suite setups in the relevant project. Additionally, we don't
-have to call `RenderResult#fixture#autoDetectChanges` after calling
+Spectacular test suite setups in the relevant project if required by the version
+of Angular Testing Library you are using. Additionally, we don't have to call
+`RenderResult#fixture#autoDetectChanges` after calling
 [`render`](https://testing-library.com/docs/angular-testing-library/api#render).
 
 Keep in mind that this affects all test suites using Angular Testing Library in
