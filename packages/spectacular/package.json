@@ -4,10 +4,10 @@
   "description": "Spectacular Angular integration testing. Test harnesses for Angular applications and libraries.",
   "license": "MIT",
   "peerDependencies": {
-    "@angular/common": "^14.0.7",
-    "@angular/core": "^14.0.7",
-    "@angular/platform-browser": "^14.0.7",
-    "@angular/router": "^14.0.7",
+    "@angular/common": "^15.0.4",
+    "@angular/core": "^15.0.4",
+    "@angular/platform-browser": "^15.0.4",
+    "@angular/router": "^15.0.4",
     "rxjs": "^6.5.5 || ^7.4.0"
   },
   "dependencies": {
