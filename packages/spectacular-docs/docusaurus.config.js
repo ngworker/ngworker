@@ -31,10 +31,10 @@ module.exports = {
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl:
             'https://github.com/ngworker/ngworker/edit/main/packages/spectacular-docs',
-          lastVersion: 'current',
+          lastVersion: '14.1',
           versions: {
             current: {
-              label: '14.1',
+              label: '15.0 (next)',
             },
           },
         },
