@@ -4,6 +4,9 @@ import { inject, NgModule } from '@angular/core';
  * Guards against registration in multiple Angular modules.
  *
  * NOTE! Only to be imported by `SpectacularFeatureTestingModule`.
+ *
+ * @deprecated Deprecated in favor of `provideSpectacularFeatureTest`. To be
+ *   removed in Spectacular version 16.
  */
 @NgModule()
 export class SpectacularFeatureTestingRootModule {

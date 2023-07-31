@@ -7,6 +7,9 @@ import { SpectacularFeatureTestingRootModule } from './spectacular-feature-testi
 
 /**
  * Feature testing options for `SpectacularFeatureTestingModule.withFeature`.
+ *
+ * @deprecated Deprecated in favor of `provideSpectacularFeatureTest`. To be
+ *   removed in Spectacular version 16.
  */
 export interface SpectacularFeatureTestingModuleOptions {
   /**
@@ -40,12 +43,18 @@ export interface SpectacularFeatureTestingModuleOptions {
  *
  * NOTE! Prefer to use `createFeatureHarness`. This Angular module is a low
  * level building block in case you need more control over your test setup.
+ *
+ * @deprecated Deprecated in favor of `provideSpectacularFeatureTest`. To be
+ *   removed in Spectacular version 16.
  */
 @NgModule()
 export class SpectacularFeatureTestingModule {
   /**
-   * Configures the `RouterTestingModule` and provides Spectactular
-   * services for testing feature modules
+   * Configure the `RouterTestingModule` and provide Spectactular
+   * services for testing feature modules.
+   *
+   * @deprecated Deprecated in favor of `provideSpectacularFeatureTest`. To be
+   *   removed in Spectacular version 16.
    */
   static withFeature(
     options: SpectacularFeatureTestingModuleOptions
