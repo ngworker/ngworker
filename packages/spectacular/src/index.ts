@@ -3,6 +3,7 @@ export * from './lib/application-testing/application-harness/create-application-
 export * from './lib/application-testing/application-harness/spectacular-application-harness';
 // Feature testing API
 //   Configuration
+export * from './lib/feature-testing/configuration/provide-spectacular-feature-test';
 export * from './lib/feature-testing/configuration/provide-spectacular-feature-testing';
 export * from './lib/feature-testing/configuration/spectacular-feature-testing-features';
 export * from './lib/feature-testing/configuration/with-initial-feature-navigation';
