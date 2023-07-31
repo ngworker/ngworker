@@ -1,5 +1,4 @@
 import type { ResolveFn } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
 import { ignoreDevelopmentModeLog } from '@internal/test-util';
 import { createApplicationHarness } from '../../application-testing/application-harness/create-application-harness';
 import { SpectacularAppComponent } from '../../shared/app-component/spectacular-app.component';
@@ -16,17 +15,15 @@ describe('initialFeatureNavigationInitializer', () => {
 
   it('navigates to the default feature route when the specified feature route is registered', async () => {
     const harness = await createApplicationHarness({
-      imports: [
-        RouterTestingModule.withRoutes([
-          {
-            path: featurePath,
-            component: SpectacularAppComponent,
-          },
-        ]),
-      ],
       providers: [
         provideSpectacularFeatureTest({
           featurePath: 'admin',
+          routes: [
+            {
+              path: featurePath,
+              component: SpectacularAppComponent,
+            },
+          ],
         }),
         initialFeatureNavigationInitializer,
       ],
@@ -39,17 +36,15 @@ describe('initialFeatureNavigationInitializer', () => {
   it('fails when the specified feature route has not been registered', () => {
     const act = async () =>
       await createApplicationHarness({
-        imports: [
-          RouterTestingModule.withRoutes([
-            {
-              path: featurePath + '-oh-no',
-              component: SpectacularAppComponent,
-            },
-          ]),
-        ],
         providers: [
           provideSpectacularFeatureTest({
             featurePath: 'admin',
+            routes: [
+              {
+                path: featurePath + '-oh-no',
+                component: SpectacularAppComponent,
+              },
+            ],
           }),
           initialFeatureNavigationInitializer,
         ],
@@ -66,20 +61,18 @@ describe('initialFeatureNavigationInitializer', () => {
 
     const act = async () =>
       await createApplicationHarness({
-        imports: [
-          RouterTestingModule.withRoutes([
-            {
-              path: featurePath,
-              component: SpectacularAppComponent,
-              resolve: {
-                test: failToLoad,
-              },
-            },
-          ]),
-        ],
         providers: [
           provideSpectacularFeatureTest({
             featurePath: 'admin',
+            routes: [
+              {
+                path: featurePath,
+                component: SpectacularAppComponent,
+                resolve: {
+                  test: failToLoad,
+                },
+              },
+            ],
           }),
           initialFeatureNavigationInitializer,
         ],

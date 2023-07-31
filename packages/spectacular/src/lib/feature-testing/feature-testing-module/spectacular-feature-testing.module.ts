@@ -1,7 +1,7 @@
 import type { ModuleWithProviders } from '@angular/core';
 import { NgModule } from '@angular/core';
 import type { ExtraOptions, Routes } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import { withRouterConfig } from '@angular/router';
 import { provideSpectacularFeatureTest } from '../configuration/provide-spectacular-feature-test';
 import { SpectacularFeatureTestingRootModule } from './spectacular-feature-testing-root.module';
 
@@ -52,14 +52,16 @@ export class SpectacularFeatureTestingModule {
   ): ModuleWithProviders<SpectacularFeatureTestingRootModule> {
     const { featurePath, routerOptions = {}, routes } = options;
 
-    const { providers: routerTestingProviders = [] } =
-      RouterTestingModule.withRoutes(routes, routerOptions);
-
     return {
       ngModule: SpectacularFeatureTestingRootModule,
       providers: [
-        ...routerTestingProviders,
-        ...provideSpectacularFeatureTest({ featurePath }),
+        provideSpectacularFeatureTest(
+          {
+            featurePath,
+            routes,
+          },
+          withRouterConfig(routerOptions)
+        ),
       ],
     };
   }

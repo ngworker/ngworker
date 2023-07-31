@@ -1,5 +1,3 @@
-import { Location } from '@angular/common';
-import { SpyLocation } from '@angular/common/testing';
 import { Component, NgModule, ViewChild } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
@@ -53,15 +51,6 @@ describe(SpectacularFeatureTestingRootModule.name, () => {
       const activeComponent =
         rootFixture.componentInstance.getActiveComponent();
       expect(activeComponent).toBeInstanceOf(SpectacularAppComponent);
-    });
-
-    it(`imports the ${RouterTestingModule.name}`, () => {
-      TestBed.configureTestingModule({
-        imports: [SpectacularFeatureTestingRootModule],
-      });
-
-      const location = TestBed.inject(Location);
-      expect(location).toBeInstanceOf(SpyLocation);
     });
   });
 

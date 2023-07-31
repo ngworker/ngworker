@@ -1,9 +1,9 @@
 import type { NgModule } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import type { ExtraOptions, Routes } from '@angular/router';
+import { ExtraOptions, Routes, withRouterConfig } from '@angular/router';
 import { SpectacularAppComponent } from '../../shared/app-component/spectacular-app.component';
-import { SpectacularFeatureTestingModule } from '../feature-testing-module/spectacular-feature-testing.module';
-import { initialFeatureNavigationInitializer } from '../navigation/initial-feature-navigation.initializer';
+import { provideSpectacularFeatureTest } from '../configuration/provide-spectacular-feature-test';
+import { withInitialFeatureNavigation } from '../configuration/with-initial-feature-navigation';
 import { SpectacularFeatureLocation } from '../navigation/spectacular-feature-location';
 import { SpectacularFeatureRouter } from '../navigation/spectacular-feature-router';
 import type { SpectacularFeatureHarness } from './spectacular-feature-harness';
@@ -37,7 +37,7 @@ export interface CreateFeatureHarnessOptions
 }
 
 /**
- * Configure `SpectacularFeatureTestingModule`, bootstrap `SpectacularAppComponent`
+ * Configure feature testing environment, bootstrap `SpectacularAppComponent`,
  * and navigate to the default feature route.
  */
 export function createFeatureHarness(
@@ -52,15 +52,18 @@ export function createFeatureHarness(
   } = options;
 
   TestBed.configureTestingModule({
-    imports: [
-      ...imports,
-      SpectacularFeatureTestingModule.withFeature({
-        featurePath,
-        routerOptions,
-        routes,
-      }),
+    imports: [...imports],
+    providers: [
+      ...providers,
+      provideSpectacularFeatureTest(
+        {
+          featurePath,
+          routes,
+        },
+        withInitialFeatureNavigation(),
+        withRouterConfig(routerOptions)
+      ),
     ],
-    providers: [...providers, initialFeatureNavigationInitializer],
   });
   // NOTE(LayZeeDK): We might want to convert this to an asynchronous function
   //   to support non-Angular CLI setups. Some of them might not be able to

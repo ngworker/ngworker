@@ -1,16 +1,11 @@
 import { inject, NgModule } from '@angular/core';
-import { RouterTestingModule } from '@angular/router/testing';
 
 /**
- * Static dependencies for feature testing.
- *
  * Guards against registration in multiple Angular modules.
  *
  * NOTE! Only to be imported by `SpectacularFeatureTestingModule`.
  */
-@NgModule({
-  imports: [RouterTestingModule],
-})
+@NgModule()
 export class SpectacularFeatureTestingRootModule {
   constructor() {
     const maybeNgModuleFromParentInjector = inject(

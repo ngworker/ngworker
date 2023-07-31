@@ -18,6 +18,7 @@ function setup() {
       { provide: Location, useClass: SpyLocation },
       provideSpectacularFeatureTest({
         featurePath,
+        routes: [],
       }),
     ],
   });

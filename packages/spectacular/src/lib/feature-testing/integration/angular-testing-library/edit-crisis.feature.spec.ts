@@ -1,3 +1,4 @@
+import { withRouterConfig } from '@angular/router';
 import { render, screen } from '@testing-library/angular';
 import { Matcher } from '@testing-library/dom';
 import userEvent from '@testing-library/user-event';
@@ -6,7 +7,8 @@ import {
   crisisCenterPath,
 } from '@tour-of-heroes/crisis-center';
 import { SpectacularAppComponent } from '../../../shared/app-component/spectacular-app.component';
-import { SpectacularFeatureTestingModule } from '../../feature-testing-module/spectacular-feature-testing.module';
+import { provideSpectacularFeatureTest } from '../../configuration/provide-spectacular-feature-test';
+import { withInitialFeatureNavigation } from '../../configuration/with-initial-feature-navigation';
 import { SpectacularFeatureLocation } from '../../navigation/spectacular-feature-location';
 import { SpectacularFeatureRouter } from '../../navigation/spectacular-feature-router';
 
@@ -29,13 +31,19 @@ const setup = async () => {
       debugElement: { injector },
     },
   } = await render(SpectacularAppComponent, {
-    imports: [
-      SpectacularFeatureTestingModule.withFeature({
-        featurePath: crisisCenterPath,
-        routes: [
-          { path: crisisCenterPath, loadChildren: () => CrisisCenterModule },
-        ],
-      }),
+    providers: [
+      provideSpectacularFeatureTest(
+        {
+          featurePath: crisisCenterPath,
+          routes: [
+            { path: crisisCenterPath, loadChildren: () => CrisisCenterModule },
+          ],
+        },
+        withInitialFeatureNavigation(),
+        withRouterConfig({
+          onSameUrlNavigation: 'reload',
+        })
+      ),
     ],
   });
 
