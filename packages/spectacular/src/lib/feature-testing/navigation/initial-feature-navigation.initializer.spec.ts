@@ -1,5 +1,4 @@
-import { Injectable } from '@angular/core';
-import { Resolve } from '@angular/router';
+import type { ResolveFn } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ignoreDevelopmentModeLog } from '@internal/test-util';
 import { createApplicationHarness } from '../../application-testing/application-harness/create-application-harness';
@@ -61,12 +60,9 @@ describe('initialFeatureNavigationInitializer', () => {
 
   it('fails when the default feature route fails to load', () => {
     const errorMessage = 'Failed to load route data';
-    @Injectable({ providedIn: 'root' })
-    class FailingRouteResolver implements Resolve<never> {
-      resolve(): never {
-        throw new Error(errorMessage);
-      }
-    }
+    const failToLoad: ResolveFn<never> = () => {
+      throw new Error(errorMessage);
+    };
 
     const act = async () =>
       await createApplicationHarness({
@@ -76,7 +72,7 @@ describe('initialFeatureNavigationInitializer', () => {
               path: featurePath,
               component: SpectacularAppComponent,
               resolve: {
-                test: FailingRouteResolver,
+                test: failToLoad,
               },
             },
           ]),
