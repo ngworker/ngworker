@@ -1,11 +1,14 @@
 import type { Provider } from '@angular/core';
 import type { provideSpectacularFeatureTesting } from './provide-spectacular-feature-testing';
+import type { InitialFeatureNavigationFeature } from './with-initial-feature-navigation';
 
 /**
  * The list of tree-shakable Spectacular Feature Testing features as a union
  * type to uniquely type each feature.
  */
-export type SpectacularFeatureTestingFeatureKind = 'InitialFeatureNavigation';
+export enum SpectacularFeatureTestingFeatureKind {
+  InitialFeatureNavigationFeature = 'InitialFeatureNavigationFeature',
+}
 
 /**
  * A type that represents a tree-shakable Spectacular Feature Testing feature.
@@ -47,5 +50,4 @@ export interface SpectacularFeatureTestingFeature<
  *
  * @see {@link provideSpectacularFeatureTesting}
  */
-export type SpectacularFeatureTestingFeatures =
-  SpectacularFeatureTestingFeature<SpectacularFeatureTestingFeatureKind>;
+export type SpectacularFeatureTestingFeatures = InitialFeatureNavigationFeature;
