@@ -2,7 +2,7 @@ import { NgZone } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import type { NavigationExtras } from '@angular/router';
 import { Router, UrlTree } from '@angular/router';
-import { provideSpectacularFeatureTest } from '../configuration/provide-spectacular-feature-test';
+import { provideSpectacularFeatureTesting } from '../configuration/provide-spectacular-feature-testing';
 import { SpectacularFeatureRouter } from './spectacular-feature-router';
 
 function setup() {
@@ -10,7 +10,7 @@ function setup() {
 
   TestBed.configureTestingModule({
     providers: [
-      provideSpectacularFeatureTest({
+      provideSpectacularFeatureTesting({
         featurePath,
         routes: [],
       }),

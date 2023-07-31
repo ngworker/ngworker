@@ -2,7 +2,7 @@ import type { NgModule } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { ExtraOptions, Routes, withRouterConfig } from '@angular/router';
 import { SpectacularAppComponent } from '../../shared/app-component/spectacular-app.component';
-import { provideSpectacularFeatureTest } from '../configuration/provide-spectacular-feature-test';
+import { provideSpectacularFeatureTesting } from '../configuration/provide-spectacular-feature-testing';
 import { withInitialFeatureNavigation } from '../configuration/with-initial-feature-navigation';
 import { SpectacularFeatureLocation } from '../navigation/spectacular-feature-location';
 import { SpectacularFeatureRouter } from '../navigation/spectacular-feature-router';
@@ -55,7 +55,7 @@ export function createFeatureHarness(
     imports: [...imports],
     providers: [
       ...providers,
-      provideSpectacularFeatureTest(
+      provideSpectacularFeatureTesting(
         {
           featurePath,
           routes,

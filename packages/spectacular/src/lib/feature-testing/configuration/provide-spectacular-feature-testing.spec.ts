@@ -9,25 +9,25 @@ import { SpectacularFeatureLocation } from '../navigation/spectacular-feature-lo
 import { SpectacularFeatureRouter } from '../navigation/spectacular-feature-router';
 import { featurePathToken } from './feature-path.token';
 import {
-  provideSpectacularFeatureTest,
-  ProvideSpectacularFeatureTestOptions,
-} from './provide-spectacular-feature-test';
+  provideSpectacularFeatureTesting,
+  ProvideSpectacularFeatureTestingOptions,
+} from './provide-spectacular-feature-testing';
 import { withInitialFeatureNavigation } from './with-initial-feature-navigation';
 
-const crisisCenterFeature: ProvideSpectacularFeatureTestOptions = {
+const crisisCenterFeature: ProvideSpectacularFeatureTestingOptions = {
   featurePath: crisisCenterPath,
   routes: [{ path: crisisCenterPath, loadChildren: () => CrisisCenterModule }],
 };
-const emptyFeature: ProvideSpectacularFeatureTestOptions = {
+const emptyFeature: ProvideSpectacularFeatureTestingOptions = {
   featurePath: '',
   routes: [],
 };
 
-describe(provideSpectacularFeatureTest.name, () => {
+describe(provideSpectacularFeatureTesting.name, () => {
   describe('Given empty options are specified', () => {
     it('Then the feature-aware router is provided', () => {
       TestBed.configureTestingModule({
-        providers: [provideSpectacularFeatureTest(emptyFeature)],
+        providers: [provideSpectacularFeatureTesting(emptyFeature)],
       });
 
       const featureRouter = TestBed.inject(SpectacularFeatureRouter);
@@ -36,7 +36,7 @@ describe(provideSpectacularFeatureTest.name, () => {
 
     it('Then the feature-aware location is provided', () => {
       TestBed.configureTestingModule({
-        providers: [provideSpectacularFeatureTest(emptyFeature)],
+        providers: [provideSpectacularFeatureTesting(emptyFeature)],
       });
 
       const featureLocation = TestBed.inject(SpectacularFeatureLocation);
@@ -45,7 +45,7 @@ describe(provideSpectacularFeatureTest.name, () => {
 
     it('Then the Angular Router is provided', () => {
       TestBed.configureTestingModule({
-        providers: [provideSpectacularFeatureTest(emptyFeature)],
+        providers: [provideSpectacularFeatureTesting(emptyFeature)],
       });
 
       const router = TestBed.inject(Router);
@@ -58,7 +58,7 @@ describe(provideSpectacularFeatureTest.name, () => {
       const expectedFeaturePath = 'heroes';
       TestBed.configureTestingModule({
         providers: [
-          provideSpectacularFeatureTest({
+          provideSpectacularFeatureTesting({
             ...emptyFeature,
             featurePath: expectedFeaturePath,
           }),
@@ -75,7 +75,7 @@ describe(provideSpectacularFeatureTest.name, () => {
     When the test navigates
     Then the native Location API is unaffected`, async () => {
       TestBed.configureTestingModule({
-        providers: [provideSpectacularFeatureTest(crisisCenterFeature)],
+        providers: [provideSpectacularFeatureTesting(crisisCenterFeature)],
       });
       const router = TestBed.inject(Router);
 
@@ -91,7 +91,7 @@ describe(provideSpectacularFeatureTest.name, () => {
         'eager';
       TestBed.configureTestingModule({
         providers: [
-          provideSpectacularFeatureTest(
+          provideSpectacularFeatureTesting(
             emptyFeature,
             withRouterConfig({
               urlUpdateStrategy: expectedUrlUpdateStrategy,
@@ -109,7 +109,7 @@ describe(provideSpectacularFeatureTest.name, () => {
     it('Then the Feature Testing feature is provided', () => {
       TestBed.configureTestingModule({
         providers: [
-          provideSpectacularFeatureTest(
+          provideSpectacularFeatureTesting(
             crisisCenterFeature,
             withInitialFeatureNavigation()
           ),

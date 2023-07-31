@@ -8,9 +8,9 @@ import { provideFeaturePath } from './feature-path.token';
 import type { SpectacularFeatureTestingFeatures } from './spectacular-feature-testing-features';
 
 /**
- * Options for `provideSpectacularFeatureTest`.
+ * Options for {@link provideSpectacularFeatureTesting}.
  */
-export interface ProvideSpectacularFeatureTestOptions {
+export interface ProvideSpectacularFeatureTestingOptions {
   /**
    * The path prefix used to load the routes of the specified Angular feature,
    * for example `'heroes'`.
@@ -33,8 +33,8 @@ export interface ProvideSpectacularFeatureTestOptions {
 /**
  * Provide dependencies needed by the Spectacular Feature testing API.
  */
-export function provideSpectacularFeatureTest(
-  options: ProvideSpectacularFeatureTestOptions,
+export function provideSpectacularFeatureTesting(
+  options: ProvideSpectacularFeatureTestingOptions,
   ...features: (SpectacularFeatureTestingFeatures | RouterFeatures)[]
 ): (EnvironmentProviders | Provider)[] {
   const { featurePath, routes } = options;

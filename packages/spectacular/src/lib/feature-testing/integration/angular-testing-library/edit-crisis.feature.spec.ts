@@ -7,7 +7,7 @@ import {
   crisisCenterPath,
 } from '@tour-of-heroes/crisis-center';
 import { SpectacularAppComponent } from '../../../shared/app-component/spectacular-app.component';
-import { provideSpectacularFeatureTest } from '../../configuration/provide-spectacular-feature-test';
+import { provideSpectacularFeatureTesting } from '../../configuration/provide-spectacular-feature-testing';
 import { withInitialFeatureNavigation } from '../../configuration/with-initial-feature-navigation';
 import { SpectacularFeatureLocation } from '../../navigation/spectacular-feature-location';
 import { SpectacularFeatureRouter } from '../../navigation/spectacular-feature-router';
@@ -32,7 +32,7 @@ const setup = async () => {
     },
   } = await render(SpectacularAppComponent, {
     providers: [
-      provideSpectacularFeatureTest(
+      provideSpectacularFeatureTesting(
         {
           featurePath: crisisCenterPath,
           routes: [

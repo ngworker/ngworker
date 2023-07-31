@@ -1,7 +1,7 @@
 import { Location } from '@angular/common';
 import { SpyLocation } from '@angular/common/testing';
 import { TestBed } from '@angular/core/testing';
-import { provideSpectacularFeatureTest } from '../configuration/provide-spectacular-feature-test';
+import { provideSpectacularFeatureTesting } from '../configuration/provide-spectacular-feature-testing';
 import { SpectacularFeatureLocation } from './spectacular-feature-location';
 
 function setup() {
@@ -16,7 +16,7 @@ function setup() {
   TestBed.configureTestingModule({
     providers: [
       { provide: Location, useClass: SpyLocation },
-      provideSpectacularFeatureTest({
+      provideSpectacularFeatureTesting({
         featurePath,
         routes: [],
       }),
