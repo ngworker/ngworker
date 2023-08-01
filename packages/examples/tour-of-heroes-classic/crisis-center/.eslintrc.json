@@ -10,7 +10,7 @@
       ],
       "parserOptions": {
         "project": [
-          "packages/examples/tour-of-heroes/crisis-center/tsconfig.*?.json"
+          "packages/examples/tour-of-heroes-classic/crisis-center/tsconfig.*?.json"
         ]
       },
       "rules": {

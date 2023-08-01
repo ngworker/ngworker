@@ -4,7 +4,7 @@ import { Router, RouterConfigOptions, withRouterConfig } from '@angular/router';
 import {
   CrisisCenterModule,
   crisisCenterPath,
-} from '@tour-of-heroes/crisis-center';
+} from '@tour-of-heroes-classic/crisis-center';
 import { SpectacularFeatureLocation } from '../navigation/spectacular-feature-location';
 import { SpectacularFeatureRouter } from '../navigation/spectacular-feature-router';
 import { featurePathToken } from './feature-path.token';
@@ -16,7 +16,12 @@ import { withInitialFeatureNavigation } from './with-initial-feature-navigation'
 
 const crisisCenterFeature: ProvideSpectacularFeatureTestingOptions = {
   featurePath: crisisCenterPath,
-  routes: [{ path: crisisCenterPath, loadChildren: () => CrisisCenterModule }],
+  routes: [
+    {
+      path: crisisCenterPath,
+      loadChildren: () => CrisisCenterModule,
+    },
+  ],
 };
 const emptyFeature: ProvideSpectacularFeatureTestingOptions = {
   featurePath: '',

@@ -7,7 +7,7 @@ import {
   CrisisService,
   DialogService,
   FakeDialogService,
-} from '@tour-of-heroes/crisis-center';
+} from '@tour-of-heroes-classic/crisis-center';
 import { createFeatureHarness } from './feature-harness/create-feature-harness';
 import { SpectacularFeatureHarness } from './feature-harness/spectacular-feature-harness';
 
@@ -33,7 +33,10 @@ describe('[Spectacular] Tour of Heroes: Crisis center', () => {
         onSameUrlNavigation: 'reload',
       },
       routes: [
-        { path: crisisCenterPath, loadChildren: () => CrisisCenterModule },
+        {
+          path: crisisCenterPath,
+          loadChildren: () => CrisisCenterModule,
+        },
       ],
     });
     fakeDialog = harness.inject(DialogService) as FakeDialogService;

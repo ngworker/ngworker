@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 import {
   CrisisCenterModule,
   crisisCenterPath,
-} from '@tour-of-heroes/crisis-center';
+} from '@tour-of-heroes-classic/crisis-center';
 import { SpectacularAppComponent } from '../../../shared/app-component/spectacular-app.component';
 import { provideSpectacularFeatureTesting } from '../../configuration/provide-spectacular-feature-testing';
 import { withInitialFeatureNavigation } from '../../configuration/with-initial-feature-navigation';
@@ -36,7 +36,10 @@ const setup = async () => {
         {
           featurePath: crisisCenterPath,
           routes: [
-            { path: crisisCenterPath, loadChildren: () => CrisisCenterModule },
+            {
+              path: crisisCenterPath,
+              loadChildren: () => CrisisCenterModule,
+            },
           ],
         },
         withInitialFeatureNavigation(),

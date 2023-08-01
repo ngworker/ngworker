@@ -8,7 +8,7 @@ import {
   CrisisCenterModule,
   crisisCenterPath,
   CrisisService,
-} from '@tour-of-heroes/crisis-center';
+} from '@tour-of-heroes-classic/crisis-center';
 
 async function setup() {
   const findCrisisCenterHomeGreeting = () => {
@@ -59,7 +59,10 @@ async function setup() {
     declarations: [TestAppComponent],
     imports: [
       RouterTestingModule.withRoutes([
-        { path: crisisCenterPath, loadChildren: () => CrisisCenterModule },
+        {
+          path: crisisCenterPath,
+          loadChildren: () => CrisisCenterModule,
+        },
       ]),
     ],
     providers: [{ provide: ComponentFixtureAutoDetect, useValue: true }],
