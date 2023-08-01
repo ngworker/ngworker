@@ -9,12 +9,12 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 Spectacular's feature testing API configures the Angular testing module and sets
-up a test harness for a routed Angular feature module. It contains a few
-companion services that wrap Angular's built-in navigation services, but
-adjusted to the Angular feature module under test.
+up a test harness for a routed Angular feature. It contains a few companion
+services that wrap Angular's built-in navigation services, but adjusted to the
+Angular feature under test.
 
-The feature test harness is used to test routed feature modules and shell
-modules.
+The feature test harness is used to test standalone feature routes, routed
+feature modules, and shell modules.
 
 ## Feature tests
 
@@ -26,10 +26,10 @@ Spectacular does not provide an API for interacting with the DOM. We can use
 Angular's testing APIs such as debug elements for this. Alternatively, we
 combine Spectacular with Angular Testing Library or Angular component harnesses.
 
-The scope of a feature test is a routed Angular module. It can contain multiple
-routed components, multiple routing components, route guards, route resolvers,
-and multiple services in addition to the components and the directives,
-components, and pipes used by their component template.
+The scope of a feature test is a routed Angular module or standalone routes.
+They can contain multiple routed components, multiple routing components, route
+guards, route resolvers, and multiple services in addition to the components and
+the directives, components, and pipes used in their component template.
 
 A feature test uses real routing services and data structures such as:
 
@@ -60,40 +60,10 @@ As an example, we're going to create integration tests for the crisis center
 feature from
 [the Tour of Heroes routing tutorial](https://angular.io/guide/router-tutorial-toh).
 
-The following code snippet shows its routed feature module, the
-`CrisisCenterModule`:
+The following code snippet shows its routed feature, the `crisisCenterRoutes`:
 
-```ts {13}
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-
-import { CrisisCenterHomeComponent } from './crisis-center-home/crisis-center-home.component';
-import { CrisisListComponent } from './crisis-list/crisis-list.component';
-import { CrisisCenterComponent } from './crisis-center/crisis-center.component';
-import { CrisisDetailComponent } from './crisis-detail/crisis-detail.component';
-
-import { CrisisCenterRoutingModule } from './crisis-center-routing.module';
-
-@NgModule({
-  imports: [CommonModule, FormsModule, CrisisCenterRoutingModule],
-  declarations: [
-    CrisisCenterComponent,
-    CrisisListComponent,
-    CrisisCenterHomeComponent,
-    CrisisDetailComponent,
-  ],
-})
-export class CrisisCenterModule {}
-```
-
-Notice the routing module in the highlighted line which is listed in the
-following code block:
-
-```ts {23,24-26}
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-
+```ts {21-24}
+import { Routes } from '@angular/router';
 import { CanDeactivateGuard } from './can-deactivate.guard';
 import { CrisisCenterHomeComponent } from './crisis-center-home/crisis-center-home.component';
 import { CrisisCenterComponent } from './crisis-center/crisis-center.component';
@@ -101,7 +71,7 @@ import { CrisisDetailResolverService } from './crisis-detail-resolver.service';
 import { CrisisDetailComponent } from './crisis-detail/crisis-detail.component';
 import { CrisisListComponent } from './crisis-list/crisis-list.component';
 
-const crisisCenterRoutes: Routes = [
+export const crisisCenterRoutes: Routes = [
   {
     path: '',
     component: CrisisCenterComponent,
@@ -127,12 +97,6 @@ const crisisCenterRoutes: Routes = [
     ],
   },
 ];
-
-@NgModule({
-  imports: [RouterModule.forChild(crisisCenterRoutes)],
-  exports: [RouterModule],
-})
-export class CrisisCenterRoutingModule {}
 ```
 
 Our feature tests are going to focus on the crisis detail form. Notice the route
@@ -144,26 +108,27 @@ lines. These are going to be activated as part of our test cases.
 Let's first explore how we can set up a feature test by using the Angular
 testbed.
 
-### Declaring a test root component
+### Creating a test root component
 
-First, we're going to declare a test root component with a router outlet as seen
+First, we're going to create a test root component with a router outlet as seen
 in the following snippet:
 
-```ts {4-8,13}
+```ts {5-11}
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
+  standalone: true,
   selector: 'test-app',
+  imports: [RouterOutlet],
   template: '<router-outlet><router-outlet>',
 })
 class TestAppComponent {}
 
 describe('Tour of Heroes: Crisis center integration tests', () => {
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [TestAppComponent],
-    });
+    TestBed.configureTestingModule({});
   });
 });
 ```
@@ -172,16 +137,14 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
 
 Now, we're going to bootstrap our test root component:
 
-```ts {8,11}
+```ts {9}
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 // (...)
 
 describe('Tour of Heroes: Crisis center integration tests', () => {
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [TestAppComponent],
-    });
+    TestBed.configureTestingModule({});
 
     rootFixture = TestBed.createComponent(TestAppComponent);
   });
@@ -190,26 +153,27 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
 });
 ```
 
-### Registering a routed feature module with the Angular testing module
+### Registering a routed feature with the Angular testing module
 
-Next, we'll add the routed feature module to our test setup:
+Next, we'll add the routed feature to our test setup:
 
-```ts {13-15}
+```ts {13-16}
+import { provideLocationMocks } from '@angular/common/testing';
 import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { provideRouter } from '@angular/router';
 import {
-  CrisisCenterModule,
   crisisCenterPath,
+  crisisCenterRoutes,
 } from '@tour-of-heroes/crisis-center';
 
 describe('Tour of Heroes: Crisis center integration tests', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [TestAppComponent],
-      imports: [
-        RouterTestingModule.withRoutes([
-          { path: crisisCenterPath, loadChildren: () => CrisisCenterModule },
+      providers: [
+        provideRouter([
+          { path: crisisCenterPath, loadChildren: () => crisisCenterRoutes },
         ]),
+        provideLocationMocks(),
       ],
     });
     // (...)
@@ -217,50 +181,49 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
 });
 ```
 
-`RouterTestingModule` isolates Angular's routing APIs from browser APIs by
+`provideLocationMocks` isolates Angular's routing APIs from browser APIs by
 providing `SpyLocation` for Angular's `Location` service and
 `MockLocationStrategy` for Angular's `LocationStrategy` service.
 
-`RouterTestingModule.withRoutes` accepts routes which are registered with the
-Angular testing module in the same way that we would pass top-level routes to
-`RouterModule.forRoot` in an Angular application. The routes are attached to the
-router outlet in our test root component.
+`provideRouter` accepts routes which are registered with the Angular testing
+module in the same way that we would pass top-level routes to `provideRouter` in
+an Angular application. The routes are attached to the router outlet in our test
+root component.
 
 We register the following route configuration:
 
 ```ts
-{ path: crisisCenterPath, loadChildren: () => CrisisCenterModule },
+{ path: crisisCenterPath, loadChildren: () => crisisCenterRoutes },
 ```
 
-Notice that we are registering the same route path for the feature module as we
-are registering in our Angular application. `crisisCenterPath` is a variable
-which has been assigned to the value `'crisis-center'`.
+Notice that we are registering the same route path for the feature as we are
+registering in our Angular application. `crisisCenterPath` is a variable which
+has been assigned to the value `'crisis-center'`.
 
 In our Angular application, the crisis center feature is lazy-loaded which means
 that the route configuration would look something like the following snippet:
 
 ```ts {4-10}
-@NgModule({
-  imports: [
-    RouterModule.forRoot([
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideRouter([
       {
         path: crisisCenterPath,
         loadChildren: () =>
           import('@tour-of-heroes/crisis-center').then(
-            m => m.CrisisCenterModule
+            m => m.crisisCenterRoutes
           ),
       },
       // (...)
     ]),
   ],
-})
-export class AppRoutingModule {}
+}:
 ```
 
-There is no practical difference between lazy-loaded and eagerly loaded feature
-modules in unit and integration tests. When we return a feature module class--in
-this case `CrisisCenterModule`--from a `loadChildren` callback, everything works
-as intended when running our tests.
+There is no practical difference between lazy-loaded and eagerly loaded features
+in unit and integration tests. When we return a feature route array--in this
+case `crisisCenterRoutes`--from a `loadChildren` callback, everything works as
+intended when running our tests.
 
 ### Resolving navigation and data services
 
@@ -326,7 +289,7 @@ feature route which happens to activate the following components:
 - `CrisisListComponent`
 - `CrisisCenterHomeComponent`
 
-as seen in the routes registered by `CrisisCenterRoutingModule`.
+as seen in the routes configured in `crisisCenterRoutes`.
 
 ### Reviewing a complete feature test setup using the Angular testbed
 
@@ -335,36 +298,38 @@ tests:
 
 ```ts
 import { Location } from '@angular/common';
+import { provideLocationMocks } from '@angular/common/testing';
 import { Component } from '@angular/core';
 import {
   ComponentFixture,
   ComponentFixtureAutoDetect,
   TestBed,
 } from '@angular/core/testing';
-import { Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import { provideRouter, Router } from '@angular/router';
 import {
-  CrisisCenterModule,
   crisisCenterPath,
+  crisisCenterRoutes,
   CrisisService,
 } from '@tour-of-heroes/crisis-center';
 
 @Component({
+  standalone: true,
   selector: 'test-app',
+  imports: [],
   template: '<router-outlet><router-outlet>',
 })
-class TestAppComponent {}
+class TestAppComponent {} // [1]
 
 describe('Tour of Heroes: Crisis center integration tests', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      declarations: [TestAppComponent], // [1]
-      imports: [
-        RouterTestingModule /* [2] */.withRoutes([
-          { path: crisisCenterPath, loadChildren: () => CrisisCenterModule }, // [3]
+      providers: [
+        { provide: ComponentFixtureAutoDetect, useValue: true }, // [4]
+        provideRouter([
+          { path: crisisCenterPath, loadChildren: () => crisisCenterRoutes }, // [3]
         ]),
+        provideLocationMocks(), // [2]
       ],
-      providers: [{ provide: ComponentFixtureAutoDetect, useValue: true }], // [4]
     });
 
     rootFixture = TestBed.createComponent(TestAppComponent); // [5]
@@ -383,9 +348,9 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
 
 We have managed to:
 
-1. Declare a test root component
+1. Create a test root component
 2. Isolate Angular's routing services from the browser APIs
-3. Register the routed feature module
+3. Register the routed feature
 4. Enable automatic change detection
 5. Bootstrap the test root component
 6. Resolve navigation and data services
@@ -400,17 +365,17 @@ the same feature using Spectacular.
 ## Setting up an Angular feature integration test with Spectacular
 
 Spectacular's feature testing API takes care of tedious and error-prone test
-setup. Notice in the following code snippet how we pass the routed feature
-module under test as well as the route path used to load it in our application:
+setup. Notice in the following code snippet how we pass the routed feature under
+test as well as the route path used to load it in our application:
 
-```ts {14-15}
+```ts {14,16}
 import {
   createFeatureHarness,
   SpectacularFeatureHarness,
 } from '@ngworker/spectacular';
 import {
-  CrisisCenterModule,
   crisisCenterPath,
+  crisisCenterRoutes,
   CrisisService,
 } from '@tour-of-heroes/crisis-center';
 
@@ -419,7 +384,7 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
     harness = createFeatureHarness({
       featurePath: crisisCenterPath,
       routes: [
-        { path: crisisCenterPath, loadChildren: () => CrisisCenterModule },
+        { path: crisisCenterPath, loadChildren: () => crisisCenterRoutes },
       ],
     });
 
@@ -731,8 +696,8 @@ import {
   SpectacularFeatureHarness,
 } from '@ngworker/spectacular';
 import {
-  CrisisCenterModule,
   crisisCenterPath,
+  crisisCenterRoutes,
   CrisisService,
 } from '@tour-of-heroes/crisis-center';
 
@@ -741,7 +706,7 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
     harness = createFeatureHarness({
       featurePath: crisisCenterPath,
       routes: [
-        { path: crisisCenterPath, loadChildren: () => CrisisCenterModule },
+        { path: crisisCenterPath, loadChildren: () => crisisCenterRoutes },
       ],
     });
 
@@ -793,8 +758,9 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
 
   <TabItem value="testbed">
 
-```ts {17-21,26,27-31,39,50-52,80-82}
+```ts {17-23,30-33,41,52-54,82-84}
 import { Location } from '@angular/common';
+import { provideLocationMocks } from '@angular/common/testing';
 import { Component } from '@angular/core';
 import {
   ComponentFixture,
@@ -802,16 +768,17 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import { provideRouter, Router } from '@angular/router';
 import {
-  CrisisCenterModule,
   crisisCenterPath,
+  crisisCenterRoutes,
   CrisisService,
 } from '@tour-of-heroes/crisis-center';
 
 @Component({
+  standalone: true,
   selector: 'test-app',
+  imports: [],
   template: '<router-outlet><router-outlet>',
 })
 class TestAppComponent {}
@@ -819,13 +786,13 @@ class TestAppComponent {}
 describe('Tour of Heroes: Crisis center integration tests', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      declarations: [TestAppComponent],
-      imports: [
-        RouterTestingModule.withRoutes([
-          { path: crisisCenterPath, loadChildren: () => CrisisCenterModule },
+      providers: [
+        { provide: ComponentFixtureAutoDetect, useValue: true },
+        provideRouter([
+          { path: crisisCenterPath, loadChildren: () => crisisCenterRoutes },
         ]),
+        provideLocationMocks(),
       ],
-      providers: [{ provide: ComponentFixtureAutoDetect, useValue: true }],
     });
 
     rootFixture = TestBed.createComponent(TestAppComponent);
