@@ -1,9 +1,9 @@
 import { Location } from '@angular/common';
+import { provideLocationMocks } from '@angular/common/testing';
 import { Component, Type } from '@angular/core';
 import { ComponentFixtureAutoDetect, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import { provideRouter, Router, RouterOutlet } from '@angular/router';
 import * as classicCrisisCenter from '@tour-of-heroes-classic/crisis-center';
 import * as standaloneCrisisCenter from '@tour-of-heroes-standalone/crisis-center';
 import { ProvideSpectacularFeatureTestingOptions } from '../../configuration/provide-spectacular-feature-testing';
@@ -60,9 +60,11 @@ async function setup({ CrisisService, featurePath, routes }: TestSetupOptions) {
       .nativeElement as HTMLAnchorElement;
 
   TestBed.configureTestingModule({
-    declarations: [TestAppComponent],
-    imports: [RouterTestingModule.withRoutes(routes)],
-    providers: [{ provide: ComponentFixtureAutoDetect, useValue: true }],
+    providers: [
+      { provide: ComponentFixtureAutoDetect, useValue: true },
+      provideRouter(routes),
+      provideLocationMocks(),
+    ],
   });
 
   const rootFixture = TestBed.createComponent(TestAppComponent);
@@ -88,7 +90,9 @@ async function setup({ CrisisService, featurePath, routes }: TestSetupOptions) {
 }
 
 @Component({
+  standalone: true,
   selector: 'spectacular-test-app',
+  imports: [RouterOutlet],
   template: '<router-outlet><router-outlet>',
 })
 class TestAppComponent {}

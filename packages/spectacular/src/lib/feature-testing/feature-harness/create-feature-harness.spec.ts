@@ -1,45 +1,40 @@
 import { Location } from '@angular/common';
 import { SpyLocation } from '@angular/common/testing';
 import { Component, Injectable, NgModule } from '@angular/core';
-import {
-  ExtraOptions,
-  RouterModule,
-  ROUTER_CONFIGURATION,
-} from '@angular/router';
+import type { ExtraOptions, Routes } from '@angular/router';
+import { ROUTER_CONFIGURATION } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SpectacularAppComponent } from '../../shared/app-component/spectacular-app.component';
 import { featurePathToken } from '../configuration/feature-path.token';
 import { createFeatureHarness } from './create-feature-harness';
 
 @Component({
+  standalone: true,
+  imports: [],
   template: '',
 })
 class HeroesJobBoardComponent {}
 
 @Component({
+  standalone: true,
+  imports: [],
   template: '',
 })
 class HeroesJobListingComponent {}
 
 const jobListingPath = 'listing';
 
-@NgModule({
-  declarations: [HeroesJobBoardComponent, HeroesJobListingComponent],
-  imports: [
-    RouterModule.forChild([
-      {
-        path: '',
-        pathMatch: 'full',
-        component: HeroesJobBoardComponent,
-      },
-      {
-        path: jobListingPath,
-        component: HeroesJobListingComponent,
-      },
-    ]),
-  ],
-})
-class HeroesJobBoardModule {}
+const heroesJobBoardRoutes: Routes = [
+  {
+    path: '',
+    pathMatch: 'full',
+    component: HeroesJobBoardComponent,
+  },
+  {
+    path: jobListingPath,
+    component: HeroesJobListingComponent,
+  },
+];
 
 const featurePath = 'heroes-job-board';
 
@@ -58,7 +53,7 @@ describe(createFeatureHarness.name, () => {
         featurePath,
         imports: [JobServiceModule],
         routes: [
-          { path: featurePath, loadChildren: () => HeroesJobBoardModule },
+          { path: featurePath, loadChildren: () => heroesJobBoardRoutes },
         ],
       });
 
@@ -71,7 +66,7 @@ describe(createFeatureHarness.name, () => {
         featurePath,
         providers: [JobService],
         routes: [
-          { path: featurePath, loadChildren: () => HeroesJobBoardModule },
+          { path: featurePath, loadChildren: () => heroesJobBoardRoutes },
         ],
       });
 
@@ -85,7 +80,7 @@ describe(createFeatureHarness.name, () => {
       const harness = createFeatureHarness({
         featurePath,
         routes: [
-          { path: featurePath, loadChildren: () => HeroesJobBoardModule },
+          { path: featurePath, loadChildren: () => heroesJobBoardRoutes },
         ],
       });
 
@@ -97,7 +92,7 @@ describe(createFeatureHarness.name, () => {
       const harness = createFeatureHarness({
         featurePath,
         routes: [
-          { path: featurePath, loadChildren: () => HeroesJobBoardModule },
+          { path: featurePath, loadChildren: () => heroesJobBoardRoutes },
         ],
       });
 
@@ -109,7 +104,7 @@ describe(createFeatureHarness.name, () => {
       const harness = createFeatureHarness({
         featurePath,
         routes: [
-          { path: featurePath, loadChildren: () => HeroesJobBoardModule },
+          { path: featurePath, loadChildren: () => heroesJobBoardRoutes },
         ],
       });
 
@@ -120,7 +115,7 @@ describe(createFeatureHarness.name, () => {
       const harness = createFeatureHarness({
         featurePath,
         routes: [
-          { path: featurePath, loadChildren: () => HeroesJobBoardModule },
+          { path: featurePath, loadChildren: () => heroesJobBoardRoutes },
         ],
       });
 
@@ -133,7 +128,7 @@ describe(createFeatureHarness.name, () => {
       const harness = createFeatureHarness({
         featurePath,
         routes: [
-          { path: featurePath, loadChildren: () => HeroesJobBoardModule },
+          { path: featurePath, loadChildren: () => heroesJobBoardRoutes },
         ],
       });
 
@@ -148,7 +143,7 @@ describe(createFeatureHarness.name, () => {
       const harness = createFeatureHarness({
         featurePath,
         routes: [
-          { path: featurePath, loadChildren: () => HeroesJobBoardModule },
+          { path: featurePath, loadChildren: () => heroesJobBoardRoutes },
         ],
       });
 
@@ -166,7 +161,7 @@ describe(createFeatureHarness.name, () => {
       const harness = createFeatureHarness({
         featurePath,
         routes: [
-          { path: featurePath, loadChildren: () => HeroesJobBoardModule },
+          { path: featurePath, loadChildren: () => heroesJobBoardRoutes },
         ],
         routerOptions: expectedRouterOptions,
       });

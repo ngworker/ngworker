@@ -1,11 +1,14 @@
+import { provideLocationMocks } from '@angular/common/testing';
 import { Component, NgModule, ViewChild } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { Router, RouterModule, RouterOutlet } from '@angular/router';
+import { provideRouter, Router, RouterOutlet } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SpectacularAppComponent } from '../../shared/app-component/spectacular-app.component';
 import { SpectacularFeatureTestingRootModule } from './spectacular-feature-testing-root.module';
 
 @Component({
+  standalone: true,
+  imports: [RouterOutlet],
   template: '<router-outlet></router-outlet>',
 })
 class TestRootComponent {
@@ -23,23 +26,15 @@ class TestRootComponent {
   }
 }
 
-@NgModule({
-  declarations: [TestRootComponent],
-  imports: [RouterModule],
-})
-class TestRootModule {}
-
 describe(SpectacularFeatureTestingRootModule.name, () => {
   describe('Routing', () => {
     it(`makes ${SpectacularAppComponent.name} routable`, async () => {
       const path = 'spectacular';
       TestBed.configureTestingModule({
-        imports: [
-          SpectacularFeatureTestingRootModule,
-          RouterTestingModule.withRoutes([
-            { path, component: SpectacularAppComponent },
-          ]),
-          TestRootModule,
+        imports: [SpectacularFeatureTestingRootModule],
+        providers: [
+          provideRouter([{ path, component: SpectacularAppComponent }]),
+          provideLocationMocks(),
         ],
       }).compileComponents();
       const rootFixture = TestBed.createComponent(TestRootComponent);

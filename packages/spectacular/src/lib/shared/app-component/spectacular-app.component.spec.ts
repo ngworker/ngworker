@@ -1,20 +1,20 @@
+import { provideLocationMocks } from '@angular/common/testing';
 import { Component } from '@angular/core';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import { provideRouter, Router } from '@angular/router';
 
 import { SpectacularAppComponent } from './spectacular-app.component';
 
 function setup() {
   TestBed.configureTestingModule({
-    declarations: [TestPageComponent],
-    imports: [
-      RouterTestingModule.withRoutes([
+    providers: [
+      provideRouter([
         {
           path: '',
           component: TestPageComponent,
         },
       ]),
+      provideLocationMocks(),
     ],
   });
 
@@ -35,6 +35,8 @@ function setup() {
 }
 
 @Component({
+  standalone: true,
+  imports: [],
   template: '',
 })
 class TestPageComponent {}

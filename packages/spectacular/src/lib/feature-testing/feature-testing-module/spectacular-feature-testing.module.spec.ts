@@ -1,8 +1,9 @@
 import { Location } from '@angular/common';
 import { SpyLocation } from '@angular/common/testing';
-import { Component, NgModule } from '@angular/core';
+import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { Router, RouterModule } from '@angular/router';
+import type { Routes } from '@angular/router';
+import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SpectacularAppComponent } from '../../shared/app-component/spectacular-app.component';
 import { featurePathToken } from '../configuration/feature-path.token';
@@ -15,7 +16,7 @@ function routingSetup() {
     imports: [
       SpectacularFeatureTestingModule.withFeature({
         featurePath,
-        routes: [{ path: featurePath, loadChildren: () => TestFeatureModule }],
+        routes: [{ path: featurePath, loadChildren: () => testFeatureRoutes }],
       }),
     ],
   }).compileComponents();
@@ -31,22 +32,18 @@ function routingSetup() {
 }
 
 @Component({
+  standalone: true,
+  imports: [],
   template: '',
 })
 class TestPageComponent {}
 
-@NgModule({
-  declarations: [TestPageComponent],
-  imports: [
-    RouterModule.forChild([
-      {
-        path: '',
-        component: TestPageComponent,
-      },
-    ]),
-  ],
-})
-class TestFeatureModule {}
+const testFeatureRoutes: Routes = [
+  {
+    path: '',
+    component: TestPageComponent,
+  },
+];
 
 describe(SpectacularFeatureTestingModule.name, () => {
   describe('Dependency injection', () => {
