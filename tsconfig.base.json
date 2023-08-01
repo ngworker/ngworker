@@ -19,6 +19,9 @@
       "@ngworker/spectacular": ["packages/spectacular/src/index.ts"],
       "@tour-of-heroes-classic/crisis-center": [
         "packages/examples/tour-of-heroes-classic/crisis-center/src/index.ts"
+      ],
+      "@tour-of-heroes-standalone/crisis-center": [
+        "packages/examples/tour-of-heroes-standalone/crisis-center/src/index.ts"
       ]
     }
   },
