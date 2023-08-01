@@ -2,12 +2,12 @@ import { Router } from '@angular/router';
 import { createUserInteractions, UserInteractions } from '@internal/test-util';
 import {
   Crisis,
-  CrisisCenterModule,
   crisisCenterPath,
+  crisisCenterRoutes,
   CrisisService,
   DialogService,
   FakeDialogService,
-} from '@tour-of-heroes-classic/crisis-center';
+} from '@tour-of-heroes-standalone/crisis-center';
 import { createFeatureHarness } from './feature-harness/create-feature-harness';
 import { SpectacularFeatureHarness } from './feature-harness/spectacular-feature-harness';
 
@@ -35,7 +35,7 @@ describe('[Spectacular] Tour of Heroes: Crisis center', () => {
       routes: [
         {
           path: crisisCenterPath,
-          loadChildren: () => CrisisCenterModule,
+          loadChildren: () => crisisCenterRoutes,
         },
       ],
     });

@@ -45,10 +45,7 @@ async function setup() {
       provideSpectacularFeatureTesting({
         featurePath: crisisCenterPath,
         routes: [
-          {
-            path: crisisCenterPath,
-            loadChildren: () => CrisisCenterModule,
-          },
+          { path: crisisCenterPath, loadChildren: () => CrisisCenterModule },
         ],
       }),
       { provide: DialogService, useClass: FakeDialogService },
