@@ -1,5 +1,102 @@
 # Spectacular changelog
 
+## 15.0.0 (2023-08-08)
+
+### Features
+
+- `SpectacularAppComponent` is a standalone Angular component (#68)
+- Passing `InjectOptions` to `SpectacularApplicationHarness#inject` is supported
+  (#68)
+- Passing `InjectOptions` to `SpectacularFeatureHarness#inject` is supported
+  (#68)
+- Passing `InjectOptions` to `SpectacularPipeHarnes#inject` is supported (#68)
+- `provideSpectacularFeatureTest` requires a `routes` option and optionally
+  accepts the `withInitialFeatureNavigation` feature and Angular Router features
+  (#76)
+- `provideSpectacularFeatureTest` returns `(EnvironmentProviders | Provider)[]`
+  (#76)
+- `provideSpectacularFeatureTest` is marked as deprecated and a copy is renamed
+  to `provideSpectacularFeatureTesting` (#76)
+- Add `withInitialFeatureNavigation` for use with
+  `provideSpectacularFeatureTest` and `provideSpectacularFeatureTesting` (#76)
+- `SpectacularFeatureTestingModule` is deprecated (#76)
+
+### BREAKING CHANGES
+
+- Require Angular 15.0
+- `SpectacularAppComponent` is a standalone Angular component. Your tests might
+  need to take this into account depending on your setup. Most tests shouldn't
+  need to change. (#68)
+- A `routes` option must be passed to `provideSpectacularFeatureTest`. (#76)
+- `provideSpectacularFeatureTest` returns `(EnvironmentProviders | Provider)[]`
+  (#76)
+
+#### Migration
+
+##### Feature test using Angular Testing Library
+
+Before:
+
+```typescript
+await render(SpectacularAppComponent, {
+  excludeComponentDeclaration: true,
+  imports: [
+    SpectacularFeatureTestingModule.withFeature({
+      featurePath: crisisCenterPath,
+      routes: [
+        { path: crisisCenterPath, loadChildren: () => CrisisCenterModule },
+      ],
+    }),
+  ],
+});
+```
+
+After:
+
+```typescript
+await render(SpectacularAppComponent, {
+  providers: [
+    provideSpectacularFeatureTesting({
+      featurePath: crisisCenterPath,
+      routes: [
+        { path: crisisCenterPath, loadChildren: () => CrisisCenterModule },
+      ],
+    }),
+  ],
+});
+```
+
+### DEPRECATIONS
+
+- Passing `InjectFlags` to `SpectacularApplicationHarness#inject` is deprecated
+  in favor of passing `InjectOptions` (#68)
+- Passing `InjectFlags` to `SpectacularFeatureHarness#inject` is deprecated in
+  favor of passing `InjectOptions` (#68)
+- Passing `InjectFlags` to `SpectacularPipeHarnes#inject` is deprecated in favor
+  of passing `InjectOptions` (#68)
+- `provideSpectacularFeatureTest` is to be removed in Spectacular version 16.
+  Migrate to `provideSpectacularFeatureTesting`. (#76)
+- `SpectacularFeatureTestingModule` is to be removed in Spectacular version 16.
+  Migrate to `provideSpectacularFeatureTesting`. (#76)
+
+#### Migration
+
+##### InjectFlags to InjectOptions
+
+Before:
+
+```typescript
+const ngZone = harness.inject(NgZone, InjectFlags.Optional);
+```
+
+After:
+
+```typescript
+const ngZone = harness.inject(NgZone, {
+  optional: true,
+});
+```
+
 ## 14.1.0 (2023-07-21)
 
 ### Features
