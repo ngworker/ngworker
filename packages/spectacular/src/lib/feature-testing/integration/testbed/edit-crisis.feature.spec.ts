@@ -1,16 +1,20 @@
 import { Location } from '@angular/common';
-import { Component } from '@angular/core';
+import { provideLocationMocks } from '@angular/common/testing';
+import { Component, Type } from '@angular/core';
 import { ComponentFixtureAutoDetect, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
-import {
-  CrisisCenterModule,
-  crisisCenterPath,
-  CrisisService,
-} from '@tour-of-heroes/crisis-center';
+import { provideRouter, Router, RouterOutlet } from '@angular/router';
+import * as classicCrisisCenter from '@tour-of-heroes-classic/crisis-center';
+import * as standaloneCrisisCenter from '@tour-of-heroes-standalone/crisis-center';
+import { ProvideSpectacularFeatureTestingOptions } from '../../configuration/provide-spectacular-feature-testing';
 
-async function setup() {
+type TestSetupOptions = ProvideSpectacularFeatureTestingOptions & {
+  readonly CrisisService: Type<
+    classicCrisisCenter.CrisisService | standaloneCrisisCenter.CrisisService
+  >;
+};
+
+async function setup({ CrisisService, featurePath, routes }: TestSetupOptions) {
   const findCrisisCenterHomeGreeting = () => {
     const greeting = rootFixture.debugElement
       .queryAll(By.css('p'))
@@ -56,13 +60,11 @@ async function setup() {
       .nativeElement as HTMLAnchorElement;
 
   TestBed.configureTestingModule({
-    declarations: [TestAppComponent],
-    imports: [
-      RouterTestingModule.withRoutes([
-        { path: crisisCenterPath, loadChildren: () => CrisisCenterModule },
-      ]),
+    providers: [
+      { provide: ComponentFixtureAutoDetect, useValue: true },
+      provideRouter(routes),
+      provideLocationMocks(),
     ],
-    providers: [{ provide: ComponentFixtureAutoDetect, useValue: true }],
   });
 
   const rootFixture = TestBed.createComponent(TestAppComponent);
@@ -72,7 +74,7 @@ async function setup() {
   const navigate: Router['navigate'] = (commands, extras) =>
     rootFixture.ngZone?.run(() => router.navigate(commands, extras)) ??
     Promise.resolve(true);
-  await navigate([crisisCenterPath]);
+  await navigate([featurePath]);
 
   return {
     crisisService,
@@ -88,13 +90,38 @@ async function setup() {
 }
 
 @Component({
+  standalone: true,
   selector: 'spectacular-test-app',
+  imports: [RouterOutlet],
   template: '<router-outlet><router-outlet>',
 })
 class TestAppComponent {}
 
+const testCases: readonly TestSetupOptions[] = [
+  {
+    CrisisService: classicCrisisCenter.CrisisService,
+    featurePath: classicCrisisCenter.crisisCenterPath,
+    routes: [
+      {
+        path: classicCrisisCenter.crisisCenterPath,
+        loadChildren: () => classicCrisisCenter.CrisisCenterModule,
+      },
+    ],
+  },
+  {
+    CrisisService: standaloneCrisisCenter.CrisisService,
+    featurePath: standaloneCrisisCenter.crisisCenterPath,
+    routes: [
+      {
+        path: standaloneCrisisCenter.crisisCenterPath,
+        loadChildren: () => standaloneCrisisCenter.crisisCenterRoutes,
+      },
+    ],
+  },
+];
+
 describe('[TestBed] Tour of Heroes: Crisis center', () => {
-  it('Edit crisis from crisis detail', async () => {
+  it.each(testCases)('Edit crisis from crisis detail', async testCase => {
     const {
       crisisService,
       findCrisisCenterHomeGreeting,
@@ -104,9 +131,9 @@ describe('[TestBed] Tour of Heroes: Crisis center', () => {
       location,
       navigate,
       rootFixture,
-    } = await setup();
+    } = await setup(testCase);
     const [aCrisis] = crisisService.getCrises().value;
-    await navigate([crisisCenterPath, aCrisis.id]);
+    await navigate([testCase.featurePath, aCrisis.id]);
     const newCrisisName = 'Global climate crisis';
 
     findNameControl().value = newCrisisName;
@@ -121,7 +148,7 @@ describe('[TestBed] Tour of Heroes: Crisis center', () => {
       `${aCrisis.id}${newCrisisName}`
     );
     expect(location.path()).toBe(
-      `/${crisisCenterPath};id=${aCrisis.id};foo=foo`
+      `/${testCase.featurePath};id=${aCrisis.id};foo=foo`
     );
   });
 });

@@ -1,0 +1,50 @@
+{
+  "name": "examples-tour-of-heroes-standalone-crisis-center",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/examples/tour-of-heroes-standalone/crisis-center/src",
+  "prefix": "app-crisis",
+  "tags": ["scope:internal", "type:feature"],
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:ng-packagr-lite",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "options": {
+        "project": "packages/examples/tour-of-heroes-standalone/crisis-center/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "packages/examples/tour-of-heroes-standalone/crisis-center/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "packages/examples/tour-of-heroes-standalone/crisis-center/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "packages/examples/tour-of-heroes-standalone/crisis-center/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "packages/examples/tour-of-heroes-standalone/crisis-center/**/*.ts",
+          "packages/examples/tour-of-heroes-standalone/crisis-center/**/*.html"
+        ]
+      }
+    }
+  }
+}

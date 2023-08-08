@@ -1,10 +1,8 @@
 import { Location } from '@angular/common';
 import { TestBed } from '@angular/core/testing';
 import { Router, RouterConfigOptions, withRouterConfig } from '@angular/router';
-import {
-  CrisisCenterModule,
-  crisisCenterPath,
-} from '@tour-of-heroes/crisis-center';
+import * as classicCrisisCenter from '@tour-of-heroes-classic/crisis-center';
+import * as standaloneCrisisCenter from '@tour-of-heroes-standalone/crisis-center';
 import { SpectacularFeatureLocation } from '../navigation/spectacular-feature-location';
 import { SpectacularFeatureRouter } from '../navigation/spectacular-feature-router';
 import { featurePathToken } from './feature-path.token';
@@ -14,9 +12,23 @@ import {
 } from './provide-spectacular-feature-testing';
 import { withInitialFeatureNavigation } from './with-initial-feature-navigation';
 
-const crisisCenterFeature: ProvideSpectacularFeatureTestingOptions = {
-  featurePath: crisisCenterPath,
-  routes: [{ path: crisisCenterPath, loadChildren: () => CrisisCenterModule }],
+const classicCrisisCenterFeature: ProvideSpectacularFeatureTestingOptions = {
+  featurePath: classicCrisisCenter.crisisCenterPath,
+  routes: [
+    {
+      path: classicCrisisCenter.crisisCenterPath,
+      loadChildren: () => classicCrisisCenter.CrisisCenterModule,
+    },
+  ],
+};
+const standaloneCrisisCenterFeature: ProvideSpectacularFeatureTestingOptions = {
+  featurePath: standaloneCrisisCenter.crisisCenterPath,
+  routes: [
+    {
+      path: standaloneCrisisCenter.crisisCenterPath,
+      loadChildren: () => standaloneCrisisCenter.crisisCenterRoutes,
+    },
+  ],
 };
 const emptyFeature: ProvideSpectacularFeatureTestingOptions = {
   featurePath: '',
@@ -71,18 +83,21 @@ describe(provideSpectacularFeatureTesting.name, () => {
   });
 
   describe('Given a feature is specified', () => {
-    it(`
+    it.each([classicCrisisCenterFeature, standaloneCrisisCenterFeature])(
+      `
     When the test navigates
-    Then the native Location API is unaffected`, async () => {
-      TestBed.configureTestingModule({
-        providers: [provideSpectacularFeatureTesting(crisisCenterFeature)],
-      });
-      const router = TestBed.inject(Router);
+    Then the native Location API is unaffected`,
+      async feature => {
+        TestBed.configureTestingModule({
+          providers: [provideSpectacularFeatureTesting(feature)],
+        });
+        const router = TestBed.inject(Router);
 
-      await router.navigate([crisisCenterFeature.featurePath]);
+        await router.navigate([feature.featurePath]);
 
-      expect(location.pathname).not.toBe('/crisis-center');
-    });
+        expect(location.pathname).not.toBe('/crisis-center');
+      }
+    );
   });
 
   describe('Given an Angular Router feature is specified', () => {
@@ -106,18 +121,21 @@ describe(provideSpectacularFeatureTesting.name, () => {
   });
 
   describe('Given a Feature Testing feature is specified', () => {
-    it('Then the Feature Testing feature is provided', () => {
-      TestBed.configureTestingModule({
-        providers: [
-          provideSpectacularFeatureTesting(
-            crisisCenterFeature,
-            withInitialFeatureNavigation()
-          ),
-        ],
-      });
+    it.each([classicCrisisCenterFeature, standaloneCrisisCenterFeature])(
+      'Then the Feature Testing feature is provided',
+      feature => {
+        TestBed.configureTestingModule({
+          providers: [
+            provideSpectacularFeatureTesting(
+              feature,
+              withInitialFeatureNavigation()
+            ),
+          ],
+        });
 
-      const angularLocation = TestBed.inject(Location);
-      expect(angularLocation.path()).toBe('/crisis-center');
-    });
+        const angularLocation = TestBed.inject(Location);
+        expect(angularLocation.path()).toBe('/crisis-center');
+      }
+    );
   });
 });

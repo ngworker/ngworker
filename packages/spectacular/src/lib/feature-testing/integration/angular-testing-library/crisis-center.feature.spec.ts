@@ -7,7 +7,7 @@ import {
   CrisisService,
   DialogService,
   FakeDialogService,
-} from '@tour-of-heroes/crisis-center';
+} from '@tour-of-heroes-classic/crisis-center';
 import { SpectacularAppComponent } from '../../../shared/app-component/spectacular-app.component';
 import { provideSpectacularFeatureTesting } from '../../configuration/provide-spectacular-feature-testing';
 import { SpectacularFeatureLocation } from '../../navigation/spectacular-feature-location';

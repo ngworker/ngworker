@@ -2,7 +2,7 @@
 slug: /feature-testing
 sidebar_label: Introduction
 sidebar_position: 1
-title: Feature testing
+title: Feature testing using Spectacular
 ---
 
 import Tabs from '@theme/Tabs';
@@ -58,7 +58,7 @@ query for the activated route path relative to the root feature route. The tilde
 
 As an example, we're going to create integration tests for the crisis center
 feature from
-[the Tour of Heroes routing tutorial](https://angular.io/guide/router-tutorial-toh).
+[the Tour of Heroes routing tutorial](https://v13.angular.io/guide/router-tutorial-toh).
 
 The following code snippet shows its routed feature module, the
 `CrisisCenterModule`:
@@ -403,7 +403,7 @@ Spectacular's feature testing API takes care of tedious and error-prone test
 setup. Notice in the following code snippet how we pass the routed feature
 module under test as well as the route path used to load it in our application:
 
-```ts {14-15}
+```ts {14,16}
 import {
   createFeatureHarness,
   SpectacularFeatureHarness,
@@ -691,8 +691,8 @@ We first explored the intricate setup needed for a feature test when using the
 Angular testbed. Afterwards, we compared that to the lightweight setup offered
 by Spectacular's feature testing API.
 
-Finally, we saw how Spectalar adds convenience APIs to remove common boilerplate
-from feature tests.
+Finally, we saw how Spectacular adds convenience APIs to remove common
+boilerplate from feature tests.
 
 Spectacular offers:
 

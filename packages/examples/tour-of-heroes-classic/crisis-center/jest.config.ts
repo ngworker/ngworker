@@ -5,7 +5,7 @@ export default {
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {},
   coverageDirectory:
-    '../../../../coverage/packages/examples/tour-of-heroes/crisis-center',
+    '../../../../coverage/packages/examples/tour-of-heroes-classic/crisis-center',
   snapshotSerializers: [
     'jest-preset-angular/build/serializers/no-ng-attributes',
     'jest-preset-angular/build/serializers/ng-snapshot',

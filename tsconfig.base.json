@@ -17,8 +17,11 @@
     "paths": {
       "@internal/test-util": ["packages/internal/test-util/src/index.ts"],
       "@ngworker/spectacular": ["packages/spectacular/src/index.ts"],
-      "@tour-of-heroes/crisis-center": [
-        "packages/examples/tour-of-heroes/crisis-center/src/index.ts"
+      "@tour-of-heroes-classic/crisis-center": [
+        "packages/examples/tour-of-heroes-classic/crisis-center/src/index.ts"
+      ],
+      "@tour-of-heroes-standalone/crisis-center": [
+        "packages/examples/tour-of-heroes-standalone/crisis-center/src/index.ts"
       ]
     }
   },

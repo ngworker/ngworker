@@ -55,7 +55,7 @@ function and pass it the options it requires as seen in the following example:
 ```ts {2-3}
 const harness = createFeatureHarness({
   featurePath: 'dashboard',
-  routes: [{ path: 'dashboard', loadChildren: () => DashboardModule }],
+  routes: [{ path: 'dashboard', loadChildren: () => dashboardRoutes }],
 });
 ```
 
@@ -78,7 +78,7 @@ it('sets up the application locale', async () => {
 Additional Angular module imports and providers can be passed as `imports` and
 `providers` options, respectively, as seen in the following example:
 
-```ts {4-10}
+```ts {3-9}
 const harness = createFeatureHarness({
   featurePath: 'dashboard',
   imports: [HttpClientTestingModule],
@@ -88,7 +88,7 @@ const harness = createFeatureHarness({
       useClass: FakeStorageService,
     },
   ],
-  routes: [{ path: 'dashboard', loadChildren: () => DashboardModule }],
+  routes: [{ path: 'dashboard', loadChildren: () => dashboardRoutes }],
 });
 ```
 
@@ -108,7 +108,7 @@ const harness = createFeatureHarness({
       useClass: FakeStorageService,
     },
   ],
-  routes: [{ path: 'dashboard', loadChildren: () => DashboardModule }],
+  routes: [{ path: 'dashboard', loadChildren: () => dashboardRoutes }],
 });
 
 const fakeStorage = harness.inject(StorageService);
@@ -131,7 +131,7 @@ where `ComponentFixtureAutoDetect` is imported from `@angular/core/testing`.
 For example, we can pass the provider when creating a feature test harness as
 seen in the following snippet:
 
-```ts {9}
+```ts {8}
 import { ComponentFixtureAutoDetect } from '@angular/core/testing';
 import { DashboardModule, dashboardPath } from '@enterprise/feature-dashboard';
 
@@ -140,7 +140,7 @@ describe('Dashboard feature', () => {
     harness = await createFeatureHarness({
       featurePath: dashboardPath,
       providers: [{ provide: ComponentFixtureAutoDetect, useValue: true }],
-      routes: [{ path: dashboardPath, loadChildren: () => DashboardModule }],
+      routes: [{ path: dashboardPath, loadChildren: () => dashboardRoutes }],
     });
   });
 

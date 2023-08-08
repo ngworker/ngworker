@@ -78,7 +78,7 @@ it('sets up the application locale', async () => {
 Additional Angular module imports and providers can be passed as `imports` and
 `providers` options, respectively, as seen in the following example:
 
-```ts {4-10}
+```ts {3-9}
 const harness = createFeatureHarness({
   featurePath: 'dashboard',
   imports: [HttpClientTestingModule],
@@ -117,7 +117,7 @@ const fakeStorage = harness.inject(StorageService);
 ## Automatic change detection
 
 Angular's testbed supports
-[automatic change detection](https://angular.io/guide/testing-components-scenarios#automatic-change-detection).
+[automatic change detection](https://v14.angular.io/guide/testing-components-scenarios#automatic-change-detection).
 So does Spectacular.
 
 Add the following provider to enable automatic change detection:
@@ -131,7 +131,7 @@ where `ComponentFixtureAutoDetect` is imported from `@angular/core/testing`.
 For example, we can pass the provider when creating a feature test harness as
 seen in the following snippet:
 
-```ts {9}
+```ts {8}
 import { ComponentFixtureAutoDetect } from '@angular/core/testing';
 import { DashboardModule, dashboardPath } from '@enterprise/feature-dashboard';
 

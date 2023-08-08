@@ -1,7 +1,7 @@
 ---
 sidebar_label: Angular Testing Library
 sidebar_position: 2
-title: Integrating Spectacular with Angular Testing Library
+title: Feature testing using Spectacular and Angular Testing Library
 ---
 
 import Tabs from '@theme/Tabs';
@@ -225,7 +225,7 @@ describe('Tour of Heroes: Crisis center', () => {
 ```
 
 Alternatively, we use
-[`TestBed.inject`](https://angular.io/api/core/testing/TestBed#inject) to
+[`TestBed.inject`](https://v14.angular.io/api/core/testing/TestBed#inject) to
 resolve Spectacular's feature-aware services:
 
 ```ts {1,4,26,29}
@@ -379,8 +379,8 @@ when using Angular Testing Library.
 ## Asserting feature paths
 
 When using Angular Testing Library, you can use Angular's
-[`Location#path`](https://angular.io/api/common/Location#path) service method to
-assert navigation to feature routes:
+[`Location#path`](https://v14.angular.io/api/common/Location#path) service
+method to assert navigation to feature routes:
 
 ```ts {1,35,38,54}
 import { Location } from '@angular/common';
