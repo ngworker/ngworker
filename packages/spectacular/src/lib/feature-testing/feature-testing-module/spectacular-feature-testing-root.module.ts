@@ -1,21 +1,22 @@
-import { inject, InjectFlags, NgModule } from '@angular/core';
-import { RouterTestingModule } from '@angular/router/testing';
+import { inject, NgModule } from '@angular/core';
 
 /**
- * Static dependencies for feature testing.
- *
  * Guards against registration in multiple Angular modules.
  *
  * NOTE! Only to be imported by `SpectacularFeatureTestingModule`.
+ *
+ * @deprecated Deprecated in favor of `provideSpectacularFeatureTest`. To be
+ *   removed in Spectacular version 16.
  */
-@NgModule({
-  imports: [RouterTestingModule],
-})
+@NgModule()
 export class SpectacularFeatureTestingRootModule {
   constructor() {
     const maybeNgModuleFromParentInjector = inject(
       SpectacularFeatureTestingRootModule,
-      InjectFlags.Optional | InjectFlags.SkipSelf
+      {
+        optional: true,
+        skipSelf: true,
+      }
     );
 
     if (maybeNgModuleFromParentInjector) {

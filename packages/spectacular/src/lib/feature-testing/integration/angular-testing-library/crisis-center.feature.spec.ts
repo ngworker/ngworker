@@ -9,7 +9,7 @@ import {
   FakeDialogService,
 } from '@tour-of-heroes/crisis-center';
 import { SpectacularAppComponent } from '../../../shared/app-component/spectacular-app.component';
-import { SpectacularFeatureTestingModule } from '../../feature-testing-module/spectacular-feature-testing.module';
+import { provideSpectacularFeatureTesting } from '../../configuration/provide-spectacular-feature-testing';
 import { SpectacularFeatureLocation } from '../../navigation/spectacular-feature-location';
 
 async function setup() {
@@ -41,16 +41,15 @@ async function setup() {
     },
     navigate,
   } = await render(SpectacularAppComponent, {
-    excludeComponentDeclaration: true,
-    imports: [
-      SpectacularFeatureTestingModule.withFeature({
+    providers: [
+      provideSpectacularFeatureTesting({
         featurePath: crisisCenterPath,
         routes: [
           { path: crisisCenterPath, loadChildren: () => CrisisCenterModule },
         ],
       }),
+      { provide: DialogService, useClass: FakeDialogService },
     ],
-    providers: [{ provide: DialogService, useClass: FakeDialogService }],
   });
   const fakeDialog = injector.get(DialogService) as FakeDialogService;
   const featureLocation = injector.get(SpectacularFeatureLocation);

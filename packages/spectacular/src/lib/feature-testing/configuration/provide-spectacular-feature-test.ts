@@ -1,30 +1,30 @@
-import type { Provider } from '@angular/core';
-import { SpectacularFeatureLocation } from '../navigation/spectacular-feature-location';
-import { SpectacularFeatureRouter } from '../navigation/spectacular-feature-router';
-import { provideFeaturePath } from './feature-path.token';
+import type { EnvironmentProviders, Provider } from '@angular/core';
+import type { RouterFeatures } from '@angular/router';
+import type { ProvideSpectacularFeatureTestingOptions } from './provide-spectacular-feature-testing';
+import { provideSpectacularFeatureTesting } from './provide-spectacular-feature-testing';
+import type { SpectacularFeatureTestingFeatures } from './spectacular-feature-testing-features';
 
 /**
- * Options for `provideSpectacularFeatureTest`.
+ * Options for {@link provideSpectacularFeatureTest}.
+ *
+ * @deprecated Deprecated in favor of {@link ProvideSpectacularFeatureTestingOptions}.
+ *   To be removed in Spectacular 16.0.
  */
-export interface ProvideSpectacularFeatureTestOptions {
-  /**
-   * The path prefix used to load the routes of the specified Angular feature,
-   * for example `'heroes'`.
-   */
-  readonly featurePath: string;
-}
+// Resolve @typescript-eslint/no-empty-interface: An interface is used to prevent
+//   documentation inheritance in the API reference.
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface ProvideSpectacularFeatureTestOptions
+  extends ProvideSpectacularFeatureTestingOptions {}
 
 /**
  * Provide dependencies needed by the Spectacular Feature testing API.
+ *
+ * @deprecated Deprecated in favor of {@link provideSpectacularFeatureTesting}.
+ *   To be removed in Spectacular 16.0.
  */
 export function provideSpectacularFeatureTest(
-  options: ProvideSpectacularFeatureTestOptions
-): Provider[] {
-  const { featurePath } = options;
-
-  return [
-    provideFeaturePath(featurePath),
-    SpectacularFeatureLocation,
-    SpectacularFeatureRouter,
-  ];
+  options: ProvideSpectacularFeatureTestOptions,
+  ...features: (SpectacularFeatureTestingFeatures | RouterFeatures)[]
+): (EnvironmentProviders | Provider)[] {
+  return provideSpectacularFeatureTesting(options, ...features);
 }

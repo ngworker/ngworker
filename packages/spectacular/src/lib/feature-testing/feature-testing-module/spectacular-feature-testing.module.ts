@@ -1,12 +1,15 @@
 import type { ModuleWithProviders } from '@angular/core';
 import { NgModule } from '@angular/core';
 import type { ExtraOptions, Routes } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
-import { provideSpectacularFeatureTest } from '../configuration/provide-spectacular-feature-test';
+import { withRouterConfig } from '@angular/router';
+import { provideSpectacularFeatureTesting } from '../configuration/provide-spectacular-feature-testing';
 import { SpectacularFeatureTestingRootModule } from './spectacular-feature-testing-root.module';
 
 /**
  * Feature testing options for `SpectacularFeatureTestingModule.withFeature`.
+ *
+ * @deprecated Deprecated in favor of `provideSpectacularFeatureTest`. To be
+ *   removed in Spectacular version 16.
  */
 export interface SpectacularFeatureTestingModuleOptions {
   /**
@@ -40,26 +43,34 @@ export interface SpectacularFeatureTestingModuleOptions {
  *
  * NOTE! Prefer to use `createFeatureHarness`. This Angular module is a low
  * level building block in case you need more control over your test setup.
+ *
+ * @deprecated Deprecated in favor of `provideSpectacularFeatureTest`. To be
+ *   removed in Spectacular version 16.
  */
 @NgModule()
 export class SpectacularFeatureTestingModule {
   /**
-   * Configures the `RouterTestingModule` and provides Spectactular
-   * services for testing feature modules
+   * Configure the `RouterTestingModule` and provide Spectactular
+   * services for testing feature modules.
+   *
+   * @deprecated Deprecated in favor of `provideSpectacularFeatureTest`. To be
+   *   removed in Spectacular version 16.
    */
   static withFeature(
     options: SpectacularFeatureTestingModuleOptions
   ): ModuleWithProviders<SpectacularFeatureTestingRootModule> {
     const { featurePath, routerOptions = {}, routes } = options;
 
-    const { providers: routerTestingProviders = [] } =
-      RouterTestingModule.withRoutes(routes, routerOptions);
-
     return {
       ngModule: SpectacularFeatureTestingRootModule,
       providers: [
-        ...routerTestingProviders,
-        ...provideSpectacularFeatureTest({ featurePath }),
+        provideSpectacularFeatureTesting(
+          {
+            featurePath,
+            routes,
+          },
+          withRouterConfig(routerOptions)
+        ),
       ],
     };
   }
