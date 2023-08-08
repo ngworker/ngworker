@@ -1,5 +1,7 @@
 import type { Provider } from '@angular/core';
-import type { provideSpectacularFeatureTesting } from './provide-spectacular-feature-testing';
+// Resolve @typescript-eslint/no-unused-vars: Used for TSDoc `@link` annotations.
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { provideSpectacularFeatureTesting } from './provide-spectacular-feature-testing';
 import type { InitialFeatureNavigationFeature } from './with-initial-feature-navigation';
 
 /**
