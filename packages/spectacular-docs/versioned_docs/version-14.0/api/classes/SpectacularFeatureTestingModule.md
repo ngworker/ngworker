@@ -1,7 +1,7 @@
 ---
-id: "SpectacularFeatureTestingModule"
-title: "Class: SpectacularFeatureTestingModule"
-sidebar_label: "SpectacularFeatureTestingModule"
+id: 'SpectacularFeatureTestingModule'
+title: 'Class: SpectacularFeatureTestingModule'
+sidebar_label: 'SpectacularFeatureTestingModule'
 sidebar_position: 0
 custom_edit_url: null
 ---
@@ -11,8 +11,8 @@ testing feature modules.
 
 NOTE! Do not import directly. Use `SpectacularFeatureTestingModule.withFeature`.
 
-NOTE! Prefer to use `createFeatureHarness`. This Angular module is a low
-level building block in case you need more control over your test setup.
+NOTE! Prefer to use `createFeatureHarness`. This Angular module is a low level
+building block in case you need more control over your test setup.
 
 ## Constructors
 
@@ -28,15 +28,16 @@ level building block in case you need more control over your test setup.
 
 ### withFeature
 
-▸ `Static` **withFeature**(`options`): `ModuleWithProviders`<[`SpectacularFeatureTestingRootModule`](SpectacularFeatureTestingRootModule.md)\>
+▸ `Static` **withFeature**(`options`):
+`ModuleWithProviders`<[`SpectacularFeatureTestingRootModule`](SpectacularFeatureTestingRootModule.md)\>
 
-Configures the `RouterTestingModule` and provides Spectactular
-services for testing feature modules
+Configures the `RouterTestingModule` and provides Spectactular services for
+testing feature modules
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name      | Type                                                                                                |
+| :-------- | :-------------------------------------------------------------------------------------------------- |
 | `options` | [`SpectacularFeatureTestingModuleOptions`](../interfaces/SpectacularFeatureTestingModuleOptions.md) |
 
 #### Returns

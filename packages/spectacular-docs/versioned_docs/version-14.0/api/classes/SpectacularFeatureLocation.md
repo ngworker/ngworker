@@ -1,13 +1,13 @@
 ---
-id: "SpectacularFeatureLocation"
-title: "Class: SpectacularFeatureLocation"
-sidebar_label: "SpectacularFeatureLocation"
+id: 'SpectacularFeatureLocation'
+title: 'Class: SpectacularFeatureLocation'
+sidebar_label: 'SpectacularFeatureLocation'
 sidebar_position: 0
 custom_edit_url: null
 ---
 
-A subset of Angular's `Location` service adjusted to the Angular feature
-module under test.
+A subset of Angular's `Location` service adjusted to the Angular feature module
+under test.
 
 ## Constructors
 
@@ -28,9 +28,9 @@ Wraps `Location#path`.
 
 #### Parameters
 
-| Name | Type | Default value | Description |
-| :------ | :------ | :------ | :------ |
-| `includeHash` | `boolean` | `false` | True to include an anchor fragment in the path. Optional. Default is `false`. |
+| Name          | Type      | Default value | Description                                                                   |
+| :------------ | :-------- | :------------ | :---------------------------------------------------------------------------- |
+| `includeHash` | `boolean` | `false`       | True to include an anchor fragment in the path. Optional. Default is `false`. |
 
 #### Returns
 
