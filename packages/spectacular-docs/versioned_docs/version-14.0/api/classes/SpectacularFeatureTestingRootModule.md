@@ -1,7 +1,7 @@
 ---
-id: "SpectacularFeatureTestingRootModule"
-title: "Class: SpectacularFeatureTestingRootModule"
-sidebar_label: "SpectacularFeatureTestingRootModule"
+id: 'SpectacularFeatureTestingRootModule'
+title: 'Class: SpectacularFeatureTestingRootModule'
+sidebar_label: 'SpectacularFeatureTestingRootModule'
 sidebar_position: 0
 custom_edit_url: null
 ---

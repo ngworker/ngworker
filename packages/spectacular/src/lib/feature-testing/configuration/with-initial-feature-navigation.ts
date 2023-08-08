@@ -1,6 +1,8 @@
 import { initialFeatureNavigationInitializer } from '../navigation/initial-feature-navigation.initializer';
 import { makeSpectacularFeatureTestingFeature } from './make-spectacular-feature-testing-feature';
-import type { provideSpectacularFeatureTesting } from './provide-spectacular-feature-testing';
+// Resolve @typescript-eslint/no-unused-vars: Used for TSDoc `@link` annotations.
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { provideSpectacularFeatureTesting } from './provide-spectacular-feature-testing';
 import type { SpectacularFeatureTestingFeature } from './spectacular-feature-testing-features';
 import { SpectacularFeatureTestingFeatureKind } from './spectacular-feature-testing-features';
 

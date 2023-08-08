@@ -1,7 +1,7 @@
 ---
-id: "modules"
-title: "@ngworker/spectacular"
-sidebar_label: "Exports"
+id: 'modules'
+title: '@ngworker/spectacular'
+sidebar_label: 'Exports'
 sidebar_position: 0.5
 custom_edit_url: null
 ---
@@ -28,7 +28,8 @@ custom_edit_url: null
 
 ### CreateApplicationHarnessOptions
 
-Ƭ **CreateApplicationHarnessOptions**: `Pick`<`NgModule`, ``"imports"`` \| ``"providers"``\>
+Ƭ **CreateApplicationHarnessOptions**: `Pick`<`NgModule`, `"imports"` \|
+`"providers"`\>
 
 Application harness options.
 
@@ -40,7 +41,7 @@ Application harness options.
 
 ### spectacularAppTag
 
-• `Const` **spectacularAppTag**: ``"spectacular-app"``
+• `Const` **spectacularAppTag**: `"spectacular-app"`
 
 The tag name of `SpectacularAppComponent`'s DOM element.
 
@@ -52,7 +53,8 @@ The tag name of `SpectacularAppComponent`'s DOM element.
 
 ### createApplicationHarness
 
-▸ **createApplicationHarness**(`options?`): `Promise`<[`SpectacularApplicationHarness`](interfaces/SpectacularApplicationHarness.md)\>
+▸ **createApplicationHarness**(`options?`):
+`Promise`<[`SpectacularApplicationHarness`](interfaces/SpectacularApplicationHarness.md)\>
 
 Bootstrap a test application with the specified metadata. Useful to test
 configuration Angular modules, bootstrap listeners, and application
@@ -60,8 +62,8 @@ initializers.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name      | Type                                                                            |
+| :-------- | :------------------------------------------------------------------------------ |
 | `options` | [`CreateApplicationHarnessOptions`](modules.md#createapplicationharnessoptions) |
 
 #### Returns
@@ -72,19 +74,20 @@ initializers.
 
 [packages/spectacular/src/lib/application-testing/application-harness/create-application-harness.ts:26](https://github.com/ngworker/ngworker/blob/d3bf6f9/packages/spectacular/src/lib/application-testing/application-harness/create-application-harness.ts#L26)
 
-___
+---
 
 ### createFeatureHarness
 
-▸ **createFeatureHarness**(`options`): [`SpectacularFeatureHarness`](interfaces/SpectacularFeatureHarness.md)
+▸ **createFeatureHarness**(`options`):
+[`SpectacularFeatureHarness`](interfaces/SpectacularFeatureHarness.md)
 
 Configure `SpectacularFeatureTestingModule`, bootstrap `SpectacularAppComponent`
 and navigate to the default feature route.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name      | Type                                                                       |
+| :-------- | :------------------------------------------------------------------------- |
 | `options` | [`CreateFeatureHarnessOptions`](interfaces/CreateFeatureHarnessOptions.md) |
 
 #### Returns
@@ -95,11 +98,12 @@ and navigate to the default feature route.
 
 [packages/spectacular/src/lib/feature-testing/feature-harness/create-feature-harness.ts:43](https://github.com/ngworker/ngworker/blob/d3bf6f9/packages/spectacular/src/lib/feature-testing/feature-harness/create-feature-harness.ts#L43)
 
-___
+---
 
 ### createPipeHarness
 
-▸ **createPipeHarness**<`TValue`\>(`options`): [`SpectacularPipeHarness`](classes/SpectacularPipeHarness.md)<`TValue`\>
+▸ **createPipeHarness**<`TValue`\>(`options`):
+[`SpectacularPipeHarness`](classes/SpectacularPipeHarness.md)<`TValue`\>
 
 Set up a host component for the Angular pipe under test.
 
@@ -107,14 +111,14 @@ Test it by updating the value and reading the rendered text.
 
 #### Type parameters
 
-| Name |
-| :------ |
+| Name     |
+| :------- |
 | `TValue` |
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name      | Type                                                                            |
+| :-------- | :------------------------------------------------------------------------------ |
 | `options` | [`CreatePipeHarnessOptions`](interfaces/CreatePipeHarnessOptions.md)<`TValue`\> |
 
 #### Returns
@@ -125,7 +129,7 @@ Test it by updating the value and reading the rendered text.
 
 [packages/spectacular/src/lib/pipe-testing/pipe-harness/create-pipe-harness.ts:56](https://github.com/ngworker/ngworker/blob/d3bf6f9/packages/spectacular/src/lib/pipe-testing/pipe-harness/create-pipe-harness.ts#L56)
 
-___
+---
 
 ### provideSpectacularFeatureTest
 
@@ -135,8 +139,8 @@ Provide dependencies needed by the Spectacular Feature testing API.
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name      | Type                                                                                         |
+| :-------- | :------------------------------------------------------------------------------------------- |
 | `options` | [`ProvideSpectacularFeatureTestOptions`](interfaces/ProvideSpectacularFeatureTestOptions.md) |
 
 #### Returns
