@@ -4,15 +4,19 @@ import {
   DecimalPipe,
   PercentPipe,
 } from '@angular/common';
-import { createPipeHarness } from './pipe-harness/create-pipe-harness';
+import { DEFAULT_CURRENCY_CODE, ValueProvider } from '@angular/core';
+import {
+  createPipeHarness,
+  CreatePipeHarnessOptions,
+} from './pipe-harness/create-pipe-harness';
 
 describe('Common pipes', () => {
   describe(DecimalPipe.name, () => {
     function decimalPipeSetup() {
       const harness = createPipeHarness({
+        parameters: ['1.1'],
         pipe: DecimalPipe,
         pipeName: 'number',
-        template: `{{ value | number:'1.1' }}`,
         value: 123456789,
       });
 
@@ -35,6 +39,14 @@ describe('Common pipes', () => {
       expect(harness.text).toBe('987,654,321.0');
     });
 
+    it('updates the decimal representation', () => {
+      const { harness } = decimalPipeSetup();
+
+      harness.parameters = ['1.3'];
+
+      expect(harness.text).toBe('123,456,789.000');
+    });
+
     it('updates the template', () => {
       const { harness } = decimalPipeSetup();
 
@@ -45,10 +57,13 @@ describe('Common pipes', () => {
   });
 
   describe(CurrencyPipe.name, () => {
-    function currencyPipeSetup() {
+    function currencyPipeSetup({
+      providers,
+    }: Pick<CreatePipeHarnessOptions<CurrencyPipe>, 'providers'> = {}) {
       const harness = createPipeHarness({
         pipe: CurrencyPipe,
         pipeName: 'currency',
+        providers,
         value: 1234.56,
       });
 
@@ -71,6 +86,42 @@ describe('Common pipes', () => {
       expect(harness.text).toBe('$6,543.21');
     });
 
+    it('updates the currency code [dependency injection]', () => {
+      const euroProvider: ValueProvider = {
+        provide: DEFAULT_CURRENCY_CODE,
+        useValue: 'EUR',
+      };
+      const { harness } = currencyPipeSetup({
+        providers: [euroProvider],
+      });
+
+      expect(harness.text).toBe('€1,234.56');
+    });
+
+    it('updates the currency code [parameter]', () => {
+      const { harness } = currencyPipeSetup();
+
+      harness.parameters = ['EUR'];
+
+      expect(harness.text).toBe('€1,234.56');
+    });
+
+    it('updates the currency indicator', () => {
+      const { harness } = currencyPipeSetup();
+
+      harness.parameters = ['USD', 'code'];
+
+      expect(harness.text).toBe('USD1,234.56');
+    });
+
+    it('updates the decimal representation', () => {
+      const { harness } = currencyPipeSetup();
+
+      harness.parameters = ['USD', 'symbol', '1.3-3'];
+
+      expect(harness.text).toBe('$1,234.560');
+    });
+
     it('updates the template', () => {
       const { harness } = currencyPipeSetup();
 
@@ -83,9 +134,9 @@ describe('Common pipes', () => {
   describe(PercentPipe.name, () => {
     function percentPipeSetup() {
       const harness = createPipeHarness({
+        parameters: ['4.3-5'],
         pipe: PercentPipe,
         pipeName: 'percent',
-        template: `{{ value | percent:'4.3-5' }}`,
         value: 1.3495,
       });
 
@@ -106,6 +157,14 @@ describe('Common pipes', () => {
       harness.value = 5.9431;
 
       expect(harness.text).toBe('0,594.310%');
+    });
+
+    it('updates the decimal representation', () => {
+      const { harness } = percentPipeSetup();
+
+      harness.parameters = ['1.1-1'];
+
+      expect(harness.text).toBe('135.0%');
     });
 
     it('updates the template', () => {

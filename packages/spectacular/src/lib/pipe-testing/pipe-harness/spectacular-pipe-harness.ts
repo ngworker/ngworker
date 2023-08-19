@@ -1,12 +1,30 @@
-import type { InjectFlags, InjectOptions, ProviderToken } from '@angular/core';
-import type { Observable } from 'rxjs';
+import type {
+  InjectFlags,
+  InjectOptions,
+  PipeTransform,
+  ProviderToken,
+} from '@angular/core';
+
+type Tail<T extends any[]> = T extends [infer A, ...infer R] ? R : never;
 
 /**
  * A harness for testing an Angular pipe.
  *
  * Includes an API to write a value and read the rendered text.
  */
-export abstract class SpectacularPipeHarness<TValue> {
+export abstract class SpectacularPipeHarness<
+  TPipe extends PipeTransform = PipeTransform,
+  TValue extends Parameters<TPipe['transform']>[0] = Parameters<
+    TPipe['transform']
+  >[0],
+  TParameters extends Tail<Parameters<TPipe['transform']>> = Tail<
+    Parameters<TPipe['transform']>
+  >
+> {
+  /**
+   * Update pipe parameters passed to the Angular pipe.
+   */
+  abstract set parameters(parameters: TParameters);
   /**
    * Replace the pipe component template.
    *
@@ -25,7 +43,7 @@ export abstract class SpectacularPipeHarness<TValue> {
    *
    * @param value The new value.
    */
-  abstract set value(value: TValue | Observable<TValue> | null);
+  abstract set value(value: TValue);
   /**
    * Resolve a dependency based on the specified dependency injection token.
    *
