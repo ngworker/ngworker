@@ -5,16 +5,17 @@
   "sourceRoot": "packages/spectacular-docs/src",
   "targets": {
     "build": {
-      "executor": "@nx-plus/docusaurus:browser",
+      "executor": "nx:run-commands",
       "outputs": ["{workspaceRoot}/dist/packages/spectacular-docs"],
       "options": {
+        "command": "docusaurus build packages/spectacular-docs --out-dir ../../dist/packages/spectacular-docs",
         "outputPath": "dist/packages/spectacular-docs"
       }
     },
     "serve": {
-      "executor": "@nx-plus/docusaurus:dev-server",
+      "executor": "nx:run-commands",
       "options": {
-        "port": 3000
+        "command": "docusaurus start packages/spectacular-docs --no-open"
       }
     }
   },
