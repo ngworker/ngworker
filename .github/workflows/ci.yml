@@ -160,7 +160,7 @@ jobs:
 
     steps:
       - name: '[Merge][Spectacular] Download docs app'
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: ${{ env.spectacular_docs_artifact_name }}
           path: ${{ env.spectacular_docs_path }}
