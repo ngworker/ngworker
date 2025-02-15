@@ -23,6 +23,7 @@
     },
     "lint": {
       "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
           "packages/examples/tour-of-heroes-classic/crisis-center/src/**/*.ts",
