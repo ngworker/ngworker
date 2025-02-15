@@ -167,7 +167,7 @@ jobs:
       - name: '[Merge][Spectacular] Set up GitHub Pages'
         uses: actions/configure-pages@v5
       - name: '[Merge][Spectacular] Upload docs app to GitHub Pages'
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
         with:
           path: ${{ env.spectacular_docs_path }}
       - name: '[Merge][Spectacular] Deploy docs app to GitHub Pages'
