@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { CanDeactivateGuard } from './can-deactivate.guard';
+import { canDeactivateGuard } from './can-deactivate.guard';
 import { CrisisCenterHomeComponent } from './crisis-center-home/crisis-center-home.component';
 import { CrisisCenterComponent } from './crisis-center/crisis-center.component';
 import { CrisisDetailResolverService } from './crisis-detail-resolver.service';
@@ -18,7 +18,7 @@ export const crisisCenterRoutes: Routes = [
           {
             path: ':id',
             component: CrisisDetailComponent,
-            canDeactivate: [CanDeactivateGuard],
+            canDeactivate: [canDeactivateGuard],
             resolve: {
               crisis: CrisisDetailResolverService,
             },
