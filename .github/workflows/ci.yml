@@ -35,10 +35,10 @@ jobs:
 
     steps:
       - if: github.event_name == 'push' && github.ref_name == 'main'
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       # needed for nx affected command
       - if: github.event_name == 'pull_request'
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
       # needed for nx affected command
@@ -46,7 +46,7 @@ jobs:
         run: git fetch --no-tags --depth=1 origin $BASE_BRANCH
 
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
           cache: yarn
@@ -64,10 +64,10 @@ jobs:
 
     steps:
       - if: github.event_name == 'push' && github.ref_name == 'main'
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       # needed for nx affected command
       - if: github.event_name == 'pull_request'
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
       # needed for nx affected command
@@ -75,7 +75,7 @@ jobs:
         run: git fetch --no-tags --depth=1 origin $BASE_BRANCH
 
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
           cache: yarn
@@ -93,10 +93,10 @@ jobs:
 
     steps:
       - if: github.event_name == 'push' && github.ref_name == 'main'
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       # needed for nx affected command
       - if: github.event_name == 'pull_request'
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
       # needed for nx affected command
@@ -104,7 +104,7 @@ jobs:
         run: git fetch --no-tags --depth=1 origin $BASE_BRANCH
 
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
           cache: yarn
@@ -117,7 +117,7 @@ jobs:
           yarn affected:build --exclude=spectacular-docs
           --base=origin/$BASE_BRANCH
       - name: '[Spectacular] Upload package build artifact'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: spectacular-package
           path: dist/packages/spectacular
@@ -127,10 +127,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
           cache: yarn
@@ -139,7 +139,7 @@ jobs:
       - run: yarn nx build spectacular-docs --parallel=$NX_MAX_PARALLEL
       - name: '[Merge][Spectacular] Upload docs app'
         if: github.event_name == 'push' && github.ref_name == 'main'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           if-no-files-found: error
           name: ${{ env.spectacular_docs_artifact_name }}
@@ -160,29 +160,29 @@ jobs:
 
     steps:
       - name: '[Merge][Spectacular] Download docs app'
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: ${{ env.spectacular_docs_artifact_name }}
           path: ${{ env.spectacular_docs_path }}
       - name: '[Merge][Spectacular] Set up GitHub Pages'
-        uses: actions/configure-pages@v3
+        uses: actions/configure-pages@v5
       - name: '[Merge][Spectacular] Upload docs app to GitHub Pages'
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
         with:
           path: ${{ env.spectacular_docs_path }}
       - name: '[Merge][Spectacular] Deploy docs app to GitHub Pages'
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4
 
   e2e:
     runs-on: ubuntu-latest
 
     steps:
       - if: github.event_name == 'push' && github.ref_name == 'main'
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       # needed for nx affected command
       - if: github.event_name == 'pull_request'
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
       # needed for nx affected command
@@ -190,7 +190,7 @@ jobs:
         run: git fetch --no-tags --depth=1 origin $BASE_BRANCH
 
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
           cache: yarn
