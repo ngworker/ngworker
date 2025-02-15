@@ -9,12 +9,7 @@
       "runner": "nx-cloud",
       "options": {
         "accessToken": "ZTViM2YyNGQtNjk2My00YmFjLWJlYmQtZjIwMzJhMmIxNGMwfHJlYWQtd3JpdGU=",
-        "cacheableOperations": [
-          "build",
-          "e2e",
-          "lint",
-          "test"
-        ],
+        "cacheableOperations": ["build", "e2e", "lint", "test"],
         "canTrackAnalytics": true,
         "parallel": 6,
         "showUsageWarnings": true
@@ -29,7 +24,7 @@
     "packageManager": "yarn"
   },
   "generators": {
-    "@nrwl/angular:application": {
+    "@nx/angular:application": {
       "e2eTestRunner": "cypress",
       "linter": "eslint",
       "routing": false,
@@ -37,55 +32,37 @@
       "style": "scss",
       "unitTestRunner": "jest"
     },
-    "@nrwl/angular:component": {
+    "@nx/angular:component": {
       "displayBlock": true,
       "skipTests": true,
       "style": "scss"
     },
-    "@nrwl/angular:library": {
+    "@nx/angular:library": {
       "linter": "eslint",
       "strict": true,
       "unitTestRunner": "jest"
     },
-    "@nrwl/angular:storybook-configuration": {
+    "@nx/angular:storybook-configuration": {
       "linter": "eslint"
     }
   },
   "targetDefaults": {
     "build": {
-      "dependsOn": [
-        "^build"
-      ],
-      "inputs": [
-        "production",
-        "^production"
-      ]
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
     },
     "test": {
-      "inputs": [
-        "default",
-        "^production",
-        "{workspaceRoot}/jest.preset.js"
-      ]
+      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"]
     },
     "e2e": {
-      "inputs": [
-        "default",
-        "^production"
-      ]
+      "inputs": ["default", "^production"]
     },
     "lint": {
-      "inputs": [
-        "default",
-        "{workspaceRoot}/.eslintrc.json"
-      ]
+      "inputs": ["default", "{workspaceRoot}/.eslintrc.json"]
     }
   },
   "namedInputs": {
-    "default": [
-      "{projectRoot}/**/*",
-      "sharedGlobals"
-    ],
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
     "sharedGlobals": [],
     "production": [
       "default",

@@ -6,7 +6,7 @@
   "prefix": "app-crisis",
   "targets": {
     "build": {
-      "executor": "@nrwl/angular:ng-packagr-lite",
+      "executor": "@nx/angular:ng-packagr-lite",
       "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "options": {
         "project": "packages/examples/tour-of-heroes-classic/crisis-center/ng-package.json"
