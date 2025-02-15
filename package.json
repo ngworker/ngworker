@@ -39,7 +39,7 @@
     "@angular/platform-browser-dynamic": "16.0.6",
     "@angular/router": "16.0.6",
     "@nx/angular": "16.3.2",
-    "rxjs": "6.6.7",
+    "rxjs": "6.5.5",
     "tslib": "2.4.1",
     "zone.js": "0.12.0"
   },
