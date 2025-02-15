@@ -3,7 +3,6 @@ export default {
   displayName: 'examples-tour-of-heroes-crisis-center',
   preset: '../../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  globals: {},
   coverageDirectory:
     '../../../../coverage/packages/examples/tour-of-heroes-classic/crisis-center',
   snapshotSerializers: [

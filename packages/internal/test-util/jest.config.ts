@@ -3,7 +3,6 @@ export default {
   displayName: 'internal-test-util',
   preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  globals: {},
   coverageDirectory: '../../../coverage/packages/internal/test-util',
   snapshotSerializers: [
     'jest-preset-angular/build/serializers/no-ng-attributes',

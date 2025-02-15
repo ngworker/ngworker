@@ -3,7 +3,6 @@ export default {
   displayName: 'spectacular',
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  globals: {},
   coverageDirectory: '../../coverage/packages/spectacular',
   snapshotSerializers: [
     'jest-preset-angular/build/serializers/no-ng-attributes',
