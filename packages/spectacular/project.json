@@ -38,6 +38,12 @@
       "options": {
         "jestConfig": "packages/spectacular/jest.config.ts",
         "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
       }
     }
   },

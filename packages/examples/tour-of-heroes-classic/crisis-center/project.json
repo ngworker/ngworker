@@ -37,6 +37,12 @@
       "options": {
         "jestConfig": "packages/examples/tour-of-heroes-classic/crisis-center/jest.config.ts",
         "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
       }
     }
   },

@@ -37,6 +37,12 @@
       "options": {
         "jestConfig": "packages/internal/test-util/jest.config.ts",
         "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
       }
     }
   },
