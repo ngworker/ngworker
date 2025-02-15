@@ -59,7 +59,7 @@
     {
       "cli": "nx",
       "version": "16.0.0-beta.1",
-      "description": "Replace @nrwl/eslint-plugin-nx with @nx/eslint-plugin",
+      "description": "Replace @nx/eslint-plugin with @nx/eslint-plugin",
       "implementation": "./src/migrations/update-16-0-0-add-nx-packages/update-16-0-0-add-nx-packages",
       "package": "@nx/eslint-plugin",
       "name": "update-16-0-0-add-nx-packages"
