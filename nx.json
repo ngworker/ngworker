@@ -25,13 +25,13 @@
       "linter": "eslint",
       "routing": false,
       "strict": true,
-      "style": "scss",
+      "style": "css",
       "unitTestRunner": "jest"
     },
     "@nx/angular:component": {
       "displayBlock": true,
       "skipTests": true,
-      "style": "scss"
+      "style": "css"
     },
     "@nx/angular:library": {
       "linter": "eslint",
