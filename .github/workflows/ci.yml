@@ -117,7 +117,7 @@ jobs:
           yarn affected:build --exclude=spectacular-docs
           --base=origin/$BASE_BRANCH
       - name: '[Spectacular] Upload package build artifact'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: spectacular-package
           path: dist/packages/spectacular
@@ -139,7 +139,7 @@ jobs:
       - run: yarn nx build spectacular-docs --parallel=$NX_MAX_PARALLEL
       - name: '[Merge][Spectacular] Upload docs app'
         if: github.event_name == 'push' && github.ref_name == 'main'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           if-no-files-found: error
           name: ${{ env.spectacular_docs_artifact_name }}
