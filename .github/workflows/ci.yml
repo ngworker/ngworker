@@ -172,7 +172,7 @@ jobs:
           path: ${{ env.spectacular_docs_path }}
       - name: '[Merge][Spectacular] Deploy docs app to GitHub Pages'
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4
 
   e2e:
     runs-on: ubuntu-latest
