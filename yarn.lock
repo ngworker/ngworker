@@ -4126,12 +4126,12 @@
   dependencies:
     defer-to-connect "^1.0.1"
 
-"@testing-library/angular@13.0.2":
-  version "13.0.2"
-  resolved "https://registry.yarnpkg.com/@testing-library/angular/-/angular-13.0.2.tgz#b038926f0cbdf9d7978f816ffa2ddcd92faf3d3f"
-  integrity sha512-kiM3qEsvHxlwChAkRqKXXGDfDnGozfpBqFl1ZgTQrxfryOdQGHmRobaTSdSiyVTAFpVyT2Fn71FmSVrW6VGqew==
+"@testing-library/angular@14.3.0":
+  version "14.3.0"
+  resolved "https://registry.yarnpkg.com/@testing-library/angular/-/angular-14.3.0.tgz#cc11e9b8197321fc03eaf4202519422975598d30"
+  integrity sha512-HniH9B4+u9unr3xIo0gPrFjC0MFeN83xx1JajdL6Xgalc7pebRowCVMPQHXjry1f/1hb8Eyl8uMdCy4toG+f9A==
   dependencies:
-    "@testing-library/dom" "^8.0.0"
+    "@testing-library/dom" "^9.0.0"
     tslib "^2.3.1"
 
 "@testing-library/dom@9.3.1":
@@ -4148,10 +4148,10 @@
     lz-string "^1.5.0"
     pretty-format "^27.0.2"
 
-"@testing-library/dom@^8.0.0":
-  version "8.20.1"
-  resolved "https://registry.yarnpkg.com/@testing-library/dom/-/dom-8.20.1.tgz#2e52a32e46fc88369eef7eef634ac2a192decd9f"
-  integrity sha512-/DiOQ5xBxgdYRC8LNk7U+RWat0S3qRLeIw3ZIkMQ9kkVlRmwD/Eg8k8CqIpD6GW7u20JIUOfMKbxtiLutpjQ4g==
+"@testing-library/dom@^9.0.0":
+  version "9.3.4"
+  resolved "https://registry.yarnpkg.com/@testing-library/dom/-/dom-9.3.4.tgz#50696ec28376926fec0a1bf87d9dbac5e27f60ce"
+  integrity sha512-FlS4ZWlp97iiNWig0Muq8p+3rVDjRiYE+YKGbAqXOu9nwJFFOdL00kFpz42M+4huzYi86vAK1sOOfyOG45muIQ==
   dependencies:
     "@babel/code-frame" "^7.10.4"
     "@babel/runtime" "^7.12.5"
