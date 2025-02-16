@@ -10,6 +10,7 @@ import { createFeatureHarness } from './create-feature-harness';
 
 @Component({
   standalone: true,
+  selector: 'spectacular-test-heroes-job-board',
   imports: [],
   template: '',
 })
@@ -17,6 +18,7 @@ class HeroesJobBoardComponent {}
 
 @Component({
   standalone: true,
+  selector: 'spectacular-test-heroes-job-listing',
   imports: [],
   template: '',
 })

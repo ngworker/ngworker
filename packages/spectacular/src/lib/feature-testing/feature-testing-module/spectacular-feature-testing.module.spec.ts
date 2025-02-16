@@ -33,6 +33,7 @@ function routingSetup() {
 
 @Component({
   standalone: true,
+  selector: 'spectacular-test-page',
   imports: [],
   template: '',
 })
