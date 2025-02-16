@@ -23,8 +23,8 @@
     "workspace-generator": "nx workspace-generator",
     "graph": "nx graph",
     "help": "nx help",
-    "ci": "yarn lint && yarn test && yarn build && yarn e2e",
-    "affected:ci": "yarn affected:lint && yarn affected:test && yarn affected:build && yarn affected:e2e"
+    "ci": "npm run lint && npm run test && npm run build && npm run e2e",
+    "affected:ci": "npm run affected:lint && npm run affected:test && npm run affected:build && npm run affected:e2e"
   },
   "private": true,
   "dependencies": {
@@ -99,6 +99,6 @@
   },
   "volta": {
     "node": "18.20.6",
-    "yarn": "1.22.22"
+    "npm": "10.8.2"
   }
 }
