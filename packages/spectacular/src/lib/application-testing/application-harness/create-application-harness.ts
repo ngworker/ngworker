@@ -53,7 +53,9 @@ export async function createApplicationHarness(
   });
 
   return {
-    inject: TestBed.inject.bind(TestBed),
+    inject(...args: unknown[]) {
+      return TestBed.runInInjectionContext(() => TestBed.apply(TestBed, args))
+    },
     get rootComponent() {
       return rootFixture.componentInstance;
     },
