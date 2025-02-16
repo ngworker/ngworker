@@ -1,9 +1,8 @@
-import { NgModule, PipeTransform, Type } from '@angular/core';
+import { isStandalone, NgModule, PipeTransform, Type } from '@angular/core';
 import type { ComponentFixture } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import type { Observable } from 'rxjs';
-import { isStandalone } from '../../shared/is-standalone';
 import { SpectacularPipeComponent } from '../pipe-component/spectacular-pipe.component';
 import type { SpectacularPipeHarness } from './spectacular-pipe-harness';
 
