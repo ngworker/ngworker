@@ -1,6 +1,6 @@
 import type { NgModule } from '@angular/core';
 import { NgZone } from '@angular/core';
-import { ComponentFixtureAutoDetect, TestBed } from '@angular/core/testing';
+import { ComponentFixtureAutoDetect, TestBed, getTestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
   SpectacularAppComponent,
@@ -34,10 +34,10 @@ export async function createApplicationHarness(
 
   TestBed.compileComponents();
 
-  let autoDetectChangesArray: boolean | readonly boolean[] = TestBed.inject(
+  let autoDetectChangesArray: boolean | readonly boolean[] = TestBed.runInInjectionContext(() => TestBed.inject(
     ComponentFixtureAutoDetect,
     true
-  );
+  ));
 
   if (!Array.isArray(autoDetectChangesArray)) {
     autoDetectChangesArray = [autoDetectChangesArray];
@@ -45,16 +45,17 @@ export async function createApplicationHarness(
 
   const [autoDetectChanges] = autoDetectChangesArray;
 
+  const ngZone = TestBed.runInInjectionContext(() => TestBed.inject(NgZone));
   const rootFixture = await bootstrapComponent({
     autoDetectChanges,
     component: SpectacularAppComponent,
-    ngZone: TestBed.inject(NgZone),
+    ngZone,
     tag: spectacularAppTag,
   });
 
   return {
-    inject(...args: unknown[]) {
-      return TestBed.runInInjectionContext(() => TestBed.apply(TestBed, args))
+    inject(token: any, notFoundValue: any, optionsOrFlags: any) {
+      return TestBed.runInInjectionContext(() => TestBed.inject(token, notFoundValue, optionsOrFlags));
     },
     get rootComponent() {
       return rootFixture.componentInstance;

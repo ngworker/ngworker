@@ -10,7 +10,7 @@ import { detach } from './detach';
  * @param newRootElement The root element to attach.
  */
 export function replaceRootElement(newRootElement: HTMLElement): void {
-  const doc = TestBed.inject(DOCUMENT);
+  const doc = TestBed.runInInjectionContext(() => TestBed.inject(DOCUMENT));
 
   doc
     .querySelectorAll(newRootElement.tagName)

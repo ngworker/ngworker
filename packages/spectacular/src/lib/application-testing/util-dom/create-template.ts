@@ -8,7 +8,7 @@ import { TestBed } from '@angular/core/testing';
  * @returns The template wrapping the specified markup.
  */
 export function createTemplate(html: string): HTMLElement {
-  const doc = TestBed.inject(DOCUMENT);
+  const doc = TestBed.runInInjectionContext(() => TestBed.inject(DOCUMENT));
 
   const templateElement = doc.createElement('template');
   templateElement.innerHTML = html;
