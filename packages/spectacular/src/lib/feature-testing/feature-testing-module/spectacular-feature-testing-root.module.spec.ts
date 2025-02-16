@@ -8,6 +8,7 @@ import { SpectacularFeatureTestingRootModule } from './spectacular-feature-testi
 
 @Component({
   standalone: true,
+  selector: 'spectacular-test-root',
   imports: [RouterOutlet],
   template: '<router-outlet></router-outlet>',
 })

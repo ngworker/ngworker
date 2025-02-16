@@ -4,3 +4,5 @@
 /coverage
 .docusaurus/
 .browserslistrc
+.nx/
+.angular/

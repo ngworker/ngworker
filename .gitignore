@@ -44,3 +44,10 @@ Thumbs.db
 .docusaurus/
 .cache-loader/
 /packages/**/docs/api
+
+# Nx
+.nx/cache/
+.nx/workspace-data/
+
+# Angular
+.angular/

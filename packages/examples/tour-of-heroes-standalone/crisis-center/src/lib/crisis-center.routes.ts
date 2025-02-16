@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
-import { CanDeactivateGuard } from './can-deactivate.guard';
+import { canDeactivateGuard } from './can-deactivate.guard';
 import { CrisisCenterHomeComponent } from './crisis-center-home/crisis-center-home.component';
 import { CrisisCenterComponent } from './crisis-center/crisis-center.component';
-import { CrisisDetailResolverService } from './crisis-detail-resolver.service';
+import { crisisDetailResolver } from './crisis-detail.resolver';
 import { CrisisDetailComponent } from './crisis-detail/crisis-detail.component';
 import { CrisisListComponent } from './crisis-list/crisis-list.component';
 
@@ -18,9 +18,9 @@ export const crisisCenterRoutes: Routes = [
           {
             path: ':id',
             component: CrisisDetailComponent,
-            canDeactivate: [CanDeactivateGuard],
+            canDeactivate: [canDeactivateGuard],
             resolve: {
-              crisis: CrisisDetailResolverService,
+              crisis: crisisDetailResolver,
             },
           },
           {

@@ -23,7 +23,7 @@ export class SpectacularFeatureLocation {
    * @param includeHash True to include an anchor fragment in the path.
    *   Optional. Default is `false`.
    */
-  path(includeHash: boolean = false): string {
+  path(includeHash = false): string {
     const path = this.#location.path(includeHash);
     const strippedPath = trimLeadingText('/' + this.#featurePath, path);
     const isOutsideFeature = strippedPath === path;

@@ -7,9 +7,6 @@
       "path": "./tsconfig.lib.json"
     },
     {
-      "path": "./tsconfig.lib.prod.json"
-    },
-    {
       "path": "./tsconfig.spec.json"
     }
   ],
@@ -20,7 +17,8 @@
     "noImplicitReturns": true,
     "noPropertyAccessFromIndexSignature": true,
     "strict": true,
-    "target": "es2022"
+    "target": "es2022",
+    "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

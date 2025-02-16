@@ -4,7 +4,7 @@ env:
   BASE_BRANCH: ${{ github.event.pull_request.base.ref }}
   NODE_OPTIONS: --max-old-space-size=6144
   NX_BRANCH: ${{ github.event.number }}
-  NX_MAX_PARALLEL: 2
+  NGWORKER_NX_PARALLEL: 2
   NX_RUN_GROUP: ${{ github.run_id }}
   spectacular_docs_artifact_name: spectacular-docs
   spectacular_docs_path: dist/packages/spectacular-docs/
@@ -53,11 +53,11 @@ jobs:
       - run: yarn install --frozen-lockfile --non-interactive
 
       - if: github.event_name == 'push' && github.ref_name == 'main'
-        run: yarn lint --parallel=$NX_MAX_PARALLEL
+        run: yarn lint --parallel=$NGWORKER_NX_PARALLEL
       - if: github.event_name == 'pull_request'
         run:
           yarn affected:lint --base=origin/$BASE_BRANCH
-          --parallel=$NX_MAX_PARALLEL
+          --parallel=$NGWORKER_NX_PARALLEL
 
   test:
     runs-on: ubuntu-latest
@@ -82,11 +82,11 @@ jobs:
       - run: yarn install --frozen-lockfile --non-interactive
 
       - if: github.event_name == 'push' && github.ref_name == 'main'
-        run: yarn test --parallel=$NX_MAX_PARALLEL
+        run: yarn test --parallel=$NGWORKER_NX_PARALLEL
       - if: github.event_name == 'pull_request'
         run:
           yarn affected:test --base=origin/$BASE_BRANCH
-          --parallel=$NX_MAX_PARALLEL
+          --parallel=$NGWORKER_NX_PARALLEL
 
   build:
     runs-on: ubuntu-latest
@@ -136,7 +136,7 @@ jobs:
           cache: yarn
       - run: yarn install --frozen-lockfile --non-interactive
 
-      - run: yarn nx build spectacular-docs --parallel=$NX_MAX_PARALLEL
+      - run: yarn nx build spectacular-docs --parallel=$NGWORKER_NX_PARALLEL
       - name: '[Merge][Spectacular] Upload docs app'
         if: github.event_name == 'push' && github.ref_name == 'main'
         uses: actions/upload-artifact@v4
@@ -197,8 +197,8 @@ jobs:
       - run: yarn install --frozen-lockfile --non-interactive
 
       - if: github.event_name == 'push' && github.ref_name == 'main'
-        run: yarn e2e --parallel=$NX_MAX_PARALLEL
+        run: yarn e2e --parallel=$NGWORKER_NX_PARALLEL
       - if: github.event_name == 'pull_request'
         run:
           yarn affected:e2e --base=origin/$BASE_BRANCH
-          --parallel=$NX_MAX_PARALLEL
+          --parallel=$NGWORKER_NX_PARALLEL
