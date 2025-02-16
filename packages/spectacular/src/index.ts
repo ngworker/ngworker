@@ -9,9 +9,6 @@ export * from './lib/feature-testing/configuration/with-initial-feature-navigati
 //   Feature harness
 export * from './lib/feature-testing/feature-harness/create-feature-harness';
 export * from './lib/feature-testing/feature-harness/spectacular-feature-harness';
-//   Feature testing module
-export * from './lib/feature-testing/feature-testing-module/spectacular-feature-testing-root.module';
-export * from './lib/feature-testing/feature-testing-module/spectacular-feature-testing.module';
 //   Navigation
 export * from './lib/feature-testing/navigation/spectacular-feature-location';
 export * from './lib/feature-testing/navigation/spectacular-feature-router';
