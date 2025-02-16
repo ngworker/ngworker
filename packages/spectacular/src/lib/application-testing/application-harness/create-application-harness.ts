@@ -1,6 +1,5 @@
 import type { NgModule } from '@angular/core';
-import { NgZone } from '@angular/core';
-import { ComponentFixtureAutoDetect, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
   SpectacularAppComponent,
@@ -34,21 +33,8 @@ export async function createApplicationHarness(
 
   TestBed.compileComponents();
 
-  let autoDetectChangesArray: boolean | readonly boolean[] = TestBed.inject(
-    ComponentFixtureAutoDetect,
-    true
-  );
-
-  if (!Array.isArray(autoDetectChangesArray)) {
-    autoDetectChangesArray = [autoDetectChangesArray];
-  }
-
-  const [autoDetectChanges] = autoDetectChangesArray;
-
   const rootFixture = await bootstrapComponent({
-    autoDetectChanges,
     component: SpectacularAppComponent,
-    ngZone: TestBed.inject(NgZone),
     tag: spectacularAppTag,
   });
 
