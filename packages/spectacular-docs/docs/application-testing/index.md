@@ -98,14 +98,14 @@ We have to create a component fixture for the testbed to run synchronous
 application initializers.
 
 To resolve the issue, we create a blank component to serve as the root component
-for our test and we declare it in the Angular testing module as seen in the
-highlighted lines:
+for our test as seen in the highlighted lines:
 
-```ts {4-8,26}
+```ts {4-9}
 import { APP_INITIALIZER, Component, FactoryProvider } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 
 @Component({
+  standalone: true,
   selector: 'test-app',
   template: '',
 })
@@ -127,7 +127,6 @@ describe('Application initializers', () => {
 
   it('registers and runs the specified synchronous initializer', () => {
     TestBed.configureTestingModule({
-      declarations: [TestAppComponent],
       providers: [applicationInitializer],
     });
 
@@ -145,6 +144,7 @@ import { APP_INITIALIZER, Component, FactoryProvider } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 
 @Component({
+  standalone: true,
   selector: 'test-app',
   template: '',
 })
@@ -166,7 +166,6 @@ describe('Application initializers', () => {
 
   it('registers and runs the specified synchronous initializer', () => {
     TestBed.configureTestingModule({
-      declarations: [TestAppComponent],
       providers: [applicationInitializer],
     });
     TestBed.createComponent(TestAppComponent);
@@ -218,6 +217,7 @@ import { APP_INITIALIZER, Component, FactoryProvider } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 
 @Component({
+  standalone: true,
   selector: 'test-app',
   template: '',
 })
@@ -240,7 +240,6 @@ describe('Application initializers', () => {
 
   it('registers and runs the specified asynchronous initializer', () => {
     TestBed.configureTestingModule({
-      declarations: [TestAppComponent],
       providers: [asyncApplicationInitializer],
     });
     TestBed.createComponent(TestAppComponent);
@@ -258,11 +257,12 @@ can use an `await` statement. We store a reference to the root component fixture
 in the `rootFixture` variable, call its `whenStable` method and await the
 returned promise.
 
-```ts {25,30-31}
+```ts {26,30-31}
 import { APP_INITIALIZER, Component, FactoryProvider } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 
 @Component({
+  standalone: true,
   selector: 'test-app',
   template: '',
 })
@@ -285,7 +285,6 @@ describe('Application initializers', () => {
 
   it('registers and runs the specified asynchronous initializer', async () => {
     TestBed.configureTestingModule({
-      declarations: [TestAppComponent],
       providers: [asyncApplicationInitializer],
     });
     const rootFixture = TestBed.createComponent(TestAppComponent);
@@ -301,7 +300,7 @@ Success!
 Well, depending on how we look at it. Even more boilerplate to test the simplest
 possible asynchronous application initializer.
 
-Not only do we have to declare and bootstrap an empty root component. We also
+Not only do we have to define and bootstrap an empty root component. We also
 have to wait for its component test fixture to become stable before
 `initialized` is set to `true`.
 
@@ -356,7 +355,7 @@ although we have listed it in the example above.
 Next, we add a test case with the setup we applied to asynchronous application
 initializers:
 
-```ts {32-41}
+```ts {33-41}
 import {
   APP_BOOTSTRAP_LISTENER,
   Component,
@@ -367,6 +366,7 @@ import {
 import { TestBed } from '@angular/core/testing';
 
 @Component({
+  standalone: true,
   selector: 'test-app',
   template: '',
 })
@@ -390,7 +390,6 @@ describe('Bootstrap listeners', () => {
 
   it('registers and runs the specified bootstrap listener', async () => {
     TestBed.configureTestingModule({
-      declarations: [TestAppComponent],
       providers: [bootstrapListener],
     });
     const rootFixture = TestBed.createComponent(TestAppComponent);
@@ -445,7 +444,7 @@ describe('Application initializers', () => {
 });
 ```
 
-That's the whole test suite. No need to create, declare or bootstrap a blank
+That's the whole test suite. No need to create, define, or bootstrap a blank
 test root component. No need to manually configure the Angular testing module.
 No need to wait for the root component fixture to stabilize.
 
@@ -544,7 +543,7 @@ describe('Environment initializers', () => {
 Finally, let's see how we can test a boostrap listener with Spectacular's
 application testing API.
 
-First, we declare the bootstrap listener and manage the shared `boostrapped`
+First, we define the bootstrap listener and manage the shared `boostrapped`
 variable:
 
 ```ts {9-21}
@@ -619,7 +618,7 @@ While we tested the most simple application hooks possible in this page, this is
 enough to demonstrate that:
 
 - Unlike Angular's testbed, Spectacular supports testing bootstrap listeners
-- A Spectacular application harness takes care of declaring and bootstrapping a
+- A Spectacular application harness takes care of defining and bootstrapping a
   root component
 - The Spectacular application harness factory waits for application initializers
   and bootstrap listeners to finish before resolving an application harness
