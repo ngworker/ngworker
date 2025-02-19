@@ -11,8 +11,8 @@ export interface BootstrapComponentOptions<TRootComponent> {
 }
 
 async function waitForApplicationInitializers(): Promise<void> {
-  const applicationInitStatus = TestBed.inject(ApplicationInitStatus);
-  await applicationInitStatus.donePromise;
+  const applicationInitStatus = TestBed.runInInjectionContext(() => TestBed.inject(ApplicationInitStatus));
+  await TestBed.runInInjectionContext(() => applicationInitStatus.donePromise);
 }
 
 /**
@@ -32,14 +32,14 @@ export async function bootstrapComponent<TRootComponent>({
 > {
   await waitForApplicationInitializers();
 
-  ensureFreshRootElement(tag);
-  const application = TestBed.inject(ApplicationRef);
-  const componentRef = application.bootstrap(component, tag);
-  const fixture = new ComponentFixture<TRootComponent>(
+  TestBed.runInInjectionContext(() => ensureFreshRootElement(tag));
+  const application = TestBed.runInInjectionContext(() => TestBed.inject(ApplicationRef));
+  const componentRef = TestBed.runInInjectionContext(() => application.bootstrap(component, tag));
+  const fixture = TestBed.runInInjectionContext(() => new ComponentFixture<TRootComponent>(
     componentRef,
     ngZone,
     autoDetectChanges
-  );
+  ));
 
   return fixture;
 }
