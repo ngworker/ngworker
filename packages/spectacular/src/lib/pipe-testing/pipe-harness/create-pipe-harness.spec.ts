@@ -94,8 +94,8 @@ describe(createPipeHarness.name, () => {
       it('adds the specified imports', () => {
         const harness = createPipeHarness({
           imports: [PipeServiceModule],
-          pipe: ClassicPassthroughPipe,
-          pipeName: classicPassthroughPipeName,
+          pipe: StandalonePassthroughPipe,
+          pipeName: standalonePassthroughPipeName,
           value: null,
         });
 
@@ -106,8 +106,8 @@ describe(createPipeHarness.name, () => {
       it('adds the specified providers', () => {
         const harness = createPipeHarness({
           providers: [PipeService],
-          pipe: ClassicPassthroughPipe,
-          pipeName: classicPassthroughPipeName,
+          pipe: StandalonePassthroughPipe,
+          pipeName: standalonePassthroughPipeName,
           value: null,
         });
 
