@@ -1,5 +1,30 @@
 # Spectacular changelog
 
+## 16.0.0 (2025-02-19)
+
+### Features
+
+- Officially support environment initializers
+- Mark package as side effect-free
+- Remove `provideSpectacularFeatureTest`
+  ([#85](https://github.com/ngworker/ngworker/pull/85))
+- Remove `SpectacularFeatureTestingModule`
+  ([#85](https://github.com/ngworker/ngworker/pull/85))
+- Remove internal `SpectacularFeatureTestingRootModule`
+  ([#85](https://github.com/ngworker/ngworker/pull/85))
+
+### BREAKING CHANGES
+
+- Require Angular 16
+- Remove `provideSpectacularFeatureTest`
+  ([#85](https://github.com/ngworker/ngworker/pull/85))
+  - Use `provideSpectacularFeatureTesting` instead
+- Remove `SpectacularFeatureTestingModule`
+  ([#85](https://github.com/ngworker/ngworker/pull/85))
+  - Use `provideSpectacularFeatureTesting` instead
+- Remove internal `SpectacularFeatureTestingRootModule`
+  ([#85](https://github.com/ngworker/ngworker/pull/85))
+
 ## 15.0.0 (2023-08-08)
 
 ### Features
