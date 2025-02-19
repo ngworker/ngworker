@@ -340,9 +340,11 @@ describe('Bootstrap listeners', () => {
   const bootstrapListener: FactoryProvider = {
     multi: true,
     provide: APP_BOOTSTRAP_LISTENER,
-    useFactory: () => (component: ComponentRef<Type<unknown>>): void => {
-      bootstrapped = true;
-    },
+    useFactory:
+      () =>
+      (component: ComponentRef<Type<unknown>>): void => {
+        bootstrapped = true;
+      },
   };
   let bootstrapped: boolean;
 });
@@ -378,9 +380,11 @@ describe('Bootstrap listeners', () => {
   const bootstrapListener: FactoryProvider = {
     multi: true,
     provide: APP_BOOTSTRAP_LISTENER,
-    useFactory: () => (component: ComponentRef<Type<unknown>>): void => {
-      bootstrapped = true;
-    },
+    useFactory:
+      () =>
+      (component: ComponentRef<Type<unknown>>): void => {
+        bootstrapped = true;
+      },
   };
   let bootstrapped: boolean;
 
@@ -512,9 +516,11 @@ describe('Bootstrap listeners', () => {
   const bootstrapListener: FactoryProvider = {
     multi: true,
     provide: APP_BOOTSTRAP_LISTENER,
-    useFactory: () => (component: ComponentRef<Type<unknown>>): void => {
-      bootstrapped = true;
-    },
+    useFactory:
+      () =>
+      (component: ComponentRef<Type<unknown>>): void => {
+        bootstrapped = true;
+      },
   };
   let bootstrapped: boolean;
 });
@@ -540,9 +546,11 @@ describe('Bootstrap listeners', () => {
   const bootstrapListener: FactoryProvider = {
     multi: true,
     provide: APP_BOOTSTRAP_LISTENER,
-    useFactory: () => (component: ComponentRef<Type<unknown>>): void => {
-      bootstrapped = true;
-    },
+    useFactory:
+      () =>
+      (component: ComponentRef<Type<unknown>>): void => {
+        bootstrapped = true;
+      },
   };
   let bootstrapped: boolean;
 

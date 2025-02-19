@@ -1,7 +1,7 @@
 ---
-id: "SpectacularAppComponent"
-title: "Class: SpectacularAppComponent"
-sidebar_label: "SpectacularAppComponent"
+id: 'SpectacularAppComponent'
+title: 'Class: SpectacularAppComponent'
+sidebar_label: 'SpectacularAppComponent'
 sidebar_position: 0
 custom_edit_url: null
 ---
@@ -40,8 +40,8 @@ Get the active top-level routed component, for example a page component.
 
 #### Type parameters
 
-| Name |
-| :------ |
+| Name               |
+| :----------------- |
 | `TActiveComponent` |
 
 #### Returns

@@ -1,17 +1,19 @@
 ---
-id: "ProvideSpectacularFeatureTestOptions"
-title: "Interface: ProvideSpectacularFeatureTestOptions"
-sidebar_label: "ProvideSpectacularFeatureTestOptions"
+id: 'ProvideSpectacularFeatureTestOptions'
+title: 'Interface: ProvideSpectacularFeatureTestOptions'
+sidebar_label: 'ProvideSpectacularFeatureTestOptions'
 sidebar_position: 0
 custom_edit_url: null
 ---
 
-Options for [provideSpectacularFeatureTest](../modules.md#providespectacularfeaturetest).
+Options for
+[provideSpectacularFeatureTest](../modules.md#providespectacularfeaturetest).
 
 **`Deprecated`**
 
-Deprecated in favor of [ProvideSpectacularFeatureTestingOptions](ProvideSpectacularFeatureTestingOptions.md).
-  To be removed in Spectacular 16.0.
+Deprecated in favor of
+[ProvideSpectacularFeatureTestingOptions](ProvideSpectacularFeatureTestingOptions.md).
+To be removed in Spectacular 16.0.
 
 ## Hierarchy
 
@@ -25,8 +27,8 @@ Deprecated in favor of [ProvideSpectacularFeatureTestingOptions](ProvideSpectacu
 
 • `Readonly` **featurePath**: `string`
 
-The path prefix used to load the routes of the specified Angular feature,
-for example `'heroes'`.
+The path prefix used to load the routes of the specified Angular feature, for
+example `'heroes'`.
 
 #### Inherited from
 
@@ -36,7 +38,7 @@ for example `'heroes'`.
 
 [packages/spectacular/src/lib/feature-testing/configuration/provide-spectacular-feature-testing.ts:18](https://github.com/ngworker/ngworker/blob/b782ad5/packages/spectacular/src/lib/feature-testing/configuration/provide-spectacular-feature-testing.ts#L18)
 
-___
+---
 
 ### routes
 
@@ -50,7 +52,7 @@ statically return an Angular module from the `loadChildren` callback.
 **`Example`**
 
 ```typescript
-[{ path: 'heroes', loadChildren: () => HeroesModule }]
+[{ path: 'heroes', loadChildren: () => HeroesModule }];
 ```
 
 #### Inherited from
