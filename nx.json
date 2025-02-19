@@ -16,9 +16,6 @@
     "appsDir": "e2e",
     "libsDir": "packages"
   },
-  "cli": {
-    "packageManager": "yarn"
-  },
   "generators": {
     "@nx/angular:application": {
       "e2eTestRunner": "none",

@@ -49,14 +49,14 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
-          cache: yarn
-      - run: yarn install --frozen-lockfile --non-interactive
+          cache: npm
+      - run: npm ci
 
       - if: github.event_name == 'push' && github.ref_name == 'main'
-        run: yarn lint --parallel=$NGWORKER_NX_PARALLEL
+        run: npm run lint -- --parallel=$NGWORKER_NX_PARALLEL
       - if: github.event_name == 'pull_request'
         run:
-          yarn affected:lint --base=origin/$BASE_BRANCH
+          npm run affected:lint -- --base=origin/$BASE_BRANCH
           --parallel=$NGWORKER_NX_PARALLEL
 
   test:
@@ -78,14 +78,14 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
-          cache: yarn
-      - run: yarn install --frozen-lockfile --non-interactive
+          cache: npm
+      - run: npm ci
 
       - if: github.event_name == 'push' && github.ref_name == 'main'
-        run: yarn test --parallel=$NGWORKER_NX_PARALLEL
+        run: npm run test -- --parallel=$NGWORKER_NX_PARALLEL
       - if: github.event_name == 'pull_request'
         run:
-          yarn affected:test --base=origin/$BASE_BRANCH
+          npm run affected:test -- --base=origin/$BASE_BRANCH
           --parallel=$NGWORKER_NX_PARALLEL
 
   build:
@@ -107,14 +107,14 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
-          cache: yarn
-      - run: yarn install --frozen-lockfile --non-interactive
+          cache: npm
+      - run: npm ci
 
       - if: github.event_name == 'push' && github.ref_name == 'main'
-        run: yarn build --exclude=spectacular-docs
+        run: npm run build -- --exclude=spectacular-docs
       - if: github.event_name == 'pull_request'
         run:
-          yarn affected:build --exclude=spectacular-docs
+          npm run affected:build -- --exclude=spectacular-docs
           --base=origin/$BASE_BRANCH
       - name: '[Spectacular] Upload package build artifact'
         uses: actions/upload-artifact@v4
@@ -133,10 +133,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
-          cache: yarn
-      - run: yarn install --frozen-lockfile --non-interactive
+          cache: npm
+      - run: npm ci
 
-      - run: yarn nx build spectacular-docs --parallel=$NGWORKER_NX_PARALLEL
+      - run:
+          npm run nx -- build spectacular-docs --parallel=$NGWORKER_NX_PARALLEL
       - name: '[Merge][Spectacular] Upload docs app'
         if: github.event_name == 'push' && github.ref_name == 'main'
         uses: actions/upload-artifact@v4
@@ -193,12 +194,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
-          cache: yarn
-      - run: yarn install --frozen-lockfile --non-interactive
+          cache: npm
+      - run: npm ci
 
       - if: github.event_name == 'push' && github.ref_name == 'main'
-        run: yarn e2e --parallel=$NGWORKER_NX_PARALLEL
+        run: npm run e2e -- --parallel=$NGWORKER_NX_PARALLEL
       - if: github.event_name == 'pull_request'
         run:
-          yarn affected:e2e --base=origin/$BASE_BRANCH
+          npm run affected:e2e -- --base=origin/$BASE_BRANCH
           --parallel=$NGWORKER_NX_PARALLEL
