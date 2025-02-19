@@ -38,13 +38,7 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": [
-          "packages/examples/tour-of-heroes-standalone/crisis-center/**/*.ts",
-          "packages/examples/tour-of-heroes-standalone/crisis-center/**/*.html"
-        ]
-      }
+      "outputs": ["{options.outputFile}"]
     }
   }
 }
