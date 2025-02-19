@@ -63,7 +63,6 @@
     "@nx/jest": "17.2.8",
     "@nx/linter": "17.2.8",
     "@nx/node": "17.2.8",
-    "nx-cloud": "19.1.0",
     "@nx/workspace": "17.2.8",
     "@schematics/angular": "17.0.9",
     "@testing-library/angular": "14.3.0",
