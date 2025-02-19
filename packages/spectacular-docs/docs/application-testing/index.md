@@ -494,6 +494,53 @@ describe('Application initializers', () => {
 For asynchronous application initializers we also only need to pass the
 applicaiton initializer to exercise its side effects before we can verify them.
 
+Testing environment initializers with a Spectacular application harness works
+the same as for application initializers.
+
+```ts {26-32,34-40}
+import { ENVIRONMENT_INITIALIZER, FactoryProvider } from '@angular/core';
+import { createApplicationHarness } from '@ngworker/spectacular';
+
+describe('Environment initializers', () => {
+  beforeEach(() => {
+    initialized = false;
+  });
+
+  const asyncEnvironmentInitializer: FactoryProvider = {
+    multi: true,
+    provide: ENVIRONMENT_INITIALIZER,
+    useFactory: () => async (): Promise<void> => {
+      await Promise.resolve();
+      initialized = true;
+    },
+  };
+  const environmentInitializer: FactoryProvider = {
+    multi: true,
+    provide: ENVIRONMENT_INITIALIZER,
+    useFactory: () => (): void => {
+      initialized = true;
+    },
+  };
+  let initialized: boolean;
+
+  it('registers and runs the specified synchronous initializer', async () => {
+    await createApplicationHarness({
+      providers: [environmentInitializer],
+    });
+
+    expect(initialized).toBe(true);
+  });
+
+  it('registers and runs the specified asynchronous initializer', async () => {
+    await createApplicationHarness({
+      providers: [asyncEnvironmentInitializer],
+    });
+
+    expect(initialized).toBe(true);
+  });
+});
+```
+
 Finally, let's see how we can test a boostrap listener with Spectacular's
 application testing API.
 
