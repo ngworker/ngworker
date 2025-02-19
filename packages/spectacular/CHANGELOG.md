@@ -1,35 +1,66 @@
 # Spectacular changelog
 
+## 16.0.0 (2025-02-19)
+
+### Features
+
+- Officially support environment initializers
+- Mark package as side effect-free
+- Remove `provideSpectacularFeatureTest`
+  ([#85](https://github.com/ngworker/ngworker/pull/85))
+- Remove `SpectacularFeatureTestingModule`
+  ([#85](https://github.com/ngworker/ngworker/pull/85))
+- Remove internal `SpectacularFeatureTestingRootModule`
+  ([#85](https://github.com/ngworker/ngworker/pull/85))
+
+### BREAKING CHANGES
+
+- Require Angular 16
+- Remove `provideSpectacularFeatureTest`
+  ([#85](https://github.com/ngworker/ngworker/pull/85))
+  - Use `provideSpectacularFeatureTesting` instead
+- Remove `SpectacularFeatureTestingModule`
+  ([#85](https://github.com/ngworker/ngworker/pull/85))
+  - Use `provideSpectacularFeatureTesting` instead
+- Remove internal `SpectacularFeatureTestingRootModule`
+  ([#85](https://github.com/ngworker/ngworker/pull/85))
+
 ## 15.0.0 (2023-08-08)
 
 ### Features
 
-- `SpectacularAppComponent` is a standalone Angular component (#68)
+- `SpectacularAppComponent` is a standalone Angular component
+  ([#68](https://github.com/ngworker/ngworker/pull/68))
 - Passing `InjectOptions` to `SpectacularApplicationHarness#inject` is supported
-  (#68)
+  ([#68](https://github.com/ngworker/ngworker/pull/68))
 - Passing `InjectOptions` to `SpectacularFeatureHarness#inject` is supported
-  (#68)
-- Passing `InjectOptions` to `SpectacularPipeHarnes#inject` is supported (#68)
+  ([#68](https://github.com/ngworker/ngworker/pull/68))
+- Passing `InjectOptions` to `SpectacularPipeHarnes#inject` is supported
+  ([#68](https://github.com/ngworker/ngworker/pull/68))
 - `provideSpectacularFeatureTest` requires a `routes` option and optionally
   accepts the `withInitialFeatureNavigation` feature and Angular Router features
-  (#76)
+  ([#76](https://github.com/ngworker/ngworker/pull/76))
 - `provideSpectacularFeatureTest` returns `(EnvironmentProviders | Provider)[]`
-  (#76)
+  ([#76](https://github.com/ngworker/ngworker/pull/76))
 - `provideSpectacularFeatureTest` is marked as deprecated and a copy is renamed
-  to `provideSpectacularFeatureTesting` (#76)
+  to `provideSpectacularFeatureTesting`
+  ([#76](https://github.com/ngworker/ngworker/pull/76))
 - Add `withInitialFeatureNavigation` for use with
-  `provideSpectacularFeatureTest` and `provideSpectacularFeatureTesting` (#76)
-- `SpectacularFeatureTestingModule` is deprecated (#76)
+  `provideSpectacularFeatureTest` and `provideSpectacularFeatureTesting`
+  ([#76](https://github.com/ngworker/ngworker/pull/76))
+- `SpectacularFeatureTestingModule` is deprecated
+  ([#76](https://github.com/ngworker/ngworker/pull/76))
 
 ### BREAKING CHANGES
 
 - Require Angular 15.0
 - `SpectacularAppComponent` is a standalone Angular component. Your tests might
   need to take this into account depending on your setup. Most tests shouldn't
-  need to change. (#68)
-- A `routes` option must be passed to `provideSpectacularFeatureTest`. (#76)
+  need to change. ([#68](https://github.com/ngworker/ngworker/pull/68))
+- A `routes` option must be passed to `provideSpectacularFeatureTest`.
+  ([#76](https://github.com/ngworker/ngworker/pull/76))
 - `provideSpectacularFeatureTest` returns `(EnvironmentProviders | Provider)[]`
-  (#76)
+  ([#76](https://github.com/ngworker/ngworker/pull/76))
 
 #### Migration
 
@@ -69,15 +100,20 @@ await render(SpectacularAppComponent, {
 ### DEPRECATIONS
 
 - Passing `InjectFlags` to `SpectacularApplicationHarness#inject` is deprecated
-  in favor of passing `InjectOptions` (#68)
+  in favor of passing `InjectOptions`
+  ([#68](https://github.com/ngworker/ngworker/pull/68))
 - Passing `InjectFlags` to `SpectacularFeatureHarness#inject` is deprecated in
-  favor of passing `InjectOptions` (#68)
+  favor of passing `InjectOptions`
+  ([#68](https://github.com/ngworker/ngworker/pull/68))
 - Passing `InjectFlags` to `SpectacularPipeHarnes#inject` is deprecated in favor
-  of passing `InjectOptions` (#68)
+  of passing `InjectOptions`
+  ([#68](https://github.com/ngworker/ngworker/pull/68))
 - `provideSpectacularFeatureTest` is to be removed in Spectacular version 16.
-  Migrate to `provideSpectacularFeatureTesting`. (#76)
+  Migrate to `provideSpectacularFeatureTesting`.
+  ([#76](https://github.com/ngworker/ngworker/pull/76))
 - `SpectacularFeatureTestingModule` is to be removed in Spectacular version 16.
-  Migrate to `provideSpectacularFeatureTesting`. (#76)
+  Migrate to `provideSpectacularFeatureTesting`.
+  ([#76](https://github.com/ngworker/ngworker/pull/76))
 
 #### Migration
 
