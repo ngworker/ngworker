@@ -9,8 +9,7 @@
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "options": {
-        "project": "packages/spectacular/ng-package.json",
-        "updateBuildableProjectDepsInPackageJson": false
+        "project": "packages/spectacular/ng-package.json"
       },
       "configurations": {
         "development": {
