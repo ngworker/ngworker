@@ -23,8 +23,8 @@
     "workspace-generator": "nx workspace-generator",
     "graph": "nx graph",
     "help": "nx help",
-    "ci": "nx run-many --targets=lint,test,build,e2e",
-    "affected:ci": "nx affected --targets=lint,test,build,e2e"
+    "ci": "npm run format:check && nx run-many --targets=lint,test,build,e2e",
+    "affected:ci": "npm run format:check && nx affected --targets=lint,test,build,e2e"
   },
   "private": true,
   "dependencies": {

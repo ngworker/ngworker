@@ -34,8 +34,9 @@ export async function createApplicationHarness(
 
   TestBed.compileComponents();
 
-  let autoDetectChangesArray: boolean | readonly boolean[] = TestBed.inject(ComponentFixtureAutoDetect,
-    true,
+  let autoDetectChangesArray: boolean | readonly boolean[] = TestBed.inject(
+    ComponentFixtureAutoDetect,
+    true
   );
 
   if (!Array.isArray(autoDetectChangesArray)) {

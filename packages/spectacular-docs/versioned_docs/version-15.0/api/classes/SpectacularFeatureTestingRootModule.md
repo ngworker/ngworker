@@ -1,7 +1,7 @@
 ---
-id: "SpectacularFeatureTestingRootModule"
-title: "Class: SpectacularFeatureTestingRootModule"
-sidebar_label: "SpectacularFeatureTestingRootModule"
+id: 'SpectacularFeatureTestingRootModule'
+title: 'Class: SpectacularFeatureTestingRootModule'
+sidebar_label: 'SpectacularFeatureTestingRootModule'
 sidebar_position: 0
 custom_edit_url: null
 ---
@@ -12,8 +12,8 @@ NOTE! Only to be imported by `SpectacularFeatureTestingModule`.
 
 **`Deprecated`**
 
-Deprecated in favor of `provideSpectacularFeatureTest`. To be
-  removed in Spectacular version 16.
+Deprecated in favor of `provideSpectacularFeatureTest`. To be removed in
+Spectacular version 16.
 
 ## Constructors
 

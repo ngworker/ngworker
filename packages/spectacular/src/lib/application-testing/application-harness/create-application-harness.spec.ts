@@ -32,17 +32,17 @@ const asyncApplicationInitializer: FactoryProvider = {
 const bootstrapListener: FactoryProvider = {
   multi: true,
   provide: APP_BOOTSTRAP_LISTENER,
-  useFactory: () => (
-    component: ComponentRef<SpectacularAppComponent>
-  ): void => {
-    if (!(component.instance instanceof SpectacularAppComponent)) {
-      throw new Error(
-        'The bootstrapped component is not an instance of SpectacularAppComponent'
-      );
-    }
+  useFactory:
+    () =>
+    (component: ComponentRef<SpectacularAppComponent>): void => {
+      if (!(component.instance instanceof SpectacularAppComponent)) {
+        throw new Error(
+          'The bootstrapped component is not an instance of SpectacularAppComponent'
+        );
+      }
 
-    bootstrapped = true;
-  },
+      bootstrapped = true;
+    },
 };
 
 @NgModule({

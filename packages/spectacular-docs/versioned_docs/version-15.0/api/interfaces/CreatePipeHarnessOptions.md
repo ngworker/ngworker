@@ -1,7 +1,7 @@
 ---
-id: "CreatePipeHarnessOptions"
-title: "Interface: CreatePipeHarnessOptions<TValue>"
-sidebar_label: "CreatePipeHarnessOptions"
+id: 'CreatePipeHarnessOptions'
+title: 'Interface: CreatePipeHarnessOptions<TValue>'
+sidebar_label: 'CreatePipeHarnessOptions'
 sidebar_position: 0
 custom_edit_url: null
 ---
@@ -10,13 +10,13 @@ Angular pipe harness options.
 
 ## Type parameters
 
-| Name |
-| :------ |
+| Name     |
+| :------- |
 | `TValue` |
 
 ## Hierarchy
 
-- `Pick`<`NgModule`, ``"declarations"`` \| ``"imports"`` \| ``"providers"``\>
+- `Pick`<`NgModule`, `"declarations"` \| `"imports"` \| `"providers"`\>
 
   ↳ **`CreatePipeHarnessOptions`**
 
@@ -26,29 +26,27 @@ Angular pipe harness options.
 
 • `Optional` **declarations**: (`any`[] \| `Type`<`any`\>)[]
 
-The set of components, directives, and pipes ([declarables](guide/glossary#declarable))
-that belong to this module.
+The set of components, directives, and pipes
+([declarables](guide/glossary#declarable)) that belong to this module.
 
 **`Usage Notes`**
 
-The set of selectors that are available to a template include those declared here, and
-those that are exported from imported NgModules.
+The set of selectors that are available to a template include those declared
+here, and those that are exported from imported NgModules.
 
-Declarables must belong to exactly one module.
-The compiler emits an error if you try to declare the same class in more than one module.
-Be careful not to declare a class that is imported from another module.
+Declarables must belong to exactly one module. The compiler emits an error if
+you try to declare the same class in more than one module. Be careful not to
+declare a class that is imported from another module.
 
 ### Example
 
-The following example allows the CommonModule to use the `NgFor`
-directive.
+The following example allows the CommonModule to use the `NgFor` directive.
 
 ```javascript
 @NgModule({
-  declarations: [NgFor]
+  declarations: [NgFor],
 })
-class CommonModule {
-}
+class CommonModule {}
 ```
 
 #### Inherited from
@@ -59,23 +57,22 @@ Pick.declarations
 
 node_modules/@angular/core/index.d.ts:5705
 
-___
+---
 
 ### imports
 
-• `Optional` **imports**: (`any`[] \| `Type`<`any`\> \| `ModuleWithProviders`<{}\>)[]
+• `Optional` **imports**: (`any`[] \| `Type`<`any`\> \|
+`ModuleWithProviders`<{}\>)[]
 
-The set of NgModules whose exported [declarables](guide/glossary#declarable)
-are available to templates in this module.
+The set of NgModules whose exported [declarables](guide/glossary#declarable) are
+available to templates in this module.
 
 **`Usage Notes`**
 
-A template can use exported declarables from any
-imported module, including those from modules that are imported indirectly
-and re-exported.
-For example, `ModuleA` imports `ModuleB`, and also exports
-it, which makes the declarables from `ModuleB` available
-wherever `ModuleA` is imported.
+A template can use exported declarables from any imported module, including
+those from modules that are imported indirectly and re-exported. For example,
+`ModuleA` imports `ModuleB`, and also exports it, which makes the declarables
+from `ModuleB` available wherever `ModuleA` is imported.
 
 ### Example
 
@@ -84,10 +81,9 @@ The following example allows MainModule to use anything exported by
 
 ```javascript
 @NgModule({
-  imports: [CommonModule]
+  imports: [CommonModule],
 })
-class MainModule {
-}
+class MainModule {}
 ```
 
 #### Inherited from
@@ -98,7 +94,7 @@ Pick.imports
 
 node_modules/@angular/core/index.d.ts:5733
 
-___
+---
 
 ### pipe
 
@@ -110,7 +106,7 @@ The type of the Angular pipe-under-test, for example `CamelizePipe`.
 
 [packages/spectacular/src/lib/pipe-testing/pipe-harness/create-pipe-harness.ts:18](https://github.com/ngworker/ngworker/blob/b782ad5/packages/spectacular/src/lib/pipe-testing/pipe-harness/create-pipe-harness.ts#L18)
 
-___
+---
 
 ### pipeName
 
@@ -122,38 +118,37 @@ The name of the Angular pipe-under-test, for example `camelize`.
 
 [packages/spectacular/src/lib/pipe-testing/pipe-harness/create-pipe-harness.ts:22](https://github.com/ngworker/ngworker/blob/b782ad5/packages/spectacular/src/lib/pipe-testing/pipe-harness/create-pipe-harness.ts#L22)
 
-___
+---
 
 ### providers
 
 • `Optional` **providers**: (`Provider` \| `EnvironmentProviders`)[]
 
-The set of injectable objects that are available in the injector
-of this module.
+The set of injectable objects that are available in the injector of this module.
 
 **`See`**
 
- - [Dependency Injection guide](guide/dependency-injection)
- - [NgModule guide](guide/providers)
+- [Dependency Injection guide](guide/dependency-injection)
+- [NgModule guide](guide/providers)
 
 **`Usage Notes`**
 
-Dependencies whose providers are listed here become available for injection
-into any component, directive, pipe or service that is a child of this injector.
-The NgModule used for bootstrapping uses the root injector, and can provide dependencies
-to any part of the app.
+Dependencies whose providers are listed here become available for injection into
+any component, directive, pipe or service that is a child of this injector. The
+NgModule used for bootstrapping uses the root injector, and can provide
+dependencies to any part of the app.
 
-A lazy-loaded module has its own injector, typically a child of the app root injector.
-Lazy-loaded services are scoped to the lazy-loaded module's injector.
+A lazy-loaded module has its own injector, typically a child of the app root
+injector. Lazy-loaded services are scoped to the lazy-loaded module's injector.
 If a lazy-loaded module also provides the `UserService`, any component created
-within that module's context (such as by router navigation) gets the local instance
-of the service, not the instance in the root injector.
-Components in external modules continue to receive the instance provided by their injectors.
+within that module's context (such as by router navigation) gets the local
+instance of the service, not the instance in the root injector. Components in
+external modules continue to receive the instance provided by their injectors.
 
 ### Example
 
-The following example defines a class that is injected in
-the HelloWorld NgModule:
+The following example defines a class that is injected in the HelloWorld
+NgModule:
 
 ```
 class Greeter {
@@ -184,7 +179,7 @@ Pick.providers
 
 node_modules/@angular/core/index.d.ts:5678
 
-___
+---
 
 ### template
 
@@ -199,11 +194,11 @@ NOTE! The `value` property is in context of the template.
 
 [packages/spectacular/src/lib/pipe-testing/pipe-harness/create-pipe-harness.ts:29](https://github.com/ngworker/ngworker/blob/b782ad5/packages/spectacular/src/lib/pipe-testing/pipe-harness/create-pipe-harness.ts#L29)
 
-___
+---
 
 ### value
 
-• `Readonly` **value**: ``null`` \| `TValue` \| `Observable`<`TValue`\>
+• `Readonly` **value**: `null` \| `TValue` \| `Observable`<`TValue`\>
 
 The initial value passed through the Angular pipe.
 
