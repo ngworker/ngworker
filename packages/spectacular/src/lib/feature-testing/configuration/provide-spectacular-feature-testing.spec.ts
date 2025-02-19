@@ -1,8 +1,18 @@
-import { Location } from '@angular/common';
-import { TestBed } from '@angular/core/testing';
-import { Router, RouterConfigOptions, withRouterConfig } from '@angular/router';
+import { AsyncPipe, Location } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { TestBed, ComponentFixtureAutoDetect } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import {
+  ActivatedRoute,
+  Router,
+  RouterOutlet,
+  withRouterConfig,
+} from '@angular/router';
 import * as classicCrisisCenter from '@tour-of-heroes-classic/crisis-center';
 import * as standaloneCrisisCenter from '@tour-of-heroes-standalone/crisis-center';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { SpectacularAppComponent } from '../../shared/app-component/spectacular-app.component';
 import { SpectacularFeatureLocation } from '../navigation/spectacular-feature-location';
 import { SpectacularFeatureRouter } from '../navigation/spectacular-feature-router';
 import { featurePathToken } from './feature-path.token';
@@ -11,6 +21,29 @@ import {
   ProvideSpectacularFeatureTestingOptions,
 } from './provide-spectacular-feature-testing';
 import { withInitialFeatureNavigation } from './with-initial-feature-navigation';
+
+@Component({
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'spectacular-test-child',
+  imports: [AsyncPipe],
+  template: '<p id="test-child-title">{{ title$ | async }}</p>',
+})
+class TestChildComponent {
+  readonly title$: Observable<string | null> = inject(ActivatedRoute).data.pipe(
+    map(data => data['title']),
+    map(x => x ?? null)
+  );
+}
+
+@Component({
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'spectacular-test-parent',
+  imports: [RouterOutlet],
+  template: '<router-outlet />',
+})
+class TestParentComponent {}
 
 const classicCrisisCenterFeature: ProvideSpectacularFeatureTestingOptions = {
   featurePath: classicCrisisCenter.crisisCenterPath,
@@ -102,21 +135,41 @@ describe(provideSpectacularFeatureTesting.name, () => {
 
   describe('Given an Angular Router feature is specified', () => {
     it('Then the Angular Router feature is provided', async () => {
-      const expectedUrlUpdateStrategy: RouterConfigOptions['urlUpdateStrategy'] =
-        'eager';
       TestBed.configureTestingModule({
         providers: [
+          { provide: ComponentFixtureAutoDetect, useValue: true },
           provideSpectacularFeatureTesting(
-            emptyFeature,
+            {
+              featurePath: 'parent',
+              routes: [
+                {
+                  path: 'parent',
+                  component: TestParentComponent,
+                  data: { title: 'Family tree' },
+                  children: [
+                    {
+                      path: 'child',
+                      component: TestChildComponent,
+                    },
+                  ],
+                },
+              ],
+            },
+            withInitialFeatureNavigation(),
             withRouterConfig({
-              urlUpdateStrategy: expectedUrlUpdateStrategy,
+              paramsInheritanceStrategy: 'always',
             })
           ),
         ],
       });
+      const rootFixture = TestBed.createComponent(SpectacularAppComponent);
+      const router = TestBed.inject(SpectacularFeatureRouter);
+      await router.navigateByUrl('~/child');
 
-      const router = TestBed.inject(Router);
-      expect(router.urlUpdateStrategy).toBe(expectedUrlUpdateStrategy);
+      const childTitle = (rootFixture.debugElement.query(
+        By.css('#test-child-title')
+      )?.nativeElement ?? null) as HTMLElement | null;
+      expect(childTitle?.textContent).toBe('Family tree');
     });
   });
 
