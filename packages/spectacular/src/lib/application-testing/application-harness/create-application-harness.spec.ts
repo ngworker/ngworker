@@ -2,6 +2,7 @@ import {
   APP_BOOTSTRAP_LISTENER,
   APP_INITIALIZER,
   ComponentRef,
+  ENVIRONMENT_INITIALIZER,
   FactoryProvider,
   Injectable,
   NgModule,
@@ -11,14 +12,15 @@ import { ignoreDevelopmentModeLog } from '@internal/test-util';
 import { SpectacularAppComponent } from '../../shared/app-component/spectacular-app.component';
 import { createApplicationHarness } from './create-application-harness';
 
+let applicationInitialized = false;
 let bootstrapped = false;
-let initialized = false;
+let environmentInitialized = false;
 
 const applicationInitializer: FactoryProvider = {
   multi: true,
   provide: APP_INITIALIZER,
   useFactory: () => (): void => {
-    initialized = true;
+    applicationInitialized = true;
   },
 };
 const asyncApplicationInitializer: FactoryProvider = {
@@ -26,7 +28,7 @@ const asyncApplicationInitializer: FactoryProvider = {
   provide: APP_INITIALIZER,
   useFactory: () => async (): Promise<void> => {
     await Promise.resolve();
-    initialized = true;
+    applicationInitialized = true;
   },
 };
 const bootstrapListener: FactoryProvider = {
@@ -44,6 +46,26 @@ const bootstrapListener: FactoryProvider = {
       bootstrapped = true;
     },
 };
+const environmentInitializer: FactoryProvider = {
+  multi: true,
+  provide: ENVIRONMENT_INITIALIZER,
+  useFactory: () => (): void => {
+    environmentInitialized = true;
+  },
+};
+const asyncEnvironmentInitializer: FactoryProvider = {
+  multi: true,
+  provide: ENVIRONMENT_INITIALIZER,
+  useFactory: () => async (): Promise<void> => {
+    await Promise.resolve();
+    environmentInitialized = true;
+  },
+};
+
+@NgModule({
+  providers: [applicationInitializer],
+})
+class ApplicationInitializerModule {}
 
 @NgModule({
   providers: [asyncApplicationInitializer],
@@ -51,19 +73,25 @@ const bootstrapListener: FactoryProvider = {
 class AsyncApplicationInitializerModule {}
 
 @NgModule({
+  providers: [asyncEnvironmentInitializer],
+})
+class AsyncEnvironmentInitializerModule {}
+
+@NgModule({
   providers: [bootstrapListener],
 })
 class BootstrapListenerModule {}
 
 @NgModule({
-  providers: [applicationInitializer],
+  providers: [environmentInitializer],
 })
-class InitializerModule {}
+class EnvironmentInitializerModule {}
 
 describe(createApplicationHarness.name, () => {
   beforeEach(() => {
+    applicationInitialized = false;
     bootstrapped = false;
-    initialized = false;
+    environmentInitialized = false;
     ignoreDevelopmentModeLog();
   });
 
@@ -91,7 +119,7 @@ describe(createApplicationHarness.name, () => {
         providers: [applicationInitializer],
       });
 
-      expect(initialized).toBe(true);
+      expect(applicationInitialized).toBe(true);
     });
 
     it('registers and runs the specified asynchronous initializer', async () => {
@@ -99,15 +127,15 @@ describe(createApplicationHarness.name, () => {
         providers: [asyncApplicationInitializer],
       });
 
-      expect(initialized).toBe(true);
+      expect(applicationInitialized).toBe(true);
     });
 
     it('registers the specified initializer Angular module', () => {
       createApplicationHarness({
-        imports: [InitializerModule],
+        imports: [ApplicationInitializerModule],
       });
 
-      expect(initialized).toBe(true);
+      expect(applicationInitialized).toBe(true);
     });
 
     it('registers the specified asynchronous initializer Angular module', async () => {
@@ -115,7 +143,41 @@ describe(createApplicationHarness.name, () => {
         imports: [AsyncApplicationInitializerModule],
       });
 
-      expect(initialized).toBe(true);
+      expect(applicationInitialized).toBe(true);
+    });
+  });
+
+  describe('Environment initializers', () => {
+    it('registers and runs the specified initializer', () => {
+      createApplicationHarness({
+        providers: [environmentInitializer],
+      });
+
+      expect(environmentInitialized).toBe(true);
+    });
+
+    it('registers and runs the specified asynchronous initializer', async () => {
+      await createApplicationHarness({
+        providers: [asyncEnvironmentInitializer],
+      });
+
+      expect(environmentInitialized).toBe(true);
+    });
+
+    it('registers the specified initializer Angular module', () => {
+      createApplicationHarness({
+        imports: [EnvironmentInitializerModule],
+      });
+
+      expect(environmentInitialized).toBe(true);
+    });
+
+    it('registers the specified asynchronous initializer Angular module', async () => {
+      await createApplicationHarness({
+        imports: [AsyncEnvironmentInitializerModule],
+      });
+
+      expect(environmentInitialized).toBe(true);
     });
   });
 
@@ -125,16 +187,16 @@ describe(createApplicationHarness.name, () => {
         providers: [applicationInitializer, bootstrapListener],
       });
 
-      expect(initialized).toBe(true);
+      expect(applicationInitialized).toBe(true);
       expect(bootstrapped).toBe(true);
     });
 
     it('registers the specified initializer and bootstrap Angular modules', async () => {
       await createApplicationHarness({
-        imports: [InitializerModule, BootstrapListenerModule],
+        imports: [ApplicationInitializerModule, BootstrapListenerModule],
       });
 
-      expect(initialized).toBe(true);
+      expect(applicationInitialized).toBe(true);
       expect(bootstrapped).toBe(true);
     });
 
@@ -143,7 +205,7 @@ describe(createApplicationHarness.name, () => {
         providers: [asyncApplicationInitializer, bootstrapListener],
       });
 
-      expect(initialized).toBe(true);
+      expect(applicationInitialized).toBe(true);
       expect(bootstrapped).toBe(true);
     });
 
@@ -152,7 +214,7 @@ describe(createApplicationHarness.name, () => {
         imports: [AsyncApplicationInitializerModule, BootstrapListenerModule],
       });
 
-      expect(initialized).toBe(true);
+      expect(applicationInitialized).toBe(true);
       expect(bootstrapped).toBe(true);
     });
   });

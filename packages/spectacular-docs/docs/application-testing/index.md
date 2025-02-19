@@ -317,7 +317,7 @@ sets `bootstrapped` to `true` when triggered. Bootstrap listeners are passed a
 `ComponentRef` of the bootstrapped root component as seen in the following
 example:
 
-```ts {19-25}
+```ts {20-28}
 import {
   APP_BOOTSTRAP_LISTENER,
   Component,
@@ -356,7 +356,7 @@ although we have listed it in the example above.
 Next, we add a test case with the setup we applied to asynchronous application
 initializers:
 
-```ts {29-38}
+```ts {32-41}
 import {
   APP_BOOTSTRAP_LISTENER,
   Component,
@@ -494,13 +494,60 @@ describe('Application initializers', () => {
 For asynchronous application initializers we also only need to pass the
 applicaiton initializer to exercise its side effects before we can verify them.
 
+Testing environment initializers with a Spectacular application harness works
+the same as for application initializers.
+
+```ts {26-32,34-40}
+import { ENVIRONMENT_INITIALIZER, FactoryProvider } from '@angular/core';
+import { createApplicationHarness } from '@ngworker/spectacular';
+
+describe('Environment initializers', () => {
+  beforeEach(() => {
+    initialized = false;
+  });
+
+  const asyncEnvironmentInitializer: FactoryProvider = {
+    multi: true,
+    provide: ENVIRONMENT_INITIALIZER,
+    useFactory: () => async (): Promise<void> => {
+      await Promise.resolve();
+      initialized = true;
+    },
+  };
+  const environmentInitializer: FactoryProvider = {
+    multi: true,
+    provide: ENVIRONMENT_INITIALIZER,
+    useFactory: () => (): void => {
+      initialized = true;
+    },
+  };
+  let initialized: boolean;
+
+  it('registers and runs the specified synchronous initializer', async () => {
+    await createApplicationHarness({
+      providers: [environmentInitializer],
+    });
+
+    expect(initialized).toBe(true);
+  });
+
+  it('registers and runs the specified asynchronous initializer', async () => {
+    await createApplicationHarness({
+      providers: [asyncEnvironmentInitializer],
+    });
+
+    expect(initialized).toBe(true);
+  });
+});
+```
+
 Finally, let's see how we can test a boostrap listener with Spectacular's
 application testing API.
 
 First, we declare the bootstrap listener and manage the shared `boostrapped`
 variable:
 
-```ts {9-20}
+```ts {9-21}
 import {
   APP_BOOTSTRAP_LISTENER,
   ComponentRef,
@@ -529,7 +576,7 @@ describe('Bootstrap listeners', () => {
 Finally, we add a test case using exactly the same technique as we did for the
 application initializers:
 
-```ts {23-29}
+```ts {25-31}
 import {
   APP_BOOTSTRAP_LISTENER,
   ComponentRef,
