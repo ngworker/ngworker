@@ -20,7 +20,6 @@
     "format:write": "nx format:write",
     "format:check": "nx format:check",
     "update": "nx migrate latest",
-    "workspace-generator": "nx workspace-generator",
     "graph": "nx graph",
     "help": "nx help",
     "ci": "npm run format:check && nx run-many --targets=lint,test,build,e2e",
