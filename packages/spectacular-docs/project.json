@@ -17,6 +17,14 @@
       "options": {
         "command": "docusaurus start packages/spectacular-docs --no-open"
       }
+    },
+    "check-mdx": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
+      "inputs": ["{projectRoot}/**/*.{md,mdx}"],
+      "options": {
+        "command": "docusaurus-mdx-checker --cwd packages/spectacular-docs"
+      }
     }
   },
   "tags": ["type:docs"],

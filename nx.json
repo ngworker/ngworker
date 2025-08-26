@@ -5,7 +5,7 @@
       "runner": "nx-cloud",
       "options": {
         "accessToken": "ZTViM2YyNGQtNjk2My00YmFjLWJlYmQtZjIwMzJhMmIxNGMwfHJlYWQtd3JpdGU=",
-        "cacheableOperations": ["build", "e2e", "lint", "test"],
+        "cacheableOperations": ["build", "e2e", "lint", "test", "check-mdx"],
         "canTrackAnalytics": true,
         "parallel": 6,
         "showUsageWarnings": true
