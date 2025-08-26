@@ -25,5 +25,17 @@
     "docusaurus-mdx-checker": "3.0.0",
     "typedoc": "0.24.8",
     "typedoc-plugin-markdown": "3.15.3"
+  },
+  "browserslist": {
+    "production": [
+      ">0.5%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 3 chrome version",
+      "last 3 firefox version",
+      "last 5 safari version"
+    ]
   }
 }
