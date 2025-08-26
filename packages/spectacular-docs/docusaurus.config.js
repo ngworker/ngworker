@@ -18,7 +18,11 @@ module.exports = {
         entryPoints: ['../spectacular/src/index.ts'],
         excludeInternal: true,
         excludePrivate: true,
+        sidebar: {
+          pretty: true,
+        },
         tsconfig: '../spectacular/tsconfig.lib.prod.json',
+        out: './docs/api',
       },
     ],
   ],
