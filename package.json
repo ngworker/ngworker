@@ -27,6 +27,10 @@
     "affected:ci": "npm run format:check && nx affected --targets=lint,test,build,e2e"
   },
   "private": true,
+  "workspaces": [
+    "packages/*",
+    "e2e/*"
+  ],
   "dependencies": {
     "@angular/animations": "16.0.6",
     "@angular/common": "16.0.6",
