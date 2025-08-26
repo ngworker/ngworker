@@ -142,6 +142,21 @@ jobs:
           path: dist/packages/spectacular
           if-no-files-found: warn
 
+  check-mdx-docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+
+      - run: npm run nx -- check-mdx spectacular-docs
+
   docs:
     runs-on: ubuntu-latest
 
@@ -164,7 +179,6 @@ jobs:
           if-no-files-found: error
           name: ${{ env.spectacular_docs_artifact_name }}
           path: ${{ env.spectacular_docs_path }}
-
   deploy-docs:
     needs: docs
     if: github.event_name == 'push' && github.ref_name == 'main'
