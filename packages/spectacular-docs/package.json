@@ -24,7 +24,8 @@
     "@types/react": "17.0.47",
     "docusaurus-mdx-checker": "3.0.0",
     "typedoc": "0.24.8",
-    "typedoc-plugin-markdown": "3.15.3"
+    "typedoc-plugin-markdown": "3.15.3",
+    "typescript": "5.1.6"
   },
   "browserslist": {
     "production": [
