@@ -8,9 +8,9 @@
     "serve": "docusaurus start --no-open"
   },
   "dependencies": {
-    "@docusaurus/core": "2.4.1",
-    "@docusaurus/preset-classic": "2.4.1",
-    "@docusaurus/theme-common": "2.4.1",
+    "@docusaurus/core": "2.4.3",
+    "@docusaurus/preset-classic": "2.4.3",
+    "@docusaurus/theme-common": "2.4.3",
     "@mdx-js/react": "1.6.22",
     "docusaurus-plugin-typedoc": "0.19.2",
     "clsx": "1.2.1",
@@ -19,7 +19,7 @@
     "react-dom": "17.0.2"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "2.4.1",
+    "@docusaurus/module-type-aliases": "2.4.3",
     "@tsconfig/docusaurus": "1.0.7",
     "@types/react": "17.0.47",
     "docusaurus-mdx-checker": "3.0.0",
