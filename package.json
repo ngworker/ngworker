@@ -75,6 +75,7 @@
     "@typescript-eslint/parser": "5.62.0",
     "all-contributors-cli": "^6.19.0",
     "clsx": "1.2.1",
+    "docusaurus-mdx-checker": "3.0.0",
     "docusaurus-plugin-typedoc": "0.19.2",
     "eslint": "8.15.0",
     "eslint-config-prettier": "8.10.0",
