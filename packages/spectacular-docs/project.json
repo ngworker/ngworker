@@ -27,6 +27,14 @@
       "options": {
         "script": "check-mdx"
       }
+    },
+    "version": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
+      "options": {
+        "cwd": "packages/spectacular-docs",
+        "command": "docusaurus docs:version \"{args.version}\""
+      }
     }
   },
   "tags": ["type:docs"],
