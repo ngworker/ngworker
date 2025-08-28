@@ -1,3 +1,8 @@
+---
+sidebar_label: 'API reference'
+sidebar_position: 0.5
+---
+
 # @ngworker/spectacular
 
 ## Enumerations
