@@ -622,9 +622,3 @@ enough to demonstrate that:
   root component
 - The Spectacular application harness factory waits for application initializers
   and bootstrap listeners to finish before resolving an application harness
-
-<!--
-Visit the other pages in this section to learn about other use cases supported
-by Spectacular's application testing API as well as learn about the use cases
-covered in this page, in more detail.
--->
