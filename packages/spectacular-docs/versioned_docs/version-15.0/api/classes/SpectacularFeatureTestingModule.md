@@ -34,7 +34,7 @@ Spectacular version 16.
 ### withFeature
 
 ▸ `Static` **withFeature**(`options`):
-`ModuleWithProviders`<[`SpectacularFeatureTestingRootModule`](SpectacularFeatureTestingRootModule.md)\>
+`ModuleWithProviders`\<[`SpectacularFeatureTestingRootModule`](SpectacularFeatureTestingRootModule.md)\>
 
 Configure the `RouterTestingModule` and provide Spectactular services for
 testing feature modules.
@@ -52,7 +52,7 @@ Spectacular version 16.
 
 #### Returns
 
-`ModuleWithProviders`<[`SpectacularFeatureTestingRootModule`](SpectacularFeatureTestingRootModule.md)\>
+`ModuleWithProviders`\<[`SpectacularFeatureTestingRootModule`](SpectacularFeatureTestingRootModule.md)\>
 
 #### Defined in
 

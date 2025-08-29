@@ -19,7 +19,7 @@ under test.
 
 ### navigate
 
-▸ **navigate**(`commands`, `extras?`): `Promise`<`boolean`\>
+▸ **navigate**(`commands`, `extras?`): `Promise`\<`boolean`\>
 
 Navigate based on the provided array of commands and a starting point. If no
 starting route is provided, the navigation is absolute.
@@ -38,7 +38,7 @@ Wraps `Router#navigate`.
 
 #### Returns
 
-`Promise`<`boolean`\>
+`Promise`\<`boolean`\>
 
 #### Defined in
 
@@ -48,7 +48,7 @@ Wraps `Router#navigate`.
 
 ### navigateByUrl
 
-▸ **navigateByUrl**(`url`, `extras?`): `Promise`<`boolean`\>
+▸ **navigateByUrl**(`url`, `extras?`): `Promise`\<`boolean`\>
 
 Navigates to a view using an absolute route path.
 
@@ -66,7 +66,7 @@ Wraps `Router#navigateByUrl`.
 
 #### Returns
 
-`Promise`<`boolean`\>
+`Promise`\<`boolean`\>
 
 #### Defined in
 

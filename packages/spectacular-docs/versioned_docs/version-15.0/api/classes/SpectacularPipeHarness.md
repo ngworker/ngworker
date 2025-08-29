@@ -20,7 +20,7 @@ Includes an API to write a value and read the rendered text.
 
 ### constructor
 
-• **new SpectacularPipeHarness**<`TValue`\>()
+• **new SpectacularPipeHarness**\<`TValue`\>()
 
 #### Type parameters
 
@@ -78,9 +78,9 @@ Update the value passed through the Angular pipe.
 
 #### Parameters
 
-| Name    | Type                                          | Description    |
-| :------ | :-------------------------------------------- | :------------- |
-| `value` | `null` \| `TValue` \| `Observable`<`TValue`\> | The new value. |
+| Name    | Type                                           | Description    |
+| :------ | :--------------------------------------------- | :------------- |
+| `value` | `null` \| `TValue` \| `Observable`\<`TValue`\> | The new value. |
 
 #### Returns
 
@@ -94,7 +94,7 @@ Update the value passed through the Angular pipe.
 
 ### inject
 
-▸ `Abstract` **inject**<`T`\>(`token`, `notFoundValue`, `options`): `T`
+▸ `Abstract` **inject**\<`T`\>(`token`, `notFoundValue`, `options`): `T`
 
 Resolve a dependency based on the specified dependency injection token.
 
@@ -110,11 +110,11 @@ When the `notFoundValue` is `undefined` or `Injector.THROW_IF_NOT_FOUND`
 
 #### Parameters
 
-| Name            | Type                                       | Description                                                                                            |
-| :-------------- | :----------------------------------------- | :----------------------------------------------------------------------------------------------------- |
-| `token`         | `ProviderToken`<`T`\>                      | The token representing the dependency, that is a class or an `InjectionToken`.                         |
-| `notFoundValue` | `undefined`                                | The default value in case the specified dependency has not been provided. Optional. Default is `null`. |
-| `options`       | `InjectOptions` & { `optional?`: `false` } | Dependency injection options. Optional.                                                                |
+| Name            | Type                                        | Description                                                                                            |
+| :-------------- | :------------------------------------------ | :----------------------------------------------------------------------------------------------------- |
+| `token`         | `ProviderToken`\<`T`\>                      | The token representing the dependency, that is a class or an `InjectionToken`.                         |
+| `notFoundValue` | `undefined`                                 | The default value in case the specified dependency has not been provided. Optional. Default is `null`. |
+| `options`       | `InjectOptions` & \{ `optional?`: `false` } | Dependency injection options. Optional.                                                                |
 
 #### Returns
 
@@ -126,7 +126,7 @@ The instance from the injector if defined, otherwise the `notFoundValue`.
 
 [packages/spectacular/src/lib/pipe-testing/pipe-harness/spectacular-pipe-harness.ts:40](https://github.com/ngworker/ngworker/blob/b782ad5/packages/spectacular/src/lib/pipe-testing/pipe-harness/spectacular-pipe-harness.ts#L40)
 
-▸ `Abstract` **inject**<`T`\>(`token`, `notFoundValue`, `options`): `null` \|
+▸ `Abstract` **inject**\<`T`\>(`token`, `notFoundValue`, `options`): `null` \|
 `T`
 
 #### Type parameters
@@ -137,11 +137,11 @@ The instance from the injector if defined, otherwise the `notFoundValue`.
 
 #### Parameters
 
-| Name            | Type                  |
-| :-------------- | :-------------------- |
-| `token`         | `ProviderToken`<`T`\> |
-| `notFoundValue` | `undefined` \| `null` |
-| `options`       | `InjectOptions`       |
+| Name            | Type                   |
+| :-------------- | :--------------------- |
+| `token`         | `ProviderToken`\<`T`\> |
+| `notFoundValue` | `undefined` \| `null`  |
+| `options`       | `InjectOptions`        |
 
 #### Returns
 
@@ -151,7 +151,7 @@ The instance from the injector if defined, otherwise the `notFoundValue`.
 
 [packages/spectacular/src/lib/pipe-testing/pipe-harness/spectacular-pipe-harness.ts:47](https://github.com/ngworker/ngworker/blob/b782ad5/packages/spectacular/src/lib/pipe-testing/pipe-harness/spectacular-pipe-harness.ts#L47)
 
-▸ `Abstract` **inject**<`T`\>(`token`, `notFoundValue?`, `options?`): `T`
+▸ `Abstract` **inject**\<`T`\>(`token`, `notFoundValue?`, `options?`): `T`
 
 #### Type parameters
 
@@ -161,11 +161,11 @@ The instance from the injector if defined, otherwise the `notFoundValue`.
 
 #### Parameters
 
-| Name             | Type                  |
-| :--------------- | :-------------------- |
-| `token`          | `ProviderToken`<`T`\> |
-| `notFoundValue?` | `T`                   |
-| `options?`       | `InjectOptions`       |
+| Name             | Type                   |
+| :--------------- | :--------------------- |
+| `token`          | `ProviderToken`\<`T`\> |
+| `notFoundValue?` | `T`                    |
+| `options?`       | `InjectOptions`        |
 
 #### Returns
 
@@ -175,7 +175,7 @@ The instance from the injector if defined, otherwise the `notFoundValue`.
 
 [packages/spectacular/src/lib/pipe-testing/pipe-harness/spectacular-pipe-harness.ts:52](https://github.com/ngworker/ngworker/blob/b782ad5/packages/spectacular/src/lib/pipe-testing/pipe-harness/spectacular-pipe-harness.ts#L52)
 
-▸ `Abstract` **inject**<`T`\>(`token`, `notFoundValue?`, `flags?`): `T`
+▸ `Abstract` **inject**\<`T`\>(`token`, `notFoundValue?`, `flags?`): `T`
 
 Resolve a dependency based on the specified dependency injection token.
 
@@ -195,11 +195,11 @@ Use object-based flags (`InjectOptions`) instead.
 
 #### Parameters
 
-| Name             | Type                  | Description                                                                                                                           |
-| :--------------- | :-------------------- | :------------------------------------------------------------------------------------------------------------------------------------ |
-| `token`          | `ProviderToken`<`T`\> | The token representing the dependency, that is a class or an `InjectionToken`.                                                        |
-| `notFoundValue?` | `T`                   | The default value in case the specified dependency has not been provided. Optional. Default is `null`.                                |
-| `flags?`         | `InjectFlags`         | Dependency injection options, for example `InjectFlags.Optional \| InjectFlags.SkipSelf`. Optional. Default is `InjectFlags.Default`. |
+| Name             | Type                   | Description                                                                                                                           |
+| :--------------- | :--------------------- | :------------------------------------------------------------------------------------------------------------------------------------ |
+| `token`          | `ProviderToken`\<`T`\> | The token representing the dependency, that is a class or an `InjectionToken`.                                                        |
+| `notFoundValue?` | `T`                    | The default value in case the specified dependency has not been provided. Optional. Default is `null`.                                |
+| `flags?`         | `InjectFlags`          | Dependency injection options, for example `InjectFlags.Optional \| InjectFlags.SkipSelf`. Optional. Default is `InjectFlags.Default`. |
 
 #### Returns
 
@@ -211,7 +211,8 @@ The instance from the injector if defined, otherwise the `notFoundValue`.
 
 [packages/spectacular/src/lib/pipe-testing/pipe-harness/spectacular-pipe-harness.ts:71](https://github.com/ngworker/ngworker/blob/b782ad5/packages/spectacular/src/lib/pipe-testing/pipe-harness/spectacular-pipe-harness.ts#L71)
 
-▸ `Abstract` **inject**<`T`\>(`token`, `notFoundValue`, `flags?`): `null` \| `T`
+▸ `Abstract` **inject**\<`T`\>(`token`, `notFoundValue`, `flags?`): `null` \|
+`T`
 
 Resolve a dependency based on the specified dependency injection token.
 
@@ -231,11 +232,11 @@ Use object-based flags (`InjectOptions`) instead.
 
 #### Parameters
 
-| Name            | Type                  | Description                                                                                                                           |
-| :-------------- | :-------------------- | :------------------------------------------------------------------------------------------------------------------------------------ |
-| `token`         | `ProviderToken`<`T`\> | The token representing the dependency, that is a class or an `InjectionToken`.                                                        |
-| `notFoundValue` | `null`                | The default value in case the specified dependency has not been provided. Optional. Default is `null`.                                |
-| `flags?`        | `InjectFlags`         | Dependency injection options, for example `InjectFlags.Optional \| InjectFlags.SkipSelf`. Optional. Default is `InjectFlags.Default`. |
+| Name            | Type                   | Description                                                                                                                           |
+| :-------------- | :--------------------- | :------------------------------------------------------------------------------------------------------------------------------------ |
+| `token`         | `ProviderToken`\<`T`\> | The token representing the dependency, that is a class or an `InjectionToken`.                                                        |
+| `notFoundValue` | `null`                 | The default value in case the specified dependency has not been provided. Optional. Default is `null`.                                |
+| `flags?`        | `InjectFlags`          | Dependency injection options, for example `InjectFlags.Optional \| InjectFlags.SkipSelf`. Optional. Default is `InjectFlags.Default`. |
 
 #### Returns
 

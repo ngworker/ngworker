@@ -29,7 +29,7 @@ building block in case you need more control over your test setup.
 ### withFeature
 
 ▸ `Static` **withFeature**(`options`):
-`ModuleWithProviders`<[`SpectacularFeatureTestingRootModule`](SpectacularFeatureTestingRootModule.md)\>
+`ModuleWithProviders`\<[`SpectacularFeatureTestingRootModule`](SpectacularFeatureTestingRootModule.md)\>
 
 Configures the `RouterTestingModule` and provides Spectactular services for
 testing feature modules
@@ -42,7 +42,7 @@ testing feature modules
 
 #### Returns
 
-`ModuleWithProviders`<[`SpectacularFeatureTestingRootModule`](SpectacularFeatureTestingRootModule.md)\>
+`ModuleWithProviders`\<[`SpectacularFeatureTestingRootModule`](SpectacularFeatureTestingRootModule.md)\>
 
 #### Defined in
 

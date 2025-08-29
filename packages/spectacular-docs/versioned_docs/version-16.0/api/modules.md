@@ -30,7 +30,7 @@ custom_edit_url: null
 
 ### CreateApplicationHarnessOptions
 
-Ƭ **CreateApplicationHarnessOptions**: `Pick`<`NgModule`, `"imports"` \|
+Ƭ **CreateApplicationHarnessOptions**: `Pick`\<`NgModule`, `"imports"` \|
 `"providers"`\>
 
 Application harness options.
@@ -44,7 +44,7 @@ Application harness options.
 ### InitialFeatureNavigationFeature
 
 Ƭ **InitialFeatureNavigationFeature**:
-[`SpectacularFeatureTestingFeature`](interfaces/SpectacularFeatureTestingFeature.md)<[`InitialFeatureNavigationFeature`](enums/SpectacularFeatureTestingFeatureKind.md#initialfeaturenavigationfeature)\>
+[`SpectacularFeatureTestingFeature`](interfaces/SpectacularFeatureTestingFeature.md)\<[`InitialFeatureNavigationFeature`](enums/SpectacularFeatureTestingFeatureKind.md#initialfeaturenavigationfeature)\>
 
 A type alias that represents a feature which enables initial navigation to the
 specified feature path.
@@ -106,7 +106,7 @@ The tag name of `SpectacularAppComponent`'s DOM element.
 ### createApplicationHarness
 
 ▸ **createApplicationHarness**(`options?`):
-`Promise`<[`SpectacularApplicationHarness`](interfaces/SpectacularApplicationHarness.md)\>
+`Promise`\<[`SpectacularApplicationHarness`](interfaces/SpectacularApplicationHarness.md)\>
 
 Bootstrap a test application with the specified metadata. Useful to test
 configuration Angular modules, bootstrap listeners, and application
@@ -120,7 +120,7 @@ initializers.
 
 #### Returns
 
-`Promise`<[`SpectacularApplicationHarness`](interfaces/SpectacularApplicationHarness.md)\>
+`Promise`\<[`SpectacularApplicationHarness`](interfaces/SpectacularApplicationHarness.md)\>
 
 #### Defined in
 
@@ -154,8 +154,8 @@ navigate to the default feature route.
 
 ### createPipeHarness
 
-▸ **createPipeHarness**<`TValue`\>(`options`):
-[`SpectacularPipeHarness`](classes/SpectacularPipeHarness.md)<`TValue`\>
+▸ **createPipeHarness**\<`TValue`\>(`options`):
+[`SpectacularPipeHarness`](classes/SpectacularPipeHarness.md)\<`TValue`\>
 
 Set up a host component for the Angular pipe under test.
 
@@ -169,13 +169,13 @@ Test it by updating the value and reading the rendered text.
 
 #### Parameters
 
-| Name      | Type                                                                            |
-| :-------- | :------------------------------------------------------------------------------ |
-| `options` | [`CreatePipeHarnessOptions`](interfaces/CreatePipeHarnessOptions.md)<`TValue`\> |
+| Name      | Type                                                                             |
+| :-------- | :------------------------------------------------------------------------------- |
+| `options` | [`CreatePipeHarnessOptions`](interfaces/CreatePipeHarnessOptions.md)\<`TValue`\> |
 
 #### Returns
 
-[`SpectacularPipeHarness`](classes/SpectacularPipeHarness.md)<`TValue`\>
+[`SpectacularPipeHarness`](classes/SpectacularPipeHarness.md)\<`TValue`\>
 
 #### Defined in
 

@@ -16,7 +16,7 @@ Angular pipe harness options.
 
 ## Hierarchy
 
-- `Pick`<`NgModule`, `"declarations"` \| `"imports"` \| `"providers"`\>
+- `Pick`\<`NgModule`, `"declarations"` \| `"imports"` \| `"providers"`\>
 
   ↳ **`CreatePipeHarnessOptions`**
 
@@ -24,7 +24,7 @@ Angular pipe harness options.
 
 ### declarations
 
-• `Optional` **declarations**: (`any`[] \| `Type`<`any`\>)[]
+• `Optional` **declarations**: (`any`[] \| `Type`\<`any`\>)[]
 
 The set of components, directives, and pipes
 ([declarables](https://v16.angular.io/guide/glossary#declarable)) that belong to
@@ -62,8 +62,8 @@ node_modules/@angular/core/index.d.ts:5705
 
 ### imports
 
-• `Optional` **imports**: (`any`[] \| `Type`<`any`\> \|
-`ModuleWithProviders`<{}\>)[]
+• `Optional` **imports**: (`any`[] \| `Type`\<`any`\> \|
+`ModuleWithProviders`\<{}\>)[]
 
 The set of NgModules whose exported
 [declarables](https://v16.angular.io/guide/glossary#declarable) are available to
@@ -100,7 +100,7 @@ node_modules/@angular/core/index.d.ts:5733
 
 ### pipe
 
-• `Readonly` **pipe**: `Type`<`PipeTransform`\>
+• `Readonly` **pipe**: `Type`\<`PipeTransform`\>
 
 The type of the Angular pipe-under-test, for example `CamelizePipe`.
 
@@ -200,7 +200,7 @@ NOTE! The `value` property is in context of the template.
 
 ### value
 
-• `Readonly` **value**: `null` \| `TValue` \| `Observable`<`TValue`\>
+• `Readonly` **value**: `null` \| `TValue` \| `Observable`\<`TValue`\>
 
 The initial value passed through the Angular pipe.
 

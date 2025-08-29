@@ -10,7 +10,7 @@ Feature harness options.
 
 ## Hierarchy
 
-- `Pick`<`NgModule`, `"imports"` \| `"providers"`\>
+- `Pick`\<`NgModule`, `"imports"` \| `"providers"`\>
 
   ↳ **`CreateFeatureHarnessOptions`**
 
@@ -31,8 +31,8 @@ for example `'heroes'`.
 
 ### imports
 
-• `Optional` **imports**: (`any`[] \| `Type`<`any`\> \|
-`ModuleWithProviders`<{}\>)[]
+• `Optional` **imports**: (`any`[] \| `Type`\<`any`\> \|
+`ModuleWithProviders`\<{}\>)[]
 
 The set of NgModules whose exported
 [declarables](https://v14.angular.io/guide/glossary#declarable) are available to

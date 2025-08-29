@@ -23,7 +23,7 @@ Spectacular offers test harnesses for Angular applications and libraries.
 Required peer dependencies:
 
 - Angular >=14.0
-- RxJS >=6.5 <7.0 or >=7.4
+- RxJS >=6.5 \<7.0 or >=7.4
 - TypeScript >=4.6
 
 Published with partial Ivy compilation.
