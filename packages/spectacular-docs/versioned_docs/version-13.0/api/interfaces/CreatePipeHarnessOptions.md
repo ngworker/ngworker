@@ -27,7 +27,8 @@ Angular pipe harness options.
 • `Optional` **declarations**: (`any`[] \| `Type`<`any`\>)[]
 
 The set of components, directives, and pipes
-([declarables](guide/glossary#declarable)) that belong to this module.
+([declarables](https://v13.angular.io/guide/glossary#declarable)) that belong to
+this module.
 
 **`usagenotes`**
 
@@ -64,8 +65,9 @@ node_modules/@angular/core/core.d.ts:4846
 • `Optional` **imports**: (`any`[] \| `Type`<`any`\> \|
 `ModuleWithProviders`<{}\>)[]
 
-The set of NgModules whose exported [declarables](guide/glossary#declarable) are
-available to templates in this module.
+The set of NgModules whose exported
+[declarables](https://v13.angular.io/guide/glossary#declarable) are available to
+templates in this module.
 
 **`usagenotes`**
 
@@ -126,9 +128,10 @@ The name of the Angular pipe-under-test, for example `camelize`.
 
 The set of injectable objects that are available in the injector of this module.
 
-**`see`** [Dependency Injection guide](guide/dependency-injection)
+**`see`**
+[Dependency Injection guide](https://v13.angular.io/guide/dependency-injection)
 
-**`see`** [NgModule guide](guide/providers)
+**`see`** [NgModule guide](https://v13.angular.io/guide/providers)
 
 **`usagenotes`**
 

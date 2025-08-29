@@ -34,8 +34,9 @@ for example `'heroes'`.
 • `Optional` **imports**: (`any`[] \| `Type`<`any`\> \|
 `ModuleWithProviders`<{}\>)[]
 
-The set of NgModules whose exported [declarables](guide/glossary#declarable) are
-available to templates in this module.
+The set of NgModules whose exported
+[declarables](https://v14.angular.io/guide/glossary#declarable) are available to
+templates in this module.
 
 **`Usage Notes`**
 
@@ -74,8 +75,8 @@ The set of injectable objects that are available in the injector of this module.
 
 **`See`**
 
-- [Dependency Injection guide](guide/dependency-injection)
-- [NgModule guide](guide/providers)
+- [Dependency Injection guide](https://v14.angular.io/guide/dependency-injection)
+- [NgModule guide](https://v14.angular.io/guide/providers)
 
 **`Usage Notes`**
 

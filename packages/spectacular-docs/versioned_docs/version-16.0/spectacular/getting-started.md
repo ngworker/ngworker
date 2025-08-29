@@ -117,7 +117,7 @@ const fakeStorage = harness.inject(StorageService);
 ## Automatic change detection
 
 Angular's testbed supports
-[automatic change detection](https://angular.io/guide/testing-components-scenarios#automatic-change-detection).
+[automatic change detection](https://v16.angular.io/guide/testing-components-scenarios#automatic-change-detection).
 So does Spectacular.
 
 Add the following provider to enable automatic change detection:

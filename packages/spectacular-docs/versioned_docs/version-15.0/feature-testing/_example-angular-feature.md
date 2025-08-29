@@ -1,6 +1,6 @@
 As an example, we're going to create integration tests for the crisis center
 feature from
-[the Tour of Heroes routing tutorial](https://angular.io/guide/router-tutorial-toh).
+[the Tour of Heroes routing tutorial](https://v15.angular.io/guide/router-tutorial-toh).
 
 The following code snippet shows its routed feature, the `crisisCenterRoutes`:
 
