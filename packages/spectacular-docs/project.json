@@ -28,6 +28,14 @@
         "script": "check-mdx"
       }
     },
+    "typecheck": {
+      "executor": "nx:run-script",
+      "dependsOn": ["build"],
+      "inputs": ["{projectRoot}/**/*.{ts,tsx}"],
+      "options": {
+        "script": "typecheck"
+      }
+    },
     "version": {
       "executor": "nx:run-commands",
       "dependsOn": ["build"],

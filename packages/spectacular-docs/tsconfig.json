@@ -1,4 +1,13 @@
 {
   "extends": "@docusaurus/tsconfig",
-  "include": ["./src/"]
+  "exclude": [".docusaurus", "build"],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noPropertyAccessFromIndexSignature": false,
+    "strict": true
+  }
 }

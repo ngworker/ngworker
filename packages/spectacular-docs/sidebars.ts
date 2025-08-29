@@ -1,7 +1,7 @@
-// @ts-check
+import type { SidebarsConfig } from '@docusaurus/plugin-content-docs';
+import typedocSidebar from './docs/api/typedoc-sidebar';
 
-/** @type {import('@docusaurus/plugin-content-docs').SidebarsConfig} */
-module.exports = {
+const sidebars: SidebarsConfig = {
   docs: ['spectacular/index', 'spectacular/getting-started'],
   application: ['application-testing/index'],
   feature: [
@@ -22,6 +22,8 @@ module.exports = {
       id: 'api/globals',
       label: 'API reference',
     },
-    ...require('./docs/api/typedoc-sidebar.cjs'),
+    ...(typedocSidebar['items'] as any[]),
   ],
 };
+
+export default sidebars;
