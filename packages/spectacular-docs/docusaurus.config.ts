@@ -55,10 +55,10 @@ const config: Config = {
           sidebarPath: './sidebars.ts',
           editUrl:
             'https://github.com/ngworker/ngworker/edit/main/packages/spectacular-docs',
-          lastVersion: 'current',
+          lastVersion: '16.0',
           versions: {
             current: {
-              label: '17.0',
+              label: '17.0 (next)',
             },
           },
         },
