@@ -20,7 +20,7 @@ Includes an API to write a value and read the rendered text.
 
 ### constructor
 
-• **new SpectacularPipeHarness**<`TValue`\>()
+• **new SpectacularPipeHarness**\<`TValue`\>()
 
 #### Type parameters
 
@@ -78,9 +78,9 @@ Update the value passed through the Angular pipe.
 
 #### Parameters
 
-| Name    | Type                                          | Description    |
-| :------ | :-------------------------------------------- | :------------- |
-| `value` | `null` \| `TValue` \| `Observable`<`TValue`\> | The new value. |
+| Name    | Type                                           | Description    |
+| :------ | :--------------------------------------------- | :------------- |
+| `value` | `null` \| `TValue` \| `Observable`\<`TValue`\> | The new value. |
 
 #### Returns
 
@@ -94,7 +94,7 @@ Update the value passed through the Angular pipe.
 
 ### inject
 
-▸ `Abstract` **inject**<`T`\>(`token`, `notFoundValue?`, `flags?`): `T`
+▸ `Abstract` **inject**\<`T`\>(`token`, `notFoundValue?`, `flags?`): `T`
 
 Resolve a dependency based on the specified dependency injection token.
 
@@ -106,11 +106,11 @@ Resolve a dependency based on the specified dependency injection token.
 
 #### Parameters
 
-| Name             | Type                                                           | Description                                                                                                                           |
-| :--------------- | :------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------ |
-| `token`          | `Type`<`T`\> \| `InjectionToken`<`T`\> \| `AbstractType`<`T`\> | The token representing the dependency, that is a class or an `InjectionToken`.                                                        |
-| `notFoundValue?` | `T`                                                            | The default value in case the specified dependency has not been provided. Optional. Default is `null`.                                |
-| `flags?`         | `InjectFlags`                                                  | Dependency injection options, for example `InjectFlags.Optional \| InjectFlags.SkipSelf`. Optional. Default is `InjectFlags.Default`. |
+| Name             | Type                                                              | Description                                                                                                                           |
+| :--------------- | :---------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------ |
+| `token`          | `Type`\<`T`\> \| `InjectionToken`\<`T`\> \| `AbstractType`\<`T`\> | The token representing the dependency, that is a class or an `InjectionToken`.                                                        |
+| `notFoundValue?` | `T`                                                               | The default value in case the specified dependency has not been provided. Optional. Default is `null`.                                |
+| `flags?`         | `InjectFlags`                                                     | Dependency injection options, for example `InjectFlags.Optional \| InjectFlags.SkipSelf`. Optional. Default is `InjectFlags.Default`. |
 
 #### Returns
 
@@ -120,7 +120,8 @@ Resolve a dependency based on the specified dependency injection token.
 
 [packages/spectacular/src/lib/pipe-testing/pipe-harness/spectacular-pipe-harness.ts:46](https://github.com/ngworker/ngworker/blob/cbd80c2/packages/spectacular/src/lib/pipe-testing/pipe-harness/spectacular-pipe-harness.ts#L46)
 
-▸ `Abstract` **inject**<`T`\>(`token`, `notFoundValue`, `flags?`): `null` \| `T`
+▸ `Abstract` **inject**\<`T`\>(`token`, `notFoundValue`, `flags?`): `null` \|
+`T`
 
 #### Type parameters
 
@@ -130,11 +131,11 @@ Resolve a dependency based on the specified dependency injection token.
 
 #### Parameters
 
-| Name            | Type                                                           |
-| :-------------- | :------------------------------------------------------------- |
-| `token`         | `Type`<`T`\> \| `InjectionToken`<`T`\> \| `AbstractType`<`T`\> |
-| `notFoundValue` | `null`                                                         |
-| `flags?`        | `InjectFlags`                                                  |
+| Name            | Type                                                              |
+| :-------------- | :---------------------------------------------------------------- |
+| `token`         | `Type`\<`T`\> \| `InjectionToken`\<`T`\> \| `AbstractType`\<`T`\> |
+| `notFoundValue` | `null`                                                            |
+| `flags?`        | `InjectFlags`                                                     |
 
 #### Returns
 

@@ -5,17 +5,35 @@
   "sourceRoot": "packages/spectacular-docs/src",
   "targets": {
     "build": {
-      "executor": "nx:run-commands",
-      "outputs": ["{workspaceRoot}/dist/packages/spectacular-docs"],
+      "executor": "nx:run-script",
+      "outputs": [
+        "{workspaceRoot}/dist/packages/spectacular-docs",
+        "{projectRoot}/docs/api"
+      ],
       "options": {
-        "command": "docusaurus build packages/spectacular-docs --out-dir ../../dist/packages/spectacular-docs",
-        "outputPath": "dist/packages/spectacular-docs"
+        "script": "build"
       }
     },
     "serve": {
-      "executor": "nx:run-commands",
+      "executor": "nx:run-script",
       "options": {
-        "command": "docusaurus start packages/spectacular-docs --no-open"
+        "script": "serve"
+      }
+    },
+    "typecheck": {
+      "executor": "nx:run-script",
+      "dependsOn": ["build"],
+      "inputs": ["{projectRoot}/**/*.{ts,tsx}"],
+      "options": {
+        "script": "typecheck"
+      }
+    },
+    "version": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
+      "options": {
+        "cwd": "packages/spectacular-docs",
+        "command": "docusaurus docs:version \"{args.version}\""
       }
     }
   },

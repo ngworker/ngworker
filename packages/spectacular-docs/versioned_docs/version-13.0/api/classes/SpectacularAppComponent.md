@@ -32,7 +32,7 @@ The router outlet of the root component.
 
 ### getActiveComponent
 
-▸ **getActiveComponent**<`TActiveComponent`\>(): `TActiveComponent`
+▸ **getActiveComponent**\<`TActiveComponent`\>(): `TActiveComponent`
 
 Get the active top-level routed component, for example a page component.
 

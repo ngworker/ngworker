@@ -1,2 +1,2 @@
-Use [createFeatureHarness](/docs/api/modules#createfeatureharness) to create a
-feature testing harness.
+Use [createFeatureHarness](../../../api/functions/createFeatureHarness.md) to
+create a feature testing harness.

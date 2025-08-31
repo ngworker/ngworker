@@ -43,7 +43,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version-file: .nvmrc
+          node-version-file: .node-version
           cache: npm
       - run: npm ci
 
@@ -67,7 +67,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version-file: .nvmrc
+          node-version-file: .node-version
           cache: npm
       - run: npm ci
 
@@ -96,7 +96,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version-file: .nvmrc
+          node-version-file: .node-version
           cache: npm
       - run: npm ci
 
@@ -125,7 +125,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version-file: .nvmrc
+          node-version-file: .node-version
           cache: npm
       - run: npm ci
 
@@ -151,12 +151,13 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version-file: .nvmrc
+          node-version-file: .node-version
           cache: npm
       - run: npm ci
 
       - run:
           npm run nx -- build spectacular-docs --parallel=$NGWORKER_NX_PARALLEL
+      - run: npm run nx -- typecheck spectacular-docs
       - name: '[Merge][Spectacular] Upload docs app'
         if: github.event_name == 'push' && github.ref_name == 'main'
         uses: actions/upload-artifact@v4
@@ -164,7 +165,6 @@ jobs:
           if-no-files-found: error
           name: ${{ env.spectacular_docs_artifact_name }}
           path: ${{ env.spectacular_docs_path }}
-
   deploy-docs:
     needs: docs
     if: github.event_name == 'push' && github.ref_name == 'main'
@@ -212,7 +212,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version-file: .nvmrc
+          node-version-file: .node-version
           cache: npm
       - run: npm ci
 

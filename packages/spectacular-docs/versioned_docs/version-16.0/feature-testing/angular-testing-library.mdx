@@ -1,0 +1,761 @@
+---
+sidebar_label: Angular Testing Library
+sidebar_position: 2
+title: Feature testing using Spectacular and Angular Testing Library
+---
+
+import ExampleAngularFeature from './_example-angular-feature.md';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+Spectacular doesn't contain an API for interacting with or inspecting our
+application's DOM and its URL path. Instead, we rely on Angular's verbose
+testing APIs. Alternatively, we can use the expressive and convenient APIs of
+[Angular Testing Library](https://testing-library.com/docs/angular-testing-library/intro/).
+
+On this page, we learn how to integrate Spectacular with Angular Testing Library
+by configuring
+[`render`](https://testing-library.com/docs/angular-testing-library/api#render)
+and using Spectacular's feature-aware services for an excellent testing
+experience.
+
+## Example Angular feature
+
+<ExampleAngularFeature />
+
+## Registering a routed feature
+
+The following snippet shows the common configuration needed for integrating
+Spectacular with Angular Testing library:
+
+```ts {1-4,13-22}
+import {
+  provideSpectacularFeatureTesting,
+  SpectacularAppComponent,
+} from '@ngworker/spectacular';
+import { render } from '@testing-library/angular';
+import {
+  crisisCenterPath,
+  crisisCenterRoutes,
+} from '@tour-of-heroes/crisis-center';
+
+describe('Tour of Heroes: Crisis center', () => {
+  beforeEach(async () => {
+    await render(SpectacularAppComponent, {
+      providers: [
+        provideSpectacularFeatureTesting({
+          featurePath: crisisCenterPath,
+          routes: [
+            { path: crisisCenterPath, loadChildren: () => crisisCenterRoutes },
+          ],
+        }),
+      ],
+    });
+  });
+});
+```
+
+Let's discuss each part of the configuration in detail.
+
+Firstly, we use
+[`SpectacularAppComponent`](../api/classes/SpectacularAppComponent.md) as our
+root component by passing it to Angular Testing Library's
+[`render`](https://testing-library.com/docs/angular-testing-library/api#render)
+function:
+
+```ts {13}
+import {
+  provideSpectacularFeatureTesting,
+  SpectacularAppComponent,
+} from '@ngworker/spectacular';
+import { render } from '@testing-library/angular';
+import {
+  crisisCenterPath,
+  crisisCenterRoutes,
+} from '@tour-of-heroes/crisis-center';
+
+describe('Tour of Heroes: Crisis center', () => {
+  beforeEach(async () => {
+    await render(SpectacularAppComponent, {
+      providers: [
+        provideSpectacularFeatureTesting({
+          featurePath: crisisCenterPath,
+          routes: [
+            { path: crisisCenterPath, loadChildren: () => crisisCenterRoutes },
+          ],
+        }),
+      ],
+    });
+  });
+});
+```
+
+[`SpectacularAppComponent`](../api/classes/SpectacularAppComponent.md) is a
+simple component with a router outlet that will host all of our feature's
+routes.
+
+Next, we register our feature by calling
+[`provideSpectacularFeatureTesting`](../api/modules.md#providespectacularfeaturetesting)
+and adding the result to the `providers` option:
+
+```ts {15-20}
+import {
+  provideSpectacularFeatureTesting,
+  SpectacularAppComponent,
+} from '@ngworker/spectacular';
+import { render } from '@testing-library/angular';
+import {
+  crisisCenterPath,
+  crisisCenterRoutes,
+} from '@tour-of-heroes/crisis-center';
+
+describe('Tour of Heroes: Crisis center', () => {
+  beforeEach(async () => {
+    await render(SpectacularAppComponent, {
+      providers: [
+        provideSpectacularFeatureTesting({
+          featurePath: crisisCenterPath,
+          routes: [
+            { path: crisisCenterPath, loadChildren: () => crisisCenterRoutes },
+          ],
+        }),
+      ],
+    });
+  });
+});
+```
+
+We pass our routed feature to the
+[`routes`](../api/interfaces/ProvideSpectacularFeatureTestingOptions.md#routes)
+option, in our case `crisisCenterPath`, as part of a route that wraps it in a
+`loadChildren` callback.
+
+> 💡 **Tip** Lazy loading a feature isn't a requirement in an integration test.
+
+Additionally, we pass the route path that the feature uses in our application to
+the
+[`featurePath`](../api/interfaces/ProvideSpectacularFeatureTestingOptions.md#featurepath)
+option, in our case the value of the `crisisCenterPath` variable which is used
+between our application and our feature test suite.
+
+With our routed feature registered, our feature tests have access to all routes
+configured by that Angular feature.
+
+## Resolving feature-aware services
+
+When we're using Angular Testing Library, we use
+[`render`](https://testing-library.com/docs/angular-testing-library/api#render)
+and
+[`provideSpectacularFeatureTesting`](../api/modules.md#providespectacularfeaturetesting)
+instead of [`createFeatureHarness`](../api/modules.md#createfeatureharness).
+
+Because of this, we don't get a reference to a
+[`SpectacularFeatureHarness`](../api/interfaces/SpectacularFeatureHarness.md).
+
+To access Spectacular's feature-aware services, we resolve them using the
+injector of `RenderResult#fixture.debugElement`:
+
+```ts {3,28,31}
+import {
+  provideSpectacularFeatureTesting,
+  SpectacularAppComponent,
+  SpectacularFeatureRouter,
+} from '@ngworker/spectacular';
+import { render, RenderResult } from '@testing-library/angular';
+import {
+  crisisCenterPath,
+  crisisCenterRoutes,
+} from '@tour-of-heroes/crisis-center';
+
+describe('Tour of Heroes: Crisis center', () => {
+  beforeEach(async () => {
+    const {
+      fixture: {
+        debugElement: { injector },
+      },
+    } = await render(SpectacularAppComponent, {
+      providers: [
+        provideSpectacularFeatureTesting({
+          featurePath: crisisCenterPath,
+          routes: [
+            { path: crisisCenterPath, loadChildren: () => crisisCenterRoutes },
+          ],
+        }),
+      ],
+    });
+    featureRouter = injector.get(SpectacularFeatureRouter);
+  });
+
+  let featureRouter: SpectacularFeatureRouter;
+});
+```
+
+Alternatively, we use
+[`TestBed.inject`](https://v16.angular.io/api/core/testing/TestBed#inject) to
+resolve Spectacular's feature-aware services:
+
+```ts {1,4,25,28}
+import { TestBed } from '@angular/core/testing';
+import {
+  provideSpectacularFeatureTesting,
+  SpectacularAppComponent,
+  SpectacularFeatureRouter,
+} from '@ngworker/spectacular';
+import { render, RenderResult } from '@testing-library/angular';
+import {
+  crisisCenterPath,
+  crisisCenterRoutes,
+} from '@tour-of-heroes/crisis-center';
+
+describe('Tour of Heroes: Crisis center', () => {
+  beforeEach(async () => {
+    await render(SpectacularAppComponent, {
+      providers: [
+        provideSpectacularFeatureTesting({
+          featurePath: crisisCenterPath,
+          routes: [
+            { path: crisisCenterPath, loadChildren: () => crisisCenterRoutes },
+          ],
+        }),
+      ],
+    });
+    featureRouter = TestBed.inject(SpectacularFeatureRouter);
+  });
+
+  let featureRouter: SpectacularFeatureRouter;
+});
+```
+
+Either of these techniques can be used to access
+[`SpectacularFeatureLocation`](../api/classes/SpectacularFeatureLocation.md) and
+[`SpectacularFeatureRouter`](../api/classes/SpectacularFeatureRouter.md).
+
+## Navigating to feature routes
+
+When using Angular Testing Library, you can keep using
+[`RenderResult#navigate`](https://testing-library.com/docs/angular-testing-library/api#navigate)
+and your tests will behave as you're used to:
+
+```ts {38}
+import {
+  provideSpectacularFeatureTesting,
+  SpectacularAppComponent,
+} from '@ngworker/spectacular';
+import { render, RenderResult, screen } from '@testing-library/angular';
+import {
+  Crisis,
+  crisisCenterPath,
+  crisisCenterRoutes,
+} from '@tour-of-heroes/crisis-center';
+
+describe('Tour of Heroes: Crisis center', () => {
+  beforeEach(async () => {
+    const { navigate: _navigate } = await render(SpectacularAppComponent, {
+      providers: [
+        provideSpectacularFeatureTesting({
+          featurePath: crisisCenterPath,
+          routes: [
+            { path: crisisCenterPath, loadChildren: () => crisisCenterRoutes },
+          ],
+        }),
+      ],
+    });
+    navigate = _navigate;
+  });
+
+  let navigate: RenderResult<
+    SpectacularAppComponent,
+    SpectacularAppComponent
+  >['navigate'];
+
+  it('shows crisis detail when a valid ID is in the URL', async () => {
+    const crisis: Crisis = {
+      id: 1,
+      name: 'Dragon Burning Cities',
+    };
+
+    await navigate(crisisCenterPath + '/' + crisis.id);
+
+    expect(
+      await screen.findByRole('heading', { name: new RegExp(crisis.name) })
+    ).not.toBeNull();
+  });
+});
+```
+
+Alternatively, you can use Spectacular's feature-aware router,
+[`SpectacularFeatureRouter`](../api/classes/SpectacularFeatureRouter.md):
+
+```ts {4,29,32,40}
+import {
+  provideSpectacularFeatureTesting,
+  SpectacularAppComponent,
+  SpectacularFeatureRouter,
+} from '@ngworker/spectacular';
+import { render, RenderResult, screen } from '@testing-library/angular';
+import {
+  Crisis,
+  crisisCenterPath,
+  crisisCenterRoutes,
+} from '@tour-of-heroes/crisis-center';
+
+describe('Tour of Heroes: Crisis center', () => {
+  beforeEach(async () => {
+    const {
+      fixture: {
+        debugElement: { injector },
+      },
+    } = await render(SpectacularAppComponent, {
+      providers: [
+        provideSpectacularFeatureTesting({
+          featurePath: crisisCenterPath,
+          routes: [
+            { path: crisisCenterPath, loadChildren: () => crisisCenterRoutes },
+          ],
+        }),
+      ],
+    });
+    featureRouter = injector.get(SpectacularFeatureRouter);
+  });
+
+  let featureRouter: SpectacularFeatureRouter;
+
+  it('shows crisis detail when a valid ID is in the URL', async () => {
+    const crisis: Crisis = {
+      id: 1,
+      name: 'Dragon Burning Cities',
+    };
+
+    await featureRouter.navigate(['~', crisis.id]);
+
+    expect(
+      await screen.findByRole('heading', { name: new RegExp(crisis.name) })
+    ).not.toBeNull();
+  });
+});
+```
+
+`screen` is the recommended starting point for
+[content queries](https://testing-library.com/docs/dom-testing-library/cheatsheet#queries)
+when using Angular Testing Library.
+
+## Asserting feature paths
+
+When using Angular Testing Library, you can use Angular's
+[`Location#path`](https://v16.angular.io/api/common/Location#path) service
+method to assert navigation to feature routes:
+
+```ts {1,34,37,53}
+import { Location } from '@angular/common';
+import {
+  provideSpectacularFeatureTesting,
+  SpectacularAppComponent,
+} from '@ngworker/spectacular';
+import { render, RenderResult, screen } from '@testing-library/angular';
+import userEvent from '@testing-library/user-event';
+import type { UserEvent } from '@testing-library/user-event/dist/types/setup';
+import {
+  Crisis,
+  crisisCenterPath,
+  crisisCenterRoutes,
+} from '@tour-of-heroes/crisis-center';
+
+describe('Tour of Heroes: Crisis center', () => {
+  beforeEach(async () => {
+    user = userEvent.setup();
+    const {
+      fixture: {
+        debugElement: { injector },
+      },
+      navigate: _navigate,
+    } = await render(SpectacularAppComponent, {
+      providers: [
+        provideSpectacularFeatureTesting({
+          featurePath: crisisCenterPath,
+          routes: [
+            { path: crisisCenterPath, loadChildren: () => crisisCenterRoutes },
+          ],
+        }),
+      ],
+    });
+    navigate = _navigate;
+    appLocation = injector.get(Location);
+  });
+
+  let appLocation: Location;
+  let navigate: RenderResult<
+    SpectacularAppComponent,
+    SpectacularAppComponent
+  >['navigate'];
+  let user: UserEvent;
+
+  it('shows crisis detail when a valid ID is in the URL', async () => {
+    const crisis: Crisis = {
+      id: 1,
+      name: 'Dragon Burning Cities',
+    };
+    await navigate(crisisCenterPath);
+
+    await user.click(await screen.findByText(crisis.name));
+
+    expect(appLocation.path()).toBe(crisisCenterPath + '/' + crisis.id);
+  });
+});
+```
+
+Alternatively, you can use Spectacular's feature-aware location service,
+[`SpectacularFeatureLocation`](../api/classes/SpectacularFeatureLocation.md):
+
+```ts {4,34,37,53}
+import {
+  provideSpectacularFeatureTesting,
+  SpectacularAppComponent,
+  SpectacularFeatureLocation,
+} from '@ngworker/spectacular';
+import { render, RenderResult, screen } from '@testing-library/angular';
+import userEvent from '@testing-library/user-event';
+import type { UserEvent } from '@testing-library/user-event/dist/types/setup';
+import {
+  Crisis,
+  crisisCenterPath,
+  crisisCenterRoutes,
+} from '@tour-of-heroes/crisis-center';
+
+describe('Tour of Heroes: Crisis center', () => {
+  beforeEach(async () => {
+    user = userEvent.setup();
+    const {
+      fixture: {
+        debugElement: { injector },
+      },
+      navigate: _navigate,
+    } = await render(SpectacularAppComponent, {
+      providers: [
+        provideSpectacularFeatureTesting({
+          featurePath: crisisCenterPath,
+          routes: [
+            { path: crisisCenterPath, loadChildren: () => crisisCenterRoutes },
+          ],
+        }),
+      ],
+    });
+    navigate = _navigate;
+    featureLocation = injector.get(SpectacularFeatureLocation);
+  });
+
+  let featureLocation: SpectacularFeatureLocation;
+  let navigate: RenderResult<
+    SpectacularAppComponent,
+    SpectacularAppComponent
+  >['navigate'];
+  let user: UserEvent;
+
+  it('shows crisis detail when a valid ID is in the URL', async () => {
+    const crisis: Crisis = {
+      id: 1,
+      name: 'Dragon Burning Cities',
+    };
+    await navigate(crisisCenterPath);
+
+    await user.click(await screen.findByText(crisis.name));
+
+    expect(featureLocation.path()).toBe('~/' + crisis.id);
+  });
+});
+```
+
+[`userEvent`](https://testing-library.com/docs/ecosystem-user-event/) is the
+recommended way to interact with the DOM when using Angular Testing Library.
+
+## Testing a complete user flow with Spectacular and Angular Testing Library
+
+The following is an example of testing a complete user flow with Spectacular and
+[Angular Testing Library](https://testing-library.com/docs/angular-testing-library/intro/):
+
+<Tabs
+  defaultValue="atl"
+  values={[
+    { label: 'Spectacular + Angular Testing Library', value: 'atl', },
+    { label: 'Spectacular + Angular testbed', value: 'spectacular', },
+    { label: 'Angular testbed', value: 'testbed', },
+  ]}>
+  <TabItem value="atl">
+
+```ts {44-61}
+import {
+  provideSpectacularFeatureTesting,
+  SpectacularAppComponent,
+  SpectacularFeatureLocation,
+  SpectacularFeatureRouter,
+} from '@ngworker/spectacular';
+import { render, screen } from '@testing-library/angular';
+import userEvent from '@testing-library/user-event';
+import type { UserEvent } from '@testing-library/user-event/dist/types/setup';
+import {
+  crisisCenterPath,
+  crisisCenterRoutes,
+  CrisisService,
+} from '@tour-of-heroes/crisis-center';
+
+describe('Tour of Heroes: Crisis center', () => {
+  beforeEach(async () => {
+    user = userEvent.setup();
+    const {
+      fixture: {
+        debugElement: { injector },
+      },
+    } = await render(SpectacularAppComponent, {
+      providers: [
+        provideSpectacularFeatureTesting({
+          featurePath: crisisCenterPath,
+          routes: [
+            { path: crisisCenterPath, loadChildren: () => crisisCenterRoutes },
+          ],
+        }),
+      ],
+    });
+    crisisService = injector.get(CrisisService);
+    featureLocation = injector.get(SpectacularFeatureLocation);
+    featureRouter = injector.get(SpectacularFeatureRouter);
+  });
+
+  let crisisService: CrisisService;
+  let featureLocation: SpectacularFeatureLocation;
+  let featureRouter: SpectacularFeatureRouter;
+  let user: UserEvent;
+
+  describe('Editing a crisis', () => {
+    it('navigates to the crisis center home with the crisis selected when the change is saved', async () => {
+      const [aCrisis] = crisisService.getCrises().value;
+      await featureRouter.navigate(['~', aCrisis.id]);
+      const newCrisisName = 'Global climate crisis';
+
+      await user.type(await screen.findByRole('textbox'), newCrisisName);
+      await user.click(await screen.findByRole('button', { name: 'Save' }));
+
+      expect(
+        await screen.findByText('Welcome to the Crisis Center')
+      ).not.toBeNull();
+      expect(
+        await screen.findByText(new RegExp(aCrisis.name), {
+          selector: '.selected a',
+        })
+      ).not.toBeNull();
+      expect(featureLocation.path()).toBe(`~/;id=${aCrisis.id};foo=foo`);
+    });
+  });
+});
+```
+
+  </TabItem>
+
+  <TabItem value="spectacular">
+
+```ts {28-60}
+import { By } from '@angular/platform-browser';
+import {
+  createFeatureHarness,
+  SpectacularFeatureHarness,
+} from '@ngworker/spectacular';
+import {
+  crisisCenterPath,
+  crisisCenterRoutes,
+  CrisisService,
+} from '@tour-of-heroes/crisis-center';
+
+describe('Tour of Heroes: Crisis center', () => {
+  beforeEach(() => {
+    harness = createFeatureHarness({
+      featurePath: crisisCenterPath,
+      routes: [
+        { path: crisisCenterPath, loadChildren: () => crisisCenterRoutes },
+      ],
+    });
+
+    crisisService = harness.inject(CrisisService);
+  });
+
+  let crisisService: CrisisService;
+  let harness: SpectacularFeatureHarness;
+
+  describe('Editing a crisis', () => {
+    it('navigates to the crisis center home with the crisis selected when the change is saved', async () => {
+      const [aCrisis] = crisisService.getCrises().value;
+      await harness.router.navigate(['~', aCrisis.id]);
+      const inputElement: HTMLInputElement =
+        harness.rootFixture.debugElement.query(By.css('input')).nativeElement;
+      const saveButtonElement: HTMLButtonElement =
+        harness.rootFixture.debugElement
+          .queryAll(By.css('button'))
+          .map(button => button.nativeElement)
+          .find(
+            (buttonElement: HTMLButtonElement) =>
+              buttonElement.textContent?.trim() === 'Save'
+          );
+      const newCrisisName = 'Global climate crisis';
+
+      inputElement.value = newCrisisName;
+      inputElement.dispatchEvent(new Event('input'));
+      saveButtonElement.click();
+      await harness.rootFixture.whenStable();
+
+      const welcomeText: HTMLElement = harness.rootFixture.debugElement.query(
+        By.css('p')
+      ).nativeElement;
+      const selectedCrisis: HTMLElement =
+        harness.rootFixture.debugElement.query(
+          By.css('.selected')
+        ).nativeElement;
+      expect(welcomeText.textContent).toBe('Welcome to the Crisis Center');
+      expect(selectedCrisis.textContent?.trim()).toBe(
+        `${aCrisis.id}${newCrisisName}`
+      );
+      expect(harness.location.path()).toBe(`~/;id=${aCrisis.id};foo=foo`);
+    });
+  });
+});
+```
+
+  </TabItem>
+
+  <TabItem value="testbed">
+
+```ts {50-85}
+import { Location } from '@angular/common';
+import { provideLocationMocks } from '@angular/common/testing';
+import { Component } from '@angular/core';
+import {
+  ComponentFixture,
+  ComponentFixtureAutoDetect,
+  TestBed,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { provideRouter, Router, RouterOutlet } from '@angular/router';
+import {
+  crisisCenterPath,
+  crisisCenterRoutes,
+  CrisisService,
+} from '@tour-of-heroes/crisis-center';
+
+@Component({
+  standalone: true,
+  selector: 'test-app',
+  imports: [RouterOutlet],
+  template: '<router-outlet><router-outlet>',
+})
+class TestAppComponent {}
+
+describe('Tour of Heroes: Crisis center', () => {
+  beforeEach(async () => {
+    TestBed.configureTestingModule({
+      providers: [
+        { provide: ComponentFixtureAutoDetect, useValue: true },
+        provideRouter([
+          { path: crisisCenterPath, loadChildren: () => crisisCenterRoutes },
+        ]),
+        provideLocationMocks(),
+      ],
+    });
+
+    rootFixture = TestBed.createComponent(TestAppComponent);
+    location = TestBed.inject(Location);
+    router = TestBed.inject(Router);
+    crisisService = TestBed.inject(CrisisService);
+    await rootFixture.ngZone?.run(() => router.navigate([crisisCenterPath]));
+  });
+
+  let crisisService: CrisisService;
+  let location: Location;
+  let rootFixture: ComponentFixture<TestAppComponent>;
+  let router: Router;
+
+  describe('Editing a crisis', () => {
+    it('navigates to the crisis center home with the crisis selected when the change is saved', async () => {
+      const [aCrisis] = crisisService.getCrises().value;
+      await rootFixture.ngZone?.run(() =>
+        router.navigate([crisisCenterPath, aCrisis.id])
+      );
+      const inputElement: HTMLInputElement = rootFixture.debugElement.query(
+        By.css('input')
+      ).nativeElement;
+      const saveButtonElement: HTMLButtonElement = rootFixture.debugElement
+        .queryAll(By.css('button'))
+        .map(button => button.nativeElement)
+        .find(
+          (buttonElement: HTMLButtonElement) =>
+            buttonElement.textContent?.trim() === 'Save'
+        );
+      const newCrisisName = 'Global climate crisis';
+
+      inputElement.value = newCrisisName;
+      inputElement.dispatchEvent(new Event('input'));
+      saveButtonElement.click();
+      await rootFixture.whenStable();
+
+      const welcomeText: HTMLElement = rootFixture.debugElement.query(
+        By.css('p')
+      ).nativeElement;
+      const selectedCrisis: HTMLElement = rootFixture.debugElement.query(
+        By.css('.selected')
+      ).nativeElement;
+      expect(welcomeText.textContent).toBe('Welcome to the Crisis Center');
+      expect(selectedCrisis.textContent?.trim()).toBe(
+        `${aCrisis.id}${newCrisisName}`
+      );
+      expect(location.path()).toBe(
+        `/${crisisCenterPath};id=${aCrisis.id};foo=foo`
+      );
+    });
+  });
+});
+```
+
+  </TabItem>
+</Tabs>
+
+Compare this to a feature test suite using Spectacular with the Angular testbed
+and we see that the preceding test case contains about half the lines of code as
+the one using Spectacular without
+[Angular Testing Library](https://testing-library.com/docs/angular-testing-library/intro/).
+
+Compare this to a feature test suite using only the Angular testbed and we come
+to appreciate how much less noise is in our test setup and our code which
+interacts and inspects the DOM as well as the URL path.
+
+## Sharing an Angular Testing Library configuration
+
+Consider sharing common Angular Testing Library configuration by using the
+[`configure`](https://testing-library.com/docs/dom-testing-library/api-configuration)
+function. Angular Testing Library's `configure` options support the following
+Angular-specific options:
+
+- `defaultImports`, an array of shared Angular module imports
+- `excludeComponentDeclaration`, a Boolean value that enables an imported module
+  to declare the testing root component when set to `true`
+
+As an example, we could add the following shared configuration to our main test
+file:
+
+```ts
+import { ComponentFixtureAutoDetect } from '@angular/core/testing';
+import { configure } from '@testing-library/angular';
+
+@NgModule({
+  providers: [{ provide: ComponentFixtureAutoDetect, useValue: true }],
+})
+class AutoDetectChangesModule {}
+
+configure({
+  defaultImports: [AutoDetectChangesModule],
+  excludeComponentDeclaration: true,
+});
+```
+
+In this case, we can leave out the `excludeComponentDeclaration` setting from
+Spectacular test suite setups in the relevant project if required by the version
+of Angular Testing Library you are using. Additionally, we don't have to call
+`RenderResult#fixture#autoDetectChanges` after calling
+[`render`](https://testing-library.com/docs/angular-testing-library/api#render).
+
+Keep in mind that this affects all test suites using Angular Testing Library in
+the project using this main test file.

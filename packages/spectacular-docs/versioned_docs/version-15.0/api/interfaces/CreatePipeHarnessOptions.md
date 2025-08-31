@@ -16,7 +16,7 @@ Angular pipe harness options.
 
 ## Hierarchy
 
-- `Pick`<`NgModule`, `"declarations"` \| `"imports"` \| `"providers"`\>
+- `Pick`\<`NgModule`, `"declarations"` \| `"imports"` \| `"providers"`\>
 
   ↳ **`CreatePipeHarnessOptions`**
 
@@ -24,10 +24,11 @@ Angular pipe harness options.
 
 ### declarations
 
-• `Optional` **declarations**: (`any`[] \| `Type`<`any`\>)[]
+• `Optional` **declarations**: (`any`[] \| `Type`\<`any`\>)[]
 
 The set of components, directives, and pipes
-([declarables](guide/glossary#declarable)) that belong to this module.
+([declarables](https://v15.angular.io/guide/glossary#declarable)) that belong to
+this module.
 
 **`Usage Notes`**
 
@@ -61,11 +62,12 @@ node_modules/@angular/core/index.d.ts:5705
 
 ### imports
 
-• `Optional` **imports**: (`any`[] \| `Type`<`any`\> \|
-`ModuleWithProviders`<{}\>)[]
+• `Optional` **imports**: (`any`[] \| `Type`\<`any`\> \|
+`ModuleWithProviders`\<{}\>)[]
 
-The set of NgModules whose exported [declarables](guide/glossary#declarable) are
-available to templates in this module.
+The set of NgModules whose exported
+[declarables](https://v15.angular.io/guide/glossary#declarable) are available to
+templates in this module.
 
 **`Usage Notes`**
 
@@ -98,7 +100,7 @@ node_modules/@angular/core/index.d.ts:5733
 
 ### pipe
 
-• `Readonly` **pipe**: `Type`<`PipeTransform`\>
+• `Readonly` **pipe**: `Type`\<`PipeTransform`\>
 
 The type of the Angular pipe-under-test, for example `CamelizePipe`.
 
@@ -128,8 +130,8 @@ The set of injectable objects that are available in the injector of this module.
 
 **`See`**
 
-- [Dependency Injection guide](guide/dependency-injection)
-- [NgModule guide](guide/providers)
+- [Dependency Injection guide](https://v15.angular.io/guide/dependency-injection)
+- [NgModule guide](https://v15.angular.io/guide/providers)
 
 **`Usage Notes`**
 
@@ -198,7 +200,7 @@ NOTE! The `value` property is in context of the template.
 
 ### value
 
-• `Readonly` **value**: `null` \| `TValue` \| `Observable`<`TValue`\>
+• `Readonly` **value**: `null` \| `TValue` \| `Observable`\<`TValue`\>
 
 The initial value passed through the Angular pipe.
 

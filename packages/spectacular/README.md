@@ -15,7 +15,7 @@ Spectacular offers test harnesses for Angular applications and libraries.
 Required peer dependencies:
 
 - Angular >=16.0
-- RxJS >=6.5 <7.0 or >=7.4
+- RxJS >=6.5 \<7.0 or >=7.4
 - TypeScript >=4.9
 
 Published with partial Ivy compilation.
@@ -30,11 +30,11 @@ bootstrap listeners, and application initializers.
 
 ### Public API
 
-| Export name                                                                    | Kind                                                                                      | Description                                                                                                                                                       |
-| ------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [`createApplicationHarness`](./modules#createapplicationharness)               | Factory for [`SpectacularApplicationHarness`](./interfaces/SpectacularApplicationHarness) | Bootstrap a Spectacular application with the specified metadata. Useful to test configuration Angular modules, bootstrap listeners, and application initializers. |
-| [`CreateApplicationHarnessOptions`](./modules#createapplicationharnessoptions) | Options for [`createApplicationHarness`](./modules#createapplicationharness)              | Application harness options.                                                                                                                                      |
-| [`SpectacularApplicationHarness`](./interfaces/SpectacularApplicationHarness)  | Interface                                                                                 | A harness for testing application-level software artifacts.                                                                                                       |
+| Export name                                                                            | Kind                                                                                         | Description                                                                                                                                                       |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`createApplicationHarness`](./functions/createApplicationHarness.md)                  | Factory for [`SpectacularApplicationHarness`](./interfaces/SpectacularApplicationHarness.md) | Bootstrap a Spectacular application with the specified metadata. Useful to test configuration Angular modules, bootstrap listeners, and application initializers. |
+| [`CreateApplicationHarnessOptions`](./type-aliases/CreateApplicationHarnessOptions.md) | Options for [`createApplicationHarness`](./functions/createApplicationHarness.md)            | Application harness options.                                                                                                                                      |
+| [`SpectacularApplicationHarness`](./interfaces/SpectacularApplicationHarness.md)       | Interface                                                                                    | A harness for testing application-level software artifacts.                                                                                                       |
 
 ## Feature testing
 
@@ -48,16 +48,16 @@ modules.
 
 ### Public API
 
-| Export name                                                                                    | Kind                                                                                         | Description                                                                                                                                                                                                     |
-| ---------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [`createFeatureHarness`](./modules#createfeatureharness)                                       | Factory for [`SpectacularFeatureHarness`](./interfaces/SpectacularFeatureHarness)            | Configure [`provideSpectacularFeatureTesting`](./modules#providespectacularfeaturetesting), bootstrap [`SpectacularAppComponent`](./classes/SpectacularAppComponent) and navigate to the default feature route. |
-| [`CreateFeatureHarnessOptions`](./interfaces/CreateFeatureHarnessOptions)                      | Options for [`createFeatureHarness`](./modules#createfeatureharness)                         | Feature harness options.                                                                                                                                                                                        |
-| [`provideSpectacularFeatureTesting`](./modules#providespectacularfeaturetesting)               | Provider factory                                                                             | Configure [`SpectacularFeatureLocation`](./classes/SpectacularFeatureLocation) and [`SpectacularFeatureRouter`](./classes/SpectacularFeatureRouter)                                                             |
-| [`ProvideSpectacularFeatureTestingOptions`](./interfaces/ProvideSpectacularFeatureTestOptions) | Options for [`provideSpectacularFeatureTesting`](./modules#providespectacularfeaturetesting) | Spectacular feature testing options.                                                                                                                                                                            |
-| [`SpectacularFeatureHarness`](./interfaces/SpectacularFeatureHarness)                          | Interface                                                                                    | A harness for testing an Angular feature module.                                                                                                                                                                |
-| [`SpectacularFeatureLocation`](./classes/SpectacularFeatureLocation)                           | Service                                                                                      | A subset of Angular's [`Location`](https://angular.io/api/common/Location) service adjusted to the Angular feature module under test.                                                                           |
-| [`SpectacularFeatureRouter`](./classes/SpectacularFeatureRouter)                               | Service                                                                                      | A subset of Angular's [`Router`](https://angular.io/api/router/Router) service adjusted to the Angular feature module under test.                                                                               |
-| [`withInitialFeatureNavigation`](./modules#withinitialfeaturenavigation)                       | Feature provider                                                                             | Enables initial feature navigation.                                                                                                                                                                             |
+| Export name                                                                                          | Kind                                                                                              | Description                                                                                                                                                                                                             |
+| ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`createFeatureHarness`](./functions/createFeatureHarness.md)                                        | Factory for [`SpectacularFeatureHarness`](./interfaces/SpectacularFeatureHarness.md)              | Configure [`provideSpectacularFeatureTesting`](./functions/provideSpectacularFeatureTesting.md), bootstrap [`SpectacularAppComponent`](./classes/SpectacularAppComponent.md) and navigate to the default feature route. |
+| [`CreateFeatureHarnessOptions`](./interfaces/CreateFeatureHarnessOptions.md)                         | Options for [`createFeatureHarness`](./functions/createFeatureHarness.md)                         | Feature harness options.                                                                                                                                                                                                |
+| [`provideSpectacularFeatureTesting`](./functions/provideSpectacularFeatureTesting.md)                | Provider factory                                                                                  | Configure [`SpectacularFeatureLocation`](./classes/SpectacularFeatureLocation.md) and [`SpectacularFeatureRouter`](./classes/SpectacularFeatureRouter.md)                                                               |
+| [`ProvideSpectacularFeatureTestingOptions`](./interfaces/ProvideSpectacularFeatureTestingOptions.md) | Options for [`provideSpectacularFeatureTesting`](./functions/provideSpectacularFeatureTesting.md) | Spectacular feature testing options.                                                                                                                                                                                    |
+| [`SpectacularFeatureHarness`](./interfaces/SpectacularFeatureHarness.md)                             | Interface                                                                                         | A harness for testing an Angular feature module.                                                                                                                                                                        |
+| [`SpectacularFeatureLocation`](./classes/SpectacularFeatureLocation.md)                              | Service                                                                                           | A subset of Angular's [`Location`](https://angular.io/api/common/Location) service adjusted to the Angular feature module under test.                                                                                   |
+| [`SpectacularFeatureRouter`](./classes/SpectacularFeatureRouter.md)                                  | Service                                                                                           | A subset of Angular's [`Router`](https://angular.io/api/router/Router) service adjusted to the Angular feature module under test.                                                                                       |
+| [`withInitialFeatureNavigation`](./functions/withInitialFeatureNavigation.md)                        | Feature provider                                                                                  | Enables initial feature navigation.                                                                                                                                                                                     |
 
 ## Pipe testing
 
@@ -66,11 +66,11 @@ a host component for the Angular pipe under test.
 
 ### Public API
 
-| Export name                                                         | Kind                                                                 | Description                                              |
-| ------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------- |
-| [`createPipeHarness`](./modules#createpipeharness)                  | [`SpectacularPipeHarness`](./classes/SpectacularPipeHarness) factory | Set up a host component for the Angular pipe under test. |
-| [`CreatePipeHarnessOptions`](./interfaces/CreatePipeHarnessOptions) | Options for [`createPipeHarness`](./modules#createpipeharness)       | Angular pipe harness options.                            |
-| [`SpectacularPipeHarness`](./classes/SpectacularPipeHarness)        | Interface                                                            | A harness for testing an Angular pipe.                   |
+| Export name                                                            | Kind                                                                    | Description                                              |
+| ---------------------------------------------------------------------- | ----------------------------------------------------------------------- | -------------------------------------------------------- |
+| [`createPipeHarness`](./functions/createPipeHarness.md)                | [`SpectacularPipeHarness`](./classes/SpectacularPipeHarness.md) factory | Set up a host component for the Angular pipe under test. |
+| [`CreatePipeHarnessOptions`](./interfaces/CreatePipeHarnessOptions.md) | Options for [`createPipeHarness`](./functions/createPipeHarness.md)     | Angular pipe harness options.                            |
+| [`SpectacularPipeHarness`](./classes/SpectacularPipeHarness.md)        | Interface                                                               | A harness for testing an Angular pipe.                   |
 
 ## Shared
 
@@ -78,7 +78,7 @@ Test utilities used by Spectacular's other APIs.
 
 ### Public API
 
-| Export name                                                    | Kind                   | Description                                                                                  |
-| -------------------------------------------------------------- | ---------------------- | -------------------------------------------------------------------------------------------- |
-| [`SpectacularAppComponent`](./classes/SpectacularAppComponent) | Bootstrapped component | The root component which is bootstrapped for a Spectacular test.                             |
-| [`spectacularAppTag`](./modules#spectacularapptag)             | String                 | The tag name of [`SpectacularAppComponent`](./classes/SpectacularAppComponent)s DOM element. |
+| Export name                                                       | Kind                   | Description                                                                                     |
+| ----------------------------------------------------------------- | ---------------------- | ----------------------------------------------------------------------------------------------- |
+| [`SpectacularAppComponent`](./classes/SpectacularAppComponent.md) | Bootstrapped component | The root component which is bootstrapped for a Spectacular test.                                |
+| [`spectacularAppTag`](./variables/spectacularAppTag.md)           | String                 | The tag name of [`SpectacularAppComponent`](./classes/SpectacularAppComponent.md)s DOM element. |
