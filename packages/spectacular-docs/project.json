@@ -20,14 +20,6 @@
         "script": "serve"
       }
     },
-    "check-mdx": {
-      "executor": "nx:run-script",
-      "dependsOn": ["build"],
-      "inputs": ["{projectRoot}/**/*.{md,mdx}"],
-      "options": {
-        "script": "check-mdx"
-      }
-    },
     "typecheck": {
       "executor": "nx:run-script",
       "dependsOn": ["build"],

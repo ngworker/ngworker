@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "build": "docusaurus build --out-dir ../../dist/packages/spectacular-docs",
-    "check-mdx": "docusaurus-mdx-checker",
     "serve": "docusaurus start --no-open",
     "typecheck": "tsc --noEmit"
   },
@@ -25,7 +24,6 @@
     "@docusaurus/tsconfig": "3.8.1",
     "@docusaurus/types": "3.8.1",
     "@types/react": "19.1.2",
-    "docusaurus-mdx-checker": "3.0.0",
     "typedoc": "0.28.11",
     "typedoc-plugin-markdown": "4.8.1",
     "typescript": "5.1.6"
