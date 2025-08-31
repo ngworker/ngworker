@@ -142,21 +142,6 @@ jobs:
           path: dist/packages/spectacular
           if-no-files-found: warn
 
-  typecheck-docs:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Use Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: .node-version
-          cache: npm
-      - run: npm ci
-
-      - run: npm run nx -- typecheck spectacular-docs
-
   docs:
     runs-on: ubuntu-latest
 
@@ -172,6 +157,7 @@ jobs:
 
       - run:
           npm run nx -- build spectacular-docs --parallel=$NGWORKER_NX_PARALLEL
+      - run: npm run nx -- typecheck spectacular-docs
       - name: '[Merge][Spectacular] Upload docs app'
         if: github.event_name == 'push' && github.ref_name == 'main'
         uses: actions/upload-artifact@v4
