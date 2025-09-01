@@ -7,7 +7,7 @@
     "build": {
       "executor": "nx:run-script",
       "outputs": [
-        "{workspaceRoot}/dist/packages/spectacular-docs",
+        "{workspaceRoot}/dist/{projectRoot}",
         "{projectRoot}/docs/api"
       ],
       "options": {
