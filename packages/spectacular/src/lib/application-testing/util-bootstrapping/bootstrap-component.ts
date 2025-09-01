@@ -1,12 +1,10 @@
-import type { NgZone, Type } from '@angular/core';
+import type { Type } from '@angular/core';
 import { ApplicationInitStatus, ApplicationRef } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ensureFreshRootElement } from '../util-dom/ensure-fresh-root-element';
 
 export interface BootstrapComponentOptions<TRootComponent> {
-  readonly autoDetectChanges?: boolean;
   readonly component: Type<TRootComponent>;
-  readonly ngZone: NgZone | null;
   readonly tag: string;
 }
 
@@ -23,9 +21,7 @@ async function waitForApplicationInitializers(): Promise<void> {
  * @param rootComponent The root component type.
  */
 export async function bootstrapComponent<TRootComponent>({
-  autoDetectChanges = false,
   component,
-  ngZone,
   tag,
 }: BootstrapComponentOptions<TRootComponent>): Promise<
   ComponentFixture<TRootComponent>
@@ -35,10 +31,8 @@ export async function bootstrapComponent<TRootComponent>({
   ensureFreshRootElement(tag);
   const application = TestBed.inject(ApplicationRef);
   const componentRef = application.bootstrap(component, tag);
-  const fixture = new ComponentFixture<TRootComponent>(
-    componentRef,
-    ngZone,
-    autoDetectChanges
+  const fixture = TestBed.runInInjectionContext(
+    () => new ComponentFixture<TRootComponent>(componentRef)
   );
 
   return fixture;
