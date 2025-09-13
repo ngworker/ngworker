@@ -22,6 +22,7 @@ const sidebars: SidebarsConfig = {
       id: 'api/globals',
       label: 'API reference',
     },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Typedoc generates `SidebarsConfig` type annotation instead of `SidebarConfig`
     ...(typedocSidebar['items'] as any[]),
   ],
 };
