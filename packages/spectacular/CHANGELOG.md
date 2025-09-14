@@ -1,5 +1,11 @@
 # Spectacular changelog
 
+## 17.0.1 (2025-09-14)
+
+### Documentation
+
+Correct Angular and TypeScript version compatibility in readme file.
+
 ## 17.0.0 (2025-09-14)
 
 ### Features
