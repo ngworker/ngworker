@@ -6,6 +6,7 @@ import {
   FactoryProvider,
   Injectable,
   NgModule,
+  PLATFORM_INITIALIZER,
 } from '@angular/core';
 import { ignoreDevelopmentModeLog } from '@internal/test-util';
 
@@ -15,6 +16,7 @@ import { createApplicationHarness } from './create-application-harness';
 let applicationInitialized = false;
 let bootstrapped = false;
 let environmentInitialized = false;
+let platformInitialized = false;
 
 const applicationInitializer: FactoryProvider = {
   multi: true,
@@ -61,6 +63,21 @@ const asyncEnvironmentInitializer: FactoryProvider = {
     environmentInitialized = true;
   },
 };
+const platformInitializer: FactoryProvider = {
+  multi: true,
+  provide: PLATFORM_INITIALIZER,
+  useFactory: () => (): void => {
+    platformInitialized = true;
+  },
+};
+const asyncPlatformInitializer: FactoryProvider = {
+  multi: true,
+  provide: PLATFORM_INITIALIZER,
+  useFactory: () => async (): Promise<void> => {
+    await Promise.resolve();
+    platformInitialized = true;
+  },
+};
 
 @NgModule({
   providers: [applicationInitializer],
@@ -78,6 +95,11 @@ class AsyncApplicationInitializerModule {}
 class AsyncEnvironmentInitializerModule {}
 
 @NgModule({
+  providers: [asyncPlatformInitializer],
+})
+class AsyncPlatformInitializerModule {}
+
+@NgModule({
   providers: [bootstrapListener],
 })
 class BootstrapListenerModule {}
@@ -86,6 +108,11 @@ class BootstrapListenerModule {}
   providers: [environmentInitializer],
 })
 class EnvironmentInitializerModule {}
+
+@NgModule({
+  providers: [platformInitializer],
+})
+class PlatformInitializerModule {}
 
 describe(createApplicationHarness.name, () => {
   beforeEach(() => {
@@ -178,6 +205,40 @@ describe(createApplicationHarness.name, () => {
       });
 
       expect(environmentInitialized).toBe(true);
+    });
+  });
+
+  describe('Platform initializers', () => {
+    it('registers and runs the specified initializer', () => {
+      createApplicationHarness({
+        providers: [platformInitializer],
+      });
+
+      expect(platformInitialized).toBe(true);
+    });
+
+    it('registers and runs the specified asynchronous initializer', async () => {
+      await createApplicationHarness({
+        providers: [asyncPlatformInitializer],
+      });
+
+      expect(platformInitialized).toBe(true);
+    });
+
+    it('registers the specified initializer Angular module', () => {
+      createApplicationHarness({
+        imports: [PlatformInitializerModule],
+      });
+
+      expect(platformInitialized).toBe(true);
+    });
+
+    it('registers the specified asynchronous initializer Angular module', async () => {
+      await createApplicationHarness({
+        imports: [AsyncPlatformInitializerModule],
+      });
+
+      expect(platformInitialized).toBe(true);
     });
   });
 

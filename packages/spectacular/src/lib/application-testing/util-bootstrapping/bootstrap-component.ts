@@ -1,16 +1,11 @@
 import type { Type } from '@angular/core';
-import { ApplicationInitStatus, ApplicationRef } from '@angular/core';
+import { ApplicationRef } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ensureFreshRootElement } from '../util-dom/ensure-fresh-root-element';
 
 export interface BootstrapComponentOptions<TRootComponent> {
   readonly component: Type<TRootComponent>;
   readonly tag: string;
-}
-
-async function waitForApplicationInitializers(): Promise<void> {
-  const applicationInitStatus = TestBed.inject(ApplicationInitStatus);
-  await applicationInitStatus.donePromise;
 }
 
 /**
@@ -26,8 +21,6 @@ export async function bootstrapComponent<TRootComponent>({
 }: BootstrapComponentOptions<TRootComponent>): Promise<
   ComponentFixture<TRootComponent>
 > {
-  await waitForApplicationInitializers();
-
   ensureFreshRootElement(tag);
   const application = TestBed.inject(ApplicationRef);
   const componentRef = application.bootstrap(component, tag);
