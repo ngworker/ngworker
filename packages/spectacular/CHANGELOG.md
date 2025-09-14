@@ -1,5 +1,21 @@
 # Spectacular changelog
 
+## 17.0.0 (2025-09-14)
+
+### Features
+
+- Support platform initializers in `createApplicationHarness`
+  ([#101](https://github.com/ngworker/ngworker/pull/101))
+
+### Refactors
+
+- Migrate from `RouterTestingModule` to `provideLocationMocks`
+  ([#102](https://github.com/ngworker/ngworker/pull/102))
+
+### BREAKING CHANGES
+
+- Require Angular 17
+
 ## 16.0.0 (2025-02-19)
 
 ### Features
