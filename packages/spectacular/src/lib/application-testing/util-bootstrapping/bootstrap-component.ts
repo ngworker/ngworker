@@ -2,7 +2,6 @@ import type { Type } from '@angular/core';
 import { ApplicationRef } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ensureFreshRootElement } from '../util-dom/ensure-fresh-root-element';
-import { waitForApplicationInitializers } from './wait-for-application-initializers';
 
 export interface BootstrapComponentOptions<TRootComponent> {
   readonly component: Type<TRootComponent>;
@@ -22,8 +21,6 @@ export async function bootstrapComponent<TRootComponent>({
 }: BootstrapComponentOptions<TRootComponent>): Promise<
   ComponentFixture<TRootComponent>
 > {
-  await waitForApplicationInitializers();
-
   ensureFreshRootElement(tag);
   const application = TestBed.inject(ApplicationRef);
   const componentRef = application.bootstrap(component, tag);

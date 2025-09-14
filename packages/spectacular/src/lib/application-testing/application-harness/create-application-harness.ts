@@ -6,6 +6,7 @@ import {
   spectacularAppTag,
 } from '../../shared/app-component/spectacular-app.component';
 import { bootstrapComponent } from '../util-bootstrapping/bootstrap-component';
+import { waitForApplicationInitializers } from '../util-bootstrapping/wait-for-application-initializers';
 import { SpectacularApplicationHarness } from './spectacular-application-harness';
 
 /**
@@ -32,6 +33,8 @@ export async function createApplicationHarness(
   });
 
   TestBed.compileComponents();
+
+  await waitForApplicationInitializers();
 
   const rootFixture = await bootstrapComponent({
     component: SpectacularAppComponent,
