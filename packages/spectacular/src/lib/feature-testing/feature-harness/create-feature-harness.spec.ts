@@ -1,9 +1,8 @@
 import { Location } from '@angular/common';
-import { SpyLocation } from '@angular/common/testing';
+import { SpyLocation, provideLocationMocks } from '@angular/common/testing';
 import { Component, Injectable, NgModule } from '@angular/core';
 import type { ExtraOptions, Routes } from '@angular/router';
 import { ROUTER_CONFIGURATION } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
 import { SpectacularAppComponent } from '../../shared/app-component/spectacular-app.component';
 import { featurePathToken } from '../configuration/feature-path.token';
 import { createFeatureHarness } from './create-feature-harness';
@@ -78,7 +77,7 @@ describe(createFeatureHarness.name, () => {
   });
 
   describe('Routing', () => {
-    it(`imports the ${RouterTestingModule.name}`, () => {
+    it(`provides ${provideLocationMocks.name}`, () => {
       const harness = createFeatureHarness({
         featurePath,
         routes: [

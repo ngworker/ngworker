@@ -1,6 +1,6 @@
+import { provideLocationMocks } from '@angular/common/testing';
 import type { NgModule } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 import {
   SpectacularAppComponent,
   spectacularAppTag,
@@ -29,8 +29,8 @@ export async function createApplicationHarness(
   const { imports = [], providers = [] } = options;
 
   TestBed.configureTestingModule({
-    imports: [RouterTestingModule, ...imports],
-    providers: [...providers],
+    imports: [...imports],
+    providers: [provideLocationMocks(), ...providers],
   });
 
   TestBed.compileComponents();
