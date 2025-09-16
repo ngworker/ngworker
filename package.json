@@ -31,8 +31,8 @@
     "e2e/*"
   ],
   "engines": {
-    "node": "^20.19.4",
-    "npm": "^10.8.2"
+    "node": "^22.19.0",
+    "npm": "^10.9.3"
   },
   "dependencies": {
     "@angular/animations": "18.0.7",
@@ -69,7 +69,7 @@
     "@testing-library/jest-dom": "6.8.0",
     "@testing-library/user-event": "14.6.1",
     "@types/jest": "29.5.14",
-    "@types/node": "18.19.99",
+    "@types/node": "22.18.1",
     "@typescript-eslint/eslint-plugin": "7.18.0",
     "@typescript-eslint/parser": "7.18.0",
     "@typescript-eslint/utils": "7.18.0",
