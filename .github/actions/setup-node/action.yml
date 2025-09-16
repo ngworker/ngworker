@@ -1,0 +1,15 @@
+name: Set up Node.js and npm
+description: Set up Node.js and npm, then install package dependencies.
+author: LayZeeDK
+
+runs:
+  using: composite
+  steps:
+    - name: Set up Node.js and npm
+      uses: actions/setup-node@v4
+      with:
+        node-version-file: .node-version
+        cache: npm
+    - name: Install package dependencies
+      run: npm ci
+      shell: bash
