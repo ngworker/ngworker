@@ -40,12 +40,8 @@ jobs:
           fetch-depth: 0
       - run: git fetch --no-tags --depth=1 origin $BASE_BRANCH
 
-      - name: Use Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: .node-version
-          cache: npm
-      - run: npm ci
+      - name: Set up Node.js and npm
+        uses: ./.github/actions/setup-node
 
       - run: npm run format:check -- --base=origin/$BASE_BRANCH
 
@@ -64,12 +60,8 @@ jobs:
       - if: github.event_name == 'pull_request'
         run: git fetch --no-tags --depth=1 origin $BASE_BRANCH
 
-      - name: Use Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: .node-version
-          cache: npm
-      - run: npm ci
+      - name: Set up Node.js and npm
+        uses: ./.github/actions/setup-node
 
       - if: github.event_name == 'push' && github.ref_name == 'main'
         run: npm run lint -- --parallel=$NGWORKER_NX_PARALLEL
@@ -93,12 +85,8 @@ jobs:
       - if: github.event_name == 'pull_request'
         run: git fetch --no-tags --depth=1 origin $BASE_BRANCH
 
-      - name: Use Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: .node-version
-          cache: npm
-      - run: npm ci
+      - name: Set up Node.js and npm
+        uses: ./.github/actions/setup-node
 
       - if: github.event_name == 'push' && github.ref_name == 'main'
         run: npm run test -- --parallel=$NGWORKER_NX_PARALLEL
@@ -122,12 +110,8 @@ jobs:
       - if: github.event_name == 'pull_request'
         run: git fetch --no-tags --depth=1 origin $BASE_BRANCH
 
-      - name: Use Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: .node-version
-          cache: npm
-      - run: npm ci
+      - name: Set up Node.js and npm
+        uses: ./.github/actions/setup-node
 
       - if: github.event_name == 'push' && github.ref_name == 'main'
         run: npm run build -- --exclude=spectacular-docs
@@ -148,12 +132,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Use Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: .node-version
-          cache: npm
-      - run: npm ci
+      - name: Set up Node.js and npm
+        uses: ./.github/actions/setup-node
 
       - run:
           npm run nx -- build spectacular-docs --parallel=$NGWORKER_NX_PARALLEL
@@ -209,12 +189,8 @@ jobs:
       - if: github.event_name == 'pull_request'
         run: git fetch --no-tags --depth=1 origin $BASE_BRANCH
 
-      - name: Use Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: .node-version
-          cache: npm
-      - run: npm ci
+      - name: Set up Node.js and npm
+        uses: ./.github/actions/setup-node
 
       - if: github.event_name == 'push' && github.ref_name == 'main'
         run: npm run e2e -- --parallel=$NGWORKER_NX_PARALLEL
