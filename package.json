@@ -73,7 +73,7 @@
     "@typescript-eslint/eslint-plugin": "7.18.0",
     "@typescript-eslint/parser": "7.18.0",
     "@typescript-eslint/utils": "7.18.0",
-    "all-contributors-cli": "^6.19.0",
+    "all-contributors-cli": "6.26.1",
     "autoprefixer": "10.4.21",
     "eslint": "8.57.1",
     "eslint-config-prettier": "9.1.2",
