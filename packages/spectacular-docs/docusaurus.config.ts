@@ -1,8 +1,8 @@
-import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
+import type { Config } from '@docusaurus/types';
 import type * as TypedocPlugin from 'docusaurus-plugin-typedoc';
-import type { TypeDocOptions } from 'typedoc';
 import { themes as prismThemes } from 'prism-react-renderer';
+import type { TypeDocOptions } from 'typedoc';
 
 const organizationName = 'ngworker';
 const projectName = 'ngworker';
