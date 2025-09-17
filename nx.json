@@ -1,13 +1,5 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "tasksRunnerOptions": {
-    "default": {
-      "options": {
-        "canTrackAnalytics": true,
-        "showUsageWarnings": true
-      }
-    }
-  },
   "workspaceLayout": {
     "appsDir": "e2e",
     "libsDir": "packages"
