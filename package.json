@@ -94,6 +94,7 @@
     "typescript": "5.4.5"
   },
   "overrides": {
+    "@swc/core": "1.5.29",
     "lmdb": "^3.3.0"
   }
 }
