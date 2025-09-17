@@ -21,13 +21,6 @@
         }
       },
       "defaultConfiguration": "production"
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
-      "options": {
-        "jestConfig": "packages/internal/test-util/jest.config.ts"
-      }
     }
   }
 }
