@@ -1,8 +1,8 @@
-import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
+import type { Config } from '@docusaurus/types';
 import type * as TypedocPlugin from 'docusaurus-plugin-typedoc';
-import type { TypeDocOptions } from 'typedoc';
 import { themes as prismThemes } from 'prism-react-renderer';
+import type { TypeDocOptions } from 'typedoc';
 
 const organizationName = 'ngworker';
 const projectName = 'ngworker';
@@ -55,10 +55,10 @@ const config: Config = {
           sidebarPath: './sidebars.ts',
           editUrl:
             'https://github.com/ngworker/ngworker/edit/main/packages/spectacular-docs',
-          lastVersion: 'current',
+          lastVersion: '17.0',
           versions: {
             current: {
-              label: '17.0',
+              label: '18.0 (next)',
             },
           },
         },

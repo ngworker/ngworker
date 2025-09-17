@@ -3,6 +3,8 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "sourceRoot": "packages/spectacular-docs/src",
+  "tags": ["type:docs"],
+  "implicitDependencies": ["spectacular"],
   "targets": {
     "build": {
       "executor": "nx:run-script",
@@ -13,10 +15,6 @@
       "options": {
         "script": "build"
       }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
     },
     "serve": {
       "executor": "nx:run-script",
@@ -40,7 +38,5 @@
         "command": "docusaurus docs:version \"{args.version}\""
       }
     }
-  },
-  "tags": ["type:docs"],
-  "implicitDependencies": ["spectacular"]
+  }
 }

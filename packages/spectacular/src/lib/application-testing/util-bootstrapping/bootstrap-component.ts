@@ -1,7 +1,9 @@
 import type { Type } from '@angular/core';
-import { ApplicationRef } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ApplicationRef, DestroyRef } from '@angular/core';
+import type { ComponentFixture } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { ensureFreshRootElement } from '../util-dom/ensure-fresh-root-element';
+import { replaceComponentRefInComponentFixture } from './replace-component-ref-in-component-fixture';
 
 export interface BootstrapComponentOptions<TRootComponent> {
   readonly component: Type<TRootComponent>;
@@ -23,10 +25,13 @@ export async function bootstrapComponent<TRootComponent>({
 > {
   ensureFreshRootElement(tag);
   const application = TestBed.inject(ApplicationRef);
+  const destroyRef = TestBed.inject(DestroyRef);
+
   const componentRef = application.bootstrap(component, tag);
-  const fixture = TestBed.runInInjectionContext(
-    () => new ComponentFixture<TRootComponent>(componentRef)
-  );
+  destroyRef.onDestroy(() => componentRef.destroy());
+
+  const fixture = TestBed.createComponent(component);
+  replaceComponentRefInComponentFixture(fixture, componentRef);
 
   return fixture;
 }

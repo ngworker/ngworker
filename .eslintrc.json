@@ -13,7 +13,7 @@
             "banTransitiveDependencies": true,
             "checkNestedExternalImports": true,
             "enforceBuildableLibDependency": true,
-            "allow": [],
+            "allow": ["@docusaurus/**", "@site/**", "@theme/**"],
             "depConstraints": [
               {
                 "sourceTag": "scope:internal",
@@ -36,8 +36,8 @@
                 "onlyDependOnLibsWithTags": ["type:tool"]
               },
               {
-                "sourceTag": "*",
-                "onlyDependOnLibsWithTags": ["*"]
+                "sourceTag": "type:docs",
+                "onlyDependOnLibsWithTags": ["type:docs"]
               }
             ]
           }

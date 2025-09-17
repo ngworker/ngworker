@@ -1,0 +1,165 @@
+---
+title: Setting up multiple routed features
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import LazyLoadingTip from './_lazy-loading-tip.md';
+import Atl from './routed-feature-setup/_atl.md';
+import FeatureHarness from './routed-feature-setup/_feature-harness.md';
+
+<LazyLoadingTip />
+
+## Standalone feature routes
+
+To set up multiple standalone feature routes for a feature test, add routes to
+the [routes](../../api/interfaces/CreateFeatureHarnessOptions.md#routes) array
+option that wrap the standalone routes.
+
+Pass the route path of the primary feature as the
+[featurePath](../../api/interfaces/CreateFeatureHarnessOptions.md#featurepath)
+option.
+
+<Tabs
+  defaultValue="feature-harness"
+  values={[
+    { label: 'Feature harness', value: 'feature-harness', },
+    { label: 'Angular Testing Library', value: 'atl', },
+  ]}>
+  <TabItem value="feature-harness">
+    <FeatureHarness />
+
+```ts {9-15}
+import { createFeatureHarness } from '@ngworker/spectacular';
+import {
+  crisisCenterPath,
+  crisisCenterRoutes,
+} from '@tour-of-heoes/crisis-center';
+import { heroesPath, heroesRoutes } from '@tour-of-heoes/heroes';
+
+function setup() {
+  const harness = createFeatureHarness({
+    featurePath: crisisCenterPath,
+    routes: [
+      { path: crisisCenterPath, loadChildren: () => crisisCenterRoutes },
+      { path: heroesPath, loadChildren: () => heroesRoutes },
+    ],
+  });
+
+  return {
+    harness,
+  };
+}
+```
+
+  </TabItem>
+
+  <TabItem value="atl">
+    <Atl />
+
+```ts {13,15-20}
+import {
+  provideSpectacularFeatureTesting,
+  SpectacularAppComponent,
+} from '@ngworker/spectacular';
+import { render } from '@testing-library/angular';
+import {
+  crisisCenterPath,
+  crisisCenterRoutes,
+} from '@tour-of-heroes/crisis-center';
+import { heroesPath, heroesRoutes } from '@tour-of-heoes/heroes';
+
+async function setup() {
+  await render(SpectacularAppComponent, {
+    providers: [
+      provideSpectacularFeatureTesting({
+        featurePath: crisisCenterPath,
+        routes: [
+          { path: crisisCenterPath, loadChildren: () => crisisCenterRoutes },
+          { path: heroesPath, loadChildren: () => heroesRoutes },
+        ],
+      }),
+    ],
+  });
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## Routed feature modules
+
+To set up a routed feature for a feature test, add routes to the
+[routes](../../api/interfaces/CreateFeatureHarnessOptions.md#routes) array
+option that wrap the routed feature modules.
+
+Pass the route path of the primary feature as the
+[featurePath](../../api/interfaces/CreateFeatureHarnessOptions.md#featurepath)
+option.
+
+<Tabs
+  defaultValue="feature-harness"
+  values={[
+    { label: 'Feature harness', value: 'feature-harness', },
+    { label: 'Angular Testing Library', value: 'atl', },
+  ]}>
+  <TabItem value="feature-harness">
+    <FeatureHarness />
+
+```ts {9-15}
+import { createFeatureHarness } from '@ngworker/spectacular';
+import {
+  CrisisCenterModule,
+  crisisCenterPath,
+} from '@tour-of-heroes/crisis-center';
+import { heroesPath, heroesRoutes } from '@tour-of-heoes/heroes';
+
+function setup() {
+  const harness = createFeatureHarness({
+    featurePath: crisisCenterPath,
+    routes: [
+      { path: crisisCenterPath, loadChildren: () => CrisisCenterModule },
+      { path: heroesPath, loadChildren: () => heroesRoutes },
+    ],
+  });
+
+  return {
+    harness,
+  };
+}
+```
+
+  </TabItem>
+
+  <TabItem value="atl">
+    <Atl />
+
+```ts {13,15-21}
+import {
+  provideSpectacularFeatureTesting,
+  SpectacularAppComponent,
+} from '@ngworker/spectacular';
+import { render } from '@testing-library/angular';
+import {
+  CrisisCenterModule,
+  crisisCenterRoutes,
+} from '@tour-of-heroes/crisis-center';
+import { heroesPath, heroesRoutes } from '@tour-of-heoes/heroes';
+
+async function setup() {
+  await render(SpectacularAppComponent, {
+    providers: [
+      provideSpectacularFeatureTesting({
+        featurePath: crisisCenterPath,
+        routes: [
+          { path: crisisCenterPath, loadChildren: () => CrisisCenterModule },
+          { path: heroesPath, loadChildren: () => heroesRoutes },
+        ],
+      }),
+    ],
+  });
+}
+```
+
+  </TabItem>
+</Tabs>
