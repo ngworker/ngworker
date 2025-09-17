@@ -16,9 +16,6 @@
         "script": "build"
       }
     },
-    "lint": {
-      "executor": "@nx/eslint:lint"
-    },
     "serve": {
       "executor": "nx:run-script",
       "options": {

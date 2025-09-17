@@ -28,9 +28,6 @@
       "options": {
         "jestConfig": "packages/examples/tour-of-heroes-standalone/crisis-center/jest.config.ts"
       }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint"
     }
   }
 }
