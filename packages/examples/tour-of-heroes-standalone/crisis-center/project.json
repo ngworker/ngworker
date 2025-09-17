@@ -3,8 +3,8 @@
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/examples/tour-of-heroes-standalone/crisis-center/src",
   "prefix": "app-crisis",
-  "tags": ["scope:internal", "type:feature"],
   "projectType": "library",
+  "tags": ["scope:internal", "type:feature"],
   "targets": {
     "build": {
       "executor": "@nx/angular:ng-packagr-lite",
@@ -30,8 +30,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
+      "executor": "@nx/eslint:lint"
     }
   }
 }

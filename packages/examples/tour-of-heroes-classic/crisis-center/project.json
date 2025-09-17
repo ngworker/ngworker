@@ -4,6 +4,7 @@
   "projectType": "library",
   "sourceRoot": "packages/examples/tour-of-heroes-classic/crisis-center/src",
   "prefix": "app-crisis",
+  "tags": ["scope:internal", "type:feature"],
   "targets": {
     "build": {
       "executor": "@nx/angular:ng-packagr-lite",
@@ -22,8 +23,7 @@
       "defaultConfiguration": "production"
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/jest:jest",
@@ -32,6 +32,5 @@
         "jestConfig": "packages/examples/tour-of-heroes-classic/crisis-center/jest.config.ts"
       }
     }
-  },
-  "tags": ["scope:internal", "type:feature"]
+  }
 }

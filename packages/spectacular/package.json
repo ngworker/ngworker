@@ -1,14 +1,14 @@
 {
   "name": "@ngworker/spectacular",
-  "version": "17.0.1",
+  "version": "18.0.0-alpha.0",
   "description": "Spectacular Angular integration testing. Test harnesses for Angular applications and libraries.",
   "license": "MIT",
   "sideEffects": false,
   "peerDependencies": {
-    "@angular/common": "^17.0.9",
-    "@angular/core": "^17.0.9",
-    "@angular/platform-browser": "^17.0.9",
-    "@angular/router": "^17.0.9",
+    "@angular/common": "^18.0.0",
+    "@angular/core": "^18.0.0",
+    "@angular/platform-browser": "^18.0.0",
+    "@angular/router": "^18.0.0",
     "rxjs": "^6.5.5 || ^7.4.0"
   },
   "dependencies": {
