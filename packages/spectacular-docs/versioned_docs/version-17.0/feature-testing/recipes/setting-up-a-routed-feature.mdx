@@ -1,0 +1,153 @@
+---
+title: Setting up a routed feature
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import LazyLoadingTip from './_lazy-loading-tip.md';
+import Atl from './routed-feature-setup/_atl.md';
+import FeatureHarness from './routed-feature-setup/_feature-harness.md';
+
+<LazyLoadingTip />
+
+## Standalone feature routes
+
+To set up standalone feature routes for a feature test, specify the
+[featurePath](../../api/interfaces/CreateFeatureHarnessOptions.md#featurepath)
+option and add a route to the
+[routes](../../api/interfaces/CreateFeatureHarnessOptions.md#routes) array
+option that wraps the standalone routes.
+
+<Tabs
+  defaultValue="feature-harness"
+  values={[
+    { label: 'Feature harness', value: 'feature-harness', },
+    { label: 'Angular Testing Library', value: 'atl', },
+  ]}>
+  <TabItem value="feature-harness">
+    <FeatureHarness />
+
+```ts {8-13}
+import { createFeatureHarness } from '@ngworker/spectacular';
+import {
+  crisisCenterPath,
+  crisisCenterRoutes,
+} from '@tour-of-heroes/crisis-center';
+
+function setup() {
+  const harness = createFeatureHarness({
+    featurePath: crisisCenterPath,
+    routes: [
+      { path: crisisCenterPath, loadChildren: () => crisisCenterRoutes },
+    ],
+  });
+
+  return {
+    harness,
+  };
+}
+```
+
+  </TabItem>
+
+  <TabItem value="atl">
+    <Atl />
+
+```ts {12,14-19}
+import {
+  provideSpectacularFeatureTesting,
+  SpectacularAppComponent,
+} from '@ngworker/spectacular';
+import { render } from '@testing-library/angular';
+import {
+  crisisCenterPath,
+  crisisCenterRoutes,
+} from '@tour-of-heroes/crisis-center';
+
+async function setup() {
+  await render(SpectacularAppComponent, {
+    providers: [
+      provideSpectacularFeatureTesting({
+        featurePath: crisisCenterPath,
+        routes: [
+          { path: crisisCenterPath, loadChildren: () => crisisCenterRoutes },
+        ],
+      }),
+    ],
+  });
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## Routed feature module
+
+To set up a routed feature for a feature test, specify the
+[featurePath](../../api/interfaces/CreateFeatureHarnessOptions.md#featurepath)
+option and add a route to the
+[routes](../../api/interfaces/CreateFeatureHarnessOptions.md#routes) array
+option that wraps the routed feature module.
+
+<Tabs
+  defaultValue="feature-harness"
+  values={[
+    { label: 'Feature harness', value: 'feature-harness', },
+    { label: 'Angular Testing Library', value: 'atl', },
+  ]}>
+  <TabItem value="feature-harness">
+    <FeatureHarness />
+
+```ts {8-13}
+import { createFeatureHarness } from '@ngworker/spectacular';
+import {
+  CrisisCenterModule,
+  crisisCenterPath,
+} from '@tour-of-heroes/crisis-center';
+
+function setup() {
+  const harness = createFeatureHarness({
+    featurePath: crisisCenterPath,
+    routes: [
+      { path: crisisCenterPath, loadChildren: () => CrisisCenterModule },
+    ],
+  });
+
+  return {
+    harness,
+  };
+}
+```
+
+  </TabItem>
+
+  <TabItem value="atl">
+    <Atl />
+
+```ts {12,14-19}
+import {
+  provideSpectacularFeatureTesting,
+  SpectacularAppComponent,
+} from '@ngworker/spectacular';
+import { render } from '@testing-library/angular';
+import {
+  CrisisCenterModule,
+  crisisCenterRoutes,
+} from '@tour-of-heroes/crisis-center';
+
+async function setup() {
+  await render(SpectacularAppComponent, {
+    providers: [
+      provideSpectacularFeatureTesting({
+        featurePath: crisisCenterPath,
+        routes: [
+          { path: crisisCenterPath, loadChildren: () => CrisisCenterModule },
+        ],
+      }),
+    ],
+  });
+}
+```
+
+  </TabItem>
+</Tabs>

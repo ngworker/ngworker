@@ -1,0 +1,461 @@
+---
+sidebar_label: Angular testbed
+sidebar_position: 2
+title: Feature testing using Angular testbed
+---
+
+import ExampleAngularFeature from './_example-angular-feature.md';
+import FeatureTests from './_feature-tests-spectacular-angular-testbed.mdx';
+
+This guide covers how to create a feature test without Spectacular to compare
+the Angular testbed feature testing story to the Spectacular Feature testing API
+experience.
+
+## Example Angular feature
+
+<ExampleAngularFeature />
+
+## Setting up an Angular feature integration test with the Angular testbed
+
+Let's first explore how we can set up a feature test by using the Angular
+testbed.
+
+### Creating a test root component
+
+First, we're going to create a test root component with a router outlet as seen
+in the following snippet:
+
+```ts {5-11}
+import { Component } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+import { RouterOutlet } from '@angular/router';
+
+@Component({
+  standalone: true,
+  selector: 'test-app',
+  imports: [RouterOutlet],
+  template: '<router-outlet><router-outlet>',
+})
+class TestAppComponent {}
+
+describe('Tour of Heroes: Crisis center integration tests', () => {
+  beforeEach(() => {
+    TestBed.configureTestingModule({});
+  });
+});
+```
+
+### Bootstrapping a test root component
+
+Now, we're going to bootstrap our test root component:
+
+```ts {9}
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+// (...)
+
+describe('Tour of Heroes: Crisis center integration tests', () => {
+  beforeEach(() => {
+    TestBed.configureTestingModule({});
+
+    rootFixture = TestBed.createComponent(TestAppComponent);
+  });
+
+  let rootFixture: ComponentFixture<TestAppComponent>;
+});
+```
+
+### Registering a routed feature with the Angular testing module
+
+Next, we'll add the routed feature to our test setup:
+
+```ts {13-16}
+import { provideLocationMocks } from '@angular/common/testing';
+import { TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import {
+  crisisCenterPath,
+  crisisCenterRoutes,
+} from '@tour-of-heroes/crisis-center';
+
+describe('Tour of Heroes: Crisis center integration tests', () => {
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [
+        provideRouter([
+          { path: crisisCenterPath, loadChildren: () => crisisCenterRoutes },
+        ]),
+        provideLocationMocks(),
+      ],
+    });
+    // (...)
+  });
+});
+```
+
+`provideLocationMocks` isolates Angular's routing APIs from browser APIs by
+providing `SpyLocation` for Angular's `Location` service and
+`MockLocationStrategy` for Angular's `LocationStrategy` service.
+
+`provideRouter` accepts routes which are registered with the Angular testing
+module in the same way that we would pass top-level routes to `provideRouter` in
+an Angular application. The routes are attached to the router outlet in our test
+root component.
+
+We register the following route configuration:
+
+```ts
+{ path: crisisCenterPath, loadChildren: () => crisisCenterRoutes },
+```
+
+Notice that we are registering the same route path for the feature as we are
+registering in our Angular application. `crisisCenterPath` is a variable which
+has been assigned to the value `'crisis-center'`.
+
+In our Angular application, the crisis center feature is lazy-loaded which means
+that the route configuration would look something like the following snippet:
+
+```ts {4-10}
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideRouter([
+      {
+        path: crisisCenterPath,
+        loadChildren: () =>
+          import('@tour-of-heroes/crisis-center').then(
+            m => m.crisisCenterRoutes
+          ),
+      },
+      // (...)
+    ]),
+  ],
+}:
+```
+
+There is no practical difference between lazy-loaded and eagerly loaded features
+in unit and integration tests. When we return a feature route array--in this
+case `crisisCenterRoutes`--from a `loadChildren` callback, everything works as
+intended when running our tests.
+
+### Resolving navigation and data services
+
+Many feature tests make use of Angular's `Location` and `Router` services. In
+the following code snippet, we resolve them and relevant data services using
+`TestBed.inject`:
+
+```ts {11-13,17-19}
+import { Location } from '@angular/common';
+import { TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
+import { CrisisService } from '@tour-of-heroes/crisis-center';
+
+// (...)
+
+describe('Tour of Heroes: Crisis center integration tests', () => {
+  beforeEach(() => {
+    // (...)
+    location = TestBed.inject(Location);
+    router = TestBed.inject(Router);
+    crisisService = TestBed.inject(CrisisService);
+  });
+
+  // (...)
+  let crisisService: CrisisService;
+  let location: Location;
+  let router: Router;
+});
+```
+
+### Initializing feature navigation
+
+By default, we will start our feature test cases by navigating to the default
+feature route. This is shown in the following code snippet which also
+illustrates how we enable automatic change detection:
+
+```ts {10,14}
+import { ComponentFixtureAutoDetect, TestBed } from '@angular/core/testing';
+import { crisisCenterPath } from '@tour-of-heroes/crisis-center';
+
+// (...)
+
+describe('Tour of Heroes: Crisis center integration tests', () => {
+  beforeEach(async () => {
+    TestBed.configureTestingModule({
+      // (...)
+      providers: [{ provide: ComponentFixtureAutoDetect, useValue: true }],
+    });
+
+    // (...)
+    await rootFixture.ngZone?.run(() => router.navigate([crisisCenterPath]));
+  });
+  // (...)
+});
+```
+
+As seen in the last highlighted line, we navigate in the context of the `NgZone`
+because otherwise warnings are emitted when running our tests. Once again, we
+reuse the `crisisCenterPath` variable only this time to navigate to the default
+feature route which happens to activate the following components:
+
+- `CrisisCenterComponent`
+- `CrisisListComponent`
+- `CrisisCenterHomeComponent`
+
+as seen in the routes configured in `crisisCenterRoutes`.
+
+### Reviewing a complete feature test setup using the Angular testbed
+
+With all of the above, we now have the following test setup for our feature
+tests:
+
+```ts
+import { Location } from '@angular/common';
+import { provideLocationMocks } from '@angular/common/testing';
+import { Component } from '@angular/core';
+import {
+  ComponentFixture,
+  ComponentFixtureAutoDetect,
+  TestBed,
+} from '@angular/core/testing';
+import { provideRouter, Router } from '@angular/router';
+import {
+  crisisCenterPath,
+  crisisCenterRoutes,
+  CrisisService,
+} from '@tour-of-heroes/crisis-center';
+
+@Component({
+  standalone: true,
+  selector: 'test-app',
+  imports: [],
+  template: '<router-outlet><router-outlet>',
+})
+class TestAppComponent {} // [1]
+
+describe('Tour of Heroes: Crisis center integration tests', () => {
+  beforeEach(async () => {
+    TestBed.configureTestingModule({
+      providers: [
+        { provide: ComponentFixtureAutoDetect, useValue: true }, // [4]
+        provideRouter([
+          { path: crisisCenterPath, loadChildren: () => crisisCenterRoutes }, // [3]
+        ]),
+        provideLocationMocks(), // [2]
+      ],
+    });
+
+    rootFixture = TestBed.createComponent(TestAppComponent); // [5]
+    location = TestBed.inject(Location); // [6]
+    router = TestBed.inject(Router); // [6]
+    crisisService = TestBed.inject(CrisisService); // [6]
+    await rootFixture.ngZone?.run(() => router.navigate([crisisCenterPath])); // [7]
+  });
+
+  let crisisService: CrisisService;
+  let location: Location;
+  let rootFixture: ComponentFixture<TestAppComponent>;
+  let router: Router;
+});
+```
+
+We have managed to:
+
+1. Create a test root component
+2. Isolate Angular's routing services from the browser APIs
+3. Register the routed feature
+4. Enable automatic change detection
+5. Bootstrap the test root component
+6. Resolve navigation and data services
+7. Initialize feature navigation
+
+That's quite an impressive setup. However, we need all of these setup steps for
+every Angular feature test, not only when testing the crisis center feature.
+
+Now that we have a working setup, we could compare that to
+[setting up a test for the same feature using Spectacular](./index.mdx#setting-up-an-angular-feature-integration-test-with-spectacular).
+
+## Testing a complete user flow with the Angular testbed
+
+Our test is going to cover editing a crisis. Once the changed crisis name is
+saved, our application navigates to the crisis center home with the crisis
+selected.
+
+The first thing we need to do is to navigate to the crisis edit form for the
+crisis we want to edit:
+
+```ts {3,5}
+describe('Editing a crisis', () => {
+  it('navigates to the crisis center home with the crisis selected when the change is saved', async () => {
+    const [aCrisis] = crisisService.getCrises().value;
+    await rootFixture.ngZone?.run(() =>
+      router.navigate([crisisCenterPath, aCrisis.id])
+    );
+  });
+});
+```
+
+We get a crisis ID from the crisis service which we use to navigate to the
+crisis edit form.
+
+Next, we're going to enter a new crisis name into the crisis name text box:
+
+```ts {11,13-14}
+import { By } from '@angular/platform-browser';
+
+// (...)
+
+describe('Editing a crisis', () => {
+  it('navigates to the crisis center home with the crisis selected when the change is saved', async () => {
+    // (...)
+    const inputElement: HTMLInputElement = rootFixture.debugElement.query(
+      By.css('input')
+    ).nativeElement;
+    const newCrisisName = 'Global climate crisis';
+
+    inputElement.value = newCrisisName;
+    inputElement.dispatchEvent(new Event('input'));
+  });
+});
+```
+
+Now, let's save the change:
+
+```ts {15-16}
+describe('Editing a crisis', () => {
+  it('navigates to the crisis center home with the crisis selected when the change is saved', async () => {
+    // (...)
+    const saveButtonElement: HTMLButtonElement = rootFixture.debugElement
+      .queryAll(By.css('button'))
+      .map(button => button.nativeElement)
+      .find(
+        (buttonElement: HTMLButtonElement) =>
+          buttonElement.textContent?.trim() === 'Save'
+      );
+    const newCrisisName = 'Global climate crisis';
+
+    inputElement.value = newCrisisName;
+    inputElement.dispatchEvent(new Event('input'));
+    saveButtonElement.click();
+    await rootFixture.whenStable();
+  });
+});
+```
+
+We wait for the component fixture to stabilize because of multiple side effects
+being triggered, including navigation.
+
+As our next step, we verify that we are at the crisis center home route:
+
+```ts {10}
+describe('Editing a crisis', () => {
+  it('navigates to the crisis center home with the crisis selected when the change is saved', async () => {
+    // (...)
+    saveButtonElement.click();
+    await rootFixture.whenStable();
+
+    const welcomeText: HTMLElement = rootFixture.debugElement.query(
+      By.css('p')
+    ).nativeElement;
+    expect(welcomeText.textContent).toBe('Welcome to the Crisis Center');
+  });
+});
+```
+
+Our second assertion verified that the crisis we just updated is selected in the
+crisis list:
+
+```ts {8-10}
+describe('Editing a crisis', () => {
+  it('navigates to the crisis center home with the crisis selected when the change is saved', async () => {
+    // (...)
+    const selectedCrisis: HTMLElement = rootFixture.debugElement.query(
+      By.css('.selected')
+    ).nativeElement;
+    expect(welcomeText.textContent).toBe('Welcome to the Crisis Center');
+    expect(selectedCrisis.textContent?.trim()).toBe(
+      `${aCrisis.id}${newCrisisName}`
+    );
+  });
+});
+```
+
+Finally, we verify that we are on the crisis center home with some route matrix
+parameters added to the URL:
+
+```ts {8-10}
+describe('Editing a crisis', () => {
+  it('navigates to the crisis center home with the crisis selected when the change is saved', async () => {
+    // (...)
+    expect(welcomeText.textContent).toBe('Welcome to the Crisis Center');
+    expect(selectedCrisis.textContent?.trim()).toBe(
+      `${aCrisis.id}${newCrisisName}`
+    );
+    expect(location.path()).toBe(
+      `/${crisisCenterPath};id=${aCrisis.id};foo=foo`
+    );
+  });
+});
+```
+
+That completes our multi-step feature test which exercises and verifies an
+entire user flow.
+
+Next, let's review the test and focus in on a few details.
+
+### Reviewing a feature test using the Angular testbed
+
+Reviewing the full feature test, there are a few points worth noticing:
+
+```ts
+describe('Editing a crisis', () => {
+  it('navigates to the crisis center home with the crisis selected when the change is saved', async () => {
+    const [aCrisis] = crisisService.getCrises().value;
+    await rootFixture.ngZone?./* [1] */ run(
+      () => router.navigate([crisisCenterPath, aCrisis.id]) // [2]
+    );
+    const inputElement: HTMLInputElement = rootFixture.debugElement.query(
+      By.css('input')
+    ).nativeElement;
+    const saveButtonElement: HTMLButtonElement = rootFixture.debugElement
+      .queryAll(By.css('button'))
+      .map(button => button.nativeElement)
+      .find(
+        (buttonElement: HTMLButtonElement) =>
+          buttonElement.textContent?.trim() === 'Save'
+      );
+    const newCrisisName = 'Global climate crisis';
+
+    inputElement.value = newCrisisName;
+    inputElement.dispatchEvent(new Event('input'));
+    saveButtonElement.click();
+    await rootFixture.whenStable();
+
+    const welcomeText: HTMLElement = rootFixture.debugElement.query(
+      By.css('p')
+    ).nativeElement;
+    const selectedCrisis: HTMLElement = rootFixture.debugElement.query(
+      By.css('.selected')
+    ).nativeElement;
+    expect(welcomeText.textContent).toBe('Welcome to the Crisis Center');
+    expect(selectedCrisis.textContent?.trim()).toBe(
+      `${aCrisis.id}${newCrisisName}`
+    );
+    expect(location.path()).toBe(
+      `/${crisisCenterPath};id=${aCrisis.id};foo=foo` // [3]
+    );
+  });
+});
+```
+
+1. We have to wrap navigation in the Angular testing module's NgZone instance.
+2. We repeat the feature path when navigating to routes registered by the
+   feature.
+3. We repeat the feature path when inspecting the application path.
+
+These are examples of boilerplate that Spectacular takes care of as demonstrated
+in
+[Testing a complete user flow with Spectacular](./index.mdx#testing-a-complete-user-flow-with-spectacular).
+
+## Appendix A: Complete feature test suites
+
+<FeatureTests />
