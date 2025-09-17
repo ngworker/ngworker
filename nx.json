@@ -1,9 +1,5 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "workspaceLayout": {
-    "appsDir": "e2e",
-    "libsDir": "packages"
-  },
   "generators": {
     "@nx/angular:application": {
       "e2eTestRunner": "none",
