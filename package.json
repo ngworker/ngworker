@@ -83,7 +83,7 @@
     "jsonc-eslint-parser": "2.4.0",
     "ng-packagr": "18.2.1",
     "nx": "19.4.4",
-    "postcss": "8.4.38",
+    "postcss": "8.5.6",
     "postcss-import": "14.1.0",
     "postcss-preset-env": "7.5.0",
     "postcss-url": "10.1.3",
