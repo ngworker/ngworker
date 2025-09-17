@@ -89,10 +89,10 @@ jobs:
         uses: ./.github/actions/setup-node
 
       - if: github.event_name == 'push' && github.ref_name == 'main'
-        run: npm run test -- --parallel=$NGWORKER_NX_PARALLEL
+        run: npm run test -- --configuration=ci --parallel=$NGWORKER_NX_PARALLEL
       - if: github.event_name == 'pull_request'
         run:
-          npm run affected:test -- --base=origin/$BASE_BRANCH
+          npm run affected:test -- --base=origin/$BASE_BRANCH --configuration=ci
           --parallel=$NGWORKER_NX_PARALLEL
 
   build:
