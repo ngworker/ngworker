@@ -1,4 +1,3 @@
-import { provideLocationMocks } from '@angular/common/testing';
 import type { NgModule } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import {
@@ -30,7 +29,7 @@ export async function createApplicationHarness(
 
   TestBed.configureTestingModule({
     imports: [...imports],
-    providers: [provideLocationMocks(), ...providers],
+    providers: [...providers],
   });
 
   TestBed.compileComponents();

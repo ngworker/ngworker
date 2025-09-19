@@ -1,4 +1,3 @@
-import { provideLocationMocks } from '@angular/common/testing';
 import type { EnvironmentProviders, Provider } from '@angular/core';
 import type { RouterFeatures, Routes } from '@angular/router';
 import { provideRouter } from '@angular/router';
@@ -43,7 +42,6 @@ export function provideSpectacularFeatureTesting(
     provideFeaturePath(featurePath),
     provideRouter(routes),
     features.map(feature => feature.ɵproviders),
-    provideLocationMocks(),
     SpectacularFeatureLocation,
     SpectacularFeatureRouter,
   ];

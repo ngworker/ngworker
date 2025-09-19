@@ -1,5 +1,4 @@
 import { Location } from '@angular/common';
-import { provideLocationMocks } from '@angular/common/testing';
 import { Component, Type } from '@angular/core';
 import { ComponentFixtureAutoDetect, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -63,7 +62,6 @@ async function setup({ CrisisService, featurePath, routes }: TestSetupOptions) {
     providers: [
       { provide: ComponentFixtureAutoDetect, useValue: true },
       provideRouter(routes),
-      provideLocationMocks(),
     ],
   });
 

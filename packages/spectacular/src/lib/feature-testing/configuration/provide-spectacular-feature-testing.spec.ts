@@ -1,6 +1,17 @@
-import { AsyncPipe, Location } from '@angular/common';
+import {
+  AsyncPipe,
+  Location,
+  LocationStrategy,
+  PlatformLocation,
+} from '@angular/common';
+import {
+  MockLocationStrategy,
+  MockPlatformLocation,
+  SpyLocation,
+  provideLocationMocks,
+} from '@angular/common/testing';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { TestBed, ComponentFixtureAutoDetect } from '@angular/core/testing';
+import { ComponentFixtureAutoDetect, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
   ActivatedRoute,
@@ -17,8 +28,8 @@ import { SpectacularFeatureLocation } from '../navigation/spectacular-feature-lo
 import { SpectacularFeatureRouter } from '../navigation/spectacular-feature-router';
 import { featurePathToken } from './feature-path.token';
 import {
-  provideSpectacularFeatureTesting,
   ProvideSpectacularFeatureTestingOptions,
+  provideSpectacularFeatureTesting,
 } from './provide-spectacular-feature-testing';
 import { withInitialFeatureNavigation } from './with-initial-feature-navigation';
 
@@ -95,6 +106,47 @@ describe(provideSpectacularFeatureTesting.name, () => {
 
       const router = TestBed.inject(Router);
       expect(router).toBeInstanceOf(Router);
+    });
+
+    it(`Then ${PlatformLocation.name} is replaced (by the default TestBed setup)`, () => {
+      TestBed.configureTestingModule({
+        providers: [provideSpectacularFeatureTesting(emptyFeature)],
+      });
+
+      const platformLocation = TestBed.inject(PlatformLocation);
+      expect(platformLocation).toBeInstanceOf(MockPlatformLocation);
+    });
+
+    it(`And ${provideLocationMocks.name} is added before ${provideSpectacularFeatureTesting.name}
+      Then ${Location.name} is replaced
+        And ${LocationStrategy} is replaced`, () => {
+      TestBed.configureTestingModule({
+        providers: [
+          provideLocationMocks(),
+          provideSpectacularFeatureTesting(emptyFeature),
+        ],
+      });
+
+      const location = TestBed.inject(Location);
+      expect(location).toBeInstanceOf(SpyLocation);
+      const locationStrategy = TestBed.inject(LocationStrategy);
+      expect(locationStrategy).toBeInstanceOf(MockLocationStrategy);
+    });
+
+    it(`And ${provideLocationMocks.name} is added after ${provideSpectacularFeatureTesting.name}
+      Then ${Location.name} is replaced
+        And ${LocationStrategy} is replaced`, () => {
+      TestBed.configureTestingModule({
+        providers: [
+          provideSpectacularFeatureTesting(emptyFeature),
+          provideLocationMocks(),
+        ],
+      });
+
+      const location = TestBed.inject(Location);
+      expect(location).toBeInstanceOf(SpyLocation);
+      const locationStrategy = TestBed.inject(LocationStrategy);
+      expect(locationStrategy).toBeInstanceOf(MockLocationStrategy);
     });
   });
 

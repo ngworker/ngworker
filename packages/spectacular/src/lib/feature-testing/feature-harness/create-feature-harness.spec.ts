@@ -1,5 +1,10 @@
-import { Location } from '@angular/common';
-import { SpyLocation, provideLocationMocks } from '@angular/common/testing';
+import { Location, LocationStrategy, PlatformLocation } from '@angular/common';
+import {
+  MockLocationStrategy,
+  MockPlatformLocation,
+  SpyLocation,
+  provideLocationMocks,
+} from '@angular/common/testing';
 import { Component, Injectable, NgModule } from '@angular/core';
 import type { ExtraOptions, Routes } from '@angular/router';
 import { ROUTER_CONFIGURATION } from '@angular/router';
@@ -77,7 +82,7 @@ describe(createFeatureHarness.name, () => {
   });
 
   describe('Routing', () => {
-    it(`provides ${provideLocationMocks.name}`, () => {
+    it(`leaves the default test provider for ${PlatformLocation.name} as-is`, () => {
       const harness = createFeatureHarness({
         featurePath,
         routes: [
@@ -85,8 +90,23 @@ describe(createFeatureHarness.name, () => {
         ],
       });
 
+      const platformLocation = harness.inject(PlatformLocation);
+      expect(platformLocation).toBeInstanceOf(MockPlatformLocation);
+    });
+
+    it(`supports ${provideLocationMocks.name}`, () => {
+      const harness = createFeatureHarness({
+        featurePath,
+        providers: [provideLocationMocks()],
+        routes: [
+          { path: featurePath, loadChildren: () => heroesJobBoardRoutes },
+        ],
+      });
+
       const location = harness.inject(Location);
       expect(location).toBeInstanceOf(SpyLocation);
+      const locationStrategy = harness.inject(LocationStrategy);
+      expect(locationStrategy).toBeInstanceOf(MockLocationStrategy);
     });
 
     it('provides the specified feature path', () => {
