@@ -2,12 +2,46 @@
 applyTo: '**'
 ---
 
+# CI
+
+- Use the `affected:*` scripts to run build, lint, and test checks. This will
+  check only affected parts of the codebase.
+- Use the `format:check` script to check code formatting. Use the `format`
+  script to fix formatting issues.
+- Make sure that the `npm ci` command runs without errors or warnings, not
+  including `npm audit` warnings
+
+# Commits
+
+Use the Conventional Commits format for commit messages
+
+# Documentation
+
+Consider whether we should add documentation, including
+
+- README.md files in projects
+- Inline JSDoc/TSDoc comments
+- Code comments
+- Markdown in the `spectacular-docs` project
+
+# Unit tests
+
+Add or modify unit tests to cover new or changed functionality
+
+# Public API
+
+The `spectacular` project is a public npm package. Do not introduce breaking
+changes unless instructed to do so or as part of a major Angular version
+migration task.
+
+# Nx
+
 You are in an nx workspace using npm as the package manager.
 
 You have access to the Nx MCP server and the tools it provides. Use them. Follow
 these guidelines in order to best help the user:
 
-# General Guidelines
+## General Guidelines
 
 - When answering questions, use the nx_workspace tool first to gain an
   understanding of the workspace architecture
@@ -20,7 +54,7 @@ these guidelines in order to best help the user:
   demonstrating how tasks depend on each other, use the 'nx_visualize_graph'
   tool
 
-# Nx tools
+## Nx tools
 
 The following tools are available to you:
 
@@ -43,7 +77,7 @@ The following tools are available to you:
   IDE instance)
 - 'nx_visualize_graph': Visualizes the Nx graph (requires running IDE instance)
 
-# Generation Guidelines
+## Generation Guidelines
 
 If the user wants to generate something, use the following flow:
 
