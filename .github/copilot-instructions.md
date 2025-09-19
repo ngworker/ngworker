@@ -11,6 +11,10 @@ applyTo: '**'
 - Make sure that the `npm ci` command runs without errors or warnings, not
   including `npm audit` warnings
 
+# Commits
+
+Use the Conventional Commits format for commit messages
+
 # Nx
 
 You are in an nx workspace using npm as the package manager.
