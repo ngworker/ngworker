@@ -28,6 +28,12 @@ Consider whether we should add documentation, including
 
 Add or modify unit tests to cover new or changed functionality
 
+# Public API
+
+The `spectacular` project is a public npm package. Do not introduce breaking
+changes unless instructed to do so or as part of a major Angular version
+migration task.
+
 # Nx
 
 You are in an nx workspace using npm as the package manager.
