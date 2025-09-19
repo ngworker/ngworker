@@ -15,6 +15,15 @@ applyTo: '**'
 
 Use the Conventional Commits format for commit messages
 
+# Documentation
+
+Consider whether we should add documentation, including
+
+- README.md files in projects
+- Inline JSDoc/TSDoc comments
+- Code comments
+- Markdown in the `spectacular-docs` project
+
 # Nx
 
 You are in an nx workspace using npm as the package manager.
