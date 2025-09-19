@@ -24,6 +24,10 @@ Consider whether we should add documentation, including
 - Code comments
 - Markdown in the `spectacular-docs` project
 
+# Unit tests
+
+Add or modify unit tests to cover new or changed functionality
+
 # Nx
 
 You are in an nx workspace using npm as the package manager.
