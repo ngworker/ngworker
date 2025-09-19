@@ -69,8 +69,7 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
 
 Next, we'll add the routed feature to our test setup:
 
-```ts {13-16}
-import { provideLocationMocks } from '@angular/common/testing';
+```ts {12-14}
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import {
@@ -85,17 +84,12 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
         provideRouter([
           { path: crisisCenterPath, loadChildren: () => crisisCenterRoutes },
         ]),
-        provideLocationMocks(),
       ],
     });
     // (...)
   });
 });
 ```
-
-`provideLocationMocks` isolates Angular's routing APIs from browser APIs by
-providing `SpyLocation` for Angular's `Location` service and
-`MockLocationStrategy` for Angular's `LocationStrategy` service.
 
 `provideRouter` accepts routes which are registered with the Angular testing
 module in the same way that we would pass top-level routes to `provideRouter` in
@@ -210,7 +204,6 @@ tests:
 
 ```ts
 import { Location } from '@angular/common';
-import { provideLocationMocks } from '@angular/common/testing';
 import { Component } from '@angular/core';
 import {
   ComponentFixture,
@@ -236,19 +229,18 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       providers: [
-        { provide: ComponentFixtureAutoDetect, useValue: true }, // [4]
+        { provide: ComponentFixtureAutoDetect, useValue: true }, // [3]
         provideRouter([
-          { path: crisisCenterPath, loadChildren: () => crisisCenterRoutes }, // [3]
+          { path: crisisCenterPath, loadChildren: () => crisisCenterRoutes }, // [2]
         ]),
-        provideLocationMocks(), // [2]
       ],
     });
 
-    rootFixture = TestBed.createComponent(TestAppComponent); // [5]
-    location = TestBed.inject(Location); // [6]
-    router = TestBed.inject(Router); // [6]
-    crisisService = TestBed.inject(CrisisService); // [6]
-    await rootFixture.ngZone?.run(() => router.navigate([crisisCenterPath])); // [7]
+    rootFixture = TestBed.createComponent(TestAppComponent); // [4]
+    location = TestBed.inject(Location); // [5]
+    router = TestBed.inject(Router); // [5]
+    crisisService = TestBed.inject(CrisisService); // [5]
+    await rootFixture.ngZone?.run(() => router.navigate([crisisCenterPath])); // [6]
   });
 
   let crisisService: CrisisService;
@@ -261,12 +253,11 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
 We have managed to:
 
 1. Create a test root component
-2. Isolate Angular's routing services from the browser APIs
-3. Register the routed feature
-4. Enable automatic change detection
-5. Bootstrap the test root component
-6. Resolve navigation and data services
-7. Initialize feature navigation
+2. Register the routed feature
+3. Enable automatic change detection
+4. Bootstrap the test root component
+5. Resolve navigation and data services
+6. Initialize feature navigation
 
 That's quite an impressive setup. However, we need all of these setup steps for
 every Angular feature test, not only when testing the crisis center feature.

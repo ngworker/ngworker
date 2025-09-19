@@ -81,9 +81,8 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
 
   <TabItem value="testbed">
 
-```ts {17-23,30-33,41,52-54,82-84}
+```ts {16-22,29-31,39,50-52,80-82}
 import { Location } from '@angular/common';
-import { provideLocationMocks } from '@angular/common/testing';
 import { Component } from '@angular/core';
 import {
   ComponentFixture,
@@ -114,7 +113,6 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
         provideRouter([
           { path: crisisCenterPath, loadChildren: () => crisisCenterRoutes },
         ]),
-        provideLocationMocks(),
       ],
     });
 

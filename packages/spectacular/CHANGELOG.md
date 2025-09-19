@@ -1,5 +1,143 @@
 # Spectacular changelog
 
+## 18.0.0-next (TBD)
+
+### Features
+
+- Remove `provideLocationMocks` from `createFeatureHarness`
+  ([#114](https://github.com/ngworker/ngworker/pull/114))
+- Remove `provideLocationMocks` from `provideSpectacularFeatureTesting`
+  ([#114](https://github.com/ngworker/ngworker/pull/114))
+- Remove `provideLocationMocks` from `createApplicationHarness`
+  ([#114](https://github.com/ngworker/ngworker/pull/114))
+
+### BREAKING CHANGES
+
+Spectacular Application testing API and Feature testing API no longer add
+`provideLocationMocks()` to `providers` as `TestBed` provides location mocks by
+default since Angular 16.0. However, the mocks provided by `TestBed` is
+`MockPlatformLocation` to replace `PlatformLocation` while
+`provideLocationMocks()` replaces `Location` with `SpyLocation` and
+`LocationStrategy` with `MockLocationStrategy`. If your tests rely on the
+behavior of `SpyLocation` or `MockLocationStrategy`, you need to add
+`provideLocationMocks()` to `providers`.
+
+#### Migration
+
+##### createFeatureHarness
+
+Before:
+
+```typescript
+it(`provides SpyLocation and MockLocationStrategy`, () => {
+  const harness = createFeatureHarness({
+    featurePath,
+    routes: [{ path: featurePath, loadChildren: () => heroesJobBoardRoutes }],
+  });
+
+  const location = harness.inject(Location);
+  expect(location).toBeInstanceOf(SpyLocation);
+  const locationStrategy = harness.inject(LocationStrategy);
+  expect(locationStrategy).toBeInstanceOf(MockLocationStrategy);
+});
+```
+
+After:
+
+```typescript
+it(`provides SpyLocation and MockLocationStrategy`, () => {
+  const harness = createFeatureHarness({
+    featurePath,
+    routes: [{ path: featurePath, loadChildren: () => heroesJobBoardRoutes }],
+    providers: [provideLocationMocks()],
+  });
+
+  const location = harness.inject(Location);
+  expect(location).toBeInstanceOf(SpyLocation);
+  const locationStrategy = harness.inject(LocationStrategy);
+  expect(locationStrategy).toBeInstanceOf(MockLocationStrategy);
+});
+```
+
+##### provideSpectacularFeatureTesting
+
+Before:
+
+```typescript
+it(`provides SpyLocation and MockLocationStrategy`, () => {
+  TestBed.configureTestingModule({
+    providers: [
+      provideSpectacularFeatureTesting({
+        featurePath,
+        routes: [
+          { path: featurePath, loadChildren: () => heroesJobBoardRoutes },
+        ],
+      }),
+    ],
+  });
+
+  const location = harness.inject(Location);
+  expect(location).toBeInstanceOf(SpyLocation);
+  const locationStrategy = harness.inject(LocationStrategy);
+  expect(locationStrategy).toBeInstanceOf(MockLocationStrategy);
+});
+```
+
+After:
+
+```typescript
+it(`provides SpyLocation and MockLocationStrategy`, () => {
+  TestBed.configureTestingModule({
+    providers: [
+      provideSpectacularFeatureTesting({
+        featurePath,
+        routes: [
+          { path: featurePath, loadChildren: () => heroesJobBoardRoutes },
+        ],
+      }),
+      provideLocationMocks(),
+    ],
+  });
+
+  const location = harness.inject(Location);
+  expect(location).toBeInstanceOf(SpyLocation);
+  const locationStrategy = harness.inject(LocationStrategy);
+  expect(locationStrategy).toBeInstanceOf(MockLocationStrategy);
+});
+```
+
+##### createApplicationHarness
+
+Before:
+
+```typescript
+it(`provides SpyLocation and MockLocationStrategy`, async () => {
+  const harness = await createApplicationHarness({
+    providers: [],
+  });
+
+  const location = harness.inject(Location);
+  expect(location).toBeInstanceOf(SpyLocation);
+  const locationStrategy = harness.inject(LocationStrategy);
+  expect(locationStrategy).toBeInstanceOf(MockLocationStrategy);
+});
+```
+
+After:
+
+```typescript
+it(`provides SpyLocation and MockLocationStrategy`, async () => {
+  const harness = await createApplicationHarness({
+    providers: [provideLocationMocks()],
+  });
+
+  const location = harness.inject(Location);
+  expect(location).toBeInstanceOf(SpyLocation);
+  const locationStrategy = harness.inject(LocationStrategy);
+  expect(locationStrategy).toBeInstanceOf(MockLocationStrategy);
+});
+```
+
 ## 17.0.1 (2025-09-14)
 
 ### Documentation

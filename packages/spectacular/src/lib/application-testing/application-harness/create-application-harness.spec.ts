@@ -1,3 +1,10 @@
+import { Location, LocationStrategy, PlatformLocation } from '@angular/common';
+import {
+  MockLocationStrategy,
+  MockPlatformLocation,
+  SpyLocation,
+  provideLocationMocks,
+} from '@angular/common/testing';
 import {
   APP_BOOTSTRAP_LISTENER,
   APP_INITIALIZER,
@@ -9,7 +16,6 @@ import {
   PLATFORM_INITIALIZER,
 } from '@angular/core';
 import { ignoreDevelopmentModeLog } from '@internal/test-util';
-
 import { SpectacularAppComponent } from '../../shared/app-component/spectacular-app.component';
 import { createApplicationHarness } from './create-application-harness';
 
@@ -329,6 +335,26 @@ describe(createApplicationHarness.name, () => {
       });
 
       expect(harness.rootComponent).toBeInstanceOf(SpectacularAppComponent);
+    });
+  });
+
+  describe('Routing', () => {
+    it(`leaves the default test provider for ${PlatformLocation.name} as-is`, async () => {
+      const harness = await createApplicationHarness();
+
+      const platformLocation = harness.inject(PlatformLocation);
+      expect(platformLocation).toBeInstanceOf(MockPlatformLocation);
+    });
+
+    it(`supports ${provideLocationMocks.name}`, async () => {
+      const harness = await createApplicationHarness({
+        providers: [provideLocationMocks()],
+      });
+
+      const location = harness.inject(Location);
+      expect(location).toBeInstanceOf(SpyLocation);
+      const locationStrategy = harness.inject(LocationStrategy);
+      expect(locationStrategy).toBeInstanceOf(MockLocationStrategy);
     });
   });
 });
