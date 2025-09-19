@@ -1,26 +1,50 @@
-const { FlatCompat } = require('@eslint/eslintrc');
+const nx = require('@nx/eslint-plugin');
 const baseConfig = require('../../eslint.config.js');
-const js = require('@eslint/js');
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended,
-});
 
 module.exports = [
   ...baseConfig,
-  ...compat.extends('plugin:@docusaurus/recommended', 'plugin:@nx/react'),
-  {
-    files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
-    rules: {},
-  },
+  // TypeScript and JSX files
   {
     files: ['**/*.ts', '**/*.tsx'],
-    rules: {},
+    languageOptions: {
+      parser: require('@typescript-eslint/parser'),
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+    },
+    plugins: {
+      '@typescript-eslint': require('@typescript-eslint/eslint-plugin'),
+    },
+    rules: {
+      ...require('@typescript-eslint/eslint-plugin').configs.recommended.rules,
+      // Disable strict React rules for docs site
+      'react/react-in-jsx-scope': 'off',
+      'react/no-unescaped-entities': 'off',
+    },
   },
+  // JavaScript and JSX files
   {
     files: ['**/*.js', '**/*.jsx'],
-    rules: {},
+    languageOptions: {
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+    },
+    rules: {
+      // Disable strict React rules for docs site
+      'react/react-in-jsx-scope': 'off',
+      'react/no-unescaped-entities': 'off',
+    },
   },
-  { ignores: ['.docusaurus/**/*', 'docs/api/**/*'] },
+  {
+    ignores: ['.docusaurus/**/*', 'docs/api/**/*'],
+  },
 ];

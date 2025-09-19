@@ -1,14 +1,7 @@
-const { FlatCompat } = require('@eslint/eslintrc');
-const nxEslintPlugin = require('@nx/eslint-plugin');
-const js = require('@eslint/js');
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended,
-});
+const nx = require('@nx/eslint-plugin');
 
 module.exports = [
-  { plugins: { '@nx': nxEslintPlugin } },
+  { plugins: { '@nx': nx } },
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
     rules: {
@@ -50,30 +43,48 @@ module.exports = [
       ],
     },
   },
-  ...compat
-    .config({
-      extends: ['plugin:@nx/typescript'],
-      parserOptions: { project: './tsconfig.*?.json' },
-    })
-    .map(config => ({
-      ...config,
-      files: ['**/*.ts', '**/*.tsx'],
-      rules: {
-        ...config.rules,
+  // TypeScript files
+  {
+    files: ['**/*.ts', '**/*.tsx'],
+    languageOptions: {
+      parser: require('@typescript-eslint/parser'),
+      parserOptions: {
+        project: './tsconfig.*?.json',
+        ecmaVersion: 'latest',
+        sourceType: 'module',
       },
-    })),
-  ...compat.config({ extends: ['plugin:@nx/javascript'] }).map(config => ({
-    ...config,
+    },
+    plugins: {
+      '@typescript-eslint': require('@typescript-eslint/eslint-plugin'),
+    },
+    rules: {
+      ...require('@typescript-eslint/eslint-plugin').configs.recommended.rules,
+    },
+  },
+  // JavaScript files
+  {
     files: ['**/*.js', '**/*.jsx'],
-    rules: {
-      ...config.rules,
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
     },
-  })),
-  ...compat.config({ env: { jest: true } }).map(config => ({
-    ...config,
+    rules: {},
+  },
+  // Test files
+  {
     files: ['**/*.spec.ts', '**/*.spec.tsx', '**/*.spec.js', '**/*.spec.jsx'],
-    rules: {
-      ...config.rules,
+    languageOptions: {
+      globals: {
+        jest: true,
+        describe: true,
+        it: true,
+        expect: true,
+        beforeEach: true,
+        afterEach: true,
+        beforeAll: true,
+        afterAll: true,
+      },
     },
-  })),
+    rules: {},
+  },
 ];
