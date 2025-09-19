@@ -1,8 +1,6 @@
 const { FlatCompat } = require('@eslint/eslintrc');
 const nxEslintPlugin = require('@nx/eslint-plugin');
 const js = require('@eslint/js');
-const typescriptEslint = require('@typescript-eslint/eslint-plugin');
-const typescriptParser = require('@typescript-eslint/parser');
 
 const compat = new FlatCompat({
   baseDirectory: __dirname,
@@ -10,12 +8,7 @@ const compat = new FlatCompat({
 });
 
 module.exports = [
-  {
-    plugins: {
-      '@nx': nxEslintPlugin,
-      '@typescript-eslint': typescriptEslint,
-    },
-  },
+  { plugins: { '@nx': nxEslintPlugin } },
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
     rules: {
@@ -57,48 +50,30 @@ module.exports = [
       ],
     },
   },
-  {
-    files: ['**/*.ts', '**/*.tsx'],
-    languageOptions: {
-      parser: typescriptParser,
-      parserOptions: {
-        project: './tsconfig.*?.json',
-        ecmaVersion: 'latest',
-        sourceType: 'module',
+  ...compat
+    .config({
+      extends: ['plugin:@nx/typescript'],
+      parserOptions: { project: './tsconfig.*?.json' },
+    })
+    .map(config => ({
+      ...config,
+      files: ['**/*.ts', '**/*.tsx'],
+      rules: {
+        ...config.rules,
       },
-    },
-    rules: {
-      ...typescriptEslint.configs.recommended.rules,
-    },
-  },
-  {
+    })),
+  ...compat.config({ extends: ['plugin:@nx/javascript'] }).map(config => ({
+    ...config,
     files: ['**/*.js', '**/*.jsx'],
-    languageOptions: {
-      ecmaVersion: 'latest',
-      sourceType: 'module',
-    },
-    rules: {},
-  },
-  {
-    files: ['**/*.spec.ts', '**/*.spec.tsx', '**/*.spec.js', '**/*.spec.jsx'],
-    languageOptions: {
-      globals: {
-        jest: true,
-        describe: true,
-        it: true,
-        expect: true,
-        beforeEach: true,
-        afterEach: true,
-        beforeAll: true,
-        afterAll: true,
-      },
-    },
-    rules: {},
-  },
-  {
-    files: ['eslint.config.js', '**/eslint.config.js'],
     rules: {
-      '@typescript-eslint/no-require-imports': 'off',
+      ...config.rules,
     },
-  },
+  })),
+  ...compat.config({ env: { jest: true } }).map(config => ({
+    ...config,
+    files: ['**/*.spec.ts', '**/*.spec.tsx', '**/*.spec.js', '**/*.spec.jsx'],
+    rules: {
+      ...config.rules,
+    },
+  })),
 ];

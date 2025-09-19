@@ -1,9 +1,6 @@
 const { FlatCompat } = require('@eslint/eslintrc');
 const baseConfig = require('../../eslint.config.js');
 const js = require('@eslint/js');
-const typescriptParser = require('@typescript-eslint/parser');
-const angularEslint = require('@angular-eslint/eslint-plugin');
-const angularTemplateParser = require('@angular-eslint/template-parser');
 
 const compat = new FlatCompat({
   baseDirectory: __dirname,
@@ -12,55 +9,54 @@ const compat = new FlatCompat({
 
 module.exports = [
   ...baseConfig,
-  {
-    files: ['**/*.ts'],
-    plugins: {
-      '@angular-eslint': angularEslint,
-    },
-    languageOptions: {
-      parser: typescriptParser,
-      parserOptions: {
-        project: ['packages/spectacular/tsconfig.*?.json'],
-        ecmaVersion: 'latest',
-        sourceType: 'module',
+  ...compat
+    .config({
+      extends: [
+        'plugin:@nx/angular',
+        'plugin:@angular-eslint/template/process-inline-templates',
+      ],
+    })
+    .map(config => ({
+      ...config,
+      files: ['**/*.ts'],
+      rules: {
+        ...config.rules,
+        '@angular-eslint/directive-selector': [
+          'error',
+          {
+            type: 'attribute',
+            prefix: 'spectacular',
+            style: 'camelCase',
+          },
+        ],
+        '@angular-eslint/component-selector': [
+          'error',
+          {
+            type: 'element',
+            prefix: 'spectacular',
+            style: 'kebab-case',
+          },
+        ],
       },
-    },
-    rules: {
-      '@angular-eslint/directive-selector': [
-        'error',
-        {
-          type: 'attribute',
-          prefix: 'spectacular',
-          style: 'camelCase',
-        },
-      ],
-      '@angular-eslint/component-selector': [
-        'error',
-        {
-          type: 'element',
-          prefix: 'spectacular',
-          style: 'kebab-case',
-        },
-      ],
-    },
-  },
-  {
-    files: ['**/*.html'],
-    languageOptions: {
-      parser: angularTemplateParser,
-    },
-    plugins: {
-      '@angular-eslint/template': require('@angular-eslint/eslint-plugin-template'),
-    },
-    rules: {},
-  },
-  {
+      languageOptions: {
+        parserOptions: { project: ['packages/spectacular/tsconfig.*?.json'] },
+      },
+    })),
+  ...compat
+    .config({ extends: ['plugin:@nx/angular-template'] })
+    .map(config => ({
+      ...config,
+      files: ['**/*.html'],
+      rules: {
+        ...config.rules,
+      },
+    })),
+  ...compat.config({ parser: 'jsonc-eslint-parser' }).map(config => ({
+    ...config,
     files: ['**/*.json'],
-    languageOptions: {
-      parser: require('jsonc-eslint-parser'),
-    },
     rules: {
+      ...config.rules,
       '@nx/dependency-checks': ['error', { ignoredDependencies: ['tslib'] }],
     },
-  },
+  })),
 ];
