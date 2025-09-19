@@ -24,6 +24,7 @@ Consider whether we should add or update documentation, including
 - Code comments
 - Markdown in the `spectacular-docs` project
   - Never touch `versioned_docs` unless instructed to do so
+  - Keep lines highlighted, taking changed line numbers into account
 
 # Unit tests
 
