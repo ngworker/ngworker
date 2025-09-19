@@ -1,4 +1,3 @@
-/* eslint-disable */
 export default {
   displayName: 'examples-tour-of-heroes-standalone-crisis-center',
   preset: '../../../../jest.preset.js',

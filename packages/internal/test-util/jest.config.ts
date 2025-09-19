@@ -1,4 +1,3 @@
-/* eslint-disable */
 export default {
   displayName: 'internal-test-util',
   preset: '../../../jest.preset.js',
