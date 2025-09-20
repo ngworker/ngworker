@@ -9,11 +9,11 @@ import { CrisisService } from '../crisis.service';
 
 @Component({
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-crisis-list',
   imports: [AsyncPipe, NgFor, RouterLink, RouterOutlet],
   templateUrl: './crisis-list.component.html',
   styleUrls: ['./crisis-list.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CrisisListComponent {
   crises$: Observable<Crisis[]> = this.route.paramMap.pipe(

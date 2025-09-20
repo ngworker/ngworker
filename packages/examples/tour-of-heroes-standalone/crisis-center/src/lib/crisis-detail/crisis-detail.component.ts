@@ -8,11 +8,11 @@ import { DialogService } from '../dialog.service';
 
 @Component({
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-crisis-detail',
   imports: [NgIf, FormsModule],
   templateUrl: './crisis-detail.component.html',
   styleUrls: ['./crisis-detail.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CrisisDetailComponent implements OnInit {
   crisis: Crisis = {
