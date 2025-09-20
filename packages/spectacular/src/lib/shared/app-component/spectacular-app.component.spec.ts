@@ -58,7 +58,7 @@ describe(SpectacularAppComponent.name, () => {
         component.getActiveComponent();
       };
 
-      expect(act).toThrowError('called before its view child is available');
+      expect(act).toThrow('called before its view child is available');
     });
 
     it('fails before a routed component has been activated', () => {
@@ -69,7 +69,7 @@ describe(SpectacularAppComponent.name, () => {
         component.getActiveComponent();
       };
 
-      expect(act).toThrowError('Outlet is not activated');
+      expect(act).toThrow('Outlet is not activated');
     });
   });
 });
