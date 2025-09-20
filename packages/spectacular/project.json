@@ -27,20 +27,14 @@
       "options": {
         "command": "npx stryker run stryker.simple.conf.js",
         "cwd": "packages/spectacular"
-      },
-      "outputs": ["{projectRoot}/reports", "{projectRoot}/mutation-report.html"]
+      }
     },
     "mutation-test-full": {
       "executor": "nx:run-commands",
       "options": {
         "command": "npx stryker run",
         "cwd": "packages/spectacular"
-      },
-      "outputs": [
-        "{projectRoot}/reports",
-        "{projectRoot}/stryker-tmp",
-        "{projectRoot}/mutation-report.html"
-      ]
+      }
     }
   }
 }

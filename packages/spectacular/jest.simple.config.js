@@ -8,7 +8,11 @@ module.exports = {
   rootDir: '.',
   roots: ['<rootDir>/src'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
-  testMatch: ['**/trim-leading-text.spec.ts'],
+  testMatch: [
+    '<rootDir>/src/lib/feature-testing/util-text/**/*.spec.ts',
+    '<rootDir>/src/lib/application-testing/util-dom/**/*.spec.ts', 
+    '<rootDir>/src/lib/application-testing/util-bootstrapping/**/*.spec.ts',
+  ],
   testPathIgnorePatterns: ['/node_modules/'],
   transform: {
     '^.+\\.(ts|js)$': [
