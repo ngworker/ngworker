@@ -27,13 +27,12 @@
       "options": {
         "command": "npx stryker run stryker.simple.conf.js",
         "cwd": "packages/spectacular"
-      }
-    },
-    "mutation-test-full": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "npx stryker run",
-        "cwd": "packages/spectacular"
+      },
+      "configurations": {
+        "full": {
+          "command": "npx stryker run",
+          "cwd": "packages/spectacular"
+        }
       }
     }
   }
