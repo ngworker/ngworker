@@ -42,7 +42,7 @@ function createPipeFixture<TValue>(
   const pipeFixture = TestBed.createComponent(
     SpectacularPipeComponent
   ) as ComponentFixture<SpectacularPipeComponent<TValue>>;
-  pipeFixture.componentInstance.value = value;
+  pipeFixture.componentRef.setInput('value', value);
   pipeFixture.detectChanges();
 
   return pipeFixture;
@@ -105,7 +105,7 @@ export function createPipeHarness<TValue>(
       pipeComponent = pipeFixture.componentInstance;
     },
     set value(value: TValue | Observable<TValue> | null) {
-      pipeComponent.value = value;
+      pipeFixture.componentRef.setInput('value', value);
       pipeFixture.detectChanges();
     },
   };
