@@ -1,5 +1,8 @@
 name: '@ngworker CI pipeline'
 
+permissions:
+  contents: read
+
 env:
   BASE_BRANCH: ${{ github.event.pull_request.base.ref }}
   NODE_OPTIONS: --max-old-space-size=6144
