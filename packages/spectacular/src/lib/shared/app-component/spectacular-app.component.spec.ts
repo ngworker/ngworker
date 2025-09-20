@@ -12,6 +12,10 @@ function setup() {
           path: '',
           component: TestPageComponent,
         },
+        {
+          path: 'another',
+          component: TestAnotherPageComponent,
+        },
       ]),
     ],
   });
@@ -40,36 +44,89 @@ function setup() {
 })
 class TestPageComponent {}
 
+@Component({
+  standalone: true,
+  selector: 'spectacular-test-another-page',
+  imports: [],
+  template: '',
+})
+class TestAnotherPageComponent {}
+
 describe(SpectacularAppComponent.name, () => {
   describe('getActiveComponent', () => {
-    it('returns the top-level activated routed component after navigation', () => {
-      const { component, fixture, initialNavigationSync } = setup();
-      fixture.autoDetectChanges(true);
-      initialNavigationSync();
+    describe('when called without arguments', () => {
+      it('returns the top-level activated routed component after navigation', () => {
+        const { component, fixture, initialNavigationSync } = setup();
+        fixture.autoDetectChanges(true);
+        initialNavigationSync();
 
-      const routedComponent = component.getActiveComponent();
+        const routedComponent: unknown = component.getActiveComponent();
 
-      expect(routedComponent).toBeInstanceOf(TestPageComponent);
+        expect(routedComponent).toBeInstanceOf(TestPageComponent);
+      });
+
+      it('fails before navigation', () => {
+        const { component } = setup();
+        const act = () => component.getActiveComponent();
+
+        expect(act).toThrow(
+          'SpectacularAppComponent#getActiveComponent called before its view child is available'
+        );
+      });
+
+      it('fails before a routed component has been activated', () => {
+        const { component, fixture } = setup();
+        fixture.autoDetectChanges(true);
+
+        const act = () => component.getActiveComponent();
+
+        expect(act).toThrow('Outlet is not activated');
+      });
     });
 
-    it('fails before navigation', () => {
-      const { component } = setup();
-      const act = () => {
-        component.getActiveComponent();
-      };
+    describe('when a required routed component type is specified', () => {
+      it('returns the top-level activated routed component after navigation when the specified routed component type is active', () => {
+        const { component, fixture, initialNavigationSync } = setup();
+        fixture.autoDetectChanges(true);
+        initialNavigationSync();
 
-      expect(act).toThrow('called before its view child is available');
-    });
+        const routedComponent: TestPageComponent =
+          component.getActiveComponent(TestPageComponent);
 
-    it('fails before a routed component has been activated', () => {
-      const { component, fixture } = setup();
-      fixture.autoDetectChanges(true);
+        expect(routedComponent).toBeInstanceOf(TestPageComponent);
+      });
 
-      const act = () => {
-        component.getActiveComponent();
-      };
+      it('fails when the specified routed component type is not active', () => {
+        const { component, fixture, initialNavigationSync } = setup();
+        fixture.autoDetectChanges(true);
+        initialNavigationSync();
 
-      expect(act).toThrow('Outlet is not activated');
+        const act = () =>
+          component.getActiveComponent(TestAnotherPageComponent);
+
+        expect(act).toThrow(
+          'Unexpected routed component type. Expected TestAnotherPageComponent but got TestPageComponent'
+        );
+      });
+
+      it('fails before navigation', () => {
+        const { component } = setup();
+
+        const act = () => component.getActiveComponent(TestPageComponent);
+
+        expect(act).toThrow(
+          'SpectacularAppComponent#getActiveComponent called before its view child is available'
+        );
+      });
+
+      it('fails before a routed component has been activated', () => {
+        const { component, fixture } = setup();
+        fixture.autoDetectChanges(true);
+
+        const act = () => component.getActiveComponent(TestPageComponent);
+
+        expect(act).toThrow('Outlet is not activated');
+      });
     });
   });
 });
