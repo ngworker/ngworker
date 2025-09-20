@@ -50,7 +50,7 @@ describe('initialFeatureNavigationInitializer', () => {
         ],
       });
 
-    expect(act).rejects.toThrowError('Cannot match any routes');
+    expect(act).rejects.toThrow('Cannot match any routes');
   });
 
   it('fails when the default feature route fails to load', () => {
@@ -78,6 +78,6 @@ describe('initialFeatureNavigationInitializer', () => {
         ],
       });
 
-    expect(act).rejects.toThrowError(errorMessage);
+    expect(act).rejects.toThrow(errorMessage);
   });
 });

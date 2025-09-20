@@ -83,7 +83,7 @@ describe(SpectacularAppComponent.name, () => {
         component.getActiveComponent(TestAnotherPageComponent);
       };
 
-      expect(act).toThrowError(
+      expect(act).toThrow(
         `Unexpected routed component type. Expected ${TestAnotherPageComponent.name} but got ${TestPageComponent.name}`
       );
     });
@@ -94,7 +94,7 @@ describe(SpectacularAppComponent.name, () => {
         component.getActiveComponent();
       };
 
-      expect(act).toThrowError(
+      expect(act).toThrow(
         `${SpectacularAppComponent.name}#${SpectacularAppComponent.prototype.getActiveComponent.name} called before its view child is available`
       );
     });
@@ -106,7 +106,7 @@ describe(SpectacularAppComponent.name, () => {
         component.getActiveComponent(TestPageComponent);
       };
 
-      expect(act).toThrowError(
+      expect(act).toThrow(
         `${SpectacularAppComponent.name}#${SpectacularAppComponent.prototype.getActiveComponent.name} called before its view child is available`
       );
     });
@@ -119,7 +119,7 @@ describe(SpectacularAppComponent.name, () => {
         component.getActiveComponent();
       };
 
-      expect(act).toThrowError('Outlet is not activated');
+      expect(act).toThrow('Outlet is not activated');
     });
 
     it('fails before a routed component has been activated with required type', () => {
@@ -130,7 +130,7 @@ describe(SpectacularAppComponent.name, () => {
         component.getActiveComponent(TestPageComponent);
       };
 
-      expect(act).toThrowError('Outlet is not activated');
+      expect(act).toThrow('Outlet is not activated');
     });
   });
 });
