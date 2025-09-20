@@ -122,6 +122,15 @@ jobs:
         run:
           npm run affected:mutation-test -- --base=origin/$BASE_BRANCH
           --parallel=$NGWORKER_NX_PARALLEL
+      - name: '[Spectacular] Upload mutation test reports'
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: spectacular-mutation-reports
+          path: |
+            packages/spectacular/mutation-report.html
+            packages/spectacular/reports/**
+          if-no-files-found: warn
 
   build:
     runs-on: ubuntu-latest
