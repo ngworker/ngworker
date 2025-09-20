@@ -6,11 +6,16 @@
     "types": ["jest", "node"],
     "target": "es2016"
   },
-  "files": ["src/test-setup.ts"],
+  "files": ["src/test-setup.ts", "src/test-setup-stryker.ts"],
   "include": [
     "src/**/*.spec.ts",
     "src/**/*.test.ts",
     "src/**/*.d.ts",
-    "jest.config.ts"
+    "jest.config.ts",
+    "jest.config.js",
+    "jest.*.config.ts",
+    "jest.*.config.js",
+    "stryker.conf.js",
+    "stryker.*.conf.js"
   ]
 }

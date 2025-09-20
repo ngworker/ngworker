@@ -48,6 +48,23 @@
         }
       }
     },
+    "mutation-test": {
+      "inputs": [
+        "default",
+        "^production",
+        "{workspaceRoot}/jest.preset.js",
+        "{projectRoot}/stryker.conf.js",
+        "{projectRoot}/stryker.*.conf.js",
+        "{projectRoot}/jest.stryker.config.js",
+        "{projectRoot}/jest.simple.config.js"
+      ],
+      "outputs": [
+        "{projectRoot}/reports",
+        "{projectRoot}/mutation-report.html",
+        "{projectRoot}/stryker-tmp"
+      ],
+      "cache": true
+    },
     "@nx/eslint:lint": {
       "inputs": [
         "default",
@@ -66,6 +83,9 @@
       "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
       "!{projectRoot}/tsconfig.spec.json",
       "!{projectRoot}/jest.config.[jt]s",
+      "!{projectRoot}/jest.*.config.[jt]s",
+      "!{projectRoot}/stryker.conf.js",
+      "!{projectRoot}/stryker.*.conf.js",
       "!{projectRoot}/.eslintrc.json",
       "!{projectRoot}/eslint.config.js",
       "!{projectRoot}/src/test-setup.[jt]s",

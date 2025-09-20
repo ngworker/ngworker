@@ -82,3 +82,22 @@ Test utilities used by Spectacular's other APIs.
 | ----------------------------------------------------------------- | ---------------------- | ----------------------------------------------------------------------------------------------- |
 | [`SpectacularAppComponent`](./classes/SpectacularAppComponent.md) | Bootstrapped component | The root component which is bootstrapped for a Spectacular test.                                |
 | [`spectacularAppTag`](./variables/spectacularAppTag.md)           | String                 | The tag name of [`SpectacularAppComponent`](./classes/SpectacularAppComponent.md)s DOM element. |
+
+## Mutation Testing
+
+Spectacular includes StrykerJS mutation testing to improve test quality by
+testing the tests themselves. Mutation testing modifies code in small ways and
+checks if tests catch these changes.
+
+For detailed instructions, see [MUTATION-TESTING.md](./MUTATION-TESTING.md).
+
+### Quick Start
+
+```bash
+# Run mutation tests (Nx command)
+nx run spectacular:mutation-test
+
+# Run simple mutation tests (utility functions only)
+cd packages/spectacular
+npx stryker run stryker.simple.conf.js
+```

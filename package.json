@@ -22,6 +22,8 @@
     "update": "nx migrate latest",
     "graph": "nx graph",
     "help": "nx help",
+    "mutation-test": "nx run-many --targets=mutation-test",
+    "affected:mutation-test": "nx affected --targets=mutation-test",
     "ci": "npm run format:check && nx run-many --targets=lint,test,build,e2e",
     "affected:ci": "npm run format:check && nx affected --targets=lint,test,build,e2e"
   },
@@ -64,6 +66,9 @@
     "@nx/react": "19.4.4",
     "@nx/workspace": "19.4.4",
     "@schematics/angular": "18.0.7",
+    "@stryker-mutator/core": "^9.1.1",
+    "@stryker-mutator/jest-runner": "^9.1.1",
+    "@stryker-mutator/typescript-checker": "^9.1.1",
     "@swc-node/register": "1.9.2",
     "@swc/core": "1.5.29",
     "@swc/helpers": "0.5.17",

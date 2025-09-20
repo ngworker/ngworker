@@ -9,6 +9,9 @@
   "files": ["src/test-setup.ts"],
   "include": [
     "jest.config.ts",
+    "jest.config.js",
+    "jest.*.config.ts",
+    "jest.*.config.js",
     "src/**/*.test.ts",
     "src/**/*.spec.ts",
     "src/**/*.d.ts"
