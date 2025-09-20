@@ -5,6 +5,7 @@ module.exports = {
   packageManager: 'npm',
   reporters: ['html', 'clear-text', 'progress'],
   testRunner: 'jest',
+  testRunnerNodeArgs: ['--experimental-vm-modules'],
   coverageAnalysis: 'off',
   jest: {
     projectType: 'custom',
@@ -12,7 +13,6 @@ module.exports = {
     enableFindRelatedTests: false,
   },
   mutate: [
-    // Focus on utility functions that don't have Angular dependencies
     'src/lib/feature-testing/util-text/**/*.ts',
     'src/lib/application-testing/util-dom/**/*.ts',
     'src/lib/application-testing/util-bootstrapping/**/*.ts',
@@ -29,6 +29,10 @@ module.exports = {
     'stryker-tmp',
   ],
   checkers: [],
+  tsconfigFile: 'tsconfig.json',
+  typescriptChecker: {
+    prioritizePerformanceOverAccuracy: true,
+  },
   htmlReporter: {
     fileName: 'mutation-report.html',
   },
@@ -41,6 +45,7 @@ module.exports = {
   concurrency: 2,
   tempDirName: 'stryker-tmp',
   cleanTempDir: true,
-  timeoutMS: 60000,
-  timeoutFactor: 1.5,
+  disableTypeChecks: true,
+  timeoutMS: 120000,
+  timeoutFactor: 2.0,
 };

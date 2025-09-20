@@ -4,11 +4,11 @@ const nxPreset = require('@nx/jest/preset').default;
 module.exports = {
   ...nxPreset,
   displayName: 'spectacular',
-  setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
+  setupFilesAfterEnv: ['<rootDir>/src/test-setup-stryker.ts'],
   coverageDirectory: '../../coverage/packages/spectacular',
   snapshotSerializers: [
     'jest-preset-angular/build/serializers/no-ng-attributes',
-    'jest-preset-angular/build/serializers/ng-snapshot',
+    'jest-preset-angular/build/serializers/ng-snapshot', 
     'jest-preset-angular/build/serializers/html-comment',
   ],
   transform: {
@@ -25,4 +25,5 @@ module.exports = {
   roots: ['<rootDir>/src'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
   testMatch: ['<rootDir>/src/**/*.spec.ts', '<rootDir>/src/**/*.test.ts'],
+  testEnvironment: 'jsdom',
 };
