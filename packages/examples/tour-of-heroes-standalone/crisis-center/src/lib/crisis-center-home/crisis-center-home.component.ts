@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   standalone: true,
@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   imports: [],
   templateUrl: './crisis-center-home.component.html',
   styleUrls: ['./crisis-center-home.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CrisisCenterHomeComponent {}

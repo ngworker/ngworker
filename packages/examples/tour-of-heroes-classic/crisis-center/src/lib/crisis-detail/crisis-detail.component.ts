@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Crisis } from '../crisis';
@@ -8,6 +8,7 @@ import { DialogService } from '../dialog.service';
   selector: 'app-crisis-detail',
   templateUrl: './crisis-detail.component.html',
   styleUrls: ['./crisis-detail.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CrisisDetailComponent implements OnInit {
   crisis: Crisis = {

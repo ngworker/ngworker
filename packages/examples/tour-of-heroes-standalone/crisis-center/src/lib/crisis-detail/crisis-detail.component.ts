@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -12,6 +12,7 @@ import { DialogService } from '../dialog.service';
   imports: [NgIf, FormsModule],
   templateUrl: './crisis-detail.component.html',
   styleUrls: ['./crisis-detail.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CrisisDetailComponent implements OnInit {
   crisis: Crisis = {
