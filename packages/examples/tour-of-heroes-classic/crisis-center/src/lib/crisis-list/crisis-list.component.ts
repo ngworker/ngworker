@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -10,7 +10,6 @@ import { CrisisService } from '../crisis.service';
   selector: 'app-crisis-list',
   templateUrl: './crisis-list.component.html',
   styleUrls: ['./crisis-list.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CrisisListComponent {
   crises$: Observable<Crisis[]> = this.route.paramMap.pipe(
