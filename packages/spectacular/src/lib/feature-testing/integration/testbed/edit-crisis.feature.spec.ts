@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, Type } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Type } from '@angular/core';
 import { ComponentFixtureAutoDetect, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideRouter, Router, RouterOutlet } from '@angular/router';
@@ -89,6 +89,7 @@ async function setup({ CrisisService, featurePath, routes }: TestSetupOptions) {
 
 @Component({
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'spectacular-test-app',
   imports: [RouterOutlet],
   template: '<router-outlet><router-outlet>',
