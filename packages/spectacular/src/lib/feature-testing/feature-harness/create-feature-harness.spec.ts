@@ -5,7 +5,12 @@ import {
   SpyLocation,
   provideLocationMocks,
 } from '@angular/common/testing';
-import { Component, Injectable, NgModule } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Injectable,
+  NgModule,
+} from '@angular/core';
 import type { ExtraOptions, Routes } from '@angular/router';
 import { ROUTER_CONFIGURATION } from '@angular/router';
 import { SpectacularAppComponent } from '../../shared/app-component/spectacular-app.component';
@@ -14,6 +19,7 @@ import { createFeatureHarness } from './create-feature-harness';
 
 @Component({
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'spectacular-test-heroes-job-board',
   imports: [],
   template: '',
@@ -22,6 +28,7 @@ class HeroesJobBoardComponent {}
 
 @Component({
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'spectacular-test-heroes-job-listing',
   imports: [],
   template: '',
