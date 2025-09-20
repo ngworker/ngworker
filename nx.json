@@ -48,6 +48,10 @@
         }
       }
     },
+    "mutation-test": {
+      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
+      "cache": true
+    },
     "@nx/eslint:lint": {
       "inputs": [
         "default",
@@ -66,6 +70,7 @@
       "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
       "!{projectRoot}/tsconfig.spec.json",
       "!{projectRoot}/jest.config.[jt]s",
+      "!{projectRoot}/jest.*.config.[jt]s",
       "!{projectRoot}/.eslintrc.json",
       "!{projectRoot}/eslint.config.js",
       "!{projectRoot}/src/test-setup.[jt]s",
