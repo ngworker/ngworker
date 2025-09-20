@@ -98,6 +98,31 @@ jobs:
           npm run affected:test -- --base=origin/$BASE_BRANCH --configuration=ci
           --parallel=$NGWORKER_NX_PARALLEL
 
+  mutation-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - if: github.event_name == 'push' && github.ref_name == 'main'
+        uses: actions/checkout@v4
+      # needed for nx affected command
+      - if: github.event_name == 'pull_request'
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      # needed for nx affected command
+      - if: github.event_name == 'pull_request'
+        run: git fetch --no-tags --depth=1 origin $BASE_BRANCH
+
+      - name: Set up Node.js and npm
+        uses: ./.github/actions/setup-node
+
+      - if: github.event_name == 'push' && github.ref_name == 'main'
+        run: npm run mutation-test -- --parallel=$NGWORKER_NX_PARALLEL
+      - if: github.event_name == 'pull_request'
+        run:
+          npm run affected:mutation-test -- --base=origin/$BASE_BRANCH
+          --parallel=$NGWORKER_NX_PARALLEL
+
   build:
     runs-on: ubuntu-latest
 
