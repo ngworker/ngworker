@@ -21,6 +21,14 @@
         }
       },
       "defaultConfiguration": "production"
+    },
+    "mutation-test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx stryker run",
+        "cwd": "packages/spectacular"
+      },
+      "outputs": ["{projectRoot}/reports", "{projectRoot}/stryker-tmp"]
     }
   }
 }
