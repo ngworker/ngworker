@@ -13,12 +13,10 @@ export class CrisisService {
   readonly #messageService = inject(MessageService);
 
   static nextCrisisId = 100;
-  private crises$: BehaviorSubject<Crisis[]> = new BehaviorSubject<Crisis[]>(
-    CRISES,
-  );
+  #crises$: BehaviorSubject<Crisis[]> = new BehaviorSubject<Crisis[]>(CRISES);
 
   getCrises() {
-    return this.crises$;
+    return this.#crises$;
   }
 
   getCrisis(id: number | string) {
@@ -32,7 +30,7 @@ export class CrisisService {
     if (name) {
       const crisis = { id: CrisisService.nextCrisisId++, name };
       CRISES.push(crisis);
-      this.crises$.next(CRISES);
+      this.#crises$.next(CRISES);
     }
   }
 }
