@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 /**
@@ -14,6 +14,7 @@ export const spectacularAppTag = 'spectacular-app';
   selector: spectacularAppTag,
   imports: [RouterOutlet],
   template: '<router-outlet></router-outlet>',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SpectacularAppComponent {
   /**
