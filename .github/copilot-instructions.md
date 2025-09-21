@@ -27,6 +27,31 @@ Consider whether we should add or update documentation, including
 
 Add or modify unit tests to cover new or changed functionality
 
+# Angular Components
+
+When creating or modifying Angular components, follow these property ordering conventions in the `@Component` decorator:
+
+1. `standalone: true` (if applicable)
+2. `changeDetection: ChangeDetectionStrategy.OnPush` (immediately after standalone)
+3. `selector`
+4. `imports`
+5. `template` or `templateUrl`
+6. `styleUrls` or `styles`
+7. Other properties
+
+Example:
+
+```typescript
+@Component({
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'app-example',
+  imports: [CommonModule],
+  template: '<p>Example</p>',
+  styleUrls: ['./example.component.css']
+})
+```
+
 # Public API
 
 The `spectacular` project is a public npm package. Do not introduce breaking changes unless instructed to do so or as part of a major Angular version migration task.
