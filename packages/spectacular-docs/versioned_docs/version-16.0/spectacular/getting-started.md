@@ -4,14 +4,11 @@ sidebar_label: Getting started
 title: Getting started with Spectacular
 ---
 
-Spectacular contains several specialized test harnesses. While their value lies
-in what is unique about each of them, they have a few traits in common which we
-explore in this page.
+Spectacular contains several specialized test harnesses. While their value lies in what is unique about each of them, they have a few traits in common which we explore in this page.
 
 ## Installing Spectacular
 
-Using your package manager of choice, install the `@ngworker/spectacular`
-package as a development dependency as seen in the following terminal commands.
+Using your package manager of choice, install the `@ngworker/spectacular` package as a development dependency as seen in the following terminal commands.
 
 ### CNPM
 
@@ -39,9 +36,7 @@ yarn add --dev @ngworker/spectacular
 
 ## Importing from Spectacular
 
-All Spectacular's software artifacts are exposed from a single package
-namespace: `@ngworker/spectacular`. For example, we can import
-`createFeatureHarness` as seen in the following example:
+All Spectacular's software artifacts are exposed from a single package namespace: `@ngworker/spectacular`. For example, we can import `createFeatureHarness` as seen in the following example:
 
 ```ts
 import { createFeatureHarness } from '@ngworker/spectacular';
@@ -49,8 +44,7 @@ import { createFeatureHarness } from '@ngworker/spectacular';
 
 ## Creating a test harness
 
-Once you determine the test harness you need, call its test harness factory
-function and pass it the options it requires as seen in the following example:
+Once you determine the test harness you need, call its test harness factory function and pass it the options it requires as seen in the following example:
 
 ```ts {2-3}
 const harness = createFeatureHarness({
@@ -59,9 +53,7 @@ const harness = createFeatureHarness({
 });
 ```
 
-Note that Spectacular's application harness factory function returns a promise.
-We recommend using async-await for application harnesses as seen in the
-following example:
+Note that Spectacular's application harness factory function returns a promise. We recommend using async-await for application harnesses as seen in the following example:
 
 ```ts {1-2}
 it('sets up the application locale', async () => {
@@ -75,8 +67,7 @@ it('sets up the application locale', async () => {
 
 ## Configuring dependency injection
 
-Additional Angular module imports and providers can be passed as `imports` and
-`providers` options, respectively, as seen in the following example:
+Additional Angular module imports and providers can be passed as `imports` and `providers` options, respectively, as seen in the following example:
 
 ```ts {3-9}
 const harness = createFeatureHarness({
@@ -94,9 +85,7 @@ const harness = createFeatureHarness({
 
 ## Resolving dependencies
 
-Spectacular's test harnesses expose an `inject` method just like Angular's
-`TestBed`. This method is used to resolve dependencies as seen in the following
-example:
+Spectacular's test harnesses expose an `inject` method just like Angular's `TestBed`. This method is used to resolve dependencies as seen in the following example:
 
 ```ts {13}
 const harness = createFeatureHarness({
@@ -116,9 +105,7 @@ const fakeStorage = harness.inject(StorageService);
 
 ## Automatic change detection
 
-Angular's testbed supports
-[automatic change detection](https://v16.angular.io/guide/testing-components-scenarios#automatic-change-detection).
-So does Spectacular.
+Angular's testbed supports [automatic change detection](https://v16.angular.io/guide/testing-components-scenarios#automatic-change-detection). So does Spectacular.
 
 Add the following provider to enable automatic change detection:
 
@@ -128,8 +115,7 @@ Add the following provider to enable automatic change detection:
 
 where `ComponentFixtureAutoDetect` is imported from `@angular/core/testing`.
 
-For example, we can pass the provider when creating a feature test harness as
-seen in the following snippet:
+For example, we can pass the provider when creating a feature test harness as seen in the following snippet:
 
 ```ts {8}
 import { ComponentFixtureAutoDetect } from '@angular/core/testing';

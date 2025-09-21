@@ -8,16 +8,9 @@ import ExampleAngularFeature from './_example-angular-feature.md';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Spectacular doesn't contain an API for interacting with or inspecting our
-application's DOM and its URL path. Instead, we rely on Angular's verbose
-testing APIs. Alternatively, we can use the expressive and convenient APIs of
-[Angular Testing Library](https://testing-library.com/docs/angular-testing-library/intro/).
+Spectacular doesn't contain an API for interacting with or inspecting our application's DOM and its URL path. Instead, we rely on Angular's verbose testing APIs. Alternatively, we can use the expressive and convenient APIs of [Angular Testing Library](https://testing-library.com/docs/angular-testing-library/intro/).
 
-On this page, we learn how to integrate Spectacular with Angular Testing Library
-by configuring
-[`render`](https://testing-library.com/docs/angular-testing-library/api#render)
-and using Spectacular's feature-aware services for an excellent testing
-experience.
+On this page, we learn how to integrate Spectacular with Angular Testing Library by configuring [`render`](https://testing-library.com/docs/angular-testing-library/api#render) and using Spectacular's feature-aware services for an excellent testing experience.
 
 ## Example Angular feature
 
@@ -25,8 +18,7 @@ experience.
 
 ## Registering a routed feature
 
-The following snippet shows the common configuration needed for integrating
-Spectacular with Angular Testing library:
+The following snippet shows the common configuration needed for integrating Spectacular with Angular Testing library:
 
 ```ts {1-4,13-22}
 import {
@@ -57,11 +49,7 @@ describe('Tour of Heroes: Crisis center', () => {
 
 Let's discuss each part of the configuration in detail.
 
-Firstly, we use
-[`SpectacularAppComponent`](../api/classes/SpectacularAppComponent.md) as our
-root component by passing it to Angular Testing Library's
-[`render`](https://testing-library.com/docs/angular-testing-library/api#render)
-function:
+Firstly, we use [`SpectacularAppComponent`](../api/classes/SpectacularAppComponent.md) as our root component by passing it to Angular Testing Library's [`render`](https://testing-library.com/docs/angular-testing-library/api#render) function:
 
 ```ts {13}
 import {
@@ -90,13 +78,9 @@ describe('Tour of Heroes: Crisis center', () => {
 });
 ```
 
-[`SpectacularAppComponent`](../api/classes/SpectacularAppComponent.md) is a
-simple component with a router outlet that will host all of our feature's
-routes.
+[`SpectacularAppComponent`](../api/classes/SpectacularAppComponent.md) is a simple component with a router outlet that will host all of our feature's routes.
 
-Next, we register our feature by calling
-[`provideSpectacularFeatureTesting`](../api/modules.md#providespectacularfeaturetesting)
-and adding the result to the `providers` option:
+Next, we register our feature by calling [`provideSpectacularFeatureTesting`](../api/modules.md#providespectacularfeaturetesting) and adding the result to the `providers` option:
 
 ```ts {15-20}
 import {
@@ -125,35 +109,21 @@ describe('Tour of Heroes: Crisis center', () => {
 });
 ```
 
-We pass our routed feature to the
-[`routes`](../api/interfaces/ProvideSpectacularFeatureTestingOptions.md#routes)
-option, in our case `crisisCenterPath`, as part of a route that wraps it in a
-`loadChildren` callback.
+We pass our routed feature to the [`routes`](../api/interfaces/ProvideSpectacularFeatureTestingOptions.md#routes) option, in our case `crisisCenterPath`, as part of a route that wraps it in a `loadChildren` callback.
 
 > 💡 **Tip** Lazy loading a feature isn't a requirement in an integration test.
 
-Additionally, we pass the route path that the feature uses in our application to
-the
-[`featurePath`](../api/interfaces/ProvideSpectacularFeatureTestingOptions.md#featurepath)
-option, in our case the value of the `crisisCenterPath` variable which is used
-between our application and our feature test suite.
+Additionally, we pass the route path that the feature uses in our application to the [`featurePath`](../api/interfaces/ProvideSpectacularFeatureTestingOptions.md#featurepath) option, in our case the value of the `crisisCenterPath` variable which is used between our application and our feature test suite.
 
-With our routed feature registered, our feature tests have access to all routes
-configured by that Angular feature.
+With our routed feature registered, our feature tests have access to all routes configured by that Angular feature.
 
 ## Resolving feature-aware services
 
-When we're using Angular Testing Library, we use
-[`render`](https://testing-library.com/docs/angular-testing-library/api#render)
-and
-[`provideSpectacularFeatureTesting`](../api/modules.md#providespectacularfeaturetesting)
-instead of [`createFeatureHarness`](../api/modules.md#createfeatureharness).
+When we're using Angular Testing Library, we use [`render`](https://testing-library.com/docs/angular-testing-library/api#render) and [`provideSpectacularFeatureTesting`](../api/modules.md#providespectacularfeaturetesting) instead of [`createFeatureHarness`](../api/modules.md#createfeatureharness).
 
-Because of this, we don't get a reference to a
-[`SpectacularFeatureHarness`](../api/interfaces/SpectacularFeatureHarness.md).
+Because of this, we don't get a reference to a [`SpectacularFeatureHarness`](../api/interfaces/SpectacularFeatureHarness.md).
 
-To access Spectacular's feature-aware services, we resolve them using the
-injector of `RenderResult#fixture.debugElement`:
+To access Spectacular's feature-aware services, we resolve them using the injector of `RenderResult#fixture.debugElement`:
 
 ```ts {3,28,31}
 import {
@@ -190,9 +160,7 @@ describe('Tour of Heroes: Crisis center', () => {
 });
 ```
 
-Alternatively, we use
-[`TestBed.inject`](https://v16.angular.io/api/core/testing/TestBed#inject) to
-resolve Spectacular's feature-aware services:
+Alternatively, we use [`TestBed.inject`](https://v16.angular.io/api/core/testing/TestBed#inject) to resolve Spectacular's feature-aware services:
 
 ```ts {1,4,25,28}
 import { TestBed } from '@angular/core/testing';
@@ -226,15 +194,11 @@ describe('Tour of Heroes: Crisis center', () => {
 });
 ```
 
-Either of these techniques can be used to access
-[`SpectacularFeatureLocation`](../api/classes/SpectacularFeatureLocation.md) and
-[`SpectacularFeatureRouter`](../api/classes/SpectacularFeatureRouter.md).
+Either of these techniques can be used to access [`SpectacularFeatureLocation`](../api/classes/SpectacularFeatureLocation.md) and [`SpectacularFeatureRouter`](../api/classes/SpectacularFeatureRouter.md).
 
 ## Navigating to feature routes
 
-When using Angular Testing Library, you can keep using
-[`RenderResult#navigate`](https://testing-library.com/docs/angular-testing-library/api#navigate)
-and your tests will behave as you're used to:
+When using Angular Testing Library, you can keep using [`RenderResult#navigate`](https://testing-library.com/docs/angular-testing-library/api#navigate) and your tests will behave as you're used to:
 
 ```ts {38}
 import {
@@ -283,8 +247,7 @@ describe('Tour of Heroes: Crisis center', () => {
 });
 ```
 
-Alternatively, you can use Spectacular's feature-aware router,
-[`SpectacularFeatureRouter`](../api/classes/SpectacularFeatureRouter.md):
+Alternatively, you can use Spectacular's feature-aware router, [`SpectacularFeatureRouter`](../api/classes/SpectacularFeatureRouter.md):
 
 ```ts {4,29,32,40}
 import {
@@ -335,15 +298,11 @@ describe('Tour of Heroes: Crisis center', () => {
 });
 ```
 
-`screen` is the recommended starting point for
-[content queries](https://testing-library.com/docs/dom-testing-library/cheatsheet#queries)
-when using Angular Testing Library.
+`screen` is the recommended starting point for [content queries](https://testing-library.com/docs/dom-testing-library/cheatsheet#queries) when using Angular Testing Library.
 
 ## Asserting feature paths
 
-When using Angular Testing Library, you can use Angular's
-[`Location#path`](https://v16.angular.io/api/common/Location#path) service
-method to assert navigation to feature routes:
+When using Angular Testing Library, you can use Angular's [`Location#path`](https://v16.angular.io/api/common/Location#path) service method to assert navigation to feature routes:
 
 ```ts {1,34,37,53}
 import { Location } from '@angular/common';
@@ -403,8 +362,7 @@ describe('Tour of Heroes: Crisis center', () => {
 });
 ```
 
-Alternatively, you can use Spectacular's feature-aware location service,
-[`SpectacularFeatureLocation`](../api/classes/SpectacularFeatureLocation.md):
+Alternatively, you can use Spectacular's feature-aware location service, [`SpectacularFeatureLocation`](../api/classes/SpectacularFeatureLocation.md):
 
 ```ts {4,34,37,53}
 import {
@@ -464,13 +422,11 @@ describe('Tour of Heroes: Crisis center', () => {
 });
 ```
 
-[`userEvent`](https://testing-library.com/docs/ecosystem-user-event/) is the
-recommended way to interact with the DOM when using Angular Testing Library.
+[`userEvent`](https://testing-library.com/docs/ecosystem-user-event/) is the recommended way to interact with the DOM when using Angular Testing Library.
 
 ## Testing a complete user flow with Spectacular and Angular Testing Library
 
-The following is an example of testing a complete user flow with Spectacular and
-[Angular Testing Library](https://testing-library.com/docs/angular-testing-library/intro/):
+The following is an example of testing a complete user flow with Spectacular and [Angular Testing Library](https://testing-library.com/docs/angular-testing-library/intro/):
 
 <Tabs
   defaultValue="atl"
@@ -713,28 +669,18 @@ describe('Tour of Heroes: Crisis center', () => {
   </TabItem>
 </Tabs>
 
-Compare this to a feature test suite using Spectacular with the Angular testbed
-and we see that the preceding test case contains about half the lines of code as
-the one using Spectacular without
-[Angular Testing Library](https://testing-library.com/docs/angular-testing-library/intro/).
+Compare this to a feature test suite using Spectacular with the Angular testbed and we see that the preceding test case contains about half the lines of code as the one using Spectacular without [Angular Testing Library](https://testing-library.com/docs/angular-testing-library/intro/).
 
-Compare this to a feature test suite using only the Angular testbed and we come
-to appreciate how much less noise is in our test setup and our code which
-interacts and inspects the DOM as well as the URL path.
+Compare this to a feature test suite using only the Angular testbed and we come to appreciate how much less noise is in our test setup and our code which interacts and inspects the DOM as well as the URL path.
 
 ## Sharing an Angular Testing Library configuration
 
-Consider sharing common Angular Testing Library configuration by using the
-[`configure`](https://testing-library.com/docs/dom-testing-library/api-configuration)
-function. Angular Testing Library's `configure` options support the following
-Angular-specific options:
+Consider sharing common Angular Testing Library configuration by using the [`configure`](https://testing-library.com/docs/dom-testing-library/api-configuration) function. Angular Testing Library's `configure` options support the following Angular-specific options:
 
 - `defaultImports`, an array of shared Angular module imports
-- `excludeComponentDeclaration`, a Boolean value that enables an imported module
-  to declare the testing root component when set to `true`
+- `excludeComponentDeclaration`, a Boolean value that enables an imported module to declare the testing root component when set to `true`
 
-As an example, we could add the following shared configuration to our main test
-file:
+As an example, we could add the following shared configuration to our main test file:
 
 ```ts
 import { ComponentFixtureAutoDetect } from '@angular/core/testing';
@@ -751,11 +697,6 @@ configure({
 });
 ```
 
-In this case, we can leave out the `excludeComponentDeclaration` setting from
-Spectacular test suite setups in the relevant project if required by the version
-of Angular Testing Library you are using. Additionally, we don't have to call
-`RenderResult#fixture#autoDetectChanges` after calling
-[`render`](https://testing-library.com/docs/angular-testing-library/api#render).
+In this case, we can leave out the `excludeComponentDeclaration` setting from Spectacular test suite setups in the relevant project if required by the version of Angular Testing Library you are using. Additionally, we don't have to call `RenderResult#fixture#autoDetectChanges` after calling [`render`](https://testing-library.com/docs/angular-testing-library/api#render).
 
-Keep in mind that this affects all test suites using Angular Testing Library in
-the project using this main test file.
+Keep in mind that this affects all test suites using Angular Testing Library in the project using this main test file.

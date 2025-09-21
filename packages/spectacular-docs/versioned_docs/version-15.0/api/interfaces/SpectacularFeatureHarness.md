@@ -12,11 +12,9 @@ A harness for testing an Angular feature module.
 
 ### location
 
-• `Readonly` **location**:
-[`SpectacularFeatureLocation`](../classes/SpectacularFeatureLocation.md)
+• `Readonly` **location**: [`SpectacularFeatureLocation`](../classes/SpectacularFeatureLocation.md)
 
-A subset of Angular's `Location` service adjusted to the Angular feature module
-under test.
+A subset of Angular's `Location` service adjusted to the Angular feature module under test.
 
 #### Defined in
 
@@ -26,8 +24,7 @@ under test.
 
 ### rootComponent
 
-• `Readonly` **rootComponent**:
-[`SpectacularAppComponent`](../classes/SpectacularAppComponent.md)
+• `Readonly` **rootComponent**: [`SpectacularAppComponent`](../classes/SpectacularAppComponent.md)
 
 The bootstrapped component.
 
@@ -39,8 +36,7 @@ The bootstrapped component.
 
 ### rootFixture
 
-• `Readonly` **rootFixture**:
-`ComponentFixture`\<[`SpectacularAppComponent`](../classes/SpectacularAppComponent.md)\>
+• `Readonly` **rootFixture**: `ComponentFixture`\<[`SpectacularAppComponent`](../classes/SpectacularAppComponent.md)\>
 
 The component fixture for the bootstrapped component.
 
@@ -52,11 +48,9 @@ The component fixture for the bootstrapped component.
 
 ### router
 
-• `Readonly` **router**:
-[`SpectacularFeatureRouter`](../classes/SpectacularFeatureRouter.md)
+• `Readonly` **router**: [`SpectacularFeatureRouter`](../classes/SpectacularFeatureRouter.md)
 
-A subset of Angular's `Router` API adjusted to the Angular feature module under
-test.
+A subset of Angular's `Router` API adjusted to the Angular feature module under test.
 
 #### Defined in
 
@@ -82,11 +76,11 @@ When the `notFoundValue` is `undefined` or `Injector.THROW_IF_NOT_FOUND`
 
 #### Parameters
 
-| Name            | Type                                        | Description                                                                                            |
-| :-------------- | :------------------------------------------ | :----------------------------------------------------------------------------------------------------- |
-| `token`         | `ProviderToken`\<`T`\>                      | The token representing the dependency, that is a class or an `InjectionToken`.                         |
-| `notFoundValue` | `undefined`                                 | The default value in case the specified dependency has not been provided. Optional. Default is `null`. |
-| `options`       | `InjectOptions` & \{ `optional?`: `false` } | Dependency injection options. Optional.                                                                |
+| Name | Type | Description |
+| :-- | :-- | :-- |
+| `token` | `ProviderToken`\<`T`\> | The token representing the dependency, that is a class or an `InjectionToken`. |
+| `notFoundValue` | `undefined` | The default value in case the specified dependency has not been provided. Optional. Default is `null`. |
+| `options` | `InjectOptions` & \{ `optional?`: `false` } | Dependency injection options. Optional. |
 
 #### Returns
 
@@ -166,11 +160,11 @@ Use object-based flags (`InjectOptions`) instead.
 
 #### Parameters
 
-| Name             | Type                   | Description                                                                                                                           |
-| :--------------- | :--------------------- | :------------------------------------------------------------------------------------------------------------------------------------ |
-| `token`          | `ProviderToken`\<`T`\> | The token representing the dependency, that is a class or an `InjectionToken`.                                                        |
-| `notFoundValue?` | `T`                    | The default value in case the specified dependency has not been provided. Optional. Default is `null`.                                |
-| `flags?`         | `InjectFlags`          | Dependency injection options, for example `InjectFlags.Optional \| InjectFlags.SkipSelf`. Optional. Default is `InjectFlags.Default`. |
+| Name | Type | Description |
+| :-- | :-- | :-- |
+| `token` | `ProviderToken`\<`T`\> | The token representing the dependency, that is a class or an `InjectionToken`. |
+| `notFoundValue?` | `T` | The default value in case the specified dependency has not been provided. Optional. Default is `null`. |
+| `flags?` | `InjectFlags` | Dependency injection options, for example `InjectFlags.Optional \| InjectFlags.SkipSelf`. Optional. Default is `InjectFlags.Default`. |
 
 #### Returns
 
@@ -202,11 +196,11 @@ Use object-based flags (`InjectOptions`) instead.
 
 #### Parameters
 
-| Name            | Type                   | Description                                                                                                                           |
-| :-------------- | :--------------------- | :------------------------------------------------------------------------------------------------------------------------------------ |
-| `token`         | `ProviderToken`\<`T`\> | The token representing the dependency, that is a class or an `InjectionToken`.                                                        |
-| `notFoundValue` | `null`                 | The default value in case the specified dependency has not been provided. Optional. Default is `null`.                                |
-| `flags?`        | `InjectFlags`          | Dependency injection options, for example `InjectFlags.Optional \| InjectFlags.SkipSelf`. Optional. Default is `InjectFlags.Default`. |
+| Name | Type | Description |
+| :-- | :-- | :-- |
+| `token` | `ProviderToken`\<`T`\> | The token representing the dependency, that is a class or an `InjectionToken`. |
+| `notFoundValue` | `null` | The default value in case the specified dependency has not been provided. Optional. Default is `null`. |
+| `flags?` | `InjectFlags` | Dependency injection options, for example `InjectFlags.Optional \| InjectFlags.SkipSelf`. Optional. Default is `InjectFlags.Default`. |
 
 #### Returns
 

@@ -5,17 +5,13 @@ sidebar_label: Introduction
 title: Pipe testing
 ---
 
-Spectacular's pipe testing API configures the Angular testing module and sets up
-a host component for the Angular pipe under test.
+Spectacular's pipe testing API configures the Angular testing module and sets up a host component for the Angular pipe under test.
 
-The pipe test harness makes it straightforward to test pipes in the same way as
-they are used in a component template. This gives us the confidence that our
-Angular pipe works as intended.
+The pipe test harness makes it straightforward to test pipes in the same way as they are used in a component template. This gives us the confidence that our Angular pipe works as intended.
 
 ## Example Angular pipe
 
-As an example, try imagining how to test the Angular pipe in the following code
-snippet:
+As an example, try imagining how to test the Angular pipe in the following code snippet:
 
 ```ts
 // pow.pipe.ts
@@ -34,8 +30,7 @@ export class PowPipe implements PipeTransform {
 
 ## Testing an Angular pipe in isolation with the Angular testbed
 
-We could unit test it in isolation by exercising its `transform` method as seen
-in the following example:
+We could unit test it in isolation by exercising its `transform` method as seen in the following example:
 
 ```ts {18}
 import { TestBed } from '@angular/core/testing';
@@ -62,8 +57,7 @@ describe(PowPipe.name, () => {
 });
 ```
 
-How would we pass additional options? This is easy in an isolated unit test as
-seen in the following test case:
+How would we pass additional options? This is easy in an isolated unit test as seen in the following test case:
 
 ```ts {5}
 it('raises the base to the specified power', () => {
@@ -76,14 +70,11 @@ it('raises the base to the specified power', () => {
 });
 ```
 
-What would that look like in a component template? Do you feel confident about
-this test? Are we in control of how this is formatted in the DOM?
+What would that look like in a component template? Do you feel confident about this test? Are we in control of how this is formatted in the DOM?
 
 ## Integration testing an Angular pipe with the Angular testbed
 
-To achieve a higher level of confidence, we could create a test host component
-with a template and configure the Angular testing module by declaring the test
-host component and the pipe as seen in the following example:
+To achieve a higher level of confidence, we could create a test host component with a template and configure the Angular testing module by declaring the test host component and the pipe as seen in the following example:
 
 ```ts {6-14,18}
 import { Component, Input } from '@angular/core';
@@ -115,12 +106,9 @@ describe(PowPipe.name, () => {
 });
 ```
 
-That's a lot of setup for testing a pure pipe without any dependencies, don't
-you think?
+That's a lot of setup for testing a pure pipe without any dependencies, don't you think?
 
-With that out of the way, let's add a basic test case. In the following example,
-we are exercising the pipe in a template and asserting how it's formatted for
-the DOM:
+With that out of the way, let's add a basic test case. In the following example, we are exercising the pipe in a template and asserting how it's formatted for the DOM:
 
 ```ts {2,7}
 it('raises the base to the power of 1 by default', () => {
@@ -133,8 +121,7 @@ it('raises the base to the power of 1 by default', () => {
 });
 ```
 
-To add the `exponent` option, we have to add a second input parameter to our
-test host component as seen in the following example:
+To add the `exponent` option, we have to add a second input parameter to our test host component as seen in the following example:
 
 ```ts {4,9-10}
 @Component({
@@ -150,8 +137,7 @@ class TestHostComponent {
 }
 ```
 
-This allows us to add the exponent option through the template as seen in the
-following test case:
+This allows us to add the exponent option through the template as seen in the following test case:
 
 ```ts {3}
 it('raises the base to the specified power', () => {
@@ -165,8 +151,7 @@ it('raises the base to the specified power', () => {
 
 ## Testing an Angular pipe with Spectacular
 
-Now, let's compare this to using Spectacular's pipe test harness. First, we set
-up the pipe harness by calling a test harness factory:
+Now, let's compare this to using Spectacular's pipe test harness. First, we set up the pipe harness by calling a test harness factory:
 
 ```ts {10-14}
 import {
@@ -189,8 +174,7 @@ describe(PowPipe.name, () => {
 });
 ```
 
-Without specifying a template, we can inspect how the transformed value is
-formatted and rendered to the DOM:
+Without specifying a template, we can inspect how the transformed value is formatted and rendered to the DOM:
 
 ```ts {2}
 it('raises the base to the power of 1 by default', () => {
@@ -202,8 +186,7 @@ it('raises the base to the power of 1 by default', () => {
 });
 ```
 
-We can change the value and inspect the formatted value without having to
-manually trigger change detection:
+We can change the value and inspect the formatted value without having to manually trigger change detection:
 
 ```ts {4,6}
 it('raises the base to the power of 1 by default', () => {
@@ -237,13 +220,11 @@ it('raises the base to the specified power', () => {
 });
 ```
 
-Using the pipe test harness, we call the pipe through the template of a
-component without the trouble of setting up a test host component ourselves.
+Using the pipe test harness, we call the pipe through the template of a component without the trouble of setting up a test host component ourselves.
 
 ## Spectacular benefits
 
-In this page, we saw traditional Angular test suites for testing an Angular pipe
-and compared them to Spectacular's lightweight setup.
+In this page, we saw traditional Angular test suites for testing an Angular pipe and compared them to Spectacular's lightweight setup.
 
 With the benefits of a proper integration test, Spectacular offers:
 

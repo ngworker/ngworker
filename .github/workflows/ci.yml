@@ -28,6 +28,7 @@ concurrency:
         && github.ref
         || github.head_ref
     }}
+
   # Run merge workflows in sequence to prevent parallel deployments and releases
   # Cancel stale pull request runs in progress for the same branch
   cancel-in-progress: ${{ github.event_name != 'push' }}
@@ -69,9 +70,7 @@ jobs:
       - if: github.event_name == 'push' && github.ref_name == 'main'
         run: npm run lint -- --parallel=$NGWORKER_NX_PARALLEL
       - if: github.event_name == 'pull_request'
-        run:
-          npm run affected:lint -- --base=origin/$BASE_BRANCH
-          --parallel=$NGWORKER_NX_PARALLEL
+        run: npm run affected:lint -- --base=origin/$BASE_BRANCH --parallel=$NGWORKER_NX_PARALLEL
 
   test:
     runs-on: ubuntu-latest
@@ -94,9 +93,7 @@ jobs:
       - if: github.event_name == 'push' && github.ref_name == 'main'
         run: npm run test -- --configuration=ci --parallel=$NGWORKER_NX_PARALLEL
       - if: github.event_name == 'pull_request'
-        run:
-          npm run affected:test -- --base=origin/$BASE_BRANCH --configuration=ci
-          --parallel=$NGWORKER_NX_PARALLEL
+        run: npm run affected:test -- --base=origin/$BASE_BRANCH --configuration=ci --parallel=$NGWORKER_NX_PARALLEL
 
   build:
     runs-on: ubuntu-latest
@@ -119,9 +116,7 @@ jobs:
       - if: github.event_name == 'push' && github.ref_name == 'main'
         run: npm run build -- --exclude=spectacular-docs
       - if: github.event_name == 'pull_request'
-        run:
-          npm run affected:build -- --exclude=spectacular-docs
-          --base=origin/$BASE_BRANCH
+        run: npm run affected:build -- --exclude=spectacular-docs --base=origin/$BASE_BRANCH
       - name: '[Spectacular] Upload package build artifact'
         uses: actions/upload-artifact@v4
         with:
@@ -138,8 +133,7 @@ jobs:
       - name: Set up Node.js and npm
         uses: ./.github/actions/setup-node
 
-      - run:
-          npm run nx -- build spectacular-docs --parallel=$NGWORKER_NX_PARALLEL
+      - run: npm run nx -- build spectacular-docs --parallel=$NGWORKER_NX_PARALLEL
       - run: npm run nx -- typecheck spectacular-docs
       - name: '[Merge][Spectacular] Upload docs app'
         if: github.event_name == 'push' && github.ref_name == 'main'
@@ -198,6 +192,4 @@ jobs:
       - if: github.event_name == 'push' && github.ref_name == 'main'
         run: npm run e2e -- --parallel=$NGWORKER_NX_PARALLEL
       - if: github.event_name == 'pull_request'
-        run:
-          npm run affected:e2e -- --base=origin/$BASE_BRANCH
-          --parallel=$NGWORKER_NX_PARALLEL
+        run: npm run affected:e2e -- --base=origin/$BASE_BRANCH --parallel=$NGWORKER_NX_PARALLEL

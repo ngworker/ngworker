@@ -1,10 +1,8 @@
 # Function: createPipeHarness()
 
-> **createPipeHarness**\<`TValue`\>(`options`):
-> [`SpectacularPipeHarness`](../classes/SpectacularPipeHarness.md)\<`TValue`\>
+> **createPipeHarness**\<`TValue`\>(`options`): [`SpectacularPipeHarness`](../classes/SpectacularPipeHarness.md)\<`TValue`\>
 
-Defined in:
-[packages/spectacular/src/lib/pipe-testing/pipe-harness/create-pipe-harness.ts:56](https://github.com/ngworker/ngworker/blob/68f93463b2af844af0ea290a92a5168b936997ae/packages/spectacular/src/lib/pipe-testing/pipe-harness/create-pipe-harness.ts#L56)
+Defined in: [packages/spectacular/src/lib/pipe-testing/pipe-harness/create-pipe-harness.ts:56](https://github.com/ngworker/ngworker/blob/68f93463b2af844af0ea290a92a5168b936997ae/packages/spectacular/src/lib/pipe-testing/pipe-harness/create-pipe-harness.ts#L56)
 
 Set up a host component for the Angular pipe under test.
 

@@ -20,8 +20,7 @@ Feature harness options.
 
 • `Readonly` **featurePath**: `string`
 
-The route path used to load the routes of the specified Angular feature module,
-for example `'heroes'`.
+The route path used to load the routes of the specified Angular feature module, for example `'heroes'`.
 
 #### Defined in
 
@@ -31,24 +30,17 @@ for example `'heroes'`.
 
 ### imports
 
-• `Optional` **imports**: (`any`[] \| `Type`\<`any`\> \|
-`ModuleWithProviders`\<{}\>)[]
+• `Optional` **imports**: (`any`[] \| `Type`\<`any`\> \| `ModuleWithProviders`\<{}\>)[]
 
-The set of NgModules whose exported
-[declarables](https://v15.angular.io/guide/glossary#declarable) are available to
-templates in this module.
+The set of NgModules whose exported [declarables](https://v15.angular.io/guide/glossary#declarable) are available to templates in this module.
 
 **`Usage Notes`**
 
-A template can use exported declarables from any imported module, including
-those from modules that are imported indirectly and re-exported. For example,
-`ModuleA` imports `ModuleB`, and also exports it, which makes the declarables
-from `ModuleB` available wherever `ModuleA` is imported.
+A template can use exported declarables from any imported module, including those from modules that are imported indirectly and re-exported. For example, `ModuleA` imports `ModuleB`, and also exports it, which makes the declarables from `ModuleB` available wherever `ModuleA` is imported.
 
 ### Example
 
-The following example allows MainModule to use anything exported by
-`CommonModule`:
+The following example allows MainModule to use anything exported by `CommonModule`:
 
 ```javascript
 @NgModule({
@@ -80,22 +72,13 @@ The set of injectable objects that are available in the injector of this module.
 
 **`Usage Notes`**
 
-Dependencies whose providers are listed here become available for injection into
-any component, directive, pipe or service that is a child of this injector. The
-NgModule used for bootstrapping uses the root injector, and can provide
-dependencies to any part of the app.
+Dependencies whose providers are listed here become available for injection into any component, directive, pipe or service that is a child of this injector. The NgModule used for bootstrapping uses the root injector, and can provide dependencies to any part of the app.
 
-A lazy-loaded module has its own injector, typically a child of the app root
-injector. Lazy-loaded services are scoped to the lazy-loaded module's injector.
-If a lazy-loaded module also provides the `UserService`, any component created
-within that module's context (such as by router navigation) gets the local
-instance of the service, not the instance in the root injector. Components in
-external modules continue to receive the instance provided by their injectors.
+A lazy-loaded module has its own injector, typically a child of the app root injector. Lazy-loaded services are scoped to the lazy-loaded module's injector. If a lazy-loaded module also provides the `UserService`, any component created within that module's context (such as by router navigation) gets the local instance of the service, not the instance in the root injector. Components in external modules continue to receive the instance provided by their injectors.
 
 ### Example
 
-The following example defines a class that is injected in the HelloWorld
-NgModule:
+The following example defines a class that is injected in the HelloWorld NgModule:
 
 ```
 class Greeter {
@@ -146,8 +129,7 @@ Optional Angular `Router` options.
 
 One or more feature routes to load.
 
-NOTE! It is unnecessary to lazy-load feature modules in tests, so we can
-statically return an Angular module from the `loadChildren` callback.
+NOTE! It is unnecessary to lazy-load feature modules in tests, so we can statically return an Angular module from the `loadChildren` callback.
 
 **`Example`**
 

@@ -14,8 +14,7 @@ Options for `provideSpectacularFeatureTest`.
 
 • `Readonly` **featurePath**: `string`
 
-The path prefix used to load the routes of the specified Angular feature, for
-example `'heroes'`.
+The path prefix used to load the routes of the specified Angular feature, for example `'heroes'`.
 
 #### Defined in
 

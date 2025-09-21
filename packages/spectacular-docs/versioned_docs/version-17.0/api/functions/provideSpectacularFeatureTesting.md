@@ -1,10 +1,8 @@
 # Function: provideSpectacularFeatureTesting()
 
-> **provideSpectacularFeatureTesting**(`options`, ...`features`): (`Provider` >
-> \| > `EnvironmentProviders`)[]
+> **provideSpectacularFeatureTesting**(`options`, ...`features`): (`Provider` > \| > `EnvironmentProviders`)[]
 
-Defined in:
-[packages/spectacular/src/lib/feature-testing/configuration/provide-spectacular-feature-testing.ts:36](https://github.com/ngworker/ngworker/blob/68f93463b2af844af0ea290a92a5168b936997ae/packages/spectacular/src/lib/feature-testing/configuration/provide-spectacular-feature-testing.ts#L36)
+Defined in: [packages/spectacular/src/lib/feature-testing/configuration/provide-spectacular-feature-testing.ts:36](https://github.com/ngworker/ngworker/blob/68f93463b2af844af0ea290a92a5168b936997ae/packages/spectacular/src/lib/feature-testing/configuration/provide-spectacular-feature-testing.ts#L36)
 
 Provide dependencies needed by the Spectacular Feature testing API.
 
@@ -16,8 +14,7 @@ Provide dependencies needed by the Spectacular Feature testing API.
 
 ### features
 
-...([`InitialFeatureNavigationFeature`](../type-aliases/InitialFeatureNavigationFeature.md)
-\| `RouterFeatures`)[]
+...([`InitialFeatureNavigationFeature`](../type-aliases/InitialFeatureNavigationFeature.md) \| `RouterFeatures`)[]
 
 ## Returns
 

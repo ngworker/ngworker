@@ -1,6 +1,4 @@
-As an example, we're going to create integration tests for the crisis center
-feature from
-[the Tour of Heroes routing tutorial](https://angular.io/guide/router-tutorial-toh).
+As an example, we're going to create integration tests for the crisis center feature from [the Tour of Heroes routing tutorial](https://angular.io/guide/router-tutorial-toh).
 
 The following code snippet shows its routed feature, the `crisisCenterRoutes`:
 
@@ -41,6 +39,4 @@ export const crisisCenterRoutes: Routes = [
 ];
 ```
 
-Our feature tests are going to focus on the crisis detail form. Notice the route
-guard and route resolver added to the crisis detail route in the highlighted
-lines. These are going to be activated as part of our test cases.
+Our feature tests are going to focus on the crisis detail form. Notice the route guard and route resolver added to the crisis detail route in the highlighted lines. These are going to be activated as part of our test cases.

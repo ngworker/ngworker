@@ -30,8 +30,7 @@ custom_edit_url: null
 
 ### CreateApplicationHarnessOptions
 
-Ƭ **CreateApplicationHarnessOptions**: `Pick`\<`NgModule`, `"imports"` \|
-`"providers"`\>
+Ƭ **CreateApplicationHarnessOptions**: `Pick`\<`NgModule`, `"imports"` \| `"providers"`\>
 
 Application harness options.
 
@@ -43,15 +42,11 @@ Application harness options.
 
 ### InitialFeatureNavigationFeature
 
-Ƭ **InitialFeatureNavigationFeature**:
-[`SpectacularFeatureTestingFeature`](interfaces/SpectacularFeatureTestingFeature.md)\<[`InitialFeatureNavigationFeature`](enums/SpectacularFeatureTestingFeatureKind.md#initialfeaturenavigationfeature)\>
+Ƭ **InitialFeatureNavigationFeature**: [`SpectacularFeatureTestingFeature`](interfaces/SpectacularFeatureTestingFeature.md)\<[`InitialFeatureNavigationFeature`](enums/SpectacularFeatureTestingFeatureKind.md#initialfeaturenavigationfeature)\>
 
-A type alias that represents a feature which enables initial navigation to the
-specified feature path.
+A type alias that represents a feature which enables initial navigation to the specified feature path.
 
-The type is used to describe the return value of the
-[withInitialFeatureNavigation](modules.md#withinitialfeaturenavigation)
-function.
+The type is used to describe the return value of the [withInitialFeatureNavigation](modules.md#withinitialfeaturenavigation) function.
 
 **`See`**
 
@@ -66,20 +61,11 @@ function.
 
 ### SpectacularFeatureTestingFeatures
 
-Ƭ **SpectacularFeatureTestingFeatures**:
-[`InitialFeatureNavigationFeature`](modules.md#initialfeaturenavigationfeature)
+Ƭ **SpectacularFeatureTestingFeatures**: [`InitialFeatureNavigationFeature`](modules.md#initialfeaturenavigationfeature)
 
-A type alias that represents all tree-shakable Spectacular Feature Testing
-features available for use with
-[provideSpectacularFeatureTesting](modules.md#providespectacularfeaturetesting).
-Features can be enabled by adding special functions to the
-[provideSpectacularFeatureTesting](modules.md#providespectacularfeaturetesting)
-call.
+A type alias that represents all tree-shakable Spectacular Feature Testing features available for use with [provideSpectacularFeatureTesting](modules.md#providespectacularfeaturetesting). Features can be enabled by adding special functions to the [provideSpectacularFeatureTesting](modules.md#providespectacularfeaturetesting) call.
 
-See documentation for each symbol to find its corresponding function name. See
-also
-[provideSpectacularFeatureTesting](modules.md#providespectacularfeaturetesting)
-documentation on how to use those functions.
+See documentation for each symbol to find its corresponding function name. See also [provideSpectacularFeatureTesting](modules.md#providespectacularfeaturetesting) documentation on how to use those functions.
 
 **`See`**
 
@@ -105,17 +91,14 @@ The tag name of `SpectacularAppComponent`'s DOM element.
 
 ### createApplicationHarness
 
-▸ **createApplicationHarness**(`options?`):
-`Promise`\<[`SpectacularApplicationHarness`](interfaces/SpectacularApplicationHarness.md)\>
+▸ **createApplicationHarness**(`options?`): `Promise`\<[`SpectacularApplicationHarness`](interfaces/SpectacularApplicationHarness.md)\>
 
-Bootstrap a test application with the specified metadata. Useful to test
-configuration Angular modules, bootstrap listeners, and application
-initializers.
+Bootstrap a test application with the specified metadata. Useful to test configuration Angular modules, bootstrap listeners, and application initializers.
 
 #### Parameters
 
-| Name      | Type                                                                            |
-| :-------- | :------------------------------------------------------------------------------ |
+| Name | Type |
+| :-- | :-- |
 | `options` | [`CreateApplicationHarnessOptions`](modules.md#createapplicationharnessoptions) |
 
 #### Returns
@@ -130,16 +113,14 @@ initializers.
 
 ### createFeatureHarness
 
-▸ **createFeatureHarness**(`options`):
-[`SpectacularFeatureHarness`](interfaces/SpectacularFeatureHarness.md)
+▸ **createFeatureHarness**(`options`): [`SpectacularFeatureHarness`](interfaces/SpectacularFeatureHarness.md)
 
-Configure feature testing environment, bootstrap `SpectacularAppComponent`, and
-navigate to the default feature route.
+Configure feature testing environment, bootstrap `SpectacularAppComponent`, and navigate to the default feature route.
 
 #### Parameters
 
-| Name      | Type                                                                       |
-| :-------- | :------------------------------------------------------------------------- |
+| Name | Type |
+| :-- | :-- |
 | `options` | [`CreateFeatureHarnessOptions`](interfaces/CreateFeatureHarnessOptions.md) |
 
 #### Returns
@@ -154,8 +135,7 @@ navigate to the default feature route.
 
 ### createPipeHarness
 
-▸ **createPipeHarness**\<`TValue`\>(`options`):
-[`SpectacularPipeHarness`](classes/SpectacularPipeHarness.md)\<`TValue`\>
+▸ **createPipeHarness**\<`TValue`\>(`options`): [`SpectacularPipeHarness`](classes/SpectacularPipeHarness.md)\<`TValue`\>
 
 Set up a host component for the Angular pipe under test.
 
@@ -169,8 +149,8 @@ Test it by updating the value and reading the rendered text.
 
 #### Parameters
 
-| Name      | Type                                                                             |
-| :-------- | :------------------------------------------------------------------------------- |
+| Name | Type |
+| :-- | :-- |
 | `options` | [`CreatePipeHarnessOptions`](interfaces/CreatePipeHarnessOptions.md)\<`TValue`\> |
 
 #### Returns
@@ -185,16 +165,15 @@ Test it by updating the value and reading the rendered text.
 
 ### provideSpectacularFeatureTesting
 
-▸ **provideSpectacularFeatureTesting**(`options`, `...features`):
-(`EnvironmentProviders` \| `Provider`)[]
+▸ **provideSpectacularFeatureTesting**(`options`, `...features`): (`EnvironmentProviders` \| `Provider`)[]
 
 Provide dependencies needed by the Spectacular Feature testing API.
 
 #### Parameters
 
-| Name          | Type                                                                                                    |
-| :------------ | :------------------------------------------------------------------------------------------------------ |
-| `options`     | [`ProvideSpectacularFeatureTestingOptions`](interfaces/ProvideSpectacularFeatureTestingOptions.md)      |
+| Name | Type |
+| :-- | :-- |
+| `options` | [`ProvideSpectacularFeatureTestingOptions`](interfaces/ProvideSpectacularFeatureTestingOptions.md) |
 | `...features` | ([`InitialFeatureNavigationFeature`](modules.md#initialfeaturenavigationfeature) \| `RouterFeatures`)[] |
 
 #### Returns
@@ -209,8 +188,7 @@ Provide dependencies needed by the Spectacular Feature testing API.
 
 ### withInitialFeatureNavigation
 
-▸ **withInitialFeatureNavigation**():
-[`InitialFeatureNavigationFeature`](modules.md#initialfeaturenavigationfeature)
+▸ **withInitialFeatureNavigation**(): [`InitialFeatureNavigationFeature`](modules.md#initialfeaturenavigationfeature)
 
 Navigate to the specified feature path when the test is initialized.
 

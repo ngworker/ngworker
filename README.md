@@ -12,43 +12,31 @@ Monorepo for the `ngworker` NPM organization. Packages for Angular applications.
 
 Packages in this monorepo.
 
-| Package                                                     | Description                                                                                     |
-| ----------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| Package | Description |
+| --- | --- |
 | [Spectacular (@ngworker/spectacular)](packages/spectacular) | Spectacular Angular integration testing. Test harnesses for Angular applications and libraries. |
 
 ## Sponsors
 
 ### Wallaby 🦘
 
-The maintainers of ngworker use Wallaby.js for inline test feeedback sponsored
-by Wallaby.
-[Get your free OSS license at the Wallaby website](https://wallabyjs.com/oss/).
+The maintainers of ngworker use Wallaby.js for inline test feeedback sponsored by Wallaby. [Get your free OSS license at the Wallaby website](https://wallabyjs.com/oss/).
 
 [![Wallaby.js](https://img.shields.io/badge/wallaby.js-powered-blue.svg?style=for-the-badge&logo=github)](https://wallabyjs.com/oss/)
 
-Contributors to this repository are welcome to use the
-[Wallaby.js OSS License](https://wallabyjs.com/oss/) to get test results
-immediately as you type, and see the results in your editor right next to your
-code.
+Contributors to this repository are welcome to use the [Wallaby.js OSS License](https://wallabyjs.com/oss/) to get test results immediately as you type, and see the results in your editor right next to your code.
 
 ### Nrwl 🌊
 
-Nrwl sponsors computation hours saved for ngworker through Nx Cloud ☁. Apply
-for a free license for your OSS project at cloud-support@nrwl.io or
-[watch ngworker's Nx Cloud runs and cache stats on nx.app](https://nx.app/orgs/5e8d01f710d04300054a941c/workspaces/5ffee040c41e064440fa7253/report).
+Nrwl sponsors computation hours saved for ngworker through Nx Cloud ☁. Apply for a free license for your OSS project at cloud-support@nrwl.io or [watch ngworker's Nx Cloud runs and cache stats on nx.app](https://nx.app/orgs/5e8d01f710d04300054a941c/workspaces/5ffee040c41e064440fa7253/report).
 
 #### Computation Memoization in the Cloud
 
 <p align="center"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-cloud-card.png"></p>
 
-Nx Cloud pairs with Nx in order to enable you to build and test code more
-rapidly, by up to 10 times. Even teams that are new to Nx can connect to Nx
-Cloud and start saving time instantly.
+Nx Cloud pairs with Nx in order to enable you to build and test code more rapidly, by up to 10 times. Even teams that are new to Nx can connect to Nx Cloud and start saving time instantly.
 
-Teams using Nx gain the advantage of building full-stack applications with their
-preferred framework alongside Nx’s advanced code generation and project
-dependency graph, plus a unified experience for both frontend and backend
-developers.
+Teams using Nx gain the advantage of building full-stack applications with their preferred framework alongside Nx’s advanced code generation and project dependency graph, plus a unified experience for both frontend and backend developers.
 
 Visit [Nx Cloud](https://nx.app/) to learn more.
 
@@ -76,6 +64,4 @@ Thanks goes to these wonderful people:
 
 ([emoji key](https://allcontributors.org/docs/en/emoji-key))
 
-This project follows the
-[all-contributors](https://github.com/all-contributors/all-contributors)
-specification. Contributions of any kind welcome!
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!

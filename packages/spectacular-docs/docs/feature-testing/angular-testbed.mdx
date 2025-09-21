@@ -7,9 +7,7 @@ title: Feature testing using Angular testbed
 import ExampleAngularFeature from './_example-angular-feature.md';
 import FeatureTests from './_feature-tests-spectacular-angular-testbed.mdx';
 
-This guide covers how to create a feature test without Spectacular to compare
-the Angular testbed feature testing story to the Spectacular Feature testing API
-experience.
+This guide covers how to create a feature test without Spectacular to compare the Angular testbed feature testing story to the Spectacular Feature testing API experience.
 
 ## Example Angular feature
 
@@ -17,13 +15,11 @@ experience.
 
 ## Setting up an Angular feature integration test with the Angular testbed
 
-Let's first explore how we can set up a feature test by using the Angular
-testbed.
+Let's first explore how we can set up a feature test by using the Angular testbed.
 
 ### Creating a test root component
 
-First, we're going to create a test root component with a router outlet as seen
-in the following snippet:
+First, we're going to create a test root component with a router outlet as seen in the following snippet:
 
 ```ts {5-11}
 import { Component } from '@angular/core';
@@ -91,10 +87,7 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
 });
 ```
 
-`provideRouter` accepts routes which are registered with the Angular testing
-module in the same way that we would pass top-level routes to `provideRouter` in
-an Angular application. The routes are attached to the router outlet in our test
-root component.
+`provideRouter` accepts routes which are registered with the Angular testing module in the same way that we would pass top-level routes to `provideRouter` in an Angular application. The routes are attached to the router outlet in our test root component.
 
 We register the following route configuration:
 
@@ -102,12 +95,9 @@ We register the following route configuration:
 { path: crisisCenterPath, loadChildren: () => crisisCenterRoutes },
 ```
 
-Notice that we are registering the same route path for the feature as we are
-registering in our Angular application. `crisisCenterPath` is a variable which
-has been assigned to the value `'crisis-center'`.
+Notice that we are registering the same route path for the feature as we are registering in our Angular application. `crisisCenterPath` is a variable which has been assigned to the value `'crisis-center'`.
 
-In our Angular application, the crisis center feature is lazy-loaded which means
-that the route configuration would look something like the following snippet:
+In our Angular application, the crisis center feature is lazy-loaded which means that the route configuration would look something like the following snippet:
 
 ```ts {4-10}
 export const appConfig: ApplicationConfig = {
@@ -126,16 +116,11 @@ export const appConfig: ApplicationConfig = {
 }:
 ```
 
-There is no practical difference between lazy-loaded and eagerly loaded features
-in unit and integration tests. When we return a feature route array--in this
-case `crisisCenterRoutes`--from a `loadChildren` callback, everything works as
-intended when running our tests.
+There is no practical difference between lazy-loaded and eagerly loaded features in unit and integration tests. When we return a feature route array--in this case `crisisCenterRoutes`--from a `loadChildren` callback, everything works as intended when running our tests.
 
 ### Resolving navigation and data services
 
-Many feature tests make use of Angular's `Location` and `Router` services. In
-the following code snippet, we resolve them and relevant data services using
-`TestBed.inject`:
+Many feature tests make use of Angular's `Location` and `Router` services. In the following code snippet, we resolve them and relevant data services using `TestBed.inject`:
 
 ```ts {11-13,17-19}
 import { Location } from '@angular/common';
@@ -162,9 +147,7 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
 
 ### Initializing feature navigation
 
-By default, we will start our feature test cases by navigating to the default
-feature route. This is shown in the following code snippet which also
-illustrates how we enable automatic change detection:
+By default, we will start our feature test cases by navigating to the default feature route. This is shown in the following code snippet which also illustrates how we enable automatic change detection:
 
 ```ts {10,14}
 import { ComponentFixtureAutoDetect, TestBed } from '@angular/core/testing';
@@ -186,10 +169,7 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
 });
 ```
 
-As seen in the last highlighted line, we navigate in the context of the `NgZone`
-because otherwise warnings are emitted when running our tests. Once again, we
-reuse the `crisisCenterPath` variable only this time to navigate to the default
-feature route which happens to activate the following components:
+As seen in the last highlighted line, we navigate in the context of the `NgZone` because otherwise warnings are emitted when running our tests. Once again, we reuse the `crisisCenterPath` variable only this time to navigate to the default feature route which happens to activate the following components:
 
 - `CrisisCenterComponent`
 - `CrisisListComponent`
@@ -199,8 +179,7 @@ as seen in the routes configured in `crisisCenterRoutes`.
 
 ### Reviewing a complete feature test setup using the Angular testbed
 
-With all of the above, we now have the following test setup for our feature
-tests:
+With all of the above, we now have the following test setup for our feature tests:
 
 ```ts
 import { Location } from '@angular/common';
@@ -259,20 +238,15 @@ We have managed to:
 5. Resolve navigation and data services
 6. Initialize feature navigation
 
-That's quite an impressive setup. However, we need all of these setup steps for
-every Angular feature test, not only when testing the crisis center feature.
+That's quite an impressive setup. However, we need all of these setup steps for every Angular feature test, not only when testing the crisis center feature.
 
-Now that we have a working setup, we could compare that to
-[setting up a test for the same feature using Spectacular](./index.mdx#setting-up-an-angular-feature-integration-test-with-spectacular).
+Now that we have a working setup, we could compare that to [setting up a test for the same feature using Spectacular](./index.mdx#setting-up-an-angular-feature-integration-test-with-spectacular).
 
 ## Testing a complete user flow with the Angular testbed
 
-Our test is going to cover editing a crisis. Once the changed crisis name is
-saved, our application navigates to the crisis center home with the crisis
-selected.
+Our test is going to cover editing a crisis. Once the changed crisis name is saved, our application navigates to the crisis center home with the crisis selected.
 
-The first thing we need to do is to navigate to the crisis edit form for the
-crisis we want to edit:
+The first thing we need to do is to navigate to the crisis edit form for the crisis we want to edit:
 
 ```ts {3,5}
 describe('Editing a crisis', () => {
@@ -285,8 +259,7 @@ describe('Editing a crisis', () => {
 });
 ```
 
-We get a crisis ID from the crisis service which we use to navigate to the
-crisis edit form.
+We get a crisis ID from the crisis service which we use to navigate to the crisis edit form.
 
 Next, we're going to enter a new crisis name into the crisis name text box:
 
@@ -332,8 +305,7 @@ describe('Editing a crisis', () => {
 });
 ```
 
-We wait for the component fixture to stabilize because of multiple side effects
-being triggered, including navigation.
+We wait for the component fixture to stabilize because of multiple side effects being triggered, including navigation.
 
 As our next step, we verify that we are at the crisis center home route:
 
@@ -352,8 +324,7 @@ describe('Editing a crisis', () => {
 });
 ```
 
-Our second assertion verified that the crisis we just updated is selected in the
-crisis list:
+Our second assertion verified that the crisis we just updated is selected in the crisis list:
 
 ```ts {8-10}
 describe('Editing a crisis', () => {
@@ -370,8 +341,7 @@ describe('Editing a crisis', () => {
 });
 ```
 
-Finally, we verify that we are on the crisis center home with some route matrix
-parameters added to the URL:
+Finally, we verify that we are on the crisis center home with some route matrix parameters added to the URL:
 
 ```ts {8-10}
 describe('Editing a crisis', () => {
@@ -388,8 +358,7 @@ describe('Editing a crisis', () => {
 });
 ```
 
-That completes our multi-step feature test which exercises and verifies an
-entire user flow.
+That completes our multi-step feature test which exercises and verifies an entire user flow.
 
 Next, let's review the test and focus in on a few details.
 
@@ -439,13 +408,10 @@ describe('Editing a crisis', () => {
 ```
 
 1. We have to wrap navigation in the Angular testing module's NgZone instance.
-2. We repeat the feature path when navigating to routes registered by the
-   feature.
+2. We repeat the feature path when navigating to routes registered by the feature.
 3. We repeat the feature path when inspecting the application path.
 
-These are examples of boilerplate that Spectacular takes care of as demonstrated
-in
-[Testing a complete user flow with Spectacular](./index.mdx#testing-a-complete-user-flow-with-spectacular).
+These are examples of boilerplate that Spectacular takes care of as demonstrated in [Testing a complete user flow with Spectacular](./index.mdx#testing-a-complete-user-flow-with-spectacular).
 
 ## Appendix A: Complete feature test suites
 

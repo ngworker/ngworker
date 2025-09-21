@@ -2,8 +2,7 @@
 title: Testing a platform initializer
 ---
 
-To test a platform initializer, add it to the
-[providers](../../api/type-aliases/CreateApplicationHarnessOptions) option.
+To test a platform initializer, add it to the [providers](../../api/type-aliases/CreateApplicationHarnessOptions) option.
 
 ```typescript {10}
 import { createApplicationHarness } from '@ngworker/spectacular';
@@ -28,8 +27,6 @@ describe('posthogInitializer', () => {
 
 :::info
 
-[createApplicationHarness](../../api/functions/createApplicationHarness)
-supports platform initializers provided using
-[PLATFORM_INITIALIZER](https://angular.io/api/core/PLATFORM_INITIALIZER).
+[createApplicationHarness](../../api/functions/createApplicationHarness) supports platform initializers provided using [PLATFORM_INITIALIZER](https://angular.io/api/core/PLATFORM_INITIALIZER).
 
 :::

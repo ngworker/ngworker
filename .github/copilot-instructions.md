@@ -4,12 +4,9 @@ applyTo: '**'
 
 # CI
 
-- Use the `affected:*` scripts to run build, lint, and test checks. This will
-  check only affected parts of the codebase.
-- Use the `format:check` script to check code formatting. Use the `format`
-  script to fix formatting issues.
-- Make sure that the `npm ci` command runs without errors or warnings, not
-  including `npm audit` warnings
+- Use the `affected:*` scripts to run build, lint, and test checks. This will check only affected parts of the codebase.
+- Use the `format:check` script to check code formatting. Use the `format` script to fix formatting issues.
+- Make sure that the `npm ci` command runs without errors or warnings, not including `npm audit` warnings
 
 # Commits
 
@@ -32,72 +29,50 @@ Add or modify unit tests to cover new or changed functionality
 
 # Public API
 
-The `spectacular` project is a public npm package. Do not introduce breaking
-changes unless instructed to do so or as part of a major Angular version
-migration task.
+The `spectacular` project is a public npm package. Do not introduce breaking changes unless instructed to do so or as part of a major Angular version migration task.
 
 # Nx
 
 You are in an nx workspace using npm as the package manager.
 
-You have access to the Nx MCP server and the tools it provides. Use them. Follow
-these guidelines in order to best help the user:
+You have access to the Nx MCP server and the tools it provides. Use them. Follow these guidelines in order to best help the user:
 
 ## General Guidelines
 
-- When answering questions, use the nx_workspace tool first to gain an
-  understanding of the workspace architecture
-- For questions around nx configuration, best practices or if you're unsure, use
-  the nx_docs tool to get relevant, up-to-date docs!! Always use this instead of
-  assuming things about nx configuration
-- If the user needs help with an Nx configuration or project graph error, use
-  the 'nx_workspace' tool to get any errors
-- To help answer questions about the workspace structure or simply help with
-  demonstrating how tasks depend on each other, use the 'nx_visualize_graph'
-  tool
+- When answering questions, use the nx_workspace tool first to gain an understanding of the workspace architecture
+- For questions around nx configuration, best practices or if you're unsure, use the nx_docs tool to get relevant, up-to-date docs!! Always use this instead of assuming things about nx configuration
+- If the user needs help with an Nx configuration or project graph error, use the 'nx_workspace' tool to get any errors
+- To help answer questions about the workspace structure or simply help with demonstrating how tasks depend on each other, use the 'nx_visualize_graph' tool
 
 ## Nx tools
 
 The following tools are available to you:
 
 - 'nx_docs': Returns documentation sections relevant to user queries about Nx
-- 'nx_available_plugins': Lists available Nx plugins from the core team and
-  local workspace plugins
+- 'nx_available_plugins': Lists available Nx plugins from the core team and local workspace plugins
 - 'nx_workspace_path': Returns the path to the Nx workspace root
-- 'nx_workspace': Returns readable representation of project graph and nx.json
-  configuration
-- 'nx_project_details': Returns complete project configuration in JSON format
-  for a given project
+- 'nx_workspace': Returns readable representation of project graph and nx.json configuration
+- 'nx_project_details': Returns complete project configuration in JSON format for a given project
 - 'nx_generators': Returns list of generators relevant to user queries
-- 'nx_generator_schema': Returns detailed JSON schema for a specific Nx
-  generator
-- 'nx_current_running_tasks_details': Lists currently running Nx TUI processes
-  and task statuses
-- 'nx_current_running_task_output': Returns terminal output for specific running
-  tasks
-- 'nx_run_generator': Opens generate UI with prefilled options (requires running
-  IDE instance)
+- 'nx_generator_schema': Returns detailed JSON schema for a specific Nx generator
+- 'nx_current_running_tasks_details': Lists currently running Nx TUI processes and task statuses
+- 'nx_current_running_task_output': Returns terminal output for specific running tasks
+- 'nx_run_generator': Opens generate UI with prefilled options (requires running IDE instance)
 - 'nx_visualize_graph': Visualizes the Nx graph (requires running IDE instance)
 
 ## Generation Guidelines
 
 If the user wants to generate something, use the following flow:
 
-- learn about the nx workspace and any specifics the user needs by using the
-  'nx_workspace' tool and the 'nx_project_details' tool if applicable
+- learn about the nx workspace and any specifics the user needs by using the 'nx_workspace' tool and the 'nx_project_details' tool if applicable
 - get the available generators using the 'nx_generators' tool
-- decide which generator to use. If no generators seem relevant, check the
-  'nx_available_plugins' tool to see if the user could install a plugin to help
-  them
+- decide which generator to use. If no generators seem relevant, check the 'nx_available_plugins' tool to see if the user could install a plugin to help them
 - get generator details using the 'nx_generator_schema' tool
-- you may use the 'nx_docs' tool to learn more about a specific generator or
-  technology if you're unsure
-- decide which options to provide in order to best complete the user's request.
-  Don't make any assumptions and keep the options minimalistic
+- you may use the 'nx_docs' tool to learn more about a specific generator or technology if you're unsure
+- decide which options to provide in order to best complete the user's request. Don't make any assumptions and keep the options minimalistic
 - open the generator UI using the 'nx_run_generator' tool
 - wait for the user to finish the generator
 - read the generator log file using the 'nx_current_running_task_output' tool
-- use the information provided in the log file to answer the user's question or
-  continue with what they were doing
+- use the information provided in the log file to answer the user's question or continue with what they were doing
 
 If no IDE is available, use the `nx` CLI instead of tools requiring an IDE.

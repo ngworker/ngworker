@@ -6,8 +6,7 @@ sidebar_position: 0
 custom_edit_url: null
 ---
 
-The list of tree-shakable Spectacular Feature Testing features as a union type
-to uniquely type each feature.
+The list of tree-shakable Spectacular Feature Testing features as a union type to uniquely type each feature.
 
 ## Enumeration Members
 

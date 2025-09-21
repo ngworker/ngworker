@@ -1,7 +1,6 @@
 # Interface: SpectacularApplicationHarness
 
-Defined in:
-[packages/spectacular/src/lib/application-testing/application-harness/spectacular-application-harness.ts:8](https://github.com/ngworker/ngworker/blob/68f93463b2af844af0ea290a92a5168b936997ae/packages/spectacular/src/lib/application-testing/application-harness/spectacular-application-harness.ts#L8)
+Defined in: [packages/spectacular/src/lib/application-testing/application-harness/spectacular-application-harness.ts:8](https://github.com/ngworker/ngworker/blob/68f93463b2af844af0ea290a92a5168b936997ae/packages/spectacular/src/lib/application-testing/application-harness/spectacular-application-harness.ts#L8)
 
 A harness for testing application-level software artifacts.
 
@@ -9,11 +8,9 @@ A harness for testing application-level software artifacts.
 
 ### rootComponent
 
-> `readonly` **rootComponent**:
-> [`SpectacularAppComponent`](../classes/SpectacularAppComponent.md)
+> `readonly` **rootComponent**: [`SpectacularAppComponent`](../classes/SpectacularAppComponent.md)
 
-Defined in:
-[packages/spectacular/src/lib/application-testing/application-harness/spectacular-application-harness.ts:74](https://github.com/ngworker/ngworker/blob/68f93463b2af844af0ea290a92a5168b936997ae/packages/spectacular/src/lib/application-testing/application-harness/spectacular-application-harness.ts#L74)
+Defined in: [packages/spectacular/src/lib/application-testing/application-harness/spectacular-application-harness.ts:74](https://github.com/ngworker/ngworker/blob/68f93463b2af844af0ea290a92a5168b936997ae/packages/spectacular/src/lib/application-testing/application-harness/spectacular-application-harness.ts#L74)
 
 The bootstrapped component.
 
@@ -21,11 +18,9 @@ The bootstrapped component.
 
 ### rootFixture
 
-> `readonly` **rootFixture**:
-> `ComponentFixture`\<[`SpectacularAppComponent`](../classes/SpectacularAppComponent.md)\>
+> `readonly` **rootFixture**: `ComponentFixture`\<[`SpectacularAppComponent`](../classes/SpectacularAppComponent.md)\>
 
-Defined in:
-[packages/spectacular/src/lib/application-testing/application-harness/spectacular-application-harness.ts:78](https://github.com/ngworker/ngworker/blob/68f93463b2af844af0ea290a92a5168b936997ae/packages/spectacular/src/lib/application-testing/application-harness/spectacular-application-harness.ts#L78)
+Defined in: [packages/spectacular/src/lib/application-testing/application-harness/spectacular-application-harness.ts:78](https://github.com/ngworker/ngworker/blob/68f93463b2af844af0ea290a92a5168b936997ae/packages/spectacular/src/lib/application-testing/application-harness/spectacular-application-harness.ts#L78)
 
 The component fixture for the bootstrapped component.
 
@@ -37,8 +32,7 @@ The component fixture for the bootstrapped component.
 
 > **inject**\<`T`\>(`token`, `notFoundValue`, `options`): `T`
 
-Defined in:
-[packages/spectacular/src/lib/application-testing/application-harness/spectacular-application-harness.ts:20](https://github.com/ngworker/ngworker/blob/68f93463b2af844af0ea290a92a5168b936997ae/packages/spectacular/src/lib/application-testing/application-harness/spectacular-application-harness.ts#L20)
+Defined in: [packages/spectacular/src/lib/application-testing/application-harness/spectacular-application-harness.ts:20](https://github.com/ngworker/ngworker/blob/68f93463b2af844af0ea290a92a5168b936997ae/packages/spectacular/src/lib/application-testing/application-harness/spectacular-application-harness.ts#L20)
 
 Resolve a dependency based on the specified dependency injection token.
 
@@ -60,8 +54,7 @@ The token representing the dependency, that is a class or an `InjectionToken`.
 
 `undefined`
 
-The default value in case the specified dependency has not been provided.
-Optional. Default is `null`.
+The default value in case the specified dependency has not been provided. Optional. Default is `null`.
 
 ###### options
 
@@ -83,8 +76,7 @@ When the `notFoundValue` is `undefined` or `Injector.THROW_IF_NOT_FOUND`
 
 > **inject**\<`T`\>(`token`, `notFoundValue`, `options`): `null` \| `T`
 
-Defined in:
-[packages/spectacular/src/lib/application-testing/application-harness/spectacular-application-harness.ts:27](https://github.com/ngworker/ngworker/blob/68f93463b2af844af0ea290a92a5168b936997ae/packages/spectacular/src/lib/application-testing/application-harness/spectacular-application-harness.ts#L27)
+Defined in: [packages/spectacular/src/lib/application-testing/application-harness/spectacular-application-harness.ts:27](https://github.com/ngworker/ngworker/blob/68f93463b2af844af0ea290a92a5168b936997ae/packages/spectacular/src/lib/application-testing/application-harness/spectacular-application-harness.ts#L27)
 
 ##### Type Parameters
 
@@ -114,8 +106,7 @@ Defined in:
 
 > **inject**\<`T`\>(`token`, `notFoundValue?`, `options?`): `T`
 
-Defined in:
-[packages/spectacular/src/lib/application-testing/application-harness/spectacular-application-harness.ts:32](https://github.com/ngworker/ngworker/blob/68f93463b2af844af0ea290a92a5168b936997ae/packages/spectacular/src/lib/application-testing/application-harness/spectacular-application-harness.ts#L32)
+Defined in: [packages/spectacular/src/lib/application-testing/application-harness/spectacular-application-harness.ts:32](https://github.com/ngworker/ngworker/blob/68f93463b2af844af0ea290a92a5168b936997ae/packages/spectacular/src/lib/application-testing/application-harness/spectacular-application-harness.ts#L32)
 
 ##### Type Parameters
 
@@ -145,8 +136,7 @@ Defined in:
 
 > **inject**\<`T`\>(`token`, `notFoundValue?`, `flags?`): `T`
 
-Defined in:
-[packages/spectacular/src/lib/application-testing/application-harness/spectacular-application-harness.ts:51](https://github.com/ngworker/ngworker/blob/68f93463b2af844af0ea290a92a5168b936997ae/packages/spectacular/src/lib/application-testing/application-harness/spectacular-application-harness.ts#L51)
+Defined in: [packages/spectacular/src/lib/application-testing/application-harness/spectacular-application-harness.ts:51](https://github.com/ngworker/ngworker/blob/68f93463b2af844af0ea290a92a5168b936997ae/packages/spectacular/src/lib/application-testing/application-harness/spectacular-application-harness.ts#L51)
 
 Resolve a dependency based on the specified dependency injection token.
 
@@ -168,16 +158,13 @@ The token representing the dependency, that is a class or an `InjectionToken`.
 
 `T`
 
-The default value in case the specified dependency has not been provided.
-Optional. Default is `null`.
+The default value in case the specified dependency has not been provided. Optional. Default is `null`.
 
 ###### flags?
 
 `InjectFlags`
 
-Dependency injection options, for example
-`InjectFlags.Optional | InjectFlags.SkipSelf`. Optional. Default is
-`InjectFlags.Default`.
+Dependency injection options, for example `InjectFlags.Optional | InjectFlags.SkipSelf`. Optional. Default is `InjectFlags.Default`.
 
 ##### Returns
 
@@ -197,8 +184,7 @@ Use object-based flags (`InjectOptions`) instead.
 
 > **inject**\<`T`\>(`token`, `notFoundValue`, `flags?`): `null` \| `T`
 
-Defined in:
-[packages/spectacular/src/lib/application-testing/application-harness/spectacular-application-harness.ts:66](https://github.com/ngworker/ngworker/blob/68f93463b2af844af0ea290a92a5168b936997ae/packages/spectacular/src/lib/application-testing/application-harness/spectacular-application-harness.ts#L66)
+Defined in: [packages/spectacular/src/lib/application-testing/application-harness/spectacular-application-harness.ts:66](https://github.com/ngworker/ngworker/blob/68f93463b2af844af0ea290a92a5168b936997ae/packages/spectacular/src/lib/application-testing/application-harness/spectacular-application-harness.ts#L66)
 
 Resolve a dependency based on the specified dependency injection token.
 
@@ -220,16 +206,13 @@ The token representing the dependency, that is a class or an `InjectionToken`.
 
 `null`
 
-The default value in case the specified dependency has not been provided.
-Optional. Default is `null`.
+The default value in case the specified dependency has not been provided. Optional. Default is `null`.
 
 ###### flags?
 
 `InjectFlags`
 
-Dependency injection options, for example
-`InjectFlags.Optional | InjectFlags.SkipSelf`. Optional. Default is
-`InjectFlags.Default`.
+Dependency injection options, for example `InjectFlags.Optional | InjectFlags.SkipSelf`. Optional. Default is `InjectFlags.Default`.
 
 ##### Returns
 

@@ -12,8 +12,7 @@ NOTE! Only to be imported by `SpectacularFeatureTestingModule`.
 
 **`Deprecated`**
 
-Deprecated in favor of `provideSpectacularFeatureTest`. To be removed in
-Spectacular version 16.
+Deprecated in favor of `provideSpectacularFeatureTest`. To be removed in Spectacular version 16.
 
 ## Constructors
 
