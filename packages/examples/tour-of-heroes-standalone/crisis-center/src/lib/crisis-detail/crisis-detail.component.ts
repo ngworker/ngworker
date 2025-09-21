@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,7 +9,7 @@ import { DialogService } from '../dialog.service';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-crisis-detail',
-  imports: [NgIf, FormsModule],
+  imports: [FormsModule],
   templateUrl: './crisis-detail.component.html',
   styleUrls: ['./crisis-detail.component.css'],
 })

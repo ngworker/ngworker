@@ -1,4 +1,4 @@
-import { AsyncPipe, NgFor } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -11,7 +11,7 @@ import { CrisisService } from '../crisis.service';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-crisis-list',
-  imports: [AsyncPipe, NgFor, RouterLink, RouterOutlet],
+  imports: [AsyncPipe, RouterLink, RouterOutlet],
   templateUrl: './crisis-list.component.html',
   styleUrls: ['./crisis-list.component.css'],
 })
