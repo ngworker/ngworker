@@ -10,7 +10,10 @@ import { CrisisService } from './crisis.service';
   providedIn: 'root',
 })
 export class CrisisDetailResolverService implements Resolve<Crisis> {
-  constructor(private cs: CrisisService, private router: Router) {}
+  constructor(
+    private cs: CrisisService,
+    private router: Router
+  ) {}
 
   resolve(
     route: ActivatedRouteSnapshot

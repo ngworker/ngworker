@@ -24,5 +24,8 @@ export class CrisisListComponent {
   );
   selectedId = -1;
 
-  constructor(private service: CrisisService, private route: ActivatedRoute) {}
+  constructor(
+    private service: CrisisService,
+    private route: ActivatedRoute
+  ) {}
 }

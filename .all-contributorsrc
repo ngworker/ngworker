@@ -3,9 +3,7 @@
   "projectOwner": "ngworker",
   "repoType": "github",
   "repoHost": "https://github.com",
-  "files": [
-    "README.md"
-  ],
+  "files": ["README.md"],
   "imageSize": 100,
   "commit": true,
   "commitConvention": "angular",
@@ -37,14 +35,7 @@
       "name": "Santosh Yadav",
       "avatar_url": "https://avatars.githubusercontent.com/u/11923975?v=4",
       "profile": "https://www.santoshyadav.dev/",
-      "contributions": [
-        "question",
-        "code",
-        "doc",
-        "ideas",
-        "review",
-        "test"
-      ]
+      "contributions": ["question", "code", "doc", "ideas", "review", "test"]
     },
     {
       "login": "SerkanSipahi",
@@ -87,9 +78,7 @@
       "name": "Tim Deschryver",
       "avatar_url": "https://avatars.githubusercontent.com/u/28659384?v=4",
       "profile": "http://timdeschryver.dev",
-      "contributions": [
-        "doc"
-      ]
+      "contributions": ["doc"]
     }
   ],
   "contributorsPerLine": 7,

@@ -33,8 +33,8 @@ code.
 
 ### Nrwl 🌊
 
-Nrwl sponsors computation hours saved for ngworker through Nx Cloud ☁. Apply for
-a free license for your OSS project at cloud-support@nrwl.io or
+Nrwl sponsors computation hours saved for ngworker through Nx Cloud ☁. Apply
+for a free license for your OSS project at cloud-support@nrwl.io or
 [watch ngworker's Nx Cloud runs and cache stats on nx.app](https://nx.app/orgs/5e8d01f710d04300054a941c/workspaces/5ffee040c41e064440fa7253/report).
 
 #### Computation Memoization in the Cloud
