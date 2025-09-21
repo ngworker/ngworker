@@ -10,6 +10,10 @@
 
 ### BREAKING CHANGES
 
+`SpectacularAppComponent` now uses `OnPush` change detection strategy instead of the default change detection strategy. This change ensures that feature tests give consumers confidence that their routes work correctly with `OnPush` change detection.
+
+If your tests rely on automatic change detection triggering outside of Angular's standard mechanisms, you may need to manually trigger change detection using `ComponentFixture#detectChanges()` or enable automatic change detection with `ComponentFixture#autoDetectChanges(true)`.
+
 Spectacular Application testing API and Feature testing API no longer add `provideLocationMocks()` to `providers` as `TestBed` provides location mocks by default since Angular 16.0. However, the mocks provided by `TestBed` is `MockPlatformLocation` to replace `PlatformLocation` while `provideLocationMocks()` replaces `Location` with `SpyLocation` and `LocationStrategy` with `MockLocationStrategy`. If your tests rely on the behavior of `SpyLocation` or `MockLocationStrategy`, you need to add `provideLocationMocks()` to `providers`.
 
 #### Migration
