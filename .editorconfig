@@ -13,14 +13,7 @@ trim_trailing_whitespace = true
 [*.{css,scss}]
 quote_type = single
 
-[*.html]
-max_line_length = 120
-
-[*.{json,yaml,yml}]
-max_line_length = off
-
 [*.md]
-max_line_length = 120
 trim_trailing_whitespace = false
 
 [*.ts]

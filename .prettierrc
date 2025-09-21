@@ -1,6 +1,5 @@
 {
   "arrowParens": "avoid",
-  "printWidth": 80,
   "proseWrap": "never",
   "singleQuote": true,
   "overrides": [
