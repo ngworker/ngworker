@@ -11,10 +11,10 @@ export const spectacularAppTag = 'spectacular-app';
  */
 @Component({
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: spectacularAppTag,
   imports: [RouterOutlet],
   template: '<router-outlet></router-outlet>',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SpectacularAppComponent {
   /**
