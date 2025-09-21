@@ -28,8 +28,7 @@ custom_edit_url: null
 
 ### CreateApplicationHarnessOptions
 
-Ƭ **CreateApplicationHarnessOptions**: `Pick`\<`NgModule`, `"imports"` \|
-`"providers"`\>
+Ƭ **CreateApplicationHarnessOptions**: `Pick`\<`NgModule`, `"imports"` \| `"providers"`\>
 
 Application harness options.
 
@@ -53,17 +52,14 @@ The tag name of `SpectacularAppComponent`'s DOM element.
 
 ### createApplicationHarness
 
-▸ **createApplicationHarness**(`options?`):
-`Promise`\<[`SpectacularApplicationHarness`](interfaces/SpectacularApplicationHarness.md)\>
+▸ **createApplicationHarness**(`options?`): `Promise`\<[`SpectacularApplicationHarness`](interfaces/SpectacularApplicationHarness.md)\>
 
-Bootstrap a test application with the specified metadata. Useful to test
-configuration Angular modules, bootstrap listeners, and application
-initializers.
+Bootstrap a test application with the specified metadata. Useful to test configuration Angular modules, bootstrap listeners, and application initializers.
 
 #### Parameters
 
-| Name      | Type                                                                            |
-| :-------- | :------------------------------------------------------------------------------ |
+| Name | Type |
+| :-- | :-- |
 | `options` | [`CreateApplicationHarnessOptions`](modules.md#createapplicationharnessoptions) |
 
 #### Returns
@@ -78,16 +74,14 @@ initializers.
 
 ### createFeatureHarness
 
-▸ **createFeatureHarness**(`options`):
-[`SpectacularFeatureHarness`](interfaces/SpectacularFeatureHarness.md)
+▸ **createFeatureHarness**(`options`): [`SpectacularFeatureHarness`](interfaces/SpectacularFeatureHarness.md)
 
-Configure `SpectacularFeatureTestingModule`, bootstrap `SpectacularAppComponent`
-and navigate to the default feature route.
+Configure `SpectacularFeatureTestingModule`, bootstrap `SpectacularAppComponent` and navigate to the default feature route.
 
 #### Parameters
 
-| Name      | Type                                                                       |
-| :-------- | :------------------------------------------------------------------------- |
+| Name | Type |
+| :-- | :-- |
 | `options` | [`CreateFeatureHarnessOptions`](interfaces/CreateFeatureHarnessOptions.md) |
 
 #### Returns
@@ -102,8 +96,7 @@ and navigate to the default feature route.
 
 ### createPipeHarness
 
-▸ **createPipeHarness**\<`TValue`\>(`options`):
-[`SpectacularPipeHarness`](classes/SpectacularPipeHarness.md)\<`TValue`\>
+▸ **createPipeHarness**\<`TValue`\>(`options`): [`SpectacularPipeHarness`](classes/SpectacularPipeHarness.md)\<`TValue`\>
 
 Set up a host component for the Angular pipe under test.
 
@@ -117,8 +110,8 @@ Test it by updating the value and reading the rendered text.
 
 #### Parameters
 
-| Name      | Type                                                                             |
-| :-------- | :------------------------------------------------------------------------------- |
+| Name | Type |
+| :-- | :-- |
 | `options` | [`CreatePipeHarnessOptions`](interfaces/CreatePipeHarnessOptions.md)\<`TValue`\> |
 
 #### Returns
@@ -139,8 +132,8 @@ Provide dependencies needed by the Spectacular Feature testing API.
 
 #### Parameters
 
-| Name      | Type                                                                                         |
-| :-------- | :------------------------------------------------------------------------------------------- |
+| Name | Type |
+| :-- | :-- |
 | `options` | [`ProvideSpectacularFeatureTestOptions`](interfaces/ProvideSpectacularFeatureTestOptions.md) |
 
 #### Returns

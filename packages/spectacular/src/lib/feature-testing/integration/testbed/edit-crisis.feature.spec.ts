@@ -19,7 +19,7 @@ async function setup({ CrisisService, featurePath, routes }: TestSetupOptions) {
       .queryAll(By.css('p'))
       .map(paragraph => paragraph.nativeElement)
       .find(element =>
-        /welcome to the crisis center/i.test(element.textContent)
+        /welcome to the crisis center/i.test(element.textContent),
       );
 
     if (!greeting) {
@@ -45,7 +45,7 @@ async function setup({ CrisisService, featurePath, routes }: TestSetupOptions) {
       .queryAll(By.css('button'))
       .map(button => button.nativeElement)
       .find(
-        (element: HTMLButtonElement) => element.textContent?.trim() === 'Save'
+        (element: HTMLButtonElement) => element.textContent?.trim() === 'Save',
       );
 
     if (!saveButton) {
@@ -141,13 +141,13 @@ describe('[TestBed] Tour of Heroes: Crisis center', () => {
     await rootFixture.whenStable();
 
     expect(findCrisisCenterHomeGreeting().textContent).toBe(
-      'Welcome to the Crisis Center'
+      'Welcome to the Crisis Center',
     );
     expect(findSelectedCrisis().textContent?.trim()).toBe(
-      `${aCrisis.id}${newCrisisName}`
+      `${aCrisis.id}${newCrisisName}`,
     );
     expect(location.path()).toBe(
-      `/${testCase.featurePath};id=${aCrisis.id};foo=foo`
+      `/${testCase.featurePath};id=${aCrisis.id};foo=foo`,
     );
   });
 });

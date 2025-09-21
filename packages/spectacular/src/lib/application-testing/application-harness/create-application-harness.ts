@@ -23,7 +23,7 @@ export type CreateApplicationHarnessOptions = Pick<
  * initializers.
  */
 export async function createApplicationHarness(
-  options: CreateApplicationHarnessOptions = {}
+  options: CreateApplicationHarnessOptions = {},
 ): Promise<SpectacularApplicationHarness> {
   const { imports = [], providers = [] } = options;
 

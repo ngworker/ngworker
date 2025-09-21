@@ -1,6 +1,6 @@
 export function ensureLeadingCharacter(
   leadingCharacter: string,
-  text: string
+  text: string,
 ): string {
   if (text === '') {
     text = leadingCharacter;

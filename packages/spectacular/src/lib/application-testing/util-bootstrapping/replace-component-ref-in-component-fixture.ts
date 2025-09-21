@@ -10,7 +10,7 @@ import type { ComponentFixture } from '@angular/core/testing';
  */
 export function replaceComponentRefInComponentFixture<TRootComponent>(
   fixture: ComponentFixture<TRootComponent> & { initialize?: () => void },
-  componentRef: ComponentRef<TRootComponent>
+  componentRef: ComponentRef<TRootComponent>,
 ) {
   /**
    * Destroy existing {@link ComponentRef}

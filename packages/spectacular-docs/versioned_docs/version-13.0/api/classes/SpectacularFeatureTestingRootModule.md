@@ -20,8 +20,8 @@ NOTE! Only to be imported by `SpectacularFeatureTestingModule`.
 
 #### Parameters
 
-| Name                              | Type                                                                            |
-| :-------------------------------- | :------------------------------------------------------------------------------ |
+| Name | Type |
+| :-- | :-- |
 | `maybeNgModuleFromParentInjector` | [`SpectacularFeatureTestingRootModule`](SpectacularFeatureTestingRootModule.md) |
 
 #### Defined in

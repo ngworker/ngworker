@@ -40,6 +40,6 @@ export type InitialFeatureNavigationFeature =
 export function withInitialFeatureNavigation(): InitialFeatureNavigationFeature {
   return makeSpectacularFeatureTestingFeature(
     SpectacularFeatureTestingFeatureKind.InitialFeatureNavigationFeature,
-    [initialFeatureNavigationInitializer]
+    [initialFeatureNavigationInitializer],
   );
 }

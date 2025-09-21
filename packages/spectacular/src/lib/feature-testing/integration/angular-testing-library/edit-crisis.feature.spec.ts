@@ -64,7 +64,7 @@ const setup = async ({
         withInitialFeatureNavigation(),
         withRouterConfig({
           onSameUrlNavigation: 'reload',
-        })
+        }),
       ),
     ],
   });
@@ -86,7 +86,7 @@ it.each(features)('Edit crisis from crisis detail', async feature => {
   await user.click(await findSaveButton());
 
   expect(
-    await findSelectedCrisis(/the global temperature is rising/i)
+    await findSelectedCrisis(/the global temperature is rising/i),
   ).toBeInTheDocument();
   expect(location.path()).toBe(`~/;id=${crisisId};foo=foo`);
 });
@@ -96,7 +96,7 @@ it.each(features)('Edit crisis from crisis center home', async feature => {
   await router.navigateByUrl('~/');
 
   await user.click(
-    await findCrisisLink(/procrastinators meeting delayed again/i)
+    await findCrisisLink(/procrastinators meeting delayed again/i),
   );
 
   await user.clear(await findNameControl());
@@ -105,6 +105,6 @@ it.each(features)('Edit crisis from crisis center home', async feature => {
 
   expect(await findCrisisCenterHomeGreeting()).toBeInTheDocument();
   expect(
-    await findSelectedCrisis(/coral reefs are dying/i)
+    await findSelectedCrisis(/coral reefs are dying/i),
   ).toBeInTheDocument();
 });

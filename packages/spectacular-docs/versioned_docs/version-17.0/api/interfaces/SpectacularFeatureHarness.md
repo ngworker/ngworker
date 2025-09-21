@@ -1,7 +1,6 @@
 # Interface: SpectacularFeatureHarness
 
-Defined in:
-[packages/spectacular/src/lib/feature-testing/feature-harness/spectacular-feature-harness.ts:10](https://github.com/ngworker/ngworker/blob/68f93463b2af844af0ea290a92a5168b936997ae/packages/spectacular/src/lib/feature-testing/feature-harness/spectacular-feature-harness.ts#L10)
+Defined in: [packages/spectacular/src/lib/feature-testing/feature-harness/spectacular-feature-harness.ts:10](https://github.com/ngworker/ngworker/blob/68f93463b2af844af0ea290a92a5168b936997ae/packages/spectacular/src/lib/feature-testing/feature-harness/spectacular-feature-harness.ts#L10)
 
 A harness for testing an Angular feature module.
 
@@ -9,24 +8,19 @@ A harness for testing an Angular feature module.
 
 ### location
 
-> `readonly` **location**:
-> [`SpectacularFeatureLocation`](../classes/SpectacularFeatureLocation.md)
+> `readonly` **location**: [`SpectacularFeatureLocation`](../classes/SpectacularFeatureLocation.md)
 
-Defined in:
-[packages/spectacular/src/lib/feature-testing/feature-harness/spectacular-feature-harness.ts:77](https://github.com/ngworker/ngworker/blob/68f93463b2af844af0ea290a92a5168b936997ae/packages/spectacular/src/lib/feature-testing/feature-harness/spectacular-feature-harness.ts#L77)
+Defined in: [packages/spectacular/src/lib/feature-testing/feature-harness/spectacular-feature-harness.ts:77](https://github.com/ngworker/ngworker/blob/68f93463b2af844af0ea290a92a5168b936997ae/packages/spectacular/src/lib/feature-testing/feature-harness/spectacular-feature-harness.ts#L77)
 
-A subset of Angular's `Location` service adjusted to the Angular feature module
-under test.
+A subset of Angular's `Location` service adjusted to the Angular feature module under test.
 
 ---
 
 ### rootComponent
 
-> `readonly` **rootComponent**:
-> [`SpectacularAppComponent`](../classes/SpectacularAppComponent.md)
+> `readonly` **rootComponent**: [`SpectacularAppComponent`](../classes/SpectacularAppComponent.md)
 
-Defined in:
-[packages/spectacular/src/lib/feature-testing/feature-harness/spectacular-feature-harness.ts:81](https://github.com/ngworker/ngworker/blob/68f93463b2af844af0ea290a92a5168b936997ae/packages/spectacular/src/lib/feature-testing/feature-harness/spectacular-feature-harness.ts#L81)
+Defined in: [packages/spectacular/src/lib/feature-testing/feature-harness/spectacular-feature-harness.ts:81](https://github.com/ngworker/ngworker/blob/68f93463b2af844af0ea290a92a5168b936997ae/packages/spectacular/src/lib/feature-testing/feature-harness/spectacular-feature-harness.ts#L81)
 
 The bootstrapped component.
 
@@ -34,11 +28,9 @@ The bootstrapped component.
 
 ### rootFixture
 
-> `readonly` **rootFixture**:
-> `ComponentFixture`\<[`SpectacularAppComponent`](../classes/SpectacularAppComponent.md)\>
+> `readonly` **rootFixture**: `ComponentFixture`\<[`SpectacularAppComponent`](../classes/SpectacularAppComponent.md)\>
 
-Defined in:
-[packages/spectacular/src/lib/feature-testing/feature-harness/spectacular-feature-harness.ts:85](https://github.com/ngworker/ngworker/blob/68f93463b2af844af0ea290a92a5168b936997ae/packages/spectacular/src/lib/feature-testing/feature-harness/spectacular-feature-harness.ts#L85)
+Defined in: [packages/spectacular/src/lib/feature-testing/feature-harness/spectacular-feature-harness.ts:85](https://github.com/ngworker/ngworker/blob/68f93463b2af844af0ea290a92a5168b936997ae/packages/spectacular/src/lib/feature-testing/feature-harness/spectacular-feature-harness.ts#L85)
 
 The component fixture for the bootstrapped component.
 
@@ -46,14 +38,11 @@ The component fixture for the bootstrapped component.
 
 ### router
 
-> `readonly` **router**:
-> [`SpectacularFeatureRouter`](../classes/SpectacularFeatureRouter.md)
+> `readonly` **router**: [`SpectacularFeatureRouter`](../classes/SpectacularFeatureRouter.md)
 
-Defined in:
-[packages/spectacular/src/lib/feature-testing/feature-harness/spectacular-feature-harness.ts:90](https://github.com/ngworker/ngworker/blob/68f93463b2af844af0ea290a92a5168b936997ae/packages/spectacular/src/lib/feature-testing/feature-harness/spectacular-feature-harness.ts#L90)
+Defined in: [packages/spectacular/src/lib/feature-testing/feature-harness/spectacular-feature-harness.ts:90](https://github.com/ngworker/ngworker/blob/68f93463b2af844af0ea290a92a5168b936997ae/packages/spectacular/src/lib/feature-testing/feature-harness/spectacular-feature-harness.ts#L90)
 
-A subset of Angular's `Router` API adjusted to the Angular feature module under
-test.
+A subset of Angular's `Router` API adjusted to the Angular feature module under test.
 
 ## Methods
 
@@ -63,8 +52,7 @@ test.
 
 > **inject**\<`T`\>(`token`, `notFoundValue`, `options`): `T`
 
-Defined in:
-[packages/spectacular/src/lib/feature-testing/feature-harness/spectacular-feature-harness.ts:22](https://github.com/ngworker/ngworker/blob/68f93463b2af844af0ea290a92a5168b936997ae/packages/spectacular/src/lib/feature-testing/feature-harness/spectacular-feature-harness.ts#L22)
+Defined in: [packages/spectacular/src/lib/feature-testing/feature-harness/spectacular-feature-harness.ts:22](https://github.com/ngworker/ngworker/blob/68f93463b2af844af0ea290a92a5168b936997ae/packages/spectacular/src/lib/feature-testing/feature-harness/spectacular-feature-harness.ts#L22)
 
 Resolve a dependency based on the specified dependency injection token.
 
@@ -86,8 +74,7 @@ The token representing the dependency, that is a class or an `InjectionToken`.
 
 `undefined`
 
-The default value in case the specified dependency has not been provided.
-Optional. Default is `null`.
+The default value in case the specified dependency has not been provided. Optional. Default is `null`.
 
 ###### options
 
@@ -109,8 +96,7 @@ When the `notFoundValue` is `undefined` or `Injector.THROW_IF_NOT_FOUND`
 
 > **inject**\<`T`\>(`token`, `notFoundValue`, `options`): `null` \| `T`
 
-Defined in:
-[packages/spectacular/src/lib/feature-testing/feature-harness/spectacular-feature-harness.ts:29](https://github.com/ngworker/ngworker/blob/68f93463b2af844af0ea290a92a5168b936997ae/packages/spectacular/src/lib/feature-testing/feature-harness/spectacular-feature-harness.ts#L29)
+Defined in: [packages/spectacular/src/lib/feature-testing/feature-harness/spectacular-feature-harness.ts:29](https://github.com/ngworker/ngworker/blob/68f93463b2af844af0ea290a92a5168b936997ae/packages/spectacular/src/lib/feature-testing/feature-harness/spectacular-feature-harness.ts#L29)
 
 ##### Type Parameters
 
@@ -140,8 +126,7 @@ Defined in:
 
 > **inject**\<`T`\>(`token`, `notFoundValue?`, `options?`): `T`
 
-Defined in:
-[packages/spectacular/src/lib/feature-testing/feature-harness/spectacular-feature-harness.ts:34](https://github.com/ngworker/ngworker/blob/68f93463b2af844af0ea290a92a5168b936997ae/packages/spectacular/src/lib/feature-testing/feature-harness/spectacular-feature-harness.ts#L34)
+Defined in: [packages/spectacular/src/lib/feature-testing/feature-harness/spectacular-feature-harness.ts:34](https://github.com/ngworker/ngworker/blob/68f93463b2af844af0ea290a92a5168b936997ae/packages/spectacular/src/lib/feature-testing/feature-harness/spectacular-feature-harness.ts#L34)
 
 ##### Type Parameters
 
@@ -171,8 +156,7 @@ Defined in:
 
 > **inject**\<`T`\>(`token`, `notFoundValue?`, `flags?`): `T`
 
-Defined in:
-[packages/spectacular/src/lib/feature-testing/feature-harness/spectacular-feature-harness.ts:53](https://github.com/ngworker/ngworker/blob/68f93463b2af844af0ea290a92a5168b936997ae/packages/spectacular/src/lib/feature-testing/feature-harness/spectacular-feature-harness.ts#L53)
+Defined in: [packages/spectacular/src/lib/feature-testing/feature-harness/spectacular-feature-harness.ts:53](https://github.com/ngworker/ngworker/blob/68f93463b2af844af0ea290a92a5168b936997ae/packages/spectacular/src/lib/feature-testing/feature-harness/spectacular-feature-harness.ts#L53)
 
 Resolve a dependency based on the specified dependency injection token.
 
@@ -194,16 +178,13 @@ The token representing the dependency, that is a class or an `InjectionToken`.
 
 `T`
 
-The default value in case the specified dependency has not been provided.
-Optional. Default is `null`.
+The default value in case the specified dependency has not been provided. Optional. Default is `null`.
 
 ###### flags?
 
 `InjectFlags`
 
-Dependency injection options, for example
-`InjectFlags.Optional | InjectFlags.SkipSelf`. Optional. Default is
-`InjectFlags.Default`.
+Dependency injection options, for example `InjectFlags.Optional | InjectFlags.SkipSelf`. Optional. Default is `InjectFlags.Default`.
 
 ##### Returns
 
@@ -223,8 +204,7 @@ Use object-based flags (`InjectOptions`) instead.
 
 > **inject**\<`T`\>(`token`, `notFoundValue`, `flags?`): `null` \| `T`
 
-Defined in:
-[packages/spectacular/src/lib/feature-testing/feature-harness/spectacular-feature-harness.ts:68](https://github.com/ngworker/ngworker/blob/68f93463b2af844af0ea290a92a5168b936997ae/packages/spectacular/src/lib/feature-testing/feature-harness/spectacular-feature-harness.ts#L68)
+Defined in: [packages/spectacular/src/lib/feature-testing/feature-harness/spectacular-feature-harness.ts:68](https://github.com/ngworker/ngworker/blob/68f93463b2af844af0ea290a92a5168b936997ae/packages/spectacular/src/lib/feature-testing/feature-harness/spectacular-feature-harness.ts#L68)
 
 Resolve a dependency based on the specified dependency injection token.
 
@@ -246,16 +226,13 @@ The token representing the dependency, that is a class or an `InjectionToken`.
 
 `null`
 
-The default value in case the specified dependency has not been provided.
-Optional. Default is `null`.
+The default value in case the specified dependency has not been provided. Optional. Default is `null`.
 
 ###### flags?
 
 `InjectFlags`
 
-Dependency injection options, for example
-`InjectFlags.Optional | InjectFlags.SkipSelf`. Optional. Default is
-`InjectFlags.Default`.
+Dependency injection options, for example `InjectFlags.Optional | InjectFlags.SkipSelf`. Optional. Default is `InjectFlags.Default`.
 
 ##### Returns
 

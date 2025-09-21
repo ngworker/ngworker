@@ -10,6 +10,6 @@ A type that represents a tree-shakable Spectacular Feature Testing feature.
 
 ## Type parameters
 
-| Name           | Type                                                                                               |
-| :------------- | :------------------------------------------------------------------------------------------------- |
+| Name | Type |
+| :-- | :-- |
 | `TFeatureKind` | extends [`SpectacularFeatureTestingFeatureKind`](../enums/SpectacularFeatureTestingFeatureKind.md) |

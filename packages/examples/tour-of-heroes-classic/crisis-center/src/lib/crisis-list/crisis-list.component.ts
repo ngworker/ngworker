@@ -16,9 +16,12 @@ export class CrisisListComponent {
     switchMap(params => {
       this.selectedId = +(params.get('id') ?? '-1');
       return this.service.getCrises();
-    })
+    }),
   );
   selectedId = -1;
 
-  constructor(private service: CrisisService, private route: ActivatedRoute) {}
+  constructor(
+    private service: CrisisService,
+    private route: ActivatedRoute,
+  ) {}
 }

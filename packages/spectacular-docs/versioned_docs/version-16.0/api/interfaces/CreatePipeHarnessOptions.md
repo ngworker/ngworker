@@ -26,18 +26,13 @@ Angular pipe harness options.
 
 • `Optional` **declarations**: (`any`[] \| `Type`\<`any`\>)[]
 
-The set of components, directives, and pipes
-([declarables](https://v16.angular.io/guide/glossary#declarable)) that belong to
-this module.
+The set of components, directives, and pipes ([declarables](https://v16.angular.io/guide/glossary#declarable)) that belong to this module.
 
 **`Usage Notes`**
 
-The set of selectors that are available to a template include those declared
-here, and those that are exported from imported NgModules.
+The set of selectors that are available to a template include those declared here, and those that are exported from imported NgModules.
 
-Declarables must belong to exactly one module. The compiler emits an error if
-you try to declare the same class in more than one module. Be careful not to
-declare a class that is imported from another module.
+Declarables must belong to exactly one module. The compiler emits an error if you try to declare the same class in more than one module. Be careful not to declare a class that is imported from another module.
 
 ### Example
 
@@ -62,24 +57,17 @@ node_modules/@angular/core/index.d.ts:5705
 
 ### imports
 
-• `Optional` **imports**: (`any`[] \| `Type`\<`any`\> \|
-`ModuleWithProviders`\<{}\>)[]
+• `Optional` **imports**: (`any`[] \| `Type`\<`any`\> \| `ModuleWithProviders`\<{}\>)[]
 
-The set of NgModules whose exported
-[declarables](https://v16.angular.io/guide/glossary#declarable) are available to
-templates in this module.
+The set of NgModules whose exported [declarables](https://v16.angular.io/guide/glossary#declarable) are available to templates in this module.
 
 **`Usage Notes`**
 
-A template can use exported declarables from any imported module, including
-those from modules that are imported indirectly and re-exported. For example,
-`ModuleA` imports `ModuleB`, and also exports it, which makes the declarables
-from `ModuleB` available wherever `ModuleA` is imported.
+A template can use exported declarables from any imported module, including those from modules that are imported indirectly and re-exported. For example, `ModuleA` imports `ModuleB`, and also exports it, which makes the declarables from `ModuleB` available wherever `ModuleA` is imported.
 
 ### Example
 
-The following example allows MainModule to use anything exported by
-`CommonModule`:
+The following example allows MainModule to use anything exported by `CommonModule`:
 
 ```javascript
 @NgModule({
@@ -135,22 +123,13 @@ The set of injectable objects that are available in the injector of this module.
 
 **`Usage Notes`**
 
-Dependencies whose providers are listed here become available for injection into
-any component, directive, pipe or service that is a child of this injector. The
-NgModule used for bootstrapping uses the root injector, and can provide
-dependencies to any part of the app.
+Dependencies whose providers are listed here become available for injection into any component, directive, pipe or service that is a child of this injector. The NgModule used for bootstrapping uses the root injector, and can provide dependencies to any part of the app.
 
-A lazy-loaded module has its own injector, typically a child of the app root
-injector. Lazy-loaded services are scoped to the lazy-loaded module's injector.
-If a lazy-loaded module also provides the `UserService`, any component created
-within that module's context (such as by router navigation) gets the local
-instance of the service, not the instance in the root injector. Components in
-external modules continue to receive the instance provided by their injectors.
+A lazy-loaded module has its own injector, typically a child of the app root injector. Lazy-loaded services are scoped to the lazy-loaded module's injector. If a lazy-loaded module also provides the `UserService`, any component created within that module's context (such as by router navigation) gets the local instance of the service, not the instance in the root injector. Components in external modules continue to receive the instance provided by their injectors.
 
 ### Example
 
-The following example defines a class that is injected in the HelloWorld
-NgModule:
+The following example defines a class that is injected in the HelloWorld NgModule:
 
 ```
 class Greeter {
@@ -187,8 +166,7 @@ node_modules/@angular/core/index.d.ts:5678
 
 • `Optional` `Readonly` **template**: `string`
 
-The template used to test the Angular pipe, for example
-`'{{ value | camelize }}'`.
+The template used to test the Angular pipe, for example `'{{ value | camelize }}'`.
 
 NOTE! The `value` property is in context of the template.
 

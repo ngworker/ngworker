@@ -16,7 +16,7 @@ export enum SpectacularFeatureTestingFeatureKind {
  * A type that represents a tree-shakable Spectacular Feature Testing feature.
  */
 export interface SpectacularFeatureTestingFeature<
-  TFeatureKind extends SpectacularFeatureTestingFeatureKind
+  TFeatureKind extends SpectacularFeatureTestingFeatureKind,
 > {
   /**
    * For debugging purposes.

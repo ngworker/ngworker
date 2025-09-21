@@ -6,8 +6,7 @@ sidebar_position: 0
 custom_edit_url: null
 ---
 
-Options for
-[provideSpectacularFeatureTesting](../modules.md#providespectacularfeaturetesting).
+Options for [provideSpectacularFeatureTesting](../modules.md#providespectacularfeaturetesting).
 
 ## Properties
 
@@ -15,8 +14,7 @@ Options for
 
 • `Readonly` **featurePath**: `string`
 
-The path prefix used to load the routes of the specified Angular feature, for
-example `'heroes'`.
+The path prefix used to load the routes of the specified Angular feature, for example `'heroes'`.
 
 #### Defined in
 
@@ -30,8 +28,7 @@ example `'heroes'`.
 
 One or more feature routes to load.
 
-NOTE! It is unnecessary to lazy-load feature modules in tests, so we can
-statically return an Angular module from the `loadChildren` callback.
+NOTE! It is unnecessary to lazy-load feature modules in tests, so we can statically return an Angular module from the `loadChildren` callback.
 
 **`Example`**
 

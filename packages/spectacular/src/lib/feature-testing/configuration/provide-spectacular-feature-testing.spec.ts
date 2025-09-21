@@ -43,7 +43,7 @@ import { withInitialFeatureNavigation } from './with-initial-feature-navigation'
 class TestChildComponent {
   readonly title$: Observable<string | null> = inject(ActivatedRoute).data.pipe(
     map(data => data['title']),
-    map(x => x ?? null)
+    map(x => x ?? null),
   );
 }
 
@@ -181,7 +181,7 @@ describe(provideSpectacularFeatureTesting.name, () => {
         await router.navigate([feature.featurePath]);
 
         expect(location.pathname).not.toBe('/crisis-center');
-      }
+      },
     );
   });
 
@@ -210,7 +210,7 @@ describe(provideSpectacularFeatureTesting.name, () => {
             withInitialFeatureNavigation(),
             withRouterConfig({
               paramsInheritanceStrategy: 'always',
-            })
+            }),
           ),
         ],
       });
@@ -219,7 +219,7 @@ describe(provideSpectacularFeatureTesting.name, () => {
       await router.navigateByUrl('~/child');
 
       const childTitle = (rootFixture.debugElement.query(
-        By.css('#test-child-title')
+        By.css('#test-child-title'),
       )?.nativeElement ?? null) as HTMLElement | null;
       expect(childTitle?.textContent).toBe('Family tree');
     });
@@ -233,14 +233,14 @@ describe(provideSpectacularFeatureTesting.name, () => {
           providers: [
             provideSpectacularFeatureTesting(
               feature,
-              withInitialFeatureNavigation()
+              withInitialFeatureNavigation(),
             ),
           ],
         });
 
         const angularLocation = TestBed.inject(Location);
         expect(angularLocation.path()).toBe('/crisis-center');
-      }
+      },
     );
   });
 });

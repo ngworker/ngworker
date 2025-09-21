@@ -6,18 +6,15 @@ sidebar_position: 0
 custom_edit_url: null
 ---
 
-Configure the `RouterTestingModule` and provide Spectactular services for
-testing feature modules.
+Configure the `RouterTestingModule` and provide Spectactular services for testing feature modules.
 
 NOTE! Do not import directly. Use `SpectacularFeatureTestingModule.withFeature`.
 
-NOTE! Prefer to use `createFeatureHarness`. This Angular module is a low level
-building block in case you need more control over your test setup.
+NOTE! Prefer to use `createFeatureHarness`. This Angular module is a low level building block in case you need more control over your test setup.
 
 **`Deprecated`**
 
-Deprecated in favor of `provideSpectacularFeatureTest`. To be removed in
-Spectacular version 16.
+Deprecated in favor of `provideSpectacularFeatureTest`. To be removed in Spectacular version 16.
 
 ## Constructors
 
@@ -33,21 +30,18 @@ Spectacular version 16.
 
 ### withFeature
 
-▸ `Static` **withFeature**(`options`):
-`ModuleWithProviders`\<[`SpectacularFeatureTestingRootModule`](SpectacularFeatureTestingRootModule.md)\>
+▸ `Static` **withFeature**(`options`): `ModuleWithProviders`\<[`SpectacularFeatureTestingRootModule`](SpectacularFeatureTestingRootModule.md)\>
 
-Configure the `RouterTestingModule` and provide Spectactular services for
-testing feature modules.
+Configure the `RouterTestingModule` and provide Spectactular services for testing feature modules.
 
 **`Deprecated`**
 
-Deprecated in favor of `provideSpectacularFeatureTest`. To be removed in
-Spectacular version 16.
+Deprecated in favor of `provideSpectacularFeatureTest`. To be removed in Spectacular version 16.
 
 #### Parameters
 
-| Name      | Type                                                                                                |
-| :-------- | :-------------------------------------------------------------------------------------------------- |
+| Name | Type |
+| :-- | :-- |
 | `options` | [`SpectacularFeatureTestingModuleOptions`](../interfaces/SpectacularFeatureTestingModuleOptions.md) |
 
 #### Returns

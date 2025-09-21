@@ -19,7 +19,7 @@ export class CrisisDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    public dialogService: DialogService
+    public dialogService: DialogService,
   ) {}
 
   ngOnInit() {

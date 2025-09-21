@@ -8,29 +8,17 @@ title: Feature testing using Spectacular
 import ExampleAngularFeature from './_example-angular-feature.md';
 import FeatureTests from './_feature-tests-spectacular-angular-testbed.mdx';
 
-Spectacular's feature testing API configures the Angular testing module and sets
-up a test harness for a routed Angular feature. It contains a few companion
-services that wrap Angular's built-in navigation services, but adjusted to the
-Angular feature under test.
+Spectacular's feature testing API configures the Angular testing module and sets up a test harness for a routed Angular feature. It contains a few companion services that wrap Angular's built-in navigation services, but adjusted to the Angular feature under test.
 
-The feature test harness is used to test standalone feature routes, routed
-feature modules, and shell modules.
+The feature test harness is used to test standalone feature routes, routed feature modules, and shell modules.
 
 ## Feature tests
 
-The purpose of feature tests is to test a part of our application _as a user_,
-that is by interacting with the DOM both to trigger side effects and assert
-their observable outcome from a user perspective.
+The purpose of feature tests is to test a part of our application _as a user_, that is by interacting with the DOM both to trigger side effects and assert their observable outcome from a user perspective.
 
-Spectacular does not provide an API for interacting with the DOM. We can use
-Angular's testing APIs such as debug elements for this. Alternatively, we
-[combine Spectacular with Angular Testing Library](feature-testing/angular-testing-library)
-or Angular component harnesses.
+Spectacular does not provide an API for interacting with the DOM. We can use Angular's testing APIs such as debug elements for this. Alternatively, we [combine Spectacular with Angular Testing Library](feature-testing/angular-testing-library) or Angular component harnesses.
 
-The scope of a feature test is a routed Angular module or standalone routes.
-They can contain multiple routed components, multiple routing components, route
-guards, route resolvers, and multiple services in addition to the components and
-the directives, components, and pipes used in their component template.
+The scope of a feature test is a routed Angular module or standalone routes. They can contain multiple routed components, multiple routing components, route guards, route resolvers, and multiple services in addition to the components and the directives, components, and pipes used in their component template.
 
 A feature test uses real routing services and data structures such as:
 
@@ -42,18 +30,9 @@ A feature test uses real routing services and data structures such as:
 - `RouterStateSnapshot`
 - `UrlTree`
 
-In a single test case, it's possible to navigate around the entire Angular
-feature. We can perform full user flows if it makes sense or we can assert one
-step at a time without having to worry about setting up complex test doubles for
-routing and navigation.
+In a single test case, it's possible to navigate around the entire Angular feature. We can perform full user flows if it makes sense or we can assert one step at a time without having to worry about setting up complex test doubles for routing and navigation.
 
-The feature testing harness provides convenience wrappers for the `Location` and
-`Router` services, namely the
-[`SpectacularFeatureLocation`](../api/classes/SpectacularFeatureLocation.md) and
-[`SpectacularFeatureRouter`](../api/classes/SpectacularFeatureRouter.md)
-services, respectively. They allow to navigate relatively to the root feature
-route and query for the activated route path relative to the root feature route.
-The tilde (`~`) character denotes a feature-relative route path.
+The feature testing harness provides convenience wrappers for the `Location` and `Router` services, namely the [`SpectacularFeatureLocation`](../api/classes/SpectacularFeatureLocation.md) and [`SpectacularFeatureRouter`](../api/classes/SpectacularFeatureRouter.md) services, respectively. They allow to navigate relatively to the root feature route and query for the activated route path relative to the root feature route. The tilde (`~`) character denotes a feature-relative route path.
 
 ## Example Angular feature
 
@@ -61,9 +40,7 @@ The tilde (`~`) character denotes a feature-relative route path.
 
 ## Setting up an Angular feature integration test with Spectacular
 
-Spectacular's feature testing API takes care of tedious and error-prone test
-setup. Notice in the following code snippet how we pass the routed feature under
-test as well as the route path used to load it in our application:
+Spectacular's feature testing API takes care of tedious and error-prone test setup. Notice in the following code snippet how we pass the routed feature under test as well as the route path used to load it in our application:
 
 ```ts {14,16}
 import {
@@ -93,28 +70,17 @@ describe('Tour of Heroes: Crisis center integration tests', () => {
 });
 ```
 
-The `createFeatureHarness` function takes care of all the test setup steps we
-reviewed in the previous section to the point that there's no need to import
-from any Angular package.
+The `createFeatureHarness` function takes care of all the test setup steps we reviewed in the previous section to the point that there's no need to import from any Angular package.
 
-Spectacular is straight to the point: We tell it the scope of what we're
-testing, in this case the crisis center feature. Spectacular takes care of the
-test setup behind the scenes so that we can focus on writing tests.
+Spectacular is straight to the point: We tell it the scope of what we're testing, in this case the crisis center feature. Spectacular takes care of the test setup behind the scenes so that we can focus on writing tests.
 
 ## Testing a complete user flow with Spectacular
 
-Spectacular doesn't offer an API for interacting with or inspecting the DOM. To
-make this easier,
-[combine Spectacular with Angular Testing Library](./angular-testing-library.mdx)
-or Angular component harnesses.
+Spectacular doesn't offer an API for interacting with or inspecting the DOM. To make this easier, [combine Spectacular with Angular Testing Library](./angular-testing-library.mdx) or Angular component harnesses.
 
-While Spectacular does not offer APIs for interacting with or inspecting the
-DOM, it does, however, takes care of certain boilerplate code that shows up in
-common scenarios.
+While Spectacular does not offer APIs for interacting with or inspecting the DOM, it does, however, takes care of certain boilerplate code that shows up in common scenarios.
 
-When comparing a feature test using Spectacular to
-[a feature test using Angular testbed](./angular-testbed.mdx#reviewing-a-feature-test-using-the-angular-testbed),
-we notice a few convenience APIs in use:
+When comparing a feature test using Spectacular to [a feature test using Angular testbed](./angular-testbed.mdx#reviewing-a-feature-test-using-the-angular-testbed), we notice a few convenience APIs in use:
 
 ```ts
 describe('Editing a crisis', () => {
@@ -129,7 +95,7 @@ describe('Editing a crisis', () => {
         .map(button => button.nativeElement)
         .find(
           (buttonElement: HTMLButtonElement) =>
-            buttonElement.textContent?.trim() === 'Save'
+            buttonElement.textContent?.trim() === 'Save',
         );
     const newCrisisName = 'Global climate crisis';
 
@@ -139,14 +105,14 @@ describe('Editing a crisis', () => {
     await harness.rootFixture.whenStable();
 
     const welcomeText: HTMLElement = harness.rootFixture.debugElement.query(
-      By.css('p')
+      By.css('p'),
     ).nativeElement;
     const selectedCrisis: HTMLElement = harness.rootFixture.debugElement.query(
-      By.css('.selected')
+      By.css('.selected'),
     ).nativeElement;
     expect(welcomeText.textContent).toBe('Welcome to the Crisis Center');
     expect(selectedCrisis.textContent?.trim()).toBe(
-      `${aCrisis.id}${newCrisisName}`
+      `${aCrisis.id}${newCrisisName}`,
     );
     expect(harness.location.path()).toBe(`~/;id=${aCrisis.id};foo=foo`); // [3]
   });
@@ -154,28 +120,18 @@ describe('Editing a crisis', () => {
 ```
 
 1. We don't have to navigate in the context of an NgZone.
-2. When navigating, we use the feature-relative route symbol (`~`) instead of
-   repeating the feature route path.
-3. When inspecting the application path, we use the feature-relative route
-   symbol (`~`) instead of repeating the feature route path.
+2. When navigating, we use the feature-relative route symbol (`~`) instead of repeating the feature route path.
+3. When inspecting the application path, we use the feature-relative route symbol (`~`) instead of repeating the feature route path.
 
-A feature harness offers feature-aware router and location services in its
-`router` and `location` properties. They are synchronized with Angular's
-corresponding services which they wrap.
+A feature harness offers feature-aware router and location services in its `router` and `location` properties. They are synchronized with Angular's corresponding services which they wrap.
 
 ## Spectacular benefits
 
-In this page, we saw how to set up a testing root component, register a routed
-feature module with the Angular testing module, initialize feature navigation,
-navigate to a feature route, interact with the DOM, and inspect the application
-path.
+In this page, we saw how to set up a testing root component, register a routed feature module with the Angular testing module, initialize feature navigation, navigate to a feature route, interact with the DOM, and inspect the application path.
 
-We first explored the intricate setup needed for a feature test when using the
-Angular testbed. Afterwards, we compared that to the lightweight setup offered
-by Spectacular's feature testing API.
+We first explored the intricate setup needed for a feature test when using the Angular testbed. Afterwards, we compared that to the lightweight setup offered by Spectacular's feature testing API.
 
-Finally, we saw how Spectacular adds convenience APIs to remove common
-boilerplate from feature tests.
+Finally, we saw how Spectacular adds convenience APIs to remove common boilerplate from feature tests.
 
 Spectacular offers:
 
@@ -186,14 +142,9 @@ Spectacular offers:
 - Feature tests that are faster than end-to-end tests
 - The flexibility to access or replace Angular services as needed
 
-You might have noticed that Spectacular doesn't have APIs for interacting with
-or inspecting our application's DOM. However, Spectacular's feature testing API
-was built with compatibility in mind. Spectacular can be
-[integrated with Angular Testing Library](feature-testing/angular-testing-library)
-or Angular component test harnesses.
+You might have noticed that Spectacular doesn't have APIs for interacting with or inspecting our application's DOM. However, Spectacular's feature testing API was built with compatibility in mind. Spectacular can be [integrated with Angular Testing Library](feature-testing/angular-testing-library) or Angular component test harnesses.
 
-Visit the other pages in this section to learn about other use cases supported
-by Spectacular's feature testing API.
+Visit the other pages in this section to learn about other use cases supported by Spectacular's feature testing API.
 
 ## Appendix A: Complete feature test suites
 

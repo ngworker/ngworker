@@ -30,7 +30,7 @@ export class SpectacularAppComponent {
   getActiveComponent<TActiveComponent>(): TActiveComponent {
     if (!this.routerOutlet) {
       throw new Error(
-        'SpectacularAppComponent#getActiveComponent called before its view child is available.'
+        'SpectacularAppComponent#getActiveComponent called before its view child is available.',
       );
     }
 

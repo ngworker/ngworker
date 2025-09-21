@@ -15,7 +15,7 @@ describe(ensureLeadingCharacter.name, () => {
 
     const singleCharacter = ensureLeadingCharacter(
       leadingCharacter,
-      leadingCharacter
+      leadingCharacter,
     );
 
     expect(singleCharacter).toBe(leadingCharacter);

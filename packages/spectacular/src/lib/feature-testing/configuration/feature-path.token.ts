@@ -6,7 +6,7 @@ import { InjectionToken } from '@angular/core';
  * feature testing services.
  */
 export const featurePathToken = new InjectionToken<string>(
-  '__SPECTACULAR_INTERNAL_FEATURE_PATH__'
+  '__SPECTACULAR_INTERNAL_FEATURE_PATH__',
 );
 
 export function provideFeaturePath(featurePath: string): Provider {

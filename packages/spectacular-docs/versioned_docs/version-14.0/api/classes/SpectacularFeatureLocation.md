@@ -6,8 +6,7 @@ sidebar_position: 0
 custom_edit_url: null
 ---
 
-A subset of Angular's `Location` service adjusted to the Angular feature module
-under test.
+A subset of Angular's `Location` service adjusted to the Angular feature module under test.
 
 ## Constructors
 
@@ -21,16 +20,15 @@ under test.
 
 ▸ **path**(`includeHash?`): `string`
 
-Normalizes the URL path for this location. URLs within the Angular feature
-module under test are prefixed with tilde (`~`).
+Normalizes the URL path for this location. URLs within the Angular feature module under test are prefixed with tilde (`~`).
 
 Wraps `Location#path`.
 
 #### Parameters
 
-| Name          | Type      | Default value | Description                                                                   |
-| :------------ | :-------- | :------------ | :---------------------------------------------------------------------------- |
-| `includeHash` | `boolean` | `false`       | True to include an anchor fragment in the path. Optional. Default is `false`. |
+| Name | Type | Default value | Description |
+| :-- | :-- | :-- | :-- |
+| `includeHash` | `boolean` | `false` | True to include an anchor fragment in the path. Optional. Default is `false`. |
 
 #### Returns
 

@@ -61,7 +61,7 @@ export class SpectacularFeatureRouter {
    */
   navigateByUrl(
     url: string | UrlTree,
-    extras?: NavigationExtras
+    extras?: NavigationExtras,
   ): Promise<boolean> {
     if (typeof url !== 'string') {
       // url is UrlTree
