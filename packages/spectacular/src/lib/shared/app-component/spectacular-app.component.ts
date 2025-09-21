@@ -14,7 +14,7 @@ export const spectacularAppTag = 'spectacular-app';
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: spectacularAppTag,
   imports: [RouterOutlet],
-  template: '<router-outlet></router-outlet>',
+  template: '<router-outlet />',
 })
 export class SpectacularAppComponent {
   /**
