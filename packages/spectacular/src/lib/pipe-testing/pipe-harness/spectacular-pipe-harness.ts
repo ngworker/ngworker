@@ -42,17 +42,17 @@ export abstract class SpectacularPipeHarness<TValue> {
     notFoundValue: undefined,
     options: InjectOptions & {
       optional?: false;
-    }
+    },
   ): T;
   abstract inject<T>(
     token: ProviderToken<T>,
     notFoundValue: null | undefined,
-    options: InjectOptions
+    options: InjectOptions,
   ): T | null;
   abstract inject<T>(
     token: ProviderToken<T>,
     notFoundValue?: T,
-    options?: InjectOptions
+    options?: InjectOptions,
   ): T;
   /**
    * Resolve a dependency based on the specified dependency injection token.
@@ -71,7 +71,7 @@ export abstract class SpectacularPipeHarness<TValue> {
   abstract inject<T>(
     token: ProviderToken<T>,
     notFoundValue?: T,
-    flags?: InjectFlags
+    flags?: InjectFlags,
   ): T;
   /**
    * Resolve a dependency based on the specified dependency injection token.
@@ -90,6 +90,6 @@ export abstract class SpectacularPipeHarness<TValue> {
   abstract inject<T>(
     token: ProviderToken<T>,
     notFoundValue: null,
-    flags?: InjectFlags
+    flags?: InjectFlags,
   ): T | null;
 }

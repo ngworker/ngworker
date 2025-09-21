@@ -1,6 +1,6 @@
 export function trimLeadingText(
   leadingText: string,
-  originalText: string
+  originalText: string,
 ): string {
   const leadingTextCharacterCount = leadingText.length;
 

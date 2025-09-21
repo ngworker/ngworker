@@ -47,7 +47,7 @@ const bootstrapListener: FactoryProvider = {
     (component: ComponentRef<SpectacularAppComponent>): void => {
       if (!(component.instance instanceof SpectacularAppComponent)) {
         throw new Error(
-          'The bootstrapped component is not an instance of SpectacularAppComponent'
+          'The bootstrapped component is not an instance of SpectacularAppComponent',
         );
       }
 

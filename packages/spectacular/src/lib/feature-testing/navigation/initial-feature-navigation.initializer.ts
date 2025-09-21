@@ -9,7 +9,7 @@ import { SpectacularFeatureRouter } from './spectacular-feature-router';
  */
 async function initialFeatureNavigation(
   featureRouter: SpectacularFeatureRouter,
-  featurePath: string
+  featurePath: string,
 ): Promise<void> {
   const didNavigationSucceed = await featureRouter.navigate([featurePath]);
 
@@ -23,7 +23,7 @@ async function initialFeatureNavigation(
  */
 function initialFeatureNavigationFactory(
   featureRouter: SpectacularFeatureRouter,
-  featurePath: string
+  featurePath: string,
 ): () => void {
   const initialFeatureNavigationSync = fakeAsync(() => {
     initialFeatureNavigation(featureRouter, featurePath);

@@ -6,7 +6,7 @@ import { getText } from './get-text';
 import { UserInteractions } from './user-interactions';
 
 export function createUserInteractions<TComponent>(
-  fixture: ComponentFixture<TComponent>
+  fixture: ComponentFixture<TComponent>,
 ): UserInteractions {
   return {
     clickButton: clickButton(fixture),

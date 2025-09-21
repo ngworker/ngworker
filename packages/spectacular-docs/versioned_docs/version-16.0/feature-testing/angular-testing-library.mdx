@@ -277,7 +277,7 @@ describe('Tour of Heroes: Crisis center', () => {
     await navigate(crisisCenterPath + '/' + crisis.id);
 
     expect(
-      await screen.findByRole('heading', { name: new RegExp(crisis.name) })
+      await screen.findByRole('heading', { name: new RegExp(crisis.name) }),
     ).not.toBeNull();
   });
 });
@@ -329,7 +329,7 @@ describe('Tour of Heroes: Crisis center', () => {
     await featureRouter.navigate(['~', crisis.id]);
 
     expect(
-      await screen.findByRole('heading', { name: new RegExp(crisis.name) })
+      await screen.findByRole('heading', { name: new RegExp(crisis.name) }),
     ).not.toBeNull();
   });
 });
@@ -534,12 +534,12 @@ describe('Tour of Heroes: Crisis center', () => {
       await user.click(await screen.findByRole('button', { name: 'Save' }));
 
       expect(
-        await screen.findByText('Welcome to the Crisis Center')
+        await screen.findByText('Welcome to the Crisis Center'),
       ).not.toBeNull();
       expect(
         await screen.findByText(new RegExp(aCrisis.name), {
           selector: '.selected a',
-        })
+        }),
       ).not.toBeNull();
       expect(featureLocation.path()).toBe(`~/;id=${aCrisis.id};foo=foo`);
     });
@@ -590,7 +590,7 @@ describe('Tour of Heroes: Crisis center', () => {
           .map(button => button.nativeElement)
           .find(
             (buttonElement: HTMLButtonElement) =>
-              buttonElement.textContent?.trim() === 'Save'
+              buttonElement.textContent?.trim() === 'Save',
           );
       const newCrisisName = 'Global climate crisis';
 
@@ -600,15 +600,15 @@ describe('Tour of Heroes: Crisis center', () => {
       await harness.rootFixture.whenStable();
 
       const welcomeText: HTMLElement = harness.rootFixture.debugElement.query(
-        By.css('p')
+        By.css('p'),
       ).nativeElement;
       const selectedCrisis: HTMLElement =
         harness.rootFixture.debugElement.query(
-          By.css('.selected')
+          By.css('.selected'),
         ).nativeElement;
       expect(welcomeText.textContent).toBe('Welcome to the Crisis Center');
       expect(selectedCrisis.textContent?.trim()).toBe(
-        `${aCrisis.id}${newCrisisName}`
+        `${aCrisis.id}${newCrisisName}`,
       );
       expect(harness.location.path()).toBe(`~/;id=${aCrisis.id};foo=foo`);
     });
@@ -673,17 +673,17 @@ describe('Tour of Heroes: Crisis center', () => {
     it('navigates to the crisis center home with the crisis selected when the change is saved', async () => {
       const [aCrisis] = crisisService.getCrises().value;
       await rootFixture.ngZone?.run(() =>
-        router.navigate([crisisCenterPath, aCrisis.id])
+        router.navigate([crisisCenterPath, aCrisis.id]),
       );
       const inputElement: HTMLInputElement = rootFixture.debugElement.query(
-        By.css('input')
+        By.css('input'),
       ).nativeElement;
       const saveButtonElement: HTMLButtonElement = rootFixture.debugElement
         .queryAll(By.css('button'))
         .map(button => button.nativeElement)
         .find(
           (buttonElement: HTMLButtonElement) =>
-            buttonElement.textContent?.trim() === 'Save'
+            buttonElement.textContent?.trim() === 'Save',
         );
       const newCrisisName = 'Global climate crisis';
 
@@ -693,17 +693,17 @@ describe('Tour of Heroes: Crisis center', () => {
       await rootFixture.whenStable();
 
       const welcomeText: HTMLElement = rootFixture.debugElement.query(
-        By.css('p')
+        By.css('p'),
       ).nativeElement;
       const selectedCrisis: HTMLElement = rootFixture.debugElement.query(
-        By.css('.selected')
+        By.css('.selected'),
       ).nativeElement;
       expect(welcomeText.textContent).toBe('Welcome to the Crisis Center');
       expect(selectedCrisis.textContent?.trim()).toBe(
-        `${aCrisis.id}${newCrisisName}`
+        `${aCrisis.id}${newCrisisName}`,
       );
       expect(location.path()).toBe(
-        `/${crisisCenterPath};id=${aCrisis.id};foo=foo`
+        `/${crisisCenterPath};id=${aCrisis.id};foo=foo`,
       );
     });
   });

@@ -37,10 +37,10 @@ function createPipeComponentTemplate(innerTemplate: string): string {
 }
 
 function createPipeFixture<TValue>(
-  value: Observable<TValue> | TValue | null
+  value: Observable<TValue> | TValue | null,
 ): ComponentFixture<SpectacularPipeComponent<TValue>> {
   const pipeFixture = TestBed.createComponent(
-    SpectacularPipeComponent
+    SpectacularPipeComponent,
   ) as ComponentFixture<SpectacularPipeComponent<TValue>>;
   pipeFixture.componentRef.setInput('value', value);
   pipeFixture.detectChanges();
@@ -54,7 +54,7 @@ function createPipeFixture<TValue>(
  * Test it by updating the value and reading the rendered text.
  */
 export function createPipeHarness<TValue>(
-  options: CreatePipeHarnessOptions<TValue>
+  options: CreatePipeHarnessOptions<TValue>,
 ): SpectacularPipeHarness<TValue> {
   function configureTestbed(template: string): void | never {
     const isStandalonePipe = isStandalone(pipe);
@@ -66,7 +66,7 @@ export function createPipeHarness<TValue>(
     });
     TestBed.overrideTemplateUsingTestingModule(
       SpectacularPipeComponent,
-      createPipeComponentTemplate(template)
+      createPipeComponentTemplate(template),
     );
   }
 
@@ -90,7 +90,7 @@ export function createPipeHarness<TValue>(
     inject: TestBed.inject.bind(TestBed),
     get text(): string {
       const valueElement: HTMLElement = pipeFixture.debugElement.query(
-        By.css(`#${textId}`)
+        By.css(`#${textId}`),
       ).nativeElement;
 
       return valueElement.textContent?.trim() ?? '';

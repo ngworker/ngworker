@@ -22,6 +22,6 @@ export const crisisDetailResolver: ResolveFn<Crisis> = route => {
         router.navigate(['/crisis-center']);
         return EMPTY;
       }
-    })
+    }),
   );
 };

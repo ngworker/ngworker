@@ -148,7 +148,7 @@ describe(createFeatureHarness.name, () => {
       });
 
       expect(harness.rootComponent.getActiveComponent()).toBeInstanceOf(
-        HeroesJobBoardComponent
+        HeroesJobBoardComponent,
       );
     });
 
@@ -163,7 +163,7 @@ describe(createFeatureHarness.name, () => {
       await harness.router.navigate([featurePath]);
 
       expect(harness.rootComponent.getActiveComponent()).toBeInstanceOf(
-        HeroesJobBoardComponent
+        HeroesJobBoardComponent,
       );
     });
 
@@ -178,7 +178,7 @@ describe(createFeatureHarness.name, () => {
       await harness.router.navigate([featurePath, jobListingPath]);
 
       expect(harness.rootComponent.getActiveComponent()).toBeInstanceOf(
-        HeroesJobListingComponent
+        HeroesJobListingComponent,
       );
     });
 

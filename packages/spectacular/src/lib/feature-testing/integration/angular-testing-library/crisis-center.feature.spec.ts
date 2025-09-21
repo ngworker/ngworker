@@ -17,20 +17,20 @@ async function setup() {
     expect(
       await screen.findByText(new RegExp(crisis.name), {
         selector: '.selected a',
-      })
+      }),
     ).not.toBeNull();
   }
 
   async function expectToBeAtTheCrisisCenterHome() {
     expect(
-      await screen.findByText('Welcome to the Crisis Center')
+      await screen.findByText('Welcome to the Crisis Center'),
     ).not.toBeNull();
   }
 
   async function expectToBeEditing(crisis: Crisis) {
     expect(featureLocation.path()).toBe(`~/${crisis.id}`);
     expect(
-      await screen.findByRole('heading', { name: new RegExp(crisis.name) })
+      await screen.findByRole('heading', { name: new RegExp(crisis.name) }),
     ).not.toBeNull();
   }
 
@@ -96,7 +96,7 @@ describe('[Angular Testing Library] Tour of Heroes: Crisis center', () => {
       const { expectToBeAtTheCrisisCenterHome, navigate, unknownCrisis } =
         await setup();
       const didNavigationSucceed = await navigate(
-        crisisCenterPath + '/' + unknownCrisis.id
+        crisisCenterPath + '/' + unknownCrisis.id,
       );
 
       expect(didNavigationSucceed).toBe(false);
@@ -121,7 +121,7 @@ describe('[Angular Testing Library] Tour of Heroes: Crisis center', () => {
           const { user } = testUtilities;
 
           await user.click(
-            await screen.findByRole('button', { name: 'Cancel' })
+            await screen.findByRole('button', { name: 'Cancel' }),
           );
 
           return testUtilities;

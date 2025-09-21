@@ -41,7 +41,7 @@ export interface CreateFeatureHarnessOptions
  * and navigate to the default feature route.
  */
 export function createFeatureHarness(
-  options: CreateFeatureHarnessOptions
+  options: CreateFeatureHarnessOptions,
 ): SpectacularFeatureHarness {
   const {
     featurePath,
@@ -61,7 +61,7 @@ export function createFeatureHarness(
           routes,
         },
         withInitialFeatureNavigation(),
-        withRouterConfig(routerOptions)
+        withRouterConfig(routerOptions),
       ),
     ],
   });

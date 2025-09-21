@@ -48,7 +48,7 @@ describe(SpectacularFeatureRouter.name, () => {
       const noNavigationOptions = undefined;
       expect(navigateSpy).toHaveBeenCalledWith(
         [featurePath, crisesPath],
-        noNavigationOptions
+        noNavigationOptions,
       );
     });
 
@@ -62,7 +62,7 @@ describe(SpectacularFeatureRouter.name, () => {
       expect(navigateSpy).toHaveBeenCalledTimes(1);
       expect(navigateSpy).toHaveBeenCalledWith(
         [featurePath, crisesPath],
-        navigationOptions
+        navigationOptions,
       );
     });
 
@@ -90,7 +90,7 @@ describe(SpectacularFeatureRouter.name, () => {
       const noNavigationOptions = undefined;
       expect(navigateByUrlSpy).toHaveBeenCalledWith(
         `/${featurePath}/${dashboardPath}`,
-        noNavigationOptions
+        noNavigationOptions,
       );
     });
 
@@ -104,7 +104,7 @@ describe(SpectacularFeatureRouter.name, () => {
       expect(navigateByUrlSpy).toHaveBeenCalledTimes(1);
       expect(navigateByUrlSpy).toHaveBeenCalledWith(
         `/${featurePath}/${dashboardPath}`,
-        navigationOptions
+        navigationOptions,
       );
     });
 
@@ -133,7 +133,7 @@ describe(SpectacularFeatureRouter.name, () => {
       const noNavigationOptions = undefined;
       expect(navigateByUrlSpy).toHaveBeenCalledWith(
         `/${featurePath}/${dashboardPath}`,
-        noNavigationOptions
+        noNavigationOptions,
       );
     });
   });

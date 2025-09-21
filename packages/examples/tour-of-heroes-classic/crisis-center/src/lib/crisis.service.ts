@@ -12,7 +12,7 @@ import { CRISES } from './mock-crises';
 export class CrisisService {
   static nextCrisisId = 100;
   private crises$: BehaviorSubject<Crisis[]> = new BehaviorSubject<Crisis[]>(
-    CRISES
+    CRISES,
   );
 
   constructor(private messageService: MessageService) {}
@@ -23,7 +23,7 @@ export class CrisisService {
 
   getCrisis(id: number | string) {
     return this.getCrises().pipe(
-      map(crises => crises.find(crisis => crisis.id === +id))
+      map(crises => crises.find(crisis => crisis.id === +id)),
     );
   }
 

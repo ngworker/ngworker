@@ -22,17 +22,17 @@ export interface SpectacularApplicationHarness {
     notFoundValue: undefined,
     options: InjectOptions & {
       optional?: false;
-    }
+    },
   ): T;
   inject<T>(
     token: ProviderToken<T>,
     notFoundValue: null | undefined,
-    options: InjectOptions
+    options: InjectOptions,
   ): T | null;
   inject<T>(
     token: ProviderToken<T>,
     notFoundValue?: T,
-    options?: InjectOptions
+    options?: InjectOptions,
   ): T;
   /**
    * Resolve a dependency based on the specified dependency injection token.
@@ -66,7 +66,7 @@ export interface SpectacularApplicationHarness {
   inject<T>(
     token: ProviderToken<T>,
     notFoundValue: null,
-    flags?: InjectFlags
+    flags?: InjectFlags,
   ): T | null;
   /**
    * The bootstrapped component.

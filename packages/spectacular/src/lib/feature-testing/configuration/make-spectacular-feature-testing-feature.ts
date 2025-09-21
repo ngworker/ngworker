@@ -8,7 +8,7 @@ export function makeSpectacularFeatureTestingFeature<
   TFeatureKind extends SpectacularFeatureTestingFeatureKind,
 >(
   kind: TFeatureKind,
-  providers: Provider[]
+  providers: Provider[],
 ): SpectacularFeatureTestingFeature<TFeatureKind> {
   return {
     ɵbrand: 'SpectacularFeatureTestingFeature',
