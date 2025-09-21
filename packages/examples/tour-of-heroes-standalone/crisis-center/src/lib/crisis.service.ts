@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -10,12 +10,12 @@ import { CRISES } from './mock-crises';
   providedIn: 'root',
 })
 export class CrisisService {
+  readonly #messageService = inject(MessageService);
+
   static nextCrisisId = 100;
   private crises$: BehaviorSubject<Crisis[]> = new BehaviorSubject<Crisis[]>(
     CRISES,
   );
-
-  constructor(private messageService: MessageService) {}
 
   getCrises() {
     return this.crises$;
