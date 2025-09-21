@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -14,20 +19,18 @@ import { DialogService } from '../dialog.service';
   styleUrls: ['./crisis-detail.component.css'],
 })
 export class CrisisDetailComponent implements OnInit {
+  readonly #route = inject(ActivatedRoute);
+  readonly #router = inject(Router);
+  readonly dialogService = inject(DialogService);
+
   crisis: Crisis = {
     id: -1,
     name: '',
   };
   editName = '';
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    public dialogService: DialogService,
-  ) {}
-
   ngOnInit() {
-    this.route.data.subscribe(data => {
+    this.#route.data.subscribe(data => {
       const crisis: Crisis = data['crisis'];
       this.editName = crisis.name;
       this.crisis = crisis;
@@ -59,8 +62,8 @@ export class CrisisDetailComponent implements OnInit {
     // so that the CrisisListComponent can select that crisis.
     // Add a totally useless `foo` parameter for kicks.
     // Relative navigation back to the crises
-    this.router.navigate(['../', { id: crisisId, foo: 'foo' }], {
-      relativeTo: this.route,
+    this.#router.navigate(['../', { id: crisisId, foo: 'foo' }], {
+      relativeTo: this.#route,
     });
   }
 }
