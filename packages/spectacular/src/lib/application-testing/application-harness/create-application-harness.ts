@@ -7,6 +7,7 @@ import {
 import { bootstrapComponent } from '../util-bootstrapping/bootstrap-component';
 import { runPlatformInitializers } from '../util-bootstrapping/run-platform-initializers';
 import { waitForApplicationInitializers } from '../util-bootstrapping/wait-for-application-initializers';
+import { wrapInitializerProviders } from '../util-providers/wrap-initializers';
 import { SpectacularApplicationHarness } from './spectacular-application-harness';
 
 /**
@@ -27,9 +28,12 @@ export async function createApplicationHarness(
 ): Promise<SpectacularApplicationHarness> {
   const { imports = [], providers = [] } = options;
 
+  // Wrap initializer providers to support inject() in callbacks
+  const wrappedProviders = wrapInitializerProviders(providers);
+
   TestBed.configureTestingModule({
     imports: [...imports],
-    providers: [...providers],
+    providers: [...wrappedProviders],
   });
 
   TestBed.compileComponents();
